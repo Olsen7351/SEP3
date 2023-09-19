@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "zj5WqvV0k2cfz4lf2q0oX43//c0TBlXcTS6f+/C1HawY8vqUJ2lobjNff2mGUzrBwGWnuWehl8uIhS5rWbOCAQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\olsen\\OneDrive - ViaUC\\3. Semester\\Github_Repo\\SEP3\\Broker\\Broker.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\olsen\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.11\\microsoft.aspnetcore.openapi.7.0.11.nupkg.sha512",
+    "C:\\Users\\olsen\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "C:\\Users\\olsen\\.nuget\\packages\\microsoft.openapi\\1.4.3\\microsoft.openapi.1.4.3.nupkg.sha512",
+    "C:\\Users\\olsen\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
+    "C:\\Users\\olsen\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
+    "C:\\Users\\olsen\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
+    "C:\\Users\\olsen\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.5.0\\swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
