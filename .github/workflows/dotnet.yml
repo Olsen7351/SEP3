@@ -11,19 +11,16 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-      
+    steps:      
     - name: Setup .NET
-      uses: actions/setup-dotnet@v5
+      uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.x
 
     - name: Build Broker
-      run: dotnet build Broker/Broker.csproj
+      run: dotnet build ./Broker/Broker.csproj
       working-directory: ./Broker
 
     - name: Test Broker
-      run: dotnet test Broker/Broker.csproj
+      run: dotnet test ./Broker/Broker.csproj
       working-directory: ./Broker
