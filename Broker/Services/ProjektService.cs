@@ -22,13 +22,12 @@ namespace Broker.Services
                 return new BadRequestResult();
             } else {
                 httpClient.PostAsJsonAsync("api/Projekt", projekt);
+                return new OkResult();
             }
 
-
-            throw new NotImplementedException();
         }
 
-        public async Task<ActionResult<Projekt>> GetProjekt(int id)
+        public ActionResult<Projekt> GetProjekt(int id)
         {
             if (id < 0)
             {
