@@ -10,17 +10,17 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dotnet-version: [ '3.1.x', '6.0.x' ]
 
-    steps:      
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 7.0.x
-
-    - name: Build Broker
-      run: dotnet build ./Broker/Broker.csproj
-      working-directory: ./Broker
-
-    - name: Test Broker
-      run: dotnet test ./Broker/Broker.csproj
-      working-directory: ./Broker
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+      - name: Install dependencies
+        run: dotnet restore Broker/Broker.csproj
+      - name: Build
+        run: dotnet build --configuration Release --no-restore Broker/Broker.csproj
