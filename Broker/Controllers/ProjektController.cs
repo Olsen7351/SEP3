@@ -12,11 +12,11 @@ namespace Broker.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProjektControllerController : ControllerBase
+    public class ProjektController : ControllerBase
     {
         private readonly IProjektService projektService;
 
-        public ProjektControllerController(IProjektService projektService)
+        public ProjektController(IProjektService projektService)
         {
             this.projektService = projektService;
         }

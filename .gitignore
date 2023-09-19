@@ -4,8 +4,9 @@
 # Bundler
 bin/*
 .bundle/*
+obj/*
+.idea/*
 
 .kitchen/
 .kitchen.local.yml
 
-obj/*
