@@ -1,3 +1,5 @@
+using Broker.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,15 +9,21 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
-
-
 //HTTP Client Projekter
 #if DEBUG //Development
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:5001") });
 #else //Production
-    builder.Services.AddScoped(sp=>new HttpClient {BaseAddress = new Uri("https://localhost:5002")});
+    builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:5002") });
 #endif
+
+builder.Services.AddScoped<IProjektService, ProjektService>();
+builder.Services.AddHttpsRedirection(options =>
+{
+    options.HttpsPort = 443;
+    options.HttpsPort = 7103;
+});
+
+var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
