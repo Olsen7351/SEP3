@@ -5,20 +5,45 @@ namespace Broker.Services
 {
     public class ProjektService : IProjektService
     {
-        private readonly IHttpClientFactory _clientFactory;
+        private readonly HttpClient httpClient;
 
-        public ProjektService(IHttpClientFactory clientFactory)
+        public ProjektService(HttpClient httpClient)
         {
-            _clientFactory = clientFactory;
+            this.httpClient = httpClient;
         }
+        
         public ActionResult CreateProjekt(Projekt projekt)
         {
+            if (projekt == null)
+            {
+                return new BadRequestResult();
+            } else if (projekt.Id < 0)
+            {
+                return new BadRequestResult();
+            } else {
+                httpClient.PostAsJsonAsync("api/Projekt", projekt);
+            }
+
+
             throw new NotImplementedException();
         }
 
-        public ActionResult<Projekt> GetProjekt(int id)
+        public async Task<ActionResult<Projekt>> GetProjekt(int id)
         {
-            throw new NotImplementedException();
+            if (id < 0)
+            {
+                return new BadRequestResult();
+            }
+            else
+            {
+                string requestUri = $"api/Projekt/{id}";
+                Projekt response = httpClient.GetFromJsonAsync<Projekt>(requestUri).Result;
+                if (response == null)
+                {
+                    return new NotFoundResult();
+                }
+                return response;
+            }
         }
     }
 }

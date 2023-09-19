@@ -1,0 +1,7 @@
+C:\Users\olsen\OneDrive - ViaUC\3. Semester\Github_Repo\SEP3\Broker\obj\Debug\net7.0\Broker.csproj.AssemblyReference.cache
+C:\Users\olsen\OneDrive - ViaUC\3. Semester\Github_Repo\SEP3\Broker\obj\Debug\net7.0\Broker.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\olsen\OneDrive - ViaUC\3. Semester\Github_Repo\SEP3\Broker\obj\Debug\net7.0\Broker.AssemblyInfoInputs.cache
+C:\Users\olsen\OneDrive - ViaUC\3. Semester\Github_Repo\SEP3\Broker\obj\Debug\net7.0\Broker.AssemblyInfo.cs
+C:\Users\olsen\OneDrive - ViaUC\3. Semester\Github_Repo\SEP3\Broker\obj\Debug\net7.0\Broker.csproj.CoreCompileInputs.cache
+C:\Users\olsen\OneDrive - ViaUC\3. Semester\Github_Repo\SEP3\Broker\obj\Debug\net7.0\Broker.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\olsen\OneDrive - ViaUC\3. Semester\Github_Repo\SEP3\Broker\obj\Debug\net7.0\Broker.MvcApplicationPartsAssemblyInfo.cache
