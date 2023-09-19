@@ -25,6 +25,12 @@ namespace ProjectMicroservice.Controllers
             {
                 return BadRequest(ModelState); // Returns a 400 Bad Request with validation errors.
             }
+            
+            if (request.StartDate > request.EndDate)
+            {
+                ModelState.AddModelError("StartDate", "Start date must be before end date.");
+                return BadRequest(ModelState);
+            }
 
             var project = new Project
             {
