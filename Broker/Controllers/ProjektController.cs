@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Broker.Services;
+using Broker.Shared_Classes;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,18 +14,25 @@ namespace Broker.Controllers
     [ApiController]
     public class ProjektControllerController : ControllerBase
     {
-        private readonly ILogger<Controller> _logger;
-        public ProjektControllerController(ILogger<Controller> logger)
+        private readonly IProjektService projektService;
+
+        public ProjektControllerController(IProjektService projektService)
         {
-            _logger = logger;
+            this.projektService = projektService;
         }
 
-        [HttpGet]
-        public IHttpActionResult Get()
+        [HttpGet("{id}")]
+        public IActionResult GetProjekt([FromBody] int id)
         {
-            
-            Return Ok();
+            return Ok(projektService.GetProjekt(id));
         }
+
+        [HttpPost]
+        public IActionResult CreateProjekt([FromBody] Projekt projekt)
+        {
+            return Ok(projektService.CreateProjekt(projekt));
+        }
+
     }
 
 }
