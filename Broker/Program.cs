@@ -9,6 +9,14 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+
+//HTTP Client Projekter
+#if DEBUG //Development
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:5001") });
+#else //Production
+    builder.Services.AddScoped(sp=>new HttpClient {BaseAddress = new Uri("https://localhost:5002")});
+#endif
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
