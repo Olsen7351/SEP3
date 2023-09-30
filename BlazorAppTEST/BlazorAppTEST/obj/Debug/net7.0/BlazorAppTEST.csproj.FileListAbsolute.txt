@@ -90,3 +90,5 @@ C:\Users\Kim\Desktop\SEP#\BlazorAppTEST\BlazorAppTEST\obj\Debug\net7.0\refint\Bl
 C:\Users\Kim\Desktop\SEP#\BlazorAppTEST\BlazorAppTEST\obj\Debug\net7.0\BlazorAppTEST.pdb
 C:\Users\Kim\Desktop\SEP#\BlazorAppTEST\BlazorAppTEST\obj\Debug\net7.0\BlazorAppTEST.genruntimeconfig.cache
 C:\Users\Kim\Desktop\SEP#\BlazorAppTEST\BlazorAppTEST\obj\Debug\net7.0\ref\BlazorAppTEST.dll
+C:\Users\Kim\Desktop\SEP#\BlazorAppTEST\BlazorAppTEST\obj\Debug\net7.0\scopedcss\Pages\Index.razor.rz.scp.css
+C:\Users\Kim\Desktop\SEP#\BlazorAppTEST\BlazorAppTEST\obj\Debug\net7.0\scopedcss\Pages\ProjectCreation.razor.rz.scp.css
