@@ -1,0 +1,55 @@
+@page "/projectcreation"
+@using MainWeb.Services
+@inject MongoDBService MongoDBService
+@using MainWeb.Models
+
+<!-- Project Creation Form -->
+<h3>Project Creation</h3>
+<EditForm Model="newProject" OnValidSubmit="CreateProject">
+    <div class="form-group">
+        <label for="name">Project Name:</label>
+        <InputText id="name" class="form-control" @bind-Value="newProject.Name" />
+    </div>
+
+    <div class="form-group">
+        <label for="description">Description:</label>
+        <InputTextArea id="description" class="form-control" @bind-Value="newProject.Description"></InputTextArea>
+    </div>
+
+    <div class="form-group">
+        <label for="startDate">Start Date:</label>
+        <InputDate id="startDate" class="form-control" @bind-Value="newProject.StartDate"></InputDate>
+    </div>
+
+    <div class="form-group">
+        <label for="endDate">End Date:</label>
+        <InputDate id="endDate" class="form-control" @bind-Value="newProject.EndDate"></InputDate>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create</button>
+</EditForm>
+
+<!-- Display Created Project -->
+@if (createdProject != null)
+{
+    <h3>Created Project</h3>
+    <p><strong>Name:</strong> @createdProject.Name</p>
+    <p><strong>Description:</strong> @createdProject.Description</p>
+    <p><strong>Start Date:</strong> @createdProject.StartDate.ToShortDateString()</p>
+    <p><strong>End Date:</strong> @createdProject.EndDate.ToShortDateString()</p>
+}
+
+
+
+@code {
+    private Project newProject = new();
+    private Project createdProject;
+    
+    
+    private async Task CreateProject()
+    {
+        await MongoDBService.CreateProject(newProject); // Saving to MongoDB
+        createdProject = newProject; // Display the created project
+        newProject = new Project(); // Clear the form
+    }
+}
