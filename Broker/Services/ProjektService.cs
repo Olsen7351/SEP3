@@ -1,4 +1,7 @@
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Threading.Tasks;
 using Broker.Shared_Classes;
 using Microsoft.AspNetCore.Mvc;
 
