@@ -1,26 +1,33 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\alexa\\RiderProjects\\ProjectMicroservice\\ProjectMicroservice\\ProjectMicroservice.csproj": {}
+    "C:\\Users\\alexa\\OneDrive\\Dokumenter\\GitHub\\SEP3\\ProjectMicroservice\\ProjectMicroservice\\ProjectMicroservice.csproj": {}
   },
   "projects": {
-    "C:\\Users\\alexa\\RiderProjects\\ProjectMicroservice\\ProjectMicroservice\\ProjectMicroservice.csproj": {
+    "C:\\Users\\alexa\\OneDrive\\Dokumenter\\GitHub\\SEP3\\ProjectMicroservice\\ProjectMicroservice\\ProjectMicroservice.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\alexa\\RiderProjects\\ProjectMicroservice\\ProjectMicroservice\\ProjectMicroservice.csproj",
+        "projectUniqueName": "C:\\Users\\alexa\\OneDrive\\Dokumenter\\GitHub\\SEP3\\ProjectMicroservice\\ProjectMicroservice\\ProjectMicroservice.csproj",
         "projectName": "ProjectMicroservice",
-        "projectPath": "C:\\Users\\alexa\\RiderProjects\\ProjectMicroservice\\ProjectMicroservice\\ProjectMicroservice.csproj",
+        "projectPath": "C:\\Users\\alexa\\OneDrive\\Dokumenter\\GitHub\\SEP3\\ProjectMicroservice\\ProjectMicroservice\\ProjectMicroservice.csproj",
         "packagesPath": "C:\\Users\\alexa\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\alexa\\RiderProjects\\ProjectMicroservice\\ProjectMicroservice\\obj\\",
+        "outputPath": "C:\\Users\\alexa\\OneDrive\\Dokumenter\\GitHub\\SEP3\\ProjectMicroservice\\ProjectMicroservice\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\alexa\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\alexa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "C:\\Users\\alexa\\.dotnet\\sdk\\7.0.306\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "C:\\Users\\alexa\\OneDrive\\Dokumenter\\nuget local": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -75,7 +82,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Users\\alexa\\.dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     }

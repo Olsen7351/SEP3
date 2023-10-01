@@ -5,8 +5,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers();
 
-// Registering the IProjectService with its concrete implementation.
+// Registering the IProjectService and IBacklogService with their concrete implementations.
 builder.Services.AddScoped<IProjectService, ProjectService>();
+builder.Services.AddScoped<IBacklogService, BacklogService>();  // Register the IBacklogService
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

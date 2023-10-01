@@ -1,8 +1,10 @@
 using ProjectMicroservice.Models;
 
-namespace ProjectMicroservice.Services;
-
-public interface IProjectService
+namespace ProjectMicroservice.Services
 {
-    Project CreateProject(Project project);
+    public interface IProjectService
+    {
+        Project CreateProject(Project project);
+        bool ProjectExists(int projectId);
+    }
 }
