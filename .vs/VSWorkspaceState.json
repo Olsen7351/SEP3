@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Broker",
+    "\\Broker\\Controllers",
+    "\\Broker\\Services",
+    "\\Broker\\Shared_Classes",
+    "\\Broker_Test"
+  ],
+  "SelectedNode": "\\Broker\\Controllers\\ProjektController.cs",
+  "PreviewInSolutionExplorer": false
+}

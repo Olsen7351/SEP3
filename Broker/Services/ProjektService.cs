@@ -1,3 +1,4 @@
+using System.Net;
 using Broker.Shared_Classes;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,23 +12,27 @@ namespace Broker.Services
         {
             this.httpClient = httpClient;
         }
-        
-        public ActionResult CreateProjekt(Projekt projekt)
+
+        public async Task<ActionResult> CreateProjekt(Projekt projekt)
         {
             if (projekt == null)
             {
                 return new BadRequestResult();
-            } else if (projekt.Id < 0)
-            {
-                return new BadRequestResult();
-            } else {
-                httpClient.PostAsJsonAsync("api/Projekt", projekt);
-                return new OkResult();
             }
 
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/Projekt", projekt);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return new OkResult();
+            }
+            else
+            {
+                return new BadRequestResult();
+            }
         }
 
-        public ActionResult<Projekt> GetProjekt(int id)
+        public async Task<ActionResult<Projekt>> GetProjekt(int id)
         {
             if (id < 0)
             {
@@ -36,12 +41,25 @@ namespace Broker.Services
             else
             {
                 string requestUri = $"api/Projekt/{id}";
-                Projekt response = httpClient.GetFromJsonAsync<Projekt>(requestUri).Result;
-                if (response == null)
+                HttpResponseMessage response = await httpClient.GetAsync(requestUri);
+
+                if (response.IsSuccessStatusCode)
                 {
-                    return new NotFoundResult();
+                    var projekt = await response.Content.ReadFromJsonAsync<Projekt>();
+                    
+                    if (projekt != null)
+                    {
+                        return projekt;
+                    }
+                    else
+                    {
+                        return new NotFoundResult();
+                    }
                 }
-                return response;
+                else
+                {
+                    throw new HttpRequestException($"Failed getting the Projec. Status code: {response.StatusCode}.");
+                }
             }
         }
     }

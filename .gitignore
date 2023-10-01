@@ -5,8 +5,7 @@
 bin/*
 .bundle/*
 obj/*
-.idea/*
+idea/*
 
 .kitchen/
 .kitchen.local.yml
-

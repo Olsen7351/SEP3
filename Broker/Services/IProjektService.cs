@@ -5,7 +5,7 @@ namespace Broker.Services
 {
     public interface IProjektService
     {
-        public ActionResult<Projekt> GetProjekt(int id);
-        public ActionResult CreateProjekt(Projekt projekt);
+        public Task<ActionResult<Projekt>> GetProjekt(int id);
+        public Task<ActionResult> CreateProjekt(Projekt projekt);
     }
 }
