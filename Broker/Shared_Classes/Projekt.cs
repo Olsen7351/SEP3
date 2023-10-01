@@ -1,3 +1,5 @@
+using System;
+
 namespace Broker.Shared_Classes
 {
     public class Projekt
