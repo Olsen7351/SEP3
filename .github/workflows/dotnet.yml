@@ -30,5 +30,10 @@ jobs:
         run: dotnet build --configuration Release --no-restore SEP3_Solution/SEP3_Solution.sln
 
       - name: Run Tests
-        run: |
-          dotnet test SEP3_Solution/SEP3_Solution.sln
+        run: dotnet test SEP3_Solution/SEP3_Solution.sln --no-restore --no-build --logger "trx;LogFileName=test_results.trx"
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-results
+          path: '**/test_results.trx'
