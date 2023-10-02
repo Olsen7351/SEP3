@@ -292,6 +292,16 @@
         "runtime": {
           "lib/net6.0/ZstdSharp.dll": {}
         }
+      },
+      "ClassLibrary_SEP3/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "compile": {
+          "bin/placeholder/ClassLibrary_SEP3.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ClassLibrary_SEP3.dll": {}
+        }
       }
     }
   },
@@ -776,10 +786,16 @@
         "zstdsharp.port.0.6.2.nupkg.sha512",
         "zstdsharp.port.nuspec"
       ]
+    },
+    "ClassLibrary_SEP3/1.0.0": {
+      "type": "project",
+      "path": "../../ClassLibrary_SEP3/ClassLibrary_SEP3.csproj",
+      "msbuildProject": "../../ClassLibrary_SEP3/ClassLibrary_SEP3.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net7.0": [
+      "ClassLibrary_SEP3 >= 1.0.0",
       "MongoDB.Driver >= 2.21.0"
     ]
   },
@@ -816,7 +832,11 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\olsen\\OneDrive\\Documents\\GitHub\\SEP3\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj": {
+              "projectPath": "C:\\Users\\olsen\\OneDrive\\Documents\\GitHub\\SEP3\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

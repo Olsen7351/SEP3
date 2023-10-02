@@ -1879,6 +1879,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
+          "ClassLibrary_SEP3": "1.0.0",
           "Microsoft.AspNetCore.OpenApi": "7.0.11",
           "Swashbuckle.AspNetCore": "6.5.0",
           "xunit": "2.5.1"
@@ -1892,6 +1893,16 @@
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
         ]
+      },
+      "ClassLibrary_SEP3/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "compile": {
+          "bin/placeholder/ClassLibrary_SEP3.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ClassLibrary_SEP3.dll": {}
+        }
       }
     }
   },
@@ -6123,6 +6134,11 @@
       "type": "project",
       "path": "../Broker/Broker.csproj",
       "msbuildProject": "../Broker/Broker.csproj"
+    },
+    "ClassLibrary_SEP3/1.0.0": {
+      "type": "project",
+      "path": "../ClassLibrary_SEP3/ClassLibrary_SEP3.csproj",
+      "msbuildProject": "../ClassLibrary_SEP3/ClassLibrary_SEP3.csproj"
     }
   },
   "projectFileDependencyGroups": {

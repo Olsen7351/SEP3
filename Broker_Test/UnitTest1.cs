@@ -2,7 +2,7 @@ using Xunit;
 using Microsoft.AspNetCore.Mvc;
 using Broker.Controllers;
 using Broker.Services;
-using Broker.Shared_Classes;
+using ProjectMicroservice.Models;
 
 namespace Broker_Test;
 
@@ -30,12 +30,12 @@ public class UnitTest1
         var controller = new ProjektController(mockProjektService.Object);
 
         // Act
-        var result = controller.CreateProjekt(new Projekt
+        var result = controller.CreateProjekt(new Project
         {
             Name = "New_Name",
-            Beskrivelse = "En Beskrivelse",
-            StartDato = DateTime.Now,
-            SlutDato = DateTime.Now.AddDays(30),
+            Description = "En Beskrivelse",
+            StartDate = DateTime.Now,
+            EndDate = DateTime.Now.AddDays(30),
         });
 
         // Assert

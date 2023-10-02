@@ -14,9 +14,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
 //HTTP Client Projekter
 #if DEBUG //Development
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:5001") });
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:5131/") });
 #else //Production
     builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:5002") });
 #endif

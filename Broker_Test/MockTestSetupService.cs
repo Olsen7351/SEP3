@@ -1,8 +1,8 @@
 using Moq;
 using Broker.Services;
-using Broker.Shared_Classes;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http.HttpResults;
+using ProjectMicroservice.Models;
 
 namespace Broker_Test
 {
@@ -46,8 +46,8 @@ namespace Broker_Test
 
             */
             // Set up method behavior for CreateProjekt
-            mockProjektService.Setup(service => service.CreateProjekt(It.IsAny<Projekt>()))
-                              .Returns((Projekt createdProjekt) =>
+            mockProjektService.Setup(service => service.CreateProjekt(It.IsAny<Project>()))
+                              .Returns((Project createdProjekt) =>
                               {
                                   // Create and return an IActionResult of Ok with the input createdProjekt
                                   return createdProjekt;

@@ -2,8 +2,8 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-using Broker.Shared_Classes;
 using Microsoft.AspNetCore.Mvc;
+using ProjectMicroservice.Models;
 
 namespace Broker.Services
 {
@@ -16,14 +16,14 @@ namespace Broker.Services
             this.httpClient = httpClient;
         }
 
-        public async Task<ActionResult> CreateProjekt(Projekt projekt)
+        public async Task<ActionResult> CreateProjekt(Project projekt)
         {
             if (projekt == null)
             {
                 return new BadRequestResult();
             }
 
-            HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/Projekt", projekt);
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/Project", projekt);
 
             if (response.IsSuccessStatusCode)
             {
@@ -35,7 +35,7 @@ namespace Broker.Services
             }
         }
 
-        public async Task<ActionResult<Projekt>> GetProjekt(int id)
+        public async Task<ActionResult<Project>> GetProjekt(int id)
         {
             if (id < 0)
             {
@@ -43,12 +43,12 @@ namespace Broker.Services
             }
             else
             {
-                string requestUri = $"api/Projekt/{id}";
+                string requestUri = $"api/Project/{id}/Backlog";
                 HttpResponseMessage response = await httpClient.GetAsync(requestUri);
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var projekt = await response.Content.ReadFromJsonAsync<Projekt>();
+                    var projekt = await response.Content.ReadFromJsonAsync<Project>();
                     
                     if (projekt != null)
                     {

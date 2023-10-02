@@ -35,3 +35,5 @@ C:\Users\olsen\OneDrive\Documents\GitHub\SEP3\Broker\obj\Debug\net7.0\refint\Bro
 C:\Users\olsen\OneDrive\Documents\GitHub\SEP3\Broker\obj\Debug\net7.0\Broker.pdb
 C:\Users\olsen\OneDrive\Documents\GitHub\SEP3\Broker\obj\Debug\net7.0\Broker.genruntimeconfig.cache
 C:\Users\olsen\OneDrive\Documents\GitHub\SEP3\Broker\obj\Debug\net7.0\ref\Broker.dll
+C:\Users\olsen\OneDrive\Documents\GitHub\SEP3\Broker\bin\Debug\net7.0\ClassLibrary_SEP3.dll
+C:\Users\olsen\OneDrive\Documents\GitHub\SEP3\Broker\bin\Debug\net7.0\ClassLibrary_SEP3.pdb

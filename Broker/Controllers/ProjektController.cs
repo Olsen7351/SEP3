@@ -4,9 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Broker.Services;
-using Broker.Shared_Classes;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProjectMicroservice.Models;
 
 namespace Broker.Controllers
 {
@@ -28,7 +28,7 @@ namespace Broker.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateProjekt([FromBody] Projekt projekt)
+        public IActionResult CreateProjekt([FromBody] Project projekt)
         {
             return Ok(projektService.CreateProjekt(projekt));
         }
