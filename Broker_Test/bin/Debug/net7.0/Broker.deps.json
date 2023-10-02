@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v7.0": {
       "Broker/1.0.0": {
         "dependencies": {
+          "ClassLibrary_SEP3": "1.0.0",
           "Microsoft.AspNetCore.OpenApi": "7.0.11",
           "Swashbuckle.AspNetCore": "6.5.0",
           "xunit": "2.5.1"
@@ -796,6 +797,11 @@
             "fileVersion": "2.5.1.0"
           }
         }
+      },
+      "ClassLibrary_SEP3/1.0.0": {
+        "runtime": {
+          "ClassLibrary_SEP3.dll": {}
+        }
       }
     }
   },
@@ -1413,6 +1419,11 @@
       "sha512": "sha512-I5IUervdZoKLD66TUcqsJDXcB3ui9RxzKe0MQGzEi4Hsxkaoz0YylmvwqW2nd3nilyqqIAs0OUaZf/faKPxY6w==",
       "path": "xunit.extensibility.execution/2.5.1",
       "hashPath": "xunit.extensibility.execution.2.5.1.nupkg.sha512"
+    },
+    "ClassLibrary_SEP3/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

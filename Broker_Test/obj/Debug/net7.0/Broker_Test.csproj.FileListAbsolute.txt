@@ -226,3 +226,5 @@ C:\Users\olsen\OneDrive\Documents\GitHub\SEP3\Broker_Test\obj\Debug\net7.0\refin
 C:\Users\olsen\OneDrive\Documents\GitHub\SEP3\Broker_Test\obj\Debug\net7.0\Broker_Test.pdb
 C:\Users\olsen\OneDrive\Documents\GitHub\SEP3\Broker_Test\obj\Debug\net7.0\Broker_Test.genruntimeconfig.cache
 C:\Users\olsen\OneDrive\Documents\GitHub\SEP3\Broker_Test\obj\Debug\net7.0\ref\Broker_Test.dll
+C:\Users\olsen\OneDrive\Documents\GitHub\SEP3\Broker_Test\bin\Debug\net7.0\ClassLibrary_SEP3.dll
+C:\Users\olsen\OneDrive\Documents\GitHub\SEP3\Broker_Test\bin\Debug\net7.0\ClassLibrary_SEP3.pdb

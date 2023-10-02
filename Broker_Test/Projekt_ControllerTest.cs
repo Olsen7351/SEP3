@@ -1,44 +1,79 @@
-using Xunit;
-using Microsoft.AspNetCore.Mvc;
 using Broker.Controllers;
 using Broker.Services;
+using Microsoft.AspNetCore.Mvc;
+using Moq;
 using ProjectMicroservice.Models;
 
-namespace Broker_Test;
-
-public class UnitTest1
+namespace Broker_Test
 {
-    [Fact]
-    public void GetProjekt_ReturnsOkResult()
+    public class ProjektControllerTests
     {
-        // Arrange
-        var mockProjektService = MockTestSetupService.CreateMockProjektService();
-        var controller = new ProjektController(mockProjektService.Object);
-
-        // Act
-        var result = controller.GetProjekt(1);
-
-        // Assert
-        Assert.IsType<OkObjectResult>(result);
-    }
-
-    [Fact]
-    public void CreateProjekt_ReturnsOkResult()
-    {
-        // Arrange
-        var mockProjektService = MockTestSetupService.CreateMockProjektService();
-        var controller = new ProjektController(mockProjektService.Object);
-
-        // Act
-        var result = controller.CreateProjekt(new Project
+        [Fact]
+        public void GetProjekt_ReturnsOk_WhenIdIsValid()
         {
-            Name = "New_Name",
-            Description = "En Beskrivelse",
-            StartDate = DateTime.Now,
-            EndDate = DateTime.Now.AddDays(30),
-        });
+            // Arrange
+            var mockProjektService = new Mock<IProjektService>();
+            var controller = new ProjektController(mockProjektService.Object);
+            int validId = 1; // Valid Id
 
-        // Assert
-        Assert.IsType<OkObjectResult>(result);
+            // Mock the ProjektService to return a sample Project
+            mockProjektService.Setup(service => service.GetProjekt(validId))
+                .ReturnsAsync(new OkObjectResult(new Project()));
+
+            // Act
+            var result = controller.GetProjekt(validId);
+
+            // Assert
+            Assert.IsType<OkObjectResult>(result);
+        }
+
+        [Fact]
+        public void GetProjekt_ReturnsBadRequest_WhenIdIsNegative()
+        {
+            // Arrange
+            var mockProjektService = new Mock<IProjektService>();
+            var controller = new ProjektController(mockProjektService.Object);
+            int negativeId = -1; // Negative Id
+
+            // Act
+            var result = controller.GetProjekt(negativeId);
+
+            // Assert
+            Assert.IsType<BadRequestResult>(result);
+        }
+
+        [Fact]
+        public void CreateProjekt_ReturnsOk_WhenProjectIsNotNull()
+        {
+            // Arrange
+            var mockProjektService = new Mock<IProjektService>();
+            var controller = new ProjektController(mockProjektService.Object);
+            var validProject = new Project(); // Valid Project
+
+            // Mock the ProjektService to return IActionResult (e.g., OkResult)
+            mockProjektService.Setup(service => service.CreateProjekt(validProject))
+                .ReturnsAsync(new OkResult());
+
+            // Act
+            var result = controller.CreateProjekt(validProject);
+
+            // Assert
+            Assert.IsType<OkObjectResult½>(result);
+        }
+
+        [Fact]
+        public void CreateProjekt_ReturnsBadRequest_WhenProjectIsNull()
+        {
+            // Arrange
+            var mockProjektService = new Mock<IProjektService>();
+            var controller = new ProjektController(mockProjektService.Object);
+            Project nullProject = null; // Project is null
+
+            // Act
+            var result = controller.CreateProjekt(nullProject);
+
+            // Assert
+            Assert.IsType<BadRequestResult>(result);
+        }
     }
 }

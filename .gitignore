@@ -21,6 +21,7 @@ TestResults/
 *.swp
 *.suo
 *.user
+*.cache
 
 # Java and .NET Core Build and Dependency Files
 *.class

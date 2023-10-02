@@ -24,12 +24,20 @@ namespace Broker.Controllers
         [HttpGet("{id}")]
         public IActionResult GetProjekt([FromBody] int id)
         {
+            if (id < 0)
+            {
+                return new BadRequestResult();
+            }
             return Ok(projektService.GetProjekt(id));
         }
 
         [HttpPost]
         public IActionResult CreateProjekt([FromBody] Project projekt)
         {
+            if (projekt == null)
+            {
+                return new BadRequestResult();
+            }
             return Ok(projektService.CreateProjekt(projekt));
         }
 
