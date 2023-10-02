@@ -21,6 +21,6 @@ jobs:
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
       - name: Install dependencies
-        run: dotnet restore Broker/Broker.csproj
+        run: dotnet restore SEP3_Solution\SEP3_Solution.sln
       - name: Build
-        run: dotnet build --configuration Release --no-restore Broker/Broker.csproj
+        run: dotnet build --configuration Release --no-restore SEP3_Solution\SEP3_Solution.sln
