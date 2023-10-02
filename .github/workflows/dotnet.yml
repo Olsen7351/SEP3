@@ -31,10 +31,4 @@ jobs:
 
       - name: Run Tests
         run: |
-          dotnet test SEP3_Solution/SEP3_Solution.sln --no-build
-    
-      - name: Upload Test Results
-        uses: actions/upload-artifact@v2
-        with:
-          name: test-results
-          path: '**/test_results.json'
+          dotnet test SEP3_Solution/SEP3_Solution.sln
