@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQMicroservices", "..
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary_SEP3", "..\ClassLibrary_SEP3\ClassLibrary_SEP3.csproj", "{57716705-7306-4598-B545-9BF91B7F6CFE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectMicroseriveTest", "..\ProjectMicroseriveTest\ProjectMicroseriveTest.csproj", "{4EDE4FCE-95E2-4E0D-92F9-E9F0CDDDC77F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{57716705-7306-4598-B545-9BF91B7F6CFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57716705-7306-4598-B545-9BF91B7F6CFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57716705-7306-4598-B545-9BF91B7F6CFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EDE4FCE-95E2-4E0D-92F9-E9F0CDDDC77F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EDE4FCE-95E2-4E0D-92F9-E9F0CDDDC77F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EDE4FCE-95E2-4E0D-92F9-E9F0CDDDC77F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EDE4FCE-95E2-4E0D-92F9-E9F0CDDDC77F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

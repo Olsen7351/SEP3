@@ -3,10 +3,8 @@ using ProjectMicroservice.Controllers;
 using ProjectMicroservice.DataTransferObjects;
 using ProjectMicroservice.Models;
 using ProjectMicroservice.Services;
-using System;
-using Xunit;
 
-namespace ProjectMicroservice.Tests
+namespace ProjectMicroseriveTest
 {
     public class BacklogControllerTests
     {
