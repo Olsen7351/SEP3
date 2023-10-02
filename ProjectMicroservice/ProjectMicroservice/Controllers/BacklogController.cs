@@ -32,6 +32,14 @@ namespace ProjectMicroservice.Controllers
         [HttpPost]
         public IActionResult CreateBacklog(int projectId, [FromBody] CreateBacklogRequest request)
         {
+            
+            if (ModelState.IsValid)
+            {
+                _projectService.CreateProject(new Project())
+                _projectService.save();
+                TempData["success"] = "Backlog created successfuly ";
+            }
+
             if (!_projectService.ProjectExists(projectId))
             {
                 return NotFound("Project not found");

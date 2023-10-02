@@ -32,6 +32,13 @@ namespace ProjectMicroservice.Controllers
                 return BadRequest(ModelState);
             }
 
+            if (ModelState.IsValid)
+            {
+                _projectService.CreateProject(new Project())
+                _projectService.save();
+                TempData["success"] = "Project created successfuly ";
+            }
+
             var project = new Project
             {
                 Name = request.Name,
