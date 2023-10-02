@@ -1,0 +1,45 @@
+.container[b-q9q8j95gpq] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: rgba(5, 39, 103, 0.2); /* Dark blue background with 20% opacity */
+}
+
+.card[b-q9q8j95gpq] {
+    width: 40%;
+    border: none;
+    background: linear-gradient(135deg, rgba(5, 39, 103, 0.9), rgba(58, 6, 71, 0.9)); /* Gradient background from dark blue to dark purple */
+    color: #d7d7d7; /* Light gray text */
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px 0px #000000;
+}
+
+.card-header[b-q9q8j95gpq] {
+    background-color: rgba(5, 39, 103, 0.9); /* Dark blue background */
+    text-align: center;
+    padding: 1rem;
+    font-size: 1.5rem;
+    border-bottom: 1px solid #d7d7d7; /* Light gray border */
+}
+
+.card-body[b-q9q8j95gpq] {
+    padding: 2rem;
+    text-align: center;
+}
+
+.button[b-q9q8j95gpq] {
+    background-color: rgba(255,255,255,0.1); /* Very light translucent background */
+    color: white;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    font-size: 1rem;
+    border: 1px solid #d7d7d7; /* Light gray border */
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.button:hover[b-q9q8j95gpq] {
+    background-color: rgba(255,255,255,0.25); /* Slightly darker when hovered */
+    border: 1px solid white;
+}
