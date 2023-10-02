@@ -13,7 +13,7 @@ namespace Broker_Test
             var mockProjektService = new Mock<IProjektService>();
 
             // Set up method behavior for GetProjekt
-            mockProjektService.Setup(service => service.GetProjekt(It.IsAny<int>()))
+            /*mockProjektService.Setup(service => service.GetProjekt(It.IsAny<int>()))
                               .Returns((int projectId) =>
                               {
                                   // Create and return an IActionResult of Ok with a specific Projekt object based on the projectId
@@ -26,7 +26,7 @@ namespace Broker_Test
                                           Beskrivelse = "Description 1",
                                           StartDato = DateTime.Now,
                                           SlutDato = DateTime.Now.AddDays(30),
-                                      });
+                                      };
                                   }
                                   else if (projectId == 2)
                                   {
@@ -38,12 +38,13 @@ namespace Broker_Test
                                           StartDato = DateTime.Now,
                                           SlutDato = DateTime.Now.AddDays(45),
                                           // Set other properties as needed
-                                      });
+                                      };
                                   }
                                   // If the projectId is not matched, return null or throw an exception
-                                  return NotFoundResult(); // You can modify this behavior as needed
+                                  return new NotFoundResult(); // You can modify this behavior as needed
                               });
 
+            */
             // Set up method behavior for CreateProjekt
             mockProjektService.Setup(service => service.CreateProjekt(It.IsAny<Projekt>()))
                               .Returns((Projekt createdProjekt) =>
