@@ -58,7 +58,7 @@ namespace Broker_Test
             var result = controller.CreateProjekt(validProject);
 
             // Assert
-            Assert.IsType<OkObjectResult½>(result);
+            Assert.IsType<OkObjectResult>(result);
         }
 
         [Fact]
