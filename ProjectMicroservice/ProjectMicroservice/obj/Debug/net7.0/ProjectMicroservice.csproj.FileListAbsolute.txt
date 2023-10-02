@@ -33,3 +33,4 @@ C:\Users\olsen\OneDrive\Documents\GitHub\SEP3\ProjectMicroservice\ProjectMicrose
 C:\Users\olsen\OneDrive\Documents\GitHub\SEP3\ProjectMicroservice\ProjectMicroservice\obj\Debug\net7.0\ref\ProjectMicroservice.dll
 C:\Users\olsen\OneDrive\Documents\GitHub\SEP3\ProjectMicroservice\ProjectMicroservice\bin\Debug\net7.0\ClassLibrary_SEP3.dll
 C:\Users\olsen\OneDrive\Documents\GitHub\SEP3\ProjectMicroservice\ProjectMicroservice\bin\Debug\net7.0\ClassLibrary_SEP3.pdb
+C:\Users\olsen\OneDrive\Documents\GitHub\SEP3\ProjectMicroservice\ProjectMicroservice\bin\Debug\net7.0\Newtonsoft.Json.dll
