@@ -1,7 +1,8 @@
 @page "/projectcreation"
+@inject ProjectService Project_Service
 @using MainWeb.Services
 @using ProjectMicroservice.Models
-@inject MongoDBService MongoDBService
+
 
 <div class="container">
     <div class="card">
@@ -49,8 +50,9 @@
     
     private async Task CreateProject()
     {
-        await MongoDBService.CreateProject(newProject); // Saving to MongoDB
         createdProject = newProject; // Display the created project
         newProject = new Project(); // Clear the form
+        Project_Service.CreateProjekt(newProject); //Send it through the service
+
     }
 }
