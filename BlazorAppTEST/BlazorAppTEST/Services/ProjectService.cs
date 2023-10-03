@@ -11,24 +11,28 @@ public class ProjectService
     //HTTPClient
     private readonly HttpClient httpClient;
 
+    public ProjectService(HttpClient httpClient)
+    {
+        this.httpClient = httpClient;
+    }
+
+    
 
     public async Task CreateProjekt(Project projekt)
     {
-        //Http client
-        using HttpClient client = new();
         //Takes project and serialize to json
         string createProjectToJson = JsonSerializer.Serialize(projekt);
         //Magic
         StringContent contentProject = new(createProjectToJson, Encoding.UTF8, "application/json");
        
         //Try and send it trough
-        HttpResponseMessage response = await client.PostAsync("https://localhost:5172/", contentProject);
+        HttpResponseMessage response = await httpClient.PostAsync("http://localhost:5172/", contentProject);
         string responseContent = await response.Content.ReadAsStringAsync();
        
         
         if (!response.IsSuccessStatusCode)
         {
-            throw new Exception($"Error:{response.StatusCode}, {contentProject}");
+            throw new Exception($"Error:{response.StatusCode}, {responseContent}");
         }
     }
 
@@ -37,7 +41,8 @@ public class ProjectService
     
     
     
-    //Get
+    
+    //Get All
     public async Task<ICollection<Project>> GetProjekt()
     {
         HttpResponseMessage response = await httpClient.GetAsync(("http://localhost:5172/"));

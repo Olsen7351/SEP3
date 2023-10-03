@@ -49,9 +49,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    background-color: rgba(5, 39, 103, 0.2); /* Dark blue background with 20% opacity */
+    background-color: rgba(5, 39, 103, 0.2);
 }
+
+.container-fluid[b-3z6gj7uq9n] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(5, 39, 103, 0.2);
+}
+
+
 
 .card[b-3z6gj7uq9n] {
     width: 50%;
@@ -61,6 +69,7 @@
     border-radius: 8px;
     box-shadow: 0px 0px 10px 0px #000000;
     padding: 20px;
+    margin-bottom: 10px;
 }
 
 .form-group[b-3z6gj7uq9n] {
@@ -97,6 +106,9 @@
     background-color: rgba(255,255,255,0.25); /* Slightly darker when hovered */
     border: 1px solid white;
 }
+
+
+
 /* _content/BlazorAppTEST/Shared/MainLayout.razor.rz.scp.css */
 .page[b-4goc1p7f6i] {
     position: relative;
