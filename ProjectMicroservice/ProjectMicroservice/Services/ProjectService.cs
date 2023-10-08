@@ -1,5 +1,4 @@
 using System.Collections.Concurrent;
-using MongoDB.Bson;
 using MongoDB.Driver;
 using ProjectMicroservice.Data;
 using ProjectMicroservice.DataTransferObjects;
@@ -16,7 +15,7 @@ namespace ProjectMicroservice.Services
             _projects = context.Database.GetCollection<Project>("Projects");
         }
 
-        public Project CreateProject(CreateProjectRequest request) 
+        public Project CreateProject(CreateProjectRequest request)
         {
             var newProject = new Project
             {
@@ -30,22 +29,19 @@ namespace ProjectMicroservice.Services
             return newProject;  // Now contains the MongoDB-generated ID
         }
 
-        public Project GetProject(ObjectId id)
+        public Project GetProject(string id)
         {
-            try
+            int parsedId;
+            if (int.TryParse(id, out parsedId))
             {
-                return _projects.Find(p => p.Id == id).FirstOrDefault();
+                return _projects.Find(p => p.Id == parsedId).FirstOrDefault();
             }
-            catch (System.FormatException) { return null; }
+            return null;
         }
 
-        public bool ProjectExists(ObjectId id)
+        public bool ProjectExists(int projectId)
         {
-            try
-            {
-                return _projects.CountDocuments(b => b.Id == id) > 0;
-            }
-            catch (Exception) { return false; }
+            return _projects.CountDocuments(p => p.Id == projectId) > 0;
         }
     }
 }

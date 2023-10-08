@@ -20,7 +20,6 @@ builder.Services.AddSingleton<MongoDbContext>(sp =>
 // Registering the IProjectService and IBacklogService with their concrete implementations.
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IBacklogService, BacklogService>();
-builder.Services.AddScoped<ITaskService, TaskService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
