@@ -190,4 +190,3 @@ C:\Users\karee\OneDrive\Desktop\GitHub Sep3\SEP3\BlazorAppTEST\BlazorAppTEST\obj
 C:\Users\karee\OneDrive\Desktop\GitHub Sep3\SEP3\BlazorAppTEST\BlazorAppTEST\obj\Debug\net7.0\BlazorAppTEST.csproj.CopyComplete
 C:\Users\karee\OneDrive\Desktop\GitHub Sep3\SEP3\BlazorAppTEST\BlazorAppTEST\obj\Debug\net7.0\BlazorAppTEST.genruntimeconfig.cache
 C:\Users\karee\OneDrive\Desktop\GitHub Sep3\SEP3\BlazorAppTEST\BlazorAppTEST\obj\Debug\net7.0\ref\BlazorAppTEST.dll
-C:\Users\karee\OneDrive\Desktop\GitHub Sep3\SEP3\BlazorAppTEST\BlazorAppTEST\obj\Debug\net7.0\BlazorApp.MvcApplicationPartsAssemblyInfo.cache
