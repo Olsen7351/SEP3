@@ -8,8 +8,8 @@ public class UnitTest1
     public void Test1()
     {
         ProjectService projectService;
-        projectService.CreateProjekt();
+      //  projectService.CreateProjekt();
         
-        Assert
+        //Assert
     }
 }
