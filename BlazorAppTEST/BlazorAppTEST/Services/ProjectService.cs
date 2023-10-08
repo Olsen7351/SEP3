@@ -18,7 +18,7 @@ public class ProjectService
 
     
     //Post
-    public async Task CreateProjekt(Project projekt)
+    public async Task CreateProject(Project projekt)
     {
         //Takes project and serialize to json
         string createProjectToJson = JsonSerializer.Serialize(projekt);
@@ -26,7 +26,7 @@ public class ProjectService
         StringContent contentProject = new(createProjectToJson, Encoding.UTF8, "application/json");
        
         //Try and send it trough
-        HttpResponseMessage response = await httpClient.PostAsync("http://localhost:5172/", contentProject);
+        HttpResponseMessage response = await httpClient.PostAsync("/", contentProject);
         string responseContent = await response.Content.ReadAsStringAsync();
        
         
@@ -43,9 +43,9 @@ public class ProjectService
     
     
     //Get All
-    public async Task<ICollection<Project>> GetProjekt()
+    public async Task<ICollection<Project>?> GetAllProjects()
     {
-        HttpResponseMessage response = await httpClient.GetAsync(("http://localhost:5172/"));
+        HttpResponseMessage response = await httpClient.GetAsync(("/"));
         string contentProject = await response.Content.ReadAsStringAsync();
 
         if (!response.IsSuccessStatusCode)
@@ -53,7 +53,7 @@ public class ProjectService
             throw new Exception($"Error:{response.StatusCode}, {contentProject}");
         }
 
-        ICollection<Project> projects = JsonSerializer.Deserialize<ICollection<Project>>(contentProject, new JsonSerializerOptions());
+        ICollection<Project>? projects = JsonSerializer.Deserialize<ICollection<Project>>(contentProject, new JsonSerializerOptions());
         return projects;
     }
 }
