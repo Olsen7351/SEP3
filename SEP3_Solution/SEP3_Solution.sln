@@ -12,7 +12,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQMicroservices", "..
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary_SEP3", "..\ClassLibrary_SEP3\ClassLibrary_SEP3.csproj", "{57716705-7306-4598-B545-9BF91B7F6CFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorAppTest", "BlazorAppTest\BlazorAppTest.csproj", "{0271E0C8-0EA6-43B9-86B5-5C2E2BE3D596}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorApp_Test", "BlazorApp_Test\BlazorApp_Test.csproj", "{0271E0C8-0EA6-43B9-86B5-5C2E2BE3D596}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

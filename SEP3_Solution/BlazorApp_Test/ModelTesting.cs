@@ -1,15 +1,13 @@
-using MainWeb.Services;
+﻿using MainWeb.Services;
 
 namespace BlazorAppTest;
 
-public class UnitTest1
+public class ModelTesting
 {
+    //
     [Fact]
     public void Test1()
     {
         ProjectService projectService;
-        projectService.CreateProjekt();
-        
-        Assert
     }
 }
