@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWebApp", "..\BlazorAppTEST\BlazorWebApp\BlazorWebApp.csproj", "{8BCCAA6F-E5A6-4DC6-A6B0-4C41CE2C4947}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorAppTEST", "..\BlazorAppTEST\BlazorAppTEST\BlazorAppTEST.csproj", "{8BCCAA6F-E5A6-4DC6-A6B0-4C41CE2C4947}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Broker", "..\Broker\Broker.csproj", "{722C8F7F-0E48-4E4B-944F-C7A34B56380C}"
 EndProject

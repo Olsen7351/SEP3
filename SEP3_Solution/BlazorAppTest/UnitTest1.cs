@@ -4,8 +4,6 @@ namespace BlazorAppTest;
 
 public class UnitTest1
 {
-    
-    //Tests
     [Fact]
     public void Test1()
     {
