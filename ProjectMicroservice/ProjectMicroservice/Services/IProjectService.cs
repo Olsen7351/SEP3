@@ -7,6 +7,6 @@ namespace ProjectMicroservice.Services
     {
         Project CreateProject(CreateProjectRequest project);
         Project GetProject(string id);
-        bool ProjectExists(int projectId);
+        bool ProjectExists(string projectId);
     }
 }

@@ -19,9 +19,9 @@ namespace ProjectMicroservice.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetBacklogByProjectId(int projectId)
+        public IActionResult GetBacklogByProjectId(string projectId)
         {
-            var backlog = _backlogService.GetBacklogByProjectId(projectId);
+            var backlog = _backlogService.GetBacklogByProjectId(int.Parse(projectId));
             if (backlog == null)
             {
                 return NotFound();
@@ -30,7 +30,7 @@ namespace ProjectMicroservice.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateBacklog(int projectId, [FromBody] CreateBacklogRequest request)
+        public IActionResult CreateBacklog(string projectId, [FromBody] CreateBacklogRequest request)
         {
             if (!_projectService.ProjectExists(projectId))
             {
@@ -42,12 +42,12 @@ namespace ProjectMicroservice.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (_backlogService.ProjectHasBacklog(projectId))
+            if (_backlogService.ProjectHasBacklog(int.Parse(projectId)))
             {
                 return Conflict("This project already has a backlog.");
             }
 
-            var createdBacklog = _backlogService.CreateBacklog(projectId, request);
+            var createdBacklog = _backlogService.CreateBacklog(int.Parse(projectId), request);
             return CreatedAtAction(nameof(CreateBacklog), new { projectId, id = createdBacklog.Id }, createdBacklog);
         }
     }

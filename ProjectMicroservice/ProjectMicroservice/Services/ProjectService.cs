@@ -31,17 +31,20 @@ namespace ProjectMicroservice.Services
 
         public Project GetProject(string id)
         {
-            int parsedId;
-            if (int.TryParse(id, out parsedId))
+            try
             {
-                return _projects.Find(p => p.Id == parsedId).FirstOrDefault();
+                return _projects.Find(p => p.Id == id).FirstOrDefault();
             }
-            return null;
+            catch (System.FormatException) { return null; }
         }
 
-        public bool ProjectExists(int projectId)
+        public bool ProjectExists(string id)
         {
-            return _projects.CountDocuments(p => p.Id == projectId) > 0;
+            try
+            {
+                return _projects.CountDocuments(b => b.Id == id) > 0;
+            }
+            catch (Exception) { return false; }
         }
     }
 }

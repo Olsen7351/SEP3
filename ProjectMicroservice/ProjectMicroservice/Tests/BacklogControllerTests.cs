@@ -86,7 +86,7 @@ namespace ProjectMicroservice.Tests
         public void CreateBacklog_ProjectNotFound_ReturnsNotFound()
         {  
             // Arrange
-            var projectId = 9999;  // Simulate a non-existing project ID
+            var projectId = "9999";  // Simulate a non-existing project ID
 
             var request = new CreateBacklogRequest
             {
@@ -120,7 +120,7 @@ namespace ProjectMicroservice.Tests
                 Description = "Test Backlog Description"
             };
 
-            _backlogService.CreateBacklog(projectId, request);  // Create a dummy backlog
+            _backlogService.CreateBacklog(int.Parse(projectId), request);  // Create a dummy backlog
 
             // Act
             var actionResult = _backlogController.CreateBacklog(projectId, request) as ConflictResult;

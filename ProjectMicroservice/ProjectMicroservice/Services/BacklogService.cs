@@ -17,7 +17,11 @@ namespace ProjectMicroservice.Services
 
         public Backlog GetBacklogByProjectId(int projectId)
         {
-            return _backlogs.Find(b => b.ProjectId == projectId).FirstOrDefault();
+            try
+            {
+                return _backlogs.Find(b => b.ProjectId == projectId).FirstOrDefault();
+            }
+            catch (System.FormatException) { return null; };
         }
 
         public Backlog CreateBacklog(int projectId, CreateBacklogRequest request)
@@ -32,10 +36,14 @@ namespace ProjectMicroservice.Services
             return newBacklog;  // Now contains the MongoDB-generated ID
         }
 
-
         public bool ProjectHasBacklog(int projectId)
         {
-            return _backlogs.CountDocuments(b => b.ProjectId == projectId) > 0;
+            try 
+            {
+                return _backlogs.CountDocuments(b => b.ProjectId == projectId) > 0;
+            }
+            catch (Exception) { return false; }
         }
+
     }
 }
