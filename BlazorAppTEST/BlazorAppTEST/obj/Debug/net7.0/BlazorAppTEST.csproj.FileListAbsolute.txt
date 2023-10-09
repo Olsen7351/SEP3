@@ -140,3 +140,15 @@ C:\Users\olsen\OneDrive\Documents\GitHub\SEP3\BlazorAppTEST\BlazorAppTEST\obj\De
 C:\Users\olsen\OneDrive\Documents\GitHub\SEP3\BlazorAppTEST\BlazorAppTEST\obj\Debug\net7.0\BlazorAppTEST.pdb
 C:\Users\olsen\OneDrive\Documents\GitHub\SEP3\BlazorAppTEST\BlazorAppTEST\obj\Debug\net7.0\BlazorAppTEST.genruntimeconfig.cache
 C:\Users\olsen\OneDrive\Documents\GitHub\SEP3\BlazorAppTEST\BlazorAppTEST\obj\Debug\net7.0\ref\BlazorAppTEST.dll
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\BlazorAppTEST\BlazorAppTEST\obj\Debug\net7.0\BlazorAppTEST.csproj.AssemblyReference.cache
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\BlazorAppTEST\BlazorAppTEST\obj\Debug\net7.0\BlazorAppTEST.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\BlazorAppTEST\BlazorAppTEST\obj\Debug\net7.0\BlazorAppTEST.AssemblyInfoInputs.cache
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\BlazorAppTEST\BlazorAppTEST\obj\Debug\net7.0\BlazorAppTEST.AssemblyInfo.cs
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\BlazorAppTEST\BlazorAppTEST\obj\Debug\net7.0\BlazorAppTEST.csproj.CoreCompileInputs.cache
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\BlazorAppTEST\BlazorAppTEST\obj\Debug\net7.0\BlazorAppTEST.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\BlazorAppTEST\BlazorAppTEST\obj\Debug\net7.0\BlazorAppTEST.RazorAssemblyInfo.cache
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\BlazorAppTEST\BlazorAppTEST\obj\Debug\net7.0\BlazorAppTEST.RazorAssemblyInfo.cs
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\BlazorAppTEST\BlazorAppTEST\obj\Debug\net7.0\BlazorAppTEST.sourcelink.json
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\BlazorAppTEST\BlazorAppTEST\obj\Debug\net7.0\BlazorAppTEST.dll
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\BlazorAppTEST\BlazorAppTEST\obj\Debug\net7.0\refint\BlazorAppTEST.dll
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\BlazorAppTEST\BlazorAppTEST\obj\Debug\net7.0\BlazorAppTEST.pdb

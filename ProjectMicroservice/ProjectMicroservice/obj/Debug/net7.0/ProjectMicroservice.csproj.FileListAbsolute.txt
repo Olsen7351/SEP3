@@ -114,3 +114,14 @@ C:\Users\olsen\OneDrive\Documents\GitHub\SEP3\ProjectMicroservice\ProjectMicrose
 C:\Users\olsen\OneDrive\Documents\GitHub\SEP3\ProjectMicroservice\ProjectMicroservice\obj\Debug\net7.0\ref\ProjectMicroservice.dll
 C:\Users\olsen\OneDrive\Documents\GitHub\SEP3\ProjectMicroservice\ProjectMicroservice\bin\Debug\net7.0\ClassLibrary_SEP3.dll
 C:\Users\olsen\OneDrive\Documents\GitHub\SEP3\ProjectMicroservice\ProjectMicroservice\bin\Debug\net7.0\ClassLibrary_SEP3.pdb
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\obj\Debug\net7.0\ProjectMicroservice.csproj.AssemblyReference.cache
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\obj\Debug\net7.0\ProjectMicroservice.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\obj\Debug\net7.0\ProjectMicroservice.AssemblyInfoInputs.cache
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\obj\Debug\net7.0\ProjectMicroservice.AssemblyInfo.cs
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\obj\Debug\net7.0\ProjectMicroservice.csproj.CoreCompileInputs.cache
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\obj\Debug\net7.0\ProjectMicroservice.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\obj\Debug\net7.0\ProjectMicroservice.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\obj\Debug\net7.0\ProjectMicroservice.sourcelink.json
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\obj\Debug\net7.0\ProjectMicroservice.dll
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\obj\Debug\net7.0\refint\ProjectMicroservice.dll
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\obj\Debug\net7.0\ProjectMicroservice.pdb
