@@ -24,6 +24,7 @@ namespace Broker.Services
             }
 
             HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/Project", projekt);
+
             if (response.IsSuccessStatusCode)
             {
                 return new OkResult();

@@ -99,17 +99,13 @@
               "target": "Package",
               "version": "[7.0.9, )"
             },
-            "Microsoft.NET.Test.Sdk": {
+            "Newtonsoft.Json": {
               "target": "Package",
-              "version": "[17.7.2, )"
+              "version": "[13.0.3, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.5.0, )"
-            },
-            "xunit": {
-              "target": "Package",
-              "version": "[2.5.1, )"
             }
           },
           "imports": [
