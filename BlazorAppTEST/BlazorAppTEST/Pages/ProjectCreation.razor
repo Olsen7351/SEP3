@@ -2,6 +2,8 @@
 @using BlazorAppTEST.Services;
 @using ProjectMicroservice.Models
 @inject IProjectService ProjectService;
+@using MainWeb.Services
+@using ProjectMicroservice.Models
 
 <div class="container">
     <div class="card">
@@ -13,8 +15,6 @@
                 <label for="name">Project Name:</label>
                 <InputText id="name" class="form-control" @bind-Value="newProject.Name"/>
             </div>
-
-
             <div class="form-group">
                 <label for="description">Description:</label>
                 <InputTextArea id="description" class="form-control" @bind-Value="newProject.Description"></InputTextArea>
@@ -32,7 +32,7 @@
 
             <button type="submit" class="button">Create</button>
         </EditForm>
-        
+
         <!-- Display Created Project -->
         @if (createdProject != null)
         {
@@ -60,6 +60,29 @@
         }
     
 </div>
+
+
+@if (createdProject != null)
+{
+    <div class="container-fluid">
+        <div class="card">
+            <h3 style="color: lime;">Created Project Successfully!</h3>
+            <p>
+                <strong>Name:</strong> @createdProject.Name
+            </p>
+            <p>
+                <strong>Description:</strong> @createdProject.Description
+            </p>
+            <p>
+                <strong>Start Date:</strong> @createdProject.StartDate.ToShortDateString()
+            </p>
+            <p>
+                <strong>End Date:</strong> @createdProject.EndDate.ToShortDateString()
+            </p>
+        </div>
+    </div>
+}
+
 
 @code {
     private Project newProject = new();

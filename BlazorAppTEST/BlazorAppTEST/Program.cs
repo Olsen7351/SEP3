@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+
 builder.Services.AddScoped<IProjectService, ProjectService>();
 
 #if DEBUG //Development
@@ -16,6 +17,12 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://
 #else //Production
     builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:5002") });
 #endif
+builder.Services.AddScoped<ProjectService>();
+builder.Services.AddScoped(sp => 
+    new HttpClient 
+    { 
+        BaseAddress = new Uri("http://localhost:5172/") 
+    });
 
 var app = builder.Build();
 
