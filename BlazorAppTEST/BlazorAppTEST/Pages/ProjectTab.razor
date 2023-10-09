@@ -1,6 +1,7 @@
 ﻿@page "/projects"
 @using ProjectMicroservice.Models
 @using MainWeb.Services
+@using BlazorAppTEST.MockData 
 @inject ProjectService ProjectService
 
 <h2>Projects</h2>
@@ -12,8 +13,9 @@
             <div class="card">
                 <h3>@project.Name</h3>
                 <p>Description: @project.Description</p>
-                <p>Start Date: @project.StartDate.ToShortDateString()</p>
-                <p>End Date: @project.EndDate.ToShortDateString()</p>
+                <p>Start Date: @project.StartDate</p>
+                <p>End Date: @project.EndDate</p>
+                <NavLink href="@($"/project-hub/{project.Id}")" class="btn btn-primary">View Details</NavLink>
             </div>
         }
     </div>
@@ -23,8 +25,13 @@
 {
     private List<Project>? projects = new List<Project>();
 
-    protected override async Task OnInitializedAsync()
+    protected override Task OnInitializedAsync()
     {
-        projects = (List<Project>)(await ProjectService.GetAllProjects())!;
+    //TEST DATA
+        projects = TestData.Projects; 
+        return Task.CompletedTask;
+        
+    // Actual data fetch (you can uncomment this when you're ready)
+    // projects = (List<Project>)(await ProjectService.GetAllProjects())!;
     }
 }

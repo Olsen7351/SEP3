@@ -109,6 +109,70 @@
 
 
 
+/* _content/BlazorAppTEST/Pages/ProjectHub.razor.rz.scp.css */
+.container[b-4ecvk8wmjx] {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(5, 39, 103, 0.2);
+    padding: 20px;
+}
+
+.container-fluid[b-4ecvk8wmjx] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(5, 39, 103, 0.2);
+    padding: 20px;
+}
+
+.card[b-4ecvk8wmjx] {
+    width: 50%;
+    border: none;
+    background: linear-gradient(135deg, rgba(5, 39, 103, 0.9), rgba(58, 6, 71, 0.9));
+    color: #d7d7d7;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px 0px #000000;
+    padding: 20px;
+    margin-bottom: 10px;
+    transition: transform 0.3s;
+}
+
+.card:hover[b-4ecvk8wmjx] {
+    transform: scale(1.05);
+}
+
+.button[b-4ecvk8wmjx] {
+    background-color: rgba(255,255,255,0.1);
+    color: white;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    font-size: 1rem;
+    border: 1px solid #d7d7d7;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.button:hover[b-4ecvk8wmjx] {
+    background-color: rgba(255,255,255,0.25);
+    border: 1px solid white;
+}
+
+h2[b-4ecvk8wmjx] {
+    text-align: center;
+    color: #d7d7d7;
+    margin-bottom: 20px;
+}
+
+.container h3[b-4ecvk8wmjx] {
+    margin-top: 0;
+}
+
+.container p[b-4ecvk8wmjx] {
+    margin: 10px 0;
+}
 /* _content/BlazorAppTEST/Pages/ProjectTab.razor.rz.scp.css */
 .container[b-26q6kdj0o9] {
     display: flex;
