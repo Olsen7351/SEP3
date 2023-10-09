@@ -1,0 +1,32 @@
+﻿<h3>BacklogCreation</h3>
+
+@page "/create-backlog/{ProjectIdAsString}"
+
+<h2>Create Backlog for Project ID: @ProjectId</h2>
+
+
+
+
+@code {
+    [Parameter]
+    public string ProjectIdAsString { get; set; }
+    public int ProjectId { get; private set; }
+
+    // Called whenever parameters are set
+    protected override void OnParametersSet()
+    {
+        if (int.TryParse(ProjectIdAsString, out var parsedId))
+        {
+            ProjectId = parsedId;
+        }
+        else
+        {
+            // Handle the invalid format or consider redirecting to an error page
+            // For instance:
+            // throw new ArgumentException("Invalid Project ID format.");
+        }
+    }
+
+    // Other code for backlog creation
+}
+
