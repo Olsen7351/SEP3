@@ -24,10 +24,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQmFja2xvZ0NyZWF0aW9uLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/karee/OneDrive/Desktop/GitHub Sep3/SEP3/BlazorAppTEST/BlazorAppTEST/Pages/ProjectHub.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvamVjdEh1Yi5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/karee/OneDrive/Desktop/GitHub Sep3/SEP3/BlazorAppTEST/BlazorAppTEST/Pages/Requirements.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVxdWlyZW1lbnRzLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
@@ -43,6 +39,10 @@ build_metadata.AdditionalFiles.CssScope = b-q9q8j95gpq
 [C:/Users/karee/OneDrive/Desktop/GitHub Sep3/SEP3/BlazorAppTEST/BlazorAppTEST/Pages/ProjectCreation.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvamVjdENyZWF0aW9uLnJhem9y
 build_metadata.AdditionalFiles.CssScope = b-3z6gj7uq9n
+
+[C:/Users/karee/OneDrive/Desktop/GitHub Sep3/SEP3/BlazorAppTEST/BlazorAppTEST/Pages/ProjectHub.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvamVjdEh1Yi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-4ecvk8wmjx
 
 [C:/Users/karee/OneDrive/Desktop/GitHub Sep3/SEP3/BlazorAppTEST/BlazorAppTEST/Pages/ProjectTab.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvamVjdFRhYi5yYXpvcg==

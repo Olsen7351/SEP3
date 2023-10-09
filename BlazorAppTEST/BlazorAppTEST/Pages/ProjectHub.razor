@@ -2,28 +2,34 @@
 @using MainWeb.Services
 @inject ProjectService ProjectService
 
-<h2>Project Hub for Project ID: @ProjectId</h2>
+<div class="container-fluid">
+    <div class="container">
+        <h2>Project Hub for Project ID: @ProjectId</h2>
 
-<!-- Other project details can be displayed here -->
+        <!-- Other project details can be displayed here -->
 
-<div class="backlog-section">
-    @if (HasBacklog)
-    {
-        <p>Backlog details go here...</p>
-        <button @onclick="AddTask">Add Task</button>
-    }
-    else
-    {
-        <button @onclick="CreateBacklog">Create Backlog</button>
-    }
+        <div class="card backlog-section">
+            @if (HasBacklog)
+            {
+                <p>Backlog details go here...</p>
+                <button class="button" @onclick="AddTask">Add Task</button>
+            }
+            else
+            {
+                <button class="button" @onclick="CreateBacklog">Create Backlog</button>
+            }
+        </div>
+    </div>
 </div>
 
 @code {
+
     [Parameter]
     public string ProjectIdAsString { get; set; }
+
     public int ProjectId { get; private set; }
 
-    bool HasBacklog = false;  // This is just a placeholder. In a real-world scenario, you might fetch this information from your database or API.
+    bool HasBacklog = false;
 
     protected override void OnParametersSet()
     {
@@ -33,26 +39,18 @@
         }
         else
         {
-            // Handle invalid format or redirect to an error page
+    // Handle invalid format or redirect to an error page
         }
-
-        // Here, fetch your project details and check if a backlog exists. 
-        // Update the 'HasBacklog' variable accordingly.
     }
 
     private void CreateBacklog()
     {
-        // Logic to create a backlog for the current project. In a real-world scenario, 
-        // you would call an API or service here to create the backlog in your data store.
-        // For demonstration purposes, we'll just toggle the flag:
         HasBacklog = true;
     }
 
     private void AddTask()
     {
-        // Logic to add a task to the backlog for the current project.
-        // This might involve navigating to a different page or displaying a modal 
-        // for the user to enter task details.
+    // Logic to add a task to the backlog for the current project.
     }
-}
 
+}
