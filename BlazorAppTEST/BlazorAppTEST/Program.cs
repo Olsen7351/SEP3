@@ -19,8 +19,7 @@ builder.Services.AddScoped(sp =>
 
 
 
-//Blazer Database
-builder.Services.AddScoped(s => new MongoDBService("mongodb+srv://Kim:1@sep3.uzgzawi.mongodb.net/SEP3?retryWrites=true&w=majority", "SEP3", "Projects"));
+
 
 var app = builder.Build();
 

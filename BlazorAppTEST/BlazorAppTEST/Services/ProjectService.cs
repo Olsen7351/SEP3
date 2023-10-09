@@ -26,7 +26,7 @@ public class ProjectService
         StringContent contentProject = new(createProjectToJson, Encoding.UTF8, "application/json");
        
         //Try and send it trough
-        HttpResponseMessage response = await httpClient.PostAsync("/", contentProject);
+        HttpResponseMessage response = await httpClient.PostAsync("/api/Projekt", contentProject);
         string responseContent = await response.Content.ReadAsStringAsync();
        
         
