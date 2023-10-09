@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ypASQCaqYGqwR3wfSBUuyj/AFjop9JM2mDCwL+nhU7UtMuOdWJx73VPsyjCWMSGXD6u3hlgiueDxpXYu09Cy2A==",
+  "dgSpecHash": "XOIatuFrlLM/V/giGF+urFjTfE1D2esKuPkfx4jlP8mlL1mbVtnz/Q/WaiSgX9GO8bTYNXfX76jAbTjL7tgGzg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\olsen\\OneDrive\\Documents\\GitHub\\SEP3\\BlazorAppTEST\\BlazorAppTEST\\BlazorAppTEST.csproj",
+  "projectFilePath": "C:\\Users\\olsen\\OneDrive\\Documents\\GitHub\\SEP3_V2\\BlazorAppTEST\\BlazorAppTEST\\BlazorAppTEST.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\olsen\\.nuget\\packages\\awssdk.core\\3.7.100.14\\awssdk.core.3.7.100.14.nupkg.sha512",
     "C:\\Users\\olsen\\.nuget\\packages\\awssdk.securitytoken\\3.7.100.14\\awssdk.securitytoken.3.7.100.14.nupkg.sha512",

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\olsen\\OneDrive\\Documents\\GitHub\\SEP3\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj": {}
+    "C:\\Users\\olsen\\OneDrive\\Documents\\GitHub\\SEP3_V2\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj": {}
   },
   "projects": {
-    "C:\\Users\\olsen\\OneDrive\\Documents\\GitHub\\SEP3\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj": {
+    "C:\\Users\\olsen\\OneDrive\\Documents\\GitHub\\SEP3_V2\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\olsen\\OneDrive\\Documents\\GitHub\\SEP3\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj",
+        "projectUniqueName": "C:\\Users\\olsen\\OneDrive\\Documents\\GitHub\\SEP3_V2\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj",
         "projectName": "ClassLibrary_SEP3",
-        "projectPath": "C:\\Users\\olsen\\OneDrive\\Documents\\GitHub\\SEP3\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj",
+        "projectPath": "C:\\Users\\olsen\\OneDrive\\Documents\\GitHub\\SEP3_V2\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj",
         "packagesPath": "C:\\Users\\olsen\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\olsen\\OneDrive\\Documents\\GitHub\\SEP3\\ClassLibrary_SEP3\\obj\\",
+        "outputPath": "C:\\Users\\olsen\\OneDrive\\Documents\\GitHub\\SEP3_V2\\ClassLibrary_SEP3\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

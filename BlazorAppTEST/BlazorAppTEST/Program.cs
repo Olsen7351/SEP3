@@ -1,4 +1,5 @@
-using MainWeb.Services;
+
+using BlazorAppTEST.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
@@ -8,9 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-
-//Blazer Database
-builder.Services.AddScoped(s => new MongoDBService("mongodb+srv://Kim:1@sep3.uzgzawi.mongodb.net/SEP3?retryWrites=true&w=majority", "SEP3", "Projects"));
+builder.Services.AddScoped<IProjectService, ProjectService>();
 
 var app = builder.Build();
 

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "KEx9AcAX2dQjvV++0fyWzelIMmaVKlRI1+D6+y5AohVWbMRBnQTE2RYLp/wKnOe46HM4yGk/7qnKcYAsXHlDpw==",
+  "dgSpecHash": "RNlf1Js0HHjb4kgp2LzT2A+FgbtA5cd2eK2W4JjRBQuxSH2YszhlPse2cUI3V5oJoN+lVnaCpVZrXv+l8R4e4Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\olsen\\OneDrive\\Documents\\GitHub\\SEP3\\RabbitMQMicroservices\\RabbitMQMicroservices.csproj",
+  "projectFilePath": "C:\\Users\\olsen\\OneDrive\\Documents\\GitHub\\SEP3_V2\\RabbitMQMicroservices\\RabbitMQMicroservices.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\olsen\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.11\\microsoft.aspnetcore.openapi.7.0.11.nupkg.sha512",
     "C:\\Users\\olsen\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "6SwWYTtHpFRuBmJs7HO0Vm/xdKeSp6VCk2tZ5TbBWlP414450e2B0WHC2rZXHsHLRbC8YZpYWT96kAg4KNxXdw==",
+  "dgSpecHash": "fEqX4dWqjTnsqFXx1QeHIWNfX6ituAjJ4K5e6Fl5aL1daHZzMahcEMnL6MutZLyWmYJSqq4a3FlYQEoF5Zn/rw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\olsen\\OneDrive\\Documents\\GitHub\\SEP3\\Broker_Test\\Broker_Test.csproj",
+  "projectFilePath": "C:\\Users\\olsen\\OneDrive\\Documents\\GitHub\\SEP3_V2\\Broker_Test\\Broker_Test.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\olsen\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
     "C:\\Users\\olsen\\.nuget\\packages\\coverlet.collector\\3.2.0\\coverlet.collector.3.2.0.nupkg.sha512",
