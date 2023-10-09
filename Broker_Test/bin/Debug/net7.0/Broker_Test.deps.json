@@ -1105,12 +1105,18 @@
       "xunit.runner.visualstudio/2.4.5": {},
       "Broker/1.0.0": {
         "dependencies": {
+          "ClassLibrary_SEP3": "1.0.0",
           "Microsoft.AspNetCore.OpenApi": "7.0.11",
           "Swashbuckle.AspNetCore": "6.5.0",
           "xunit": "2.5.1"
         },
         "runtime": {
           "Broker.dll": {}
+        }
+      },
+      "ClassLibrary_SEP3/1.0.0": {
+        "runtime": {
+          "ClassLibrary_SEP3.dll": {}
         }
       }
     }
@@ -1815,6 +1821,11 @@
       "hashPath": "xunit.runner.visualstudio.2.4.5.nupkg.sha512"
     },
     "Broker/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ClassLibrary_SEP3/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

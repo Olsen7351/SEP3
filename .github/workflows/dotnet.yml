@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  build:
+  build-and-test:
 
     runs-on: ubuntu-latest
     strategy:
@@ -15,12 +15,25 @@ jobs:
         dotnet-version: [ '7.0.x', '6.0.x' ]
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
-      - name: Install dependencies
-        run: dotnet restore Broker/Broker.csproj
+
+      - name: Restore dependencies
+        run: dotnet restore SEP3_Solution/SEP3_Solution.sln
+
       - name: Build
-        run: dotnet build --configuration Release --no-restore Broker/Broker.csproj
+        run: dotnet build --configuration Release --no-restore SEP3_Solution/SEP3_Solution.sln
+
+      - name: Run Tests
+        run: dotnet test SEP3_Solution/SEP3_Solution.sln --no-restore --no-build --logger "trx;LogFileName=test_results.trx"
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-results
+          path: '**/test_results.trx'
