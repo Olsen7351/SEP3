@@ -70,3 +70,40 @@ C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\ProjectMicroservice\ProjectMicr
 C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\ProjectMicroservice\ProjectMicroservice\obj\Debug\net7.0\ProjectMicroservice.pdb
 C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\ProjectMicroservice\ProjectMicroservice\obj\Debug\net7.0\ProjectMicroservice.genruntimeconfig.cache
 C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\ProjectMicroservice\ProjectMicroservice\obj\Debug\net7.0\ref\ProjectMicroservice.dll
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\bin\Debug\net7.0\appsettings.Development.json
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\bin\Debug\net7.0\appsettings.json
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\bin\Debug\net7.0\ProjectMicroservice.exe
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\bin\Debug\net7.0\ProjectMicroservice.deps.json
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\bin\Debug\net7.0\ProjectMicroservice.runtimeconfig.json
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\bin\Debug\net7.0\ProjectMicroservice.dll
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\bin\Debug\net7.0\ProjectMicroservice.pdb
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\bin\Debug\net7.0\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\bin\Debug\net7.0\Microsoft.OpenApi.dll
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\bin\Debug\net7.0\Newtonsoft.Json.dll
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\bin\Debug\net7.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\bin\Debug\net7.0\ClassLibrary_SEP3.dll
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\bin\Debug\net7.0\ClassLibrary_SEP3.pdb
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\obj\Debug\net7.0\ProjectMicroservice.csproj.AssemblyReference.cache
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\obj\Debug\net7.0\ProjectMicroservice.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\obj\Debug\net7.0\ProjectMicroservice.AssemblyInfoInputs.cache
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\obj\Debug\net7.0\ProjectMicroservice.AssemblyInfo.cs
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\obj\Debug\net7.0\ProjectMicroservice.csproj.CoreCompileInputs.cache
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\obj\Debug\net7.0\ProjectMicroservice.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\obj\Debug\net7.0\ProjectMicroservice.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\obj\Debug\net7.0\ProjectMicroservice.sourcelink.json
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\obj\Debug\net7.0\staticwebassets\msbuild.ProjectMicroservice.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\obj\Debug\net7.0\staticwebassets\msbuild.build.ProjectMicroservice.props
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\obj\Debug\net7.0\staticwebassets\msbuild.buildMultiTargeting.ProjectMicroservice.props
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\obj\Debug\net7.0\staticwebassets\msbuild.buildTransitive.ProjectMicroservice.props
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\obj\Debug\net7.0\staticwebassets.pack.json
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\obj\Debug\net7.0\staticwebassets.build.json
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\obj\Debug\net7.0\staticwebassets.development.json
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\obj\Debug\net7.0\scopedcss\bundle\ProjectMicroservice.styles.css
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\obj\Debug\net7.0\ProjectMicroservice.csproj.CopyComplete
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\obj\Debug\net7.0\ProjectMicroservice.dll
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\obj\Debug\net7.0\refint\ProjectMicroservice.dll
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\obj\Debug\net7.0\ProjectMicroservice.pdb
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\obj\Debug\net7.0\ProjectMicroservice.genruntimeconfig.cache
+C:\Users\njbir\OneDrive\Skrivebord\Java course\SEP3\ProjectMicroservice\ProjectMicroservice\obj\Debug\net7.0\ref\ProjectMicroservice.dll
