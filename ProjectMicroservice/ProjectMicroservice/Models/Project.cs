@@ -6,8 +6,7 @@ namespace ProjectMicroservice.Models;
 public class Project
 {
     [BsonId]
-    [BsonRepresentation(BsonType.ObjectId)]
-    public string Id { get; init; }
+    public ObjectId Id { get; init; }
     public string? Name { get; init; }
     public string? Description { get; init; }
     public DateTime StartDate { get; init; }

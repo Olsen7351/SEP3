@@ -7,9 +7,8 @@ namespace ProjectMicroservice.Models
     public class Backlog
     {
         [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; init; }
-        public int ProjectId { get; init; }
+        public ObjectId Id { get; init; }
+        public ObjectId ProjectId { get; init; }
         public string? Description { get; init; }
     }
 }

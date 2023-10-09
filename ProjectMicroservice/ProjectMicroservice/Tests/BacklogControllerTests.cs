@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using Moq;
 using ProjectMicroservice.Controllers;
@@ -69,7 +70,7 @@ namespace ProjectMicroservice.Tests
             };
 
             // Act
-            var actionResult = _backlogController.CreateBacklog(projectId, request) as CreatedAtActionResult;
+            var actionResult = _backlogController.CreateBacklog(projectId.ToString(), request) as CreatedAtActionResult;
 
             // Assert
             Assert.NotNull(actionResult);
@@ -86,7 +87,8 @@ namespace ProjectMicroservice.Tests
         public void CreateBacklog_ProjectNotFound_ReturnsNotFound()
         {  
             // Arrange
-            var projectId = "9999";  // Simulate a non-existing project ID
+            // Non-existent project ID
+            var projectId = new ObjectId("5f9a4f8f9d3f2f0a8c7d1b1a");
 
             var request = new CreateBacklogRequest
             {
@@ -94,7 +96,7 @@ namespace ProjectMicroservice.Tests
             };
 
             // Act
-            var actionResult = _backlogController.CreateBacklog(projectId, request) as NotFoundResult;
+            var actionResult = _backlogController.CreateBacklog(projectId.ToString(), request) as NotFoundResult;
 
             // Assert
             Assert.NotNull(actionResult);
@@ -120,10 +122,10 @@ namespace ProjectMicroservice.Tests
                 Description = "Test Backlog Description"
             };
 
-            _backlogService.CreateBacklog(int.Parse(projectId), request);  // Create a dummy backlog
+            _backlogService.CreateBacklog(projectId, request);  // Create a dummy backlog
 
             // Act
-            var actionResult = _backlogController.CreateBacklog(projectId, request) as ConflictResult;
+            var actionResult = _backlogController.CreateBacklog(projectId.ToString(), request) as ConflictResult;
 
             // Assert
             Assert.NotNull(actionResult);

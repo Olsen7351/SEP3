@@ -1,4 +1,5 @@
 ﻿using System.Collections.Concurrent;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using ProjectMicroservice.Data;
 using ProjectMicroservice.DataTransferObjects;
@@ -15,7 +16,7 @@ namespace ProjectMicroservice.Services
             _backlogs = context.Database.GetCollection<Backlog>("Backlogs");
         }
 
-        public Backlog GetBacklogByProjectId(int projectId)
+        public Backlog GetBacklogByProjectId(ObjectId projectId)
         {
             try
             {
@@ -24,7 +25,7 @@ namespace ProjectMicroservice.Services
             catch (System.FormatException) { return null; };
         }
 
-        public Backlog CreateBacklog(int projectId, CreateBacklogRequest request)
+        public Backlog CreateBacklog(ObjectId projectId, CreateBacklogRequest request)
         {
             var newBacklog = new Backlog
             {
@@ -36,7 +37,7 @@ namespace ProjectMicroservice.Services
             return newBacklog;  // Now contains the MongoDB-generated ID
         }
 
-        public bool ProjectHasBacklog(int projectId)
+        public bool ProjectHasBacklog(ObjectId projectId)
         {
             try 
             {

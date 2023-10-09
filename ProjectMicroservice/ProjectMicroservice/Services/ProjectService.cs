@@ -1,4 +1,5 @@
 using System.Collections.Concurrent;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using ProjectMicroservice.Data;
 using ProjectMicroservice.DataTransferObjects;
@@ -29,7 +30,7 @@ namespace ProjectMicroservice.Services
             return newProject;  // Now contains the MongoDB-generated ID
         }
 
-        public Project GetProject(string id)
+        public Project GetProject(ObjectId id)
         {
             try
             {
@@ -38,7 +39,7 @@ namespace ProjectMicroservice.Services
             catch (System.FormatException) { return null; }
         }
 
-        public bool ProjectExists(string id)
+        public bool ProjectExists(ObjectId id)
         {
             try
             {
