@@ -1,6 +1,5 @@
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ProjectMicroservice.Models;
@@ -43,7 +42,7 @@ namespace Broker.Services
             }
             else
             {
-                string requestUri = $"api/Project/{id}/Backlog";
+                string requestUri = $"api/Project/{id}";
                 HttpResponseMessage response = await httpClient.GetAsync(requestUri);
 
                 if (response.IsSuccessStatusCode)
@@ -61,7 +60,7 @@ namespace Broker.Services
                 }
                 else
                 {
-                    throw new HttpRequestException($"Failed getting the Projec. Status code: {response.StatusCode}.");
+                    throw new HttpRequestException($"Failed getting the Project. Status code: {response.StatusCode}.");
                 }
             }
         }

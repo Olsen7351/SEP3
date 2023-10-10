@@ -25,7 +25,7 @@ namespace BlazorAppTEST.Services
             StringContent contentProject = new(createProjectToJson, Encoding.UTF8, "application/json");
 
             //Try and send it trough
-            HttpResponseMessage response = await httpClient.PostAsync("/api/Projekt", contentProject);
+            HttpResponseMessage response = await httpClient.PostAsync("api/Projekt", contentProject);
             string responseContent = await response.Content.ReadAsStringAsync();
 
 
@@ -38,7 +38,7 @@ namespace BlazorAppTEST.Services
         //Get All
         public async Task<ICollection<Project>?> GetAllProjects()
         {
-            HttpResponseMessage response = await httpClient.GetAsync(("/"));
+            HttpResponseMessage response = await httpClient.GetAsync(($"api/Projekt"));
             string contentProject = await response.Content.ReadAsStringAsync();
 
             if (!response.IsSuccessStatusCode)

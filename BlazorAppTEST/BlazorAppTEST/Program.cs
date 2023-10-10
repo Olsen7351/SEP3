@@ -11,6 +11,12 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<IProjectService, ProjectService>();
 
+#if DEBUG //Development
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:5172/") });
+#else //Production
+    builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:5002") });
+#endif
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

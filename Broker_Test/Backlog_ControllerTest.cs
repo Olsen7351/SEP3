@@ -52,8 +52,8 @@ namespace Broker_Test
             validProject.Id = 1;
             validProject.Name = "Test";
             validProject.Description = "Test";
-            validProject.StartDate = new System.DateTime(2021, 1, 1);
-            validProject.EndDate = new System.DateTime(2021, 1, 2);
+            validProject.StartDate = new DateTime(2021, 1, 1);
+            validProject.EndDate = new DateTime(2021, 1, 2);
 
             // Mock the ProjektService to return an OkResult
             mockProjektService.Setup(service => service.CreateProjekt(validProject))
