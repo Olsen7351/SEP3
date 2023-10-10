@@ -16,7 +16,7 @@ namespace ProjectMicroservice.Services
             _projects = context.Database.GetCollection<Project>("Projects");
         }
 
-        public Project CreateProject(CreateProjectRequest request)
+        public Project CreateProject(CreateProjectRequest request) 
         {
             var newProject = new Project
             {

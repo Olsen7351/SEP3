@@ -22,13 +22,11 @@ namespace ProjectMicroservice.Controllers
         [HttpGet]
         public IActionResult GetBacklogByProjectId(string projectId)
         {
-            // Convert projectId to ObjectId
-            ObjectId id = new();
-            if (!ObjectId.TryParse(projectId, out var objectId))
-            {
-                id = objectId;
-                return BadRequest("Invalid project id");
-            }
+            ObjectId id;
+if (!ObjectId.TryParse(projectId, out id))
+{
+    return BadRequest("Invalid project id");
+}
             var backlog = _backlogService.GetBacklogByProjectId(id);
             if (backlog == null)
             {
@@ -41,10 +39,9 @@ namespace ProjectMicroservice.Controllers
         public IActionResult CreateBacklog(string projectId, [FromBody] CreateBacklogRequest request)
         {
             // Convert projectId to ObjectId
-            ObjectId id = new();
-            if (!ObjectId.TryParse(projectId, out var objectId))
+            ObjectId id;
+            if (!ObjectId.TryParse(projectId, out id))
             {
-                id = objectId;
                 return BadRequest("Invalid project id");
             }
             if (!_projectService.ProjectExists(id))
