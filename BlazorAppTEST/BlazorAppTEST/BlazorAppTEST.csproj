@@ -4,6 +4,8 @@
         <TargetFramework>net7.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+        <UserSecretsId>3929db51-4a97-4048-8148-984eddaefbe6</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
@@ -12,5 +14,11 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\ClassLibrary_SEP3\ClassLibrary_SEP3.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
     </ItemGroup>
 </Project>

@@ -1,0 +1,41 @@
+﻿services:
+  blazorapptest:
+    image: blazorapptest
+    build:
+      context: .
+      dockerfile: BlazorAppTEST/BlazorAppTEST/Dockerfile
+    ports:
+      - "8000:80" # Maps host port 8000 to container port 80
+      - "8001:443" # Maps host port 8001 to container port 443
+
+  broker:
+    image: broker
+    build:
+      context: .
+      dockerfile: Broker/Dockerfile
+    ports:
+      - "8002:80" # Maps host port 8002 to container port 80
+      - "8003:443" # Maps host port 8003 to container port 443
+
+  projectmicroservice:
+    image: projectmicroservice
+    build:
+      context: .
+      dockerfile: ProjectMicroservice/ProjectMicroservice/Dockerfile
+    ports:
+      - "8004:80" # Maps host port 8004 to container port 80
+      - "8005:443" # Maps host port 8005 to container port 443
+
+  rabbitmqmicroservices:
+    image: rabbitmqmicroservices
+    build:
+      context: .
+      dockerfile: RabbitMQMicroservices/Dockerfile
+    ports:
+      - "8006:5672" # Maps host port 8006 to container port 5672
+      - "8007:15672" # Maps host port 8007 to container port 15672
+
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017" # Maps host port 27017 to container port 27017

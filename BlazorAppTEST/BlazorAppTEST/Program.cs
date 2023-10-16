@@ -12,7 +12,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<IProjectService, ProjectService>();
 
 #if DEBUG //Development
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:5172/") });
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:8002/") });
 #else //Production
     builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:5002") });
 #endif

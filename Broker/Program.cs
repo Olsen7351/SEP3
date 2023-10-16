@@ -19,7 +19,7 @@ builder.Services.AddSwaggerGen();
 
 //HTTP Client Projekter
 #if DEBUG //Development
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:5131/") });
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:8004/") });
 #else //Production
     builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:5002") });
 #endif
