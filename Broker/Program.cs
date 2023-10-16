@@ -23,6 +23,7 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https:/
 #endif
 
 builder.Services.AddScoped<IProjektService, ProjektService>();
+builder.Services.AddScoped<IBacklogService, BacklogService>();
 builder.Services.AddHttpsRedirection(options =>
 {
     options.HttpsPort = 443;
