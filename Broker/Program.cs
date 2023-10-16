@@ -4,8 +4,6 @@ using Broker.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.AspNetCore.Cors;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,25 +17,19 @@ builder.Services.AddSwaggerGen();
 
 //HTTP Client Projekter
 #if DEBUG //Development
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:8004/") });
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:5131/") });
 #else //Production
-    builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:5002") });
+    builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:5002") });
 #endif
-
-builder.Services.AddCors(options =>
-{
-    options.AddDefaultPolicy(builder =>
-    {
-        builder
-            .AllowAnyOrigin() // Specify the allowed origins
-            .AllowAnyMethod() // Allow any HTTP method
-            .AllowAnyHeader(); // Allow any HTTP headers
-    });
-});
-
 
 builder.Services.AddScoped<IProjektService, ProjektService>();
 builder.Services.AddScoped<IBacklogService, BacklogService>();
+builder.Services.AddHttpsRedirection(options =>
+{
+    options.HttpsPort = 443;
+    options.HttpsPort = 7103;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -48,7 +40,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseCors();
 
 app.UseAuthorization();
 
