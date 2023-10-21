@@ -1,11 +1,23 @@
 {
   "Version": 1,
-  "Hash": "EAPxkQzc1tHRi+dmGYZwLBuSaJ07ISRBpJxW0qz98E8=",
+  "Hash": "2KSSoJZf5KwroicWxm1leEljzh2KjVrzI/wM98mE2S4=",
   "Source": "BlazorAppTEST",
   "BasePath": "_content/BlazorAppTEST",
   "Mode": "Default",
   "ManifestType": "Build",
-  "ReferencedProjectsConfiguration": [],
+  "ReferencedProjectsConfiguration": [
+    {
+      "Identity": "C:\\Users\\njbir\\OneDrive\\Skrivebord\\Java course\\SEP3\\Broker\\Broker.csproj",
+      "Version": 2,
+      "Source": "Broker",
+      "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
+      "AdditionalPublishProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework;RuntimeIdentifier;SelfContained",
+      "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
+      "AdditionalBuildProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework;RuntimeIdentifier;SelfContained"
+    }
+  ],
   "DiscoveryPatterns": [
     {
       "Name": "BlazorAppTEST\\wwwroot",

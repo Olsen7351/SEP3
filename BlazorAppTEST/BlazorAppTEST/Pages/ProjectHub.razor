@@ -2,6 +2,7 @@
 @using MainWeb.Services
 @inject ProjectService ProjectService
 
+
 <div class="container-fluid">
     <div class="container">
         <h2>Project Hub for Project ID: @ProjectId</h2>
@@ -26,10 +27,10 @@
 
     [Parameter]
     public string ProjectIdAsString { get; set; }
-
     public int ProjectId { get; private set; }
 
     bool HasBacklog = false;
+     private List<Task> tasks = new List<Task>(); // Assuming Task is a class with a Description property
 
     protected override void OnParametersSet()
     {
@@ -50,7 +51,10 @@
 
     private void AddTask()
     {
-    // Logic to add a task to the backlog for the current project.
+    
+    // Create a new task and add it to the list of tasks
+        Task newTask = new Task { Description = "Sample Task Description" }; // Modify as per your Task class structure
+        tasks.Add(newTask);
     }
 
 }
