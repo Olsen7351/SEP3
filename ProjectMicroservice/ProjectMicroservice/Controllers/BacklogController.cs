@@ -18,7 +18,7 @@ namespace ProjectMicroservice.Controllers
             _projectService = projectService;
         }
 
-        [HttpGet]
+        [HttpGet("GetBacklogByProjectId")]
         public IActionResult GetBacklogByProjectId(int projectId)
         {
             var backlog = _backlogService.GetBacklogByProjectId(projectId);
@@ -49,13 +49,13 @@ namespace ProjectMicroservice.Controllers
 
             var backlog = new Backlog
             {
-                ProjectId = projectId,
+                ProjectID = projectId,
                 Description = request.Description,
                 // other fields
             };
 
             var createdBacklog = _backlogService.CreateBacklog(projectId, backlog);
-            return CreatedAtAction(nameof(CreateBacklog), new { projectId, id = createdBacklog.Id }, createdBacklog);
+            return CreatedAtAction(nameof(CreateBacklog), new { projectId, id = createdBacklog.BacklogID }, createdBacklog);
         }
     }
 }

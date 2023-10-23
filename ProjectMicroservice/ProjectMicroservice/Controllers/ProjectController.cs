@@ -41,7 +41,7 @@ namespace ProjectMicroservice.Controllers
             };
 
             var createdProject = _projectService.CreateProject(project);
-            return CreatedAtAction(nameof(CreateProject), new { id = createdProject.Id }, createdProject);
+            return CreatedAtAction(nameof(CreateProject), new { id = createdProject.ProjectID }, createdProject);
         }
     }
 }

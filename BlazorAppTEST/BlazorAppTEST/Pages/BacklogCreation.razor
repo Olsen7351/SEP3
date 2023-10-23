@@ -3,6 +3,7 @@
 @page "/create-backlog/{ProjectIdAsString}"
 @using ProjectMicroservice.Models
 @using Broker.Services
+@using Task = System.Threading.Tasks.Task
 @inject BacklogService BacklogService
 
 <h2>Create Backlog for Project ID: @ProjectId</h2>z
@@ -35,6 +36,8 @@
     </div>
 }
 
+
+
 @code {
     private Backlog newBacklog = new Backlog("");
     private Backlog createdBacklog;
@@ -49,6 +52,8 @@
         // Assume you have a BacklogService to handle backlog creation
         await BacklogService.CreateAsync(newBacklog);
     }
+    
+    
     
     // Called whenever parameters are set
     protected override void OnParametersSet()

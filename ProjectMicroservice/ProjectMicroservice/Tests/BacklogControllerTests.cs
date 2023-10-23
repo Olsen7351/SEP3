@@ -19,7 +19,7 @@ namespace ProjectMicroservice.Tests
             var controller = new BacklogController(backlogService, projectService);
 
             var project = projectService.CreateProject(new Project());  // Create a dummy project
-            var projectId = project.Id;
+            var projectId = project.ProjectID;
 
             var request = new CreateBacklogRequest
             {
@@ -72,7 +72,7 @@ namespace ProjectMicroservice.Tests
             var controller = new BacklogController(backlogService, projectService);
 
             var project = projectService.CreateProject(new Project());  // Create a dummy project
-            var projectId = project.Id;
+            var projectId = project.ProjectID;
 
             var request = new CreateBacklogRequest
             {

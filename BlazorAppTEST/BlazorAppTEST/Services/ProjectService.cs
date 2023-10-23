@@ -3,6 +3,7 @@ using System.Text;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using ProjectMicroservice.Models;
+using Task = System.Threading.Tasks.Task;
 
 namespace MainWeb.Services;
 
@@ -22,7 +23,6 @@ public class ProjectService
     {
         //Takes project and serialize to json
         string createProjectToJson = JsonSerializer.Serialize(projekt);
-        //Magic
         StringContent contentProject = new(createProjectToJson, Encoding.UTF8, "application/json");
        
         //Try and send it trough
@@ -36,9 +36,6 @@ public class ProjectService
         }
     }
 
-
-    
-    
     
     
     
@@ -56,4 +53,21 @@ public class ProjectService
         ICollection<Project>? projects = JsonSerializer.Deserialize<ICollection<Project>>(contentProject, new JsonSerializerOptions());
         return projects;
     }
+    
+    
+    
+    
+    //Get Backlog for Project
+    public async Task<string?> GetBacklogIDForProject(string projectId)
+    {
+        HttpResponseMessage response = await httpClient.GetAsync($"/api/Project/{projectId}/BacklogID");
+        string content = await response.Content.ReadAsStringAsync();
+
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception($"Error:{response.StatusCode}, {content}");
+        }
+        return content;
+    }
+
 }

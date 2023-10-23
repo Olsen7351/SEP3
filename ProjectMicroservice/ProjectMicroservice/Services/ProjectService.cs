@@ -10,7 +10,7 @@ namespace ProjectMicroservice.Services
         public Project CreateProject(Project project)
         {
             // Placeholder for a database call.'
-            _projects.TryAdd(project.Id, project);
+            _projects.TryAdd(project.ProjectID, project);
             return project;
         }
 

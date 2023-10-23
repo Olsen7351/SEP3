@@ -1,14 +1,11 @@
 ﻿@page "/project-hub/{ProjectIdAsString}"
 @using MainWeb.Services
 @inject ProjectService ProjectService
-
+@inject NavigationManager NavManager
 
 <div class="container-fluid">
     <div class="container">
         <h2>Project Hub for Project ID: @ProjectId</h2>
-
-        <!-- Other project details can be displayed here -->
-
         <div class="card backlog-section">
             @if (HasBacklog)
             {
@@ -23,38 +20,42 @@
     </div>
 </div>
 
-@code {
 
+
+@code {
     [Parameter]
     public string ProjectIdAsString { get; set; }
     public int ProjectId { get; private set; }
-
     bool HasBacklog = false;
-     private List<Task> tasks = new List<Task>(); // Assuming Task is a class with a Description property
 
+
+    //Gets Current PostID
     protected override void OnParametersSet()
     {
         if (int.TryParse(ProjectIdAsString, out var parsedId))
         {
             ProjectId = parsedId;
         }
-        else
-        {
-    // Handle invalid format or redirect to an error page
-        }
     }
-
-    private void CreateBacklog()
-    {
-        HasBacklog = true;
-    }
-
+    
+    
+    //Redirect to another page
     private void AddTask()
     {
-    
-    // Create a new task and add it to the list of tasks
-        Task newTask = new Task { Description = "Sample Task Description" }; // Modify as per your Task class structure
-        tasks.Add(newTask);
+        NavManager.NavigateTo("/BacklogCreateTask");
     }
 
+    
+    
+    
+    //Create backlog
+    private void CreateBacklog()
+    {
+        var backlog = new
+        {
+            ProjectID = ProjectId
+        };
+        
+            //Service
+    }
 }

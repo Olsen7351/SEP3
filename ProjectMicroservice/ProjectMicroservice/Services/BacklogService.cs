@@ -18,7 +18,7 @@ namespace ProjectMicroservice.Services
         {
             var newBacklog = new Backlog
             {
-                ProjectId = projectId,
+                ProjectID = projectId,
                 Description = backlog.Description
             };
 

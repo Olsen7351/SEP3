@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using ProjectMicroservice.Models;
+using Task = System.Threading.Tasks.Task;
 
 namespace MainWeb.Services
 {

@@ -1,0 +1,58 @@
+﻿@using Xunit.Sdk
+@using MainWeb.Services
+@page "/BacklogCreateTask/{ProjectID}"
+@inject ProjectService ProjectService
+
+
+<h3>BacklogCreateTask</h3>
+
+<div class="task-container">
+    <h3>Create Task</h3>
+    <label for="description">Description</label>
+    <input type="text" id="description" @bind="Description"/>
+    <button @onclick="CreateTask">Create Task</button>
+</div>
+
+
+
+
+@code {
+    
+    //Task Description
+    string Description { get; set; }
+
+    //Current ProjectID
+    [Parameter]
+    public string ProjectID { get; set; }
+
+    //Projects Backlog
+    private string backlogID;
+
+    
+    
+    
+    //Get current BacklogID
+    protected override async Task OnInitializedAsync()
+    {
+        backlogID = await ProjectService.GetBacklogIDForProject(ProjectID); // <-- Don't re-declare the variable, just assign.
+    }
+
+    private void CreateTask()
+    {
+        var task = new
+        {
+            ProjectID = this.ProjectID,
+            BacklogID = this.backlogID, 
+            Description = this.Description
+        };
+
+        if (string.IsNullOrEmpty(Description))
+        {
+            throw new Exception("Can't submit an empty string");
+        }
+        else
+        {
+                //Service Post/Task 
+        }
+    }
+}

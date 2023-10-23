@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using ProjectMicroservice.Models;
 using Xunit;
 using Xunit.Abstractions;
+using Task = System.Threading.Tasks.Task;
 
 namespace BlazorAppTest
 {
@@ -53,7 +54,7 @@ namespace BlazorAppTest
     
             var project = new Project
             {
-                Id = 1,
+                ProjectID = 1,
                 Name = "Test Project",
                 Description = "This is a test project for unit testing.",
                 StartDate = DateTime.Now,
@@ -92,12 +93,12 @@ namespace BlazorAppTest
             {
                 new Project
                 {
-                    Id = 1, Name = "Test Project 1", Description = "test", StartDate = DateTime.Now,
+                    ProjectID = 1, Name = "Test Project 1", Description = "test", StartDate = DateTime.Now,
                     EndDate = DateTime.Now.AddDays(30)
                 },
                 new Project
                 {
-                    Id = 2, Name = "Test Project 2", Description = "test", StartDate = DateTime.Now,
+                    ProjectID = 2, Name = "Test Project 2", Description = "test", StartDate = DateTime.Now,
                     EndDate = DateTime.Now.AddDays(30)
                 }
             };
