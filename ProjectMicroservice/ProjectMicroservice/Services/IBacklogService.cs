@@ -1,14 +1,15 @@
-﻿using ProjectMicroservice.Models;
+﻿using MongoDB.Bson;
+using ProjectMicroservice.DataTransferObjects;
+using ProjectMicroservice.Models;
 
 namespace ProjectMicroservice.Services
 {
     public interface IBacklogService
     {
-        Backlog GetBacklogByProjectId(int projectId);
-        Backlog CreateBacklog(int projectId, Backlog backlog);
-        bool ProjectHasBacklog(int projectId);
+        Backlog GetBacklogByProjectId(ObjectId projectId);
 
-        bool AddTask(int projectId, int taskId, string title);
-        bool DeleteTask(int projectId, int taskId);
+        Backlog CreateBacklog(ObjectId projectId, CreateBacklogRequest backlog);
+        bool ProjectHasBacklog(ObjectId projectId);
+        bool BacklogBelongsToProject(ObjectId backlogId, ObjectId projectId);
     }
 }

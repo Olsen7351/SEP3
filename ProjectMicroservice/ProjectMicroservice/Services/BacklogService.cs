@@ -1,76 +1,61 @@
 ﻿using System.Collections.Concurrent;
-using DefaultNamespace;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using ProjectMicroservice.Data;
+using ProjectMicroservice.DataTransferObjects;
 using ProjectMicroservice.Models;
 
 namespace ProjectMicroservice.Services
 {
     public class BacklogService : IBacklogService
     {
-        // Using a ConcurrentDictionary to simulate a database table.
-        private static readonly ConcurrentDictionary<int, Backlog> _backlogs = new();
+        private readonly IMongoCollection<Backlog> _backlogs;
 
-        public Backlog GetBacklogByProjectId(int projectId)
+        public BacklogService(MongoDbContext context)
         {
-            _backlogs.TryGetValue(projectId, out var backlog);
-            return backlog;
+            _backlogs = context.Database.GetCollection<Backlog>("Backlogs");
         }
 
-        public Backlog CreateBacklog(int projectId, Backlog backlog)
+        public Backlog GetBacklogByProjectId(ObjectId projectId)
+        {
+            try
+            {
+                return _backlogs.Find(b => b.ProjectId == projectId).FirstOrDefault();
+            }
+            catch (System.FormatException) { return null; };
+        }
+
+        public Backlog CreateBacklog(ObjectId projectId, CreateBacklogRequest request)
         {
             var newBacklog = new Backlog
             {
                 ProjectId = projectId,
-                Description = backlog.Description
+                Description = request.Description
             };
 
-            _backlogs[projectId] = newBacklog;
-            return newBacklog;
+            _backlogs.InsertOne(newBacklog);
+            return newBacklog;  // Now contains the MongoDB-generated ID
         }
 
-        public bool ProjectHasBacklog(int projectId)
+        public bool ProjectHasBacklog(ObjectId projectId)
         {
-            return _backlogs.ContainsKey(projectId);
-        }
-
-        public bool DeleteTask(int projectId, int taskId)
-        {
-            if (_backlogs.TryGetValue(projectId, out var backlog))
+            try 
             {
-                var removeTask = backlog.Tasks.FirstOrDefault(t => t.Id == taskId);
+                return _backlogs.CountDocuments(b => b.ProjectId == projectId) > 0;
+            }
+            catch (Exception) { return false; }
+        }
 
-                if (removeTask != null)
-                {
-                    backlog.Tasks.Remove(removeTask);
-                    return true;
-                }
+        public bool BacklogBelongsToProject(ObjectId backlogId, ObjectId projectId)
+        {
+            var backlog = _backlogs.Find(b => b.Id == backlogId).FirstOrDefault();
+
+            if (backlog == null)
+            {
+                return false;
             }
 
-            return false;
+            return backlog.ProjectId == projectId;
         }
-
-        public bool AddTask(int projectId, int taskId, string title)
-        {
-            if (_backlogs.TryGetValue(projectId, out var backlog))
-            {
-                if (backlog.Tasks.Any(t => t.Id == taskId))
-                {
-                    return false;
-                }
-
-                var newTask = new BackLogTask
-                {
-                    Id = taskId,
-                    Title = title,
-                    Description = "",
-                    isCompleted = false,
-                    Responsible = ""
-                };
-                backlog.Tasks.Add(newTask);
-                return true;
-            }
-
-            return false;
-        }
-        
     }
 }

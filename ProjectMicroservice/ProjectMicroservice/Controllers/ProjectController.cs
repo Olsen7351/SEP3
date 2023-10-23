@@ -4,6 +4,7 @@ using ProjectMicroservice.Services;
 
 using Microsoft.AspNetCore.Mvc;
 using ProjectMicroservice.DataTransferObjects;
+using MongoDB.Bson;
 
 namespace ProjectMicroservice.Controllers
 {
@@ -32,17 +33,27 @@ namespace ProjectMicroservice.Controllers
                 return BadRequest(ModelState);
             }
 
-            var project = new Project
-            {
-                Name = request.Name,
-                Description = request.Description,
-                StartDate = request.StartDate,
-                EndDate = request.EndDate
-            };
-
-            var createdProject = _projectService.CreateProject(project);
+            var createdProject = _projectService.CreateProject(request);
             return CreatedAtAction(nameof(CreateProject), new { id = createdProject.Id }, createdProject);
         }
-        
+
+        [HttpGet("{id}")]
+        public IActionResult GetProject(string id)
+        {
+            // Convert projectId to ObjectId
+            ObjectId objectId;
+            if (!ObjectId.TryParse(id, out objectId))
+            {
+                return BadRequest("Invalid project id");
+            }
+            var project = _projectService.GetProject(objectId);
+
+            if (project == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(project);
+        }
     }
 }

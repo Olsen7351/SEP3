@@ -3,6 +3,7 @@ using ProjectMicroservice.Models;
 using ProjectMicroservice.Services;
 using ProjectMicroservice.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 
 namespace ProjectMicroservice.Controllers
 {
@@ -20,9 +21,14 @@ namespace ProjectMicroservice.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetBacklogByProjectId(int projectId)
+        public IActionResult GetBacklogByProjectId(string projectId)
         {
-            var backlog = _backlogService.GetBacklogByProjectId(projectId);
+            ObjectId id;
+if (!ObjectId.TryParse(projectId, out id))
+{
+    return BadRequest("Invalid project id");
+}
+            var backlog = _backlogService.GetBacklogByProjectId(id);
             if (backlog == null)
             {
                 return NotFound();
@@ -31,9 +37,15 @@ namespace ProjectMicroservice.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateBacklog(int projectId, [FromBody] CreateBacklogRequest request)
+        public IActionResult CreateBacklog(string projectId, [FromBody] CreateBacklogRequest request)
         {
-            if (!_projectService.ProjectExists(projectId))
+            // Convert projectId to ObjectId
+            ObjectId id;
+            if (!ObjectId.TryParse(projectId, out id))
+            {
+                return BadRequest("Invalid project id");
+            }
+            if (!_projectService.ProjectExists(id))
             {
                 return NotFound("Project not found");
             }
@@ -43,19 +55,12 @@ namespace ProjectMicroservice.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (_backlogService.ProjectHasBacklog(projectId))
+            if (_backlogService.ProjectHasBacklog(id))
             {
                 return Conflict("This project already has a backlog.");
             }
 
-            var backlog = new Backlog
-            {
-                ProjectId = projectId,
-                Description = request.Description,
-                // other fields
-            };
-
-            var createdBacklog = _backlogService.CreateBacklog(projectId, backlog);
+            var createdBacklog = _backlogService.CreateBacklog(id, request);
             return CreatedAtAction(nameof(CreateBacklog), new { projectId, id = createdBacklog.Id }, createdBacklog);
         }
         
