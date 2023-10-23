@@ -23,8 +23,7 @@ public class BacklogServiceTests
 
         var backlog = new Backlog
         {
-            Id = 1,
-            ProjectId = 100,
+          
             Description = "Sample Description"
         };
 
