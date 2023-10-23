@@ -10,5 +10,6 @@ namespace ProjectMicroservice.Services
 
         Backlog CreateBacklog(ObjectId projectId, CreateBacklogRequest backlog);
         bool ProjectHasBacklog(ObjectId projectId);
+        bool BacklogBelongsToProject(ObjectId backlogId, ObjectId projectId);
     }
 }

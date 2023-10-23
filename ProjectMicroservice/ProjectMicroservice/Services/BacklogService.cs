@@ -46,5 +46,16 @@ namespace ProjectMicroservice.Services
             catch (Exception) { return false; }
         }
 
+        public bool BacklogBelongsToProject(ObjectId backlogId, ObjectId projectId)
+        {
+            var backlog = _backlogs.Find(b => b.Id == backlogId).FirstOrDefault();
+
+            if (backlog == null)
+            {
+                return false;
+            }
+
+            return backlog.ProjectId == projectId;
+        }
     }
 }
