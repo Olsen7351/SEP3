@@ -52,13 +52,16 @@
     }
 
     
+    
     //Create backlog
     private async Task CreateBacklog()
     {
         var backlog = new Backlog()
         {
+            //Current ProjectID
             ProjectID = ProjectId
         };
+        
         //Create Backlog 
         await BacklogService.CreateBacklog(backlog);
     }
