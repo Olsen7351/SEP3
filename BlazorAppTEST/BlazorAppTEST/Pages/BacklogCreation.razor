@@ -42,7 +42,7 @@
     public string ProjectIdAsString { get; set; }
     public int ProjectId { get; private set; }
 
-    private async Task CreateBacklog()
+    private async void CreateBacklog()
     {
         createdBacklog = newBacklog; // Display the created backlog
         newBacklog = new Backlog(""); // Clear the form

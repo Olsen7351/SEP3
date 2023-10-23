@@ -13,6 +13,11 @@ namespace ProjectMicroservice.Models
         {
             Description = description;
         }
+
+        public Backlog()
+        {
+            throw new NotImplementedException();
+        }
     }
     
     

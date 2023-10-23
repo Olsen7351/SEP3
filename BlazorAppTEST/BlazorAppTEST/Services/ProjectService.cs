@@ -8,8 +8,8 @@ namespace MainWeb.Services;
 
 public class ProjectService
 {
-    //HTTPClient
-    private readonly HttpClient httpClient;
+   //HTTPClient
+       private readonly HttpClient httpClient; 
 
     public ProjectService(HttpClient httpClient)
     {
