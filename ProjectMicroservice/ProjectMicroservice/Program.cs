@@ -1,13 +1,26 @@
+using ProjectMicroservice.Data;
 using ProjectMicroservice.Services;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
 
+// Register the MongoDbContext
+builder.Services.AddSingleton<MongoDbContext>(sp =>
+    new MongoDbContext(
+        builder.Configuration.GetConnectionString("MongoDb"),
+        "test_db"
+    )
+);
+
 // Registering the IProjectService and IBacklogService with their concrete implementations.
 builder.Services.AddScoped<IProjectService, ProjectService>();
-builder.Services.AddScoped<IBacklogService, BacklogService>();  // Register the IBacklogService
+builder.Services.AddScoped<IBacklogService, BacklogService>();
+builder.Services.AddScoped<ITaskService, TaskService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
