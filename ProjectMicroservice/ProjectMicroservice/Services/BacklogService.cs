@@ -1,4 +1,5 @@
 ﻿using System.Collections.Concurrent;
+using DefaultNamespace;
 using ProjectMicroservice.Models;
 
 namespace ProjectMicroservice.Services
@@ -30,5 +31,46 @@ namespace ProjectMicroservice.Services
         {
             return _backlogs.ContainsKey(projectId);
         }
+
+        public bool DeleteTask(int projectId, int taskId)
+        {
+            if (_backlogs.TryGetValue(projectId, out var backlog))
+            {
+                var removeTask = backlog.Tasks.FirstOrDefault(t => t.Id == taskId);
+
+                if (removeTask != null)
+                {
+                    backlog.Tasks.Remove(removeTask);
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool AddTask(int projectId, int taskId, string title)
+        {
+            if (_backlogs.TryGetValue(projectId, out var backlog))
+            {
+                if (backlog.Tasks.Any(t => t.Id == taskId))
+                {
+                    return false;
+                }
+
+                var newTask = new BackLogTask
+                {
+                    Id = taskId,
+                    Title = title,
+                    Description = "",
+                    isCompleted = false,
+                    Responsible = ""
+                };
+                backlog.Tasks.Add(newTask);
+                return true;
+            }
+
+            return false;
+        }
+        
     }
 }

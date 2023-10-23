@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DefaultNamespace;
+using Microsoft.AspNetCore.Mvc;
 using ProjectMicroservice.Controllers;
 using ProjectMicroservice.DataTransferObjects;
 using ProjectMicroservice.Models;
@@ -86,5 +87,29 @@ namespace ProjectMicroseriveTest
             Assert.NotNull(actionResult);
             Assert.Equal(409, actionResult.StatusCode);
         }
+
+        [Fact]
+        public void AddTask_ValidRequest_CreatesTask()
+        {
+            var backlogService = new BacklogService();
+            var projectService = new ProjectService();
+            var controller = new BacklogController(backlogService, projectService);
+            var project = projectService.CreateProject(new Project());
+            var projectId = project.Id;
+            var request = new AddBacklogTaskRequest()
+            {
+                TaskId = 12,
+                Title = "Feed Alma"
+            };
+            var action = controller.AddTask(projectId, request) as CreatedAtActionResult;
+            Assert.NotNull(action);
+            Assert.Equal(12, action.StatusCode);
+            var task = action?.Value as BackLogTask;
+            Assert.NotNull(task);
+            Assert.Equal(request.Title, task?.Title);
+        }
+
+        
+        
     }
 }
