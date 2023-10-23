@@ -1,6 +1,9 @@
 ﻿@page "/project-hub/{ProjectIdAsString}"
 @using MainWeb.Services
+@using ProjectMicroservice.Models
+@using Task = System.Threading.Tasks.Task
 @inject ProjectService ProjectService
+@inject BacklogService BacklogService
 @inject NavigationManager NavManager
 
 <div class="container-fluid">
@@ -21,41 +24,41 @@
 </div>
 
 
-
 @code {
+
     [Parameter]
     public string ProjectIdAsString { get; set; }
+
     public int ProjectId { get; private set; }
     bool HasBacklog = false;
 
-
-    //Gets Current PostID
-    protected override void OnParametersSet()
+    // Initialization
+    protected override async Task OnInitializedAsync()
     {
         if (int.TryParse(ProjectIdAsString, out var parsedId))
         {
             ProjectId = parsedId;
         }
+
+    // Check if the project has a backlog
+        var backlogId = await ProjectService.GetBacklogIDForProject(ProjectId.ToString());
+        HasBacklog = !string.IsNullOrEmpty(backlogId);
     }
-    
-    
-    //Redirect to another page
+
+    // Redirect to another page
     private void AddTask()
     {
         NavManager.NavigateTo("/BacklogCreateTask");
     }
 
-    
-    
-    
-    //Create backlog
-    private void CreateBacklog()
+    // Create backlog
+    private async Task CreateBacklog()
     {
         var backlog = new
         {
-            ProjectID = ProjectId
+            ProjectID = ProjectId,
         };
-        
-            //Service
+
+        await BacklogService.CreateBacklog(backlog);
     }
 }
