@@ -26,5 +26,11 @@ namespace ProjectMicroservice.Services
         {
             return _tasks.Find(t => t.Id == id).FirstOrDefault();
         }
+
+        public bool DeleteTask(ObjectId id)
+        {
+            var result = _tasks.DeleteOne(t => t.Id == id);
+            return result.DeletedCount > 0;
+        }
     }
 }

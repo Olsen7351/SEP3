@@ -7,5 +7,6 @@ namespace ProjectMicroservice.Services
     {
         Models.Task CreateTask(Models.Task task);
         Models.Task GetTask(ObjectId id);
+        bool DeleteTask(ObjectId id);
     }
 }
