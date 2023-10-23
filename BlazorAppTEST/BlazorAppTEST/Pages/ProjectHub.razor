@@ -1,5 +1,7 @@
 ﻿@page "/project-hub/{ProjectIdAsString}"
 @using MainWeb.Services
+@using ClassLibrary_SEP3
+@inject BacklogService BacklogService
 @inject ProjectService ProjectService
 @inject NavigationManager NavManager
 
@@ -30,12 +32,16 @@
 
 
     //Gets Current PostID
-    protected override void OnParametersSet()
+    protected override async void OnParametersSet()
     {
         if (int.TryParse(ProjectIdAsString, out var parsedId))
         {
             ProjectId = parsedId;
         }
+        
+        // Check if the project has a backlog
+        var backlogId = await ProjectService.GetBacklogIDForProject(ProjectId.ToString());
+        HasBacklog = !string.IsNullOrEmpty(backlogId);
     }
     
     
@@ -46,16 +52,14 @@
     }
 
     
-    
-    
     //Create backlog
-    private void CreateBacklog()
+    private async Task CreateBacklog()
     {
-        var backlog = new
+        var backlog = new Backlog()
         {
             ProjectID = ProjectId
         };
-        
-            //Service
+        //Create Backlog 
+        await BacklogService.CreateBacklog(backlog);
     }
 }

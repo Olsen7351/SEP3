@@ -1,4 +1,5 @@
-﻿using ProjectMicroservice.Models;
+﻿using ClassLibrary_SEP3;
+using ProjectMicroservice.Models;
 using ProjectMicroservice.Services;
 using ProjectMicroservice.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;

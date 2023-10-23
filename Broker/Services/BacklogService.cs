@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ClassLibrary_SEP3;
+using Microsoft.AspNetCore.Mvc;
 using ProjectMicroservice.Models;
 using Task = System.Threading.Tasks.Task;
 

@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using Broker.Services;
+using ClassLibrary_SEP3;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
