@@ -107,6 +107,30 @@ if (!ObjectId.TryParse(projectId, out id))
 
             return Ok(createdTask);
         }
+
+        [HttpDelete("Task/{taskId}")]
+        public IActionResult DeleteTask(string taskId)
+        {
+            ObjectId id;
+            if (!ObjectId.TryParse(taskId, out id))
+            {
+                return BadRequest("Invalid Task id");
+            }
+
+            var existingTask = _taskService.GetTask(id);
+            if (existingTask == null)
+            {
+                return NotFound("Task not found");
+            }
+
+            bool isDeleted = _taskService.DeleteTask(id);
+            if (!isDeleted)
+            {
+                return StatusCode(500, "There was an issue with deleting the task");
+            }
+
+            return NoContent();
+        }
         
     }
 }
