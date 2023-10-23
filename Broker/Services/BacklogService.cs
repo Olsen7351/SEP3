@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
+﻿using DefaultNamespace;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using ProjectMicroservice.Models;
+using System.Net.Http;
 using Xunit.Sdk;
 
 namespace Broker.Services;
@@ -65,4 +67,26 @@ public class BacklogService : IBacklogService
             return new BadRequestResult();
         }
     }
+
+public async Task<IActionResult> AddTaskToBackLog(int projectId, int BacklogId, BackLogTask task)
+{
+        string requestUri = $"api/Project/{projectId}/Backlog/{BacklogId}/Task";
+        HttpResponseMessage response = await httpClient.PostAsJsonAsync(requestUri, task);
+        if (response.IsSuccessStatusCode)
+        {
+            var backlogTaskResponse = await response.Content.ReadFromJsonAsync<BackLogTask>();
+            if (backlogTaskResponse != null)
+            {
+                return new OkObjectResult(backlogTaskResponse);
+            }
+            else
+            {
+                return new BadRequestResult();
+            }
+        } else
+        {
+            return new BadRequestResult();
+        }
+    }
+}
 }

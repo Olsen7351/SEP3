@@ -1,4 +1,5 @@
 ﻿using Broker.Services;
+using DefaultNamespace;
 using Microsoft.AspNetCore.Mvc;
 using ProjectMicroservice.Models;
 
@@ -33,5 +34,15 @@ public class BacklogController : ControllerBase
         }
         
         return Ok(await _backlogService.CreateBacklog(backlog));
+    }
+    
+    [HttpPost("{ProjectId}/Backlog/{IdBacklog}")]
+    public async Task<IActionResult> AddTaskToBacklog([FromRoute] int ProjectId, [FromRoute] int IdBacklog, [FromBody] BackLogTask backLogTask)
+    {
+        if (backLogTask == null)
+        {
+            return BadRequest();
+        }
+        return Ok(await _backlogService.AddTaskToBackLog(ProjectId,IdBacklog,backLogTask));
     }
 }
