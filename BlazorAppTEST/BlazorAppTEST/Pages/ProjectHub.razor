@@ -1,6 +1,6 @@
 ﻿@page "/project-hub/{ProjectIdAsString}"
-@using MainWeb.Services
 @using ClassLibrary_SEP3
+@using BlazorAppTEST.Services
 @inject BacklogService BacklogService
 @inject ProjectService ProjectService
 @inject NavigationManager NavManager
@@ -64,5 +64,6 @@
         
         //Create Backlog 
         await BacklogService.CreateBacklog(backlog);
+        Console.Write("Everything went as planned");
     }
 }

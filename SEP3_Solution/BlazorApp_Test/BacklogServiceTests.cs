@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using ProjectMicroservice.Models;
 using Task = System.Threading.Tasks.Task;
-using BacklogService = MainWeb.Services.BacklogService;
+using BacklogService = BlazorAppTEST.Services.BacklogService;
 
 namespace BlazorAppTest;
 
