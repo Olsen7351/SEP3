@@ -22,10 +22,10 @@ public class BacklogService
         //Takes project and serialize to json
         string createBacklogToJson = JsonSerializer.Serialize(backlog);
         //Magic
-        StringContent contentProject = new(createBacklogToJson, Encoding.UTF8, "application/json");
+        StringContent contentBacklog = new(createBacklogToJson, Encoding.UTF8, "application/json");
        
         //Try and send it trough
-        HttpResponseMessage response = await httpClient.PostAsync("/api/Backlog", contentProject);
+        HttpResponseMessage response = await httpClient.PostAsync("/api/Backlog", contentBacklog);
         string responseContent = await response.Content.ReadAsStringAsync();
        
         
