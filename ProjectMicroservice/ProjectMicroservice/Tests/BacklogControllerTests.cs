@@ -4,6 +4,7 @@ using ProjectMicroservice.DataTransferObjects;
 using ProjectMicroservice.Models;
 using ProjectMicroservice.Services;
 using System;
+using ClassLibrary_SEP3;
 using Xunit;
 
 namespace ProjectMicroservice.Tests
