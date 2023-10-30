@@ -1,13 +1,10 @@
-﻿using System;
-using DefaultNamespace;
-
-namespace ProjectMicroservice.Models
+﻿namespace ClassLibrary_SEP3
 {
     public class Backlog
     {
-        public int Id { get; init; }
-        public int ProjectId { get; init; }
-        public string? Description { get; init; }
+        public int BacklogID { get; init; }
+        public int ProjectID { get; init; }
+        public string Description { get;set; }
         
     }
 }

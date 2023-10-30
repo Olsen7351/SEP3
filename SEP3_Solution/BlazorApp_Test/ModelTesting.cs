@@ -1,4 +1,4 @@
-﻿using MainWeb.Services;
+﻿using BlazorAppTEST.Services;
 
 namespace BlazorAppTest;
 

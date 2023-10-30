@@ -1,6 +1,6 @@
 ﻿@page "/project-hub/{ProjectIdAsString}"
-@using MainWeb.Services
 @using ClassLibrary_SEP3
+@using BlazorAppTEST.Services
 @inject BacklogService BacklogService
 @inject ProjectService ProjectService
 @inject NavigationManager NavManager
@@ -11,7 +11,7 @@
         <div class="card backlog-section">
             @if (HasBacklog)
             {
-                <p>Backlog details go here...</p>
+                <p>Backlog</p>
                 <button class="button" @onclick="AddTask">Add Task</button>
             }
             else
@@ -44,13 +44,11 @@
         HasBacklog = !string.IsNullOrEmpty(backlogId);
     }
     
-    
     //Redirect to another page
     private void AddTask()
     {
         NavManager.NavigateTo("/BacklogCreateTask");
     }
-
     
     
     //Create backlog

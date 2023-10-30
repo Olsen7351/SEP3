@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Text;
+﻿using System.Text;
 using System.Text.Json;
-using Microsoft.AspNetCore.Mvc;
 using ProjectMicroservice.Models;
 using Task = System.Threading.Tasks.Task;
 
-namespace MainWeb.Services;
+namespace BlazorAppTEST.Services;
 
 public class ProjectService
 {
