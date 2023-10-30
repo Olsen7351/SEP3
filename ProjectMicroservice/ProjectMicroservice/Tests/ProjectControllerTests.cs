@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Driver;
+using Moq;
 using ProjectMicroservice.Controllers;
+using ProjectMicroservice.Data;
 using ProjectMicroservice.DataTransferObjects;
 using ProjectMicroservice.Models;
 using ProjectMicroservice.Services;
@@ -9,12 +12,34 @@ namespace ProjectMicroservice.Tests;
 
 public class ProjectControllerTests
 {
+    private readonly Mock<IMongoCollection<Project>> _mockCollection;
+    private readonly Mock<MongoDbContext> _mockDbContext;
+    private readonly ProjectService _projectService;
+    private readonly ProjectController _projectController;
+
+    public ProjectControllerTests()
+    {
+        // Mock the MongoDB collection
+        _mockCollection = new Mock<IMongoCollection<Project>>();
+
+        // Mock the MongoDB context
+        _mockDbContext = new Mock<MongoDbContext>("mongodb://localhost:27017", "test_db");
+        _mockDbContext
+        .Setup(db => db.Database.GetCollection<Project>(
+        It.IsAny<string>(),
+        It.IsAny<MongoCollectionSettings>()
+        ))
+        .Returns(_mockCollection.Object);
+
+        // Initialize the service and controller
+        _projectService = new ProjectService(_mockDbContext.Object);
+        _projectController = new ProjectController(_projectService);
+    }
+
     [Fact]
     public void CreateProject_ValidRequest_ReturnsExpectedProject()
     {
         // Arrange
-        var service = new ProjectService();
-        var controller = new ProjectController(service);
         var request = new CreateProjectRequest
         {
             Name = "Test Project",
@@ -24,7 +49,7 @@ public class ProjectControllerTests
         };
 
         // Act
-        var actionResult = controller.CreateProject(request) as CreatedAtActionResult;
+        var actionResult = _projectController.CreateProject(request) as CreatedAtActionResult;
 
         // Assert
         Assert.NotNull(actionResult);
@@ -43,8 +68,6 @@ public class ProjectControllerTests
     public void CreateProject_MissingName_ReturnsBadRequest()
     {
         // Arrange
-        var service = new ProjectService();
-        var controller = new ProjectController(service);
         var request = new CreateProjectRequest
         {
             Description = "Test Description",
@@ -53,7 +76,7 @@ public class ProjectControllerTests
         };
 
         // Act
-        var actionResult = controller.CreateProject(request) as BadRequestResult;
+        var actionResult = _projectController.CreateProject(request) as BadRequestResult;
 
         // Assert
         Assert.NotNull(actionResult);
@@ -64,8 +87,6 @@ public class ProjectControllerTests
     public void CreateProject_MissingStartDate_ReturnsBadRequest()
     {
         // Arrange
-        var service = new ProjectService();
-        var controller = new ProjectController(service);
         var request = new CreateProjectRequest
         {
             Name = "Test Project",
@@ -74,7 +95,7 @@ public class ProjectControllerTests
         };
 
         // Act
-        var actionResult = controller.CreateProject(request) as BadRequestResult;
+        var actionResult = _projectController.CreateProject(request) as BadRequestResult;
 
         // Assert
         Assert.NotNull(actionResult);
@@ -85,8 +106,6 @@ public class ProjectControllerTests
     public void CreateProject_MissingEndDate_ReturnsBadRequest()
     {
         // Arrange
-        var service = new ProjectService();
-        var controller = new ProjectController(service);
         var request = new CreateProjectRequest
         {
             Name = "Test Project",
@@ -95,7 +114,7 @@ public class ProjectControllerTests
         };
 
         // Act
-        var actionResult = controller.CreateProject(request) as BadRequestResult;
+        var actionResult = _projectController.CreateProject(request) as BadRequestResult;
 
         // Assert
         Assert.NotNull(actionResult);
@@ -106,8 +125,6 @@ public class ProjectControllerTests
     public void CreateProject_MissingBothDates_ReturnsBadRequest()
     {
         // Arrange
-        var service = new ProjectService();
-        var controller = new ProjectController(service);
         var request = new CreateProjectRequest
         {
             Name = "Test Project",
@@ -115,7 +132,7 @@ public class ProjectControllerTests
         };
 
         // Act
-        var actionResult = controller.CreateProject(request) as BadRequestResult;
+        var actionResult = _projectController.CreateProject(request) as BadRequestResult;
 
         // Assert
         Assert.NotNull(actionResult);
@@ -127,8 +144,6 @@ public class ProjectControllerTests
     public void CreateProject_StartDateAfterEndDate_ReturnsBadRequest()
     {
         // Arrange
-        var service = new ProjectService();
-        var controller = new ProjectController(service);
         var request = new CreateProjectRequest
         {
             Name = "Test Project",
@@ -138,7 +153,7 @@ public class ProjectControllerTests
         };
 
         // Act
-        var actionResult = controller.CreateProject(request) as BadRequestResult;
+        var actionResult = _projectController.CreateProject(request) as BadRequestResult;
 
         // Assert
         Assert.NotNull(actionResult);
