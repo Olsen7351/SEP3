@@ -9,14 +9,14 @@ namespace ProjectMicroservice.Services
 {
     public class BacklogService : IBacklogService
     {
-        private readonly IMongoCollection<Backlog> _backlogs;
+        private readonly IMongoCollection<BacklogDatabase> _backlogs;
 
         public BacklogService(MongoDbContext context)
         {
-            _backlogs = context.Database.GetCollection<Backlog>("Backlogs");
+            _backlogs = context.Database.GetCollection<BacklogDatabase>("Backlogs");
         }
 
-        public Backlog GetBacklogByProjectId(ObjectId projectId)
+        public BacklogDatabase GetBacklogByProjectId(ObjectId projectId)
         {
             try
             {
@@ -25,9 +25,9 @@ namespace ProjectMicroservice.Services
             catch (System.FormatException) { return null; };
         }
 
-        public Backlog CreateBacklog(ObjectId projectId, CreateBacklogRequest request)
+        public BacklogDatabase CreateBacklog(ObjectId projectId, CreateBacklogRequest request)
         {
-            var newBacklog = new Backlog
+            var newBacklog = new BacklogDatabase
             {
                 ProjectId = projectId,
                 Description = request.Description

@@ -36,7 +36,7 @@ builder.Services.AddCors(options =>
 });
 
 
-builder.Services.AddScoped<IProjektService, ProjektService>();
+builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IBacklogService, BacklogService>();
 var app = builder.Build();
 

@@ -38,7 +38,7 @@ namespace ProjectMicroservice.Controllers
                 return BadRequest(ModelState);
             }
 
-            var task = new Models.Task
+            var task = new Models.TaskDatabase
             {
                 ProjectId = projectObjectId,
                 BacklogId = backlogObjectId,

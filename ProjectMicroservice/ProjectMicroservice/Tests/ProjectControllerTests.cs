@@ -12,7 +12,7 @@ namespace ProjectMicroservice.Tests;
 
 public class ProjectControllerTests
 {
-    private readonly Mock<IMongoCollection<Project>> _mockCollection;
+    private readonly Mock<IMongoCollection<ProjectDatabase>> _mockCollection;
     private readonly Mock<MongoDbContext> _mockDbContext;
     private readonly ProjectService _projectService;
     private readonly ProjectController _projectController;
@@ -20,12 +20,12 @@ public class ProjectControllerTests
     public ProjectControllerTests()
     {
         // Mock the MongoDB collection
-        _mockCollection = new Mock<IMongoCollection<Project>>();
+        _mockCollection = new Mock<IMongoCollection<ProjectDatabase>>();
 
         // Mock the MongoDB context
         _mockDbContext = new Mock<MongoDbContext>("mongodb://localhost:27017", "test_db");
         _mockDbContext
-        .Setup(db => db.Database.GetCollection<Project>(
+        .Setup(db => db.Database.GetCollection<ProjectDatabase>(
         It.IsAny<string>(),
         It.IsAny<MongoCollectionSettings>()
         ))
@@ -55,7 +55,7 @@ public class ProjectControllerTests
         Assert.NotNull(actionResult);
         Assert.Equal(201, actionResult.StatusCode); // Checking HTTP 201 Created status
 
-        var createdProject = actionResult?.Value as Project;
+        var createdProject = actionResult?.Value as ProjectDatabase;
         Assert.NotNull(createdProject);
     
         Assert.Equal(request.Name, createdProject?.Name);

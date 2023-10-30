@@ -12,8 +12,8 @@ namespace Broker_Test
         public void GetProjekt_ReturnsOk_WhenIdIsValid()
         {
             // Arrange
-            var mockProjektService = new Mock<IProjektService>();
-            var controller = new ProjektController(mockProjektService.Object);
+            var mockProjektService = new Mock<IProjectService>();
+            var controller = new ProjectController(mockProjektService.Object);
             int validId = 1; // Valid Id
 
             // Mock the ProjektService to return a sample Project
@@ -31,8 +31,8 @@ namespace Broker_Test
         public void GetProjekt_ReturnsBadRequest_WhenIdIsNegative()
         {
             // Arrange
-            var mockProjektService = new Mock<IProjektService>();
-            var controller = new ProjektController(mockProjektService.Object);
+            var mockProjektService = new Mock<IProjectService>();
+            var controller = new ProjectController(mockProjektService.Object);
             int negativeId = -1; // Negative Id
 
             // Act
@@ -46,8 +46,8 @@ namespace Broker_Test
         public void CreateProjekt_ReturnsOk_WhenProjectIsNotNull()
         {
             // Arrange
-            var mockProjektService = new Mock<IProjektService>();
-            var controller = new ProjektController(mockProjektService.Object);
+            var mockProjektService = new Mock<IProjectService>();
+            var controller = new ProjectController(mockProjektService.Object);
             var validProject = new Project(); // Valid Project
 
             // Mock the ProjektService to return IActionResult (e.g., OkResult)
@@ -65,8 +65,8 @@ namespace Broker_Test
         public void CreateProjekt_ReturnsBadRequest_WhenProjectIsNull()
         {
             // Arrange
-            var mockProjektService = new Mock<IProjektService>();
-            var controller = new ProjektController(mockProjektService.Object);
+            var mockProjektService = new Mock<IProjectService>();
+            var controller = new ProjectController(mockProjektService.Object);
             Project nullProject = null; // Project is null
 
             // Act

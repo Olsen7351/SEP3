@@ -1,6 +1,7 @@
 ﻿using Broker.Controllers;
 using Broker.Services;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 using Moq;
 using ProjectMicroservice.Models;
 
@@ -12,8 +13,8 @@ namespace Broker_Test
         public void ProjektController_GetProjekt_ReturnsOk_WhenIdIsValid()
         {
             // Arrange
-            var mockProjektService = new Mock<IProjektService>();
-            var controller = new ProjektController(mockProjektService.Object);
+            var mockProjektService = new Mock<IProjectService>();
+            var controller = new ProjectController(mockProjektService.Object);
             int validId = 1; // Valid Id
 
             // Mock the ProjektService to return an OkObjectResult with a sample Project
@@ -31,8 +32,8 @@ namespace Broker_Test
         public void ProjektController_GetProjekt_ReturnsBadRequest_WhenIdIsNegative()
         {
             // Arrange
-            var mockProjektService = new Mock<IProjektService>();
-            var controller = new ProjektController(mockProjektService.Object);
+            var mockProjektService = new Mock<IProjectService>();
+            var controller = new ProjectController(mockProjektService.Object);
             int negativeId = -1; // Negative Id
 
             // Act
@@ -46,10 +47,10 @@ namespace Broker_Test
         public void ProjektController_CreateProjekt_ReturnsOk_WhenProjectIsNotNull()
         {
             // Arrange
-            var mockProjektService = new Mock<IProjektService>();
-            var controller = new ProjektController(mockProjektService.Object);
+            var mockProjektService = new Mock<IProjectService>();
+            var controller = new ProjectController(mockProjektService.Object);
             var validProject = new Project(); // Valid Project
-            validProject.Id = 1;
+            validProject.Id = new ObjectId();
             validProject.Name = "Test";
             validProject.Description = "Test";
             validProject.StartDate = new DateTime(2021, 1, 1);
@@ -70,8 +71,8 @@ namespace Broker_Test
         public void ProjektController_CreateProjekt_ReturnsBadRequest_WhenProjectIsNull()
         {
             // Arrange
-            var mockProjektService = new Mock<IProjektService>();
-            var controller = new ProjektController(mockProjektService.Object);
+            var mockProjektService = new Mock<IProjectService>();
+            var controller = new ProjectController(mockProjektService.Object);
             Project nullProject = null; // Project is null
 
             // Act

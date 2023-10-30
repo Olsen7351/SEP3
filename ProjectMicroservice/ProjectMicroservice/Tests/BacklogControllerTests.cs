@@ -14,8 +14,8 @@ namespace ProjectMicroservice.Tests
 {
     public class BacklogControllerTests
     {
-        private readonly Mock<IMongoCollection<Backlog>> _mockBacklogCollection;
-        private readonly Mock<IMongoCollection<Project>> _mockProjectCollection;
+        private readonly Mock<IMongoCollection<BacklogDatabase>> _mockBacklogCollection;
+        private readonly Mock<IMongoCollection<ProjectDatabase>> _mockProjectCollection;
         private readonly Mock<MongoDbContext> _mockDbContext;
         private readonly BacklogService _backlogService;
         private readonly ProjectService _projectService;
@@ -24,20 +24,20 @@ namespace ProjectMicroservice.Tests
         public BacklogControllerTests()
         {
             // Mock the MongoDB collections
-            _mockBacklogCollection = new Mock<IMongoCollection<Backlog>>();
-            _mockProjectCollection = new Mock<IMongoCollection<Project>>();
+            _mockBacklogCollection = new Mock<IMongoCollection<BacklogDatabase>>();
+            _mockProjectCollection = new Mock<IMongoCollection<ProjectDatabase>>();
 
             // Mock the MongoDB context
             _mockDbContext = new Mock<MongoDbContext>("mongodb://localhost:27017", "test_db");
             _mockDbContext
-                .Setup(db => db.Database.GetCollection<Backlog>(
+                .Setup(db => db.Database.GetCollection<BacklogDatabase>(
                     It.IsAny<string>(),
                     It.IsAny<MongoCollectionSettings>()
                 ))
                 .Returns(_mockBacklogCollection.Object);
 
             _mockDbContext
-                .Setup(db => db.Database.GetCollection<Project>(
+                .Setup(db => db.Database.GetCollection<ProjectDatabase>(
                     It.IsAny<string>(),
                     It.IsAny<MongoCollectionSettings>()
                 ))
@@ -77,7 +77,7 @@ namespace ProjectMicroservice.Tests
             // 201 or 200
             Assert.True(actionResult.StatusCode == 201 || actionResult.StatusCode == 200);
 
-            var createdBacklog = actionResult?.Value as Backlog;
+            var createdBacklog = actionResult?.Value as BacklogDatabase;
             Assert.NotNull(createdBacklog);
 
             Assert.Equal(request.Description, createdBacklog?.Description);

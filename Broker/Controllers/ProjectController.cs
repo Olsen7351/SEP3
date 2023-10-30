@@ -6,28 +6,25 @@ using System.Threading.Tasks;
 using Broker.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 using ProjectMicroservice.Models;
 
 namespace Broker.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProjektController : ControllerBase
+    public class ProjectController : ControllerBase
     {
-        private readonly IProjektService projektService;
+        private readonly IProjectService projektService;
 
-        public ProjektController(IProjektService projektService)
+        public ProjectController(IProjectService projektService)
         {
             this.projektService = projektService;
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetProjekt([FromBody] int id)
+        public async Task<IActionResult> GetProjekt(string id)
         {
-            if (id < 0)
-            {
-                return new BadRequestResult();
-            }
             return Ok(await projektService.GetProjekt(id));
         }
 
@@ -38,9 +35,9 @@ namespace Broker.Controllers
             {
                 return new BadRequestResult();
             }
+
             return Ok(await projektService.CreateProjekt(projekt));
         }
-
     }
 
 }

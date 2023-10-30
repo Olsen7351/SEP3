@@ -1,9 +1,10 @@
-﻿using DefaultNamespace;
+﻿
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using ProjectMicroservice.Models;
 using System.Net.Http;
 using Xunit.Sdk;
+using Task = ClassLibrary_SEP3.Task;
 
 namespace Broker.Services;
 
@@ -68,13 +69,13 @@ public class BacklogService : IBacklogService
         }
     }
 
-public async Task<IActionResult> AddTaskToBackLog(int projectId, int BacklogId, BackLogTask task)
-{
-        string requestUri = $"api/Project/{projectId}/Backlog/{BacklogId}/Task";
+    public async Task<IActionResult> AddTaskToBackLog(int projectId, Task task)
+    {
+        string requestUri = $"api/Project/{projectId}/Backlog/Task";
         HttpResponseMessage response = await httpClient.PostAsJsonAsync(requestUri, task);
         if (response.IsSuccessStatusCode)
         {
-            var backlogTaskResponse = await response.Content.ReadFromJsonAsync<BackLogTask>();
+            var backlogTaskResponse = await response.Content.ReadFromJsonAsync<ClassLibrary_SEP3.Task>();
             if (backlogTaskResponse != null)
             {
                 return new OkObjectResult(backlogTaskResponse);
@@ -88,5 +89,17 @@ public async Task<IActionResult> AddTaskToBackLog(int projectId, int BacklogId, 
             return new BadRequestResult();
         }
     }
-}
+    public async Task<IActionResult> DeleteTaskFromBacklog(int projectId, int BacklogId, ClassLibrary_SEP3.Task task)
+    {
+        string requestUri = $"api/Project/{projectId}/Backlog/{BacklogId}/Task/{task.Id}";
+        HttpResponseMessage response = await httpClient.DeleteAsync(requestUri);
+        if (response.IsSuccessStatusCode)
+        {
+            return new OkObjectResult(response);
+        }
+        else
+        {
+            return new BadRequestResult();
+        }
+    }
 }

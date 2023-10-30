@@ -10,7 +10,7 @@ namespace ProjectMicroservice.Models
         InProgress,
         Done
     }
-    public class Task
+    public class TaskDatabase
     {
         [BsonId]
         public ObjectId Id { get; init; }
@@ -18,7 +18,7 @@ namespace ProjectMicroservice.Models
         public ObjectId BacklogId { get; init; } // Associating with a specific backlog
         public string Title { get; init; }
         public string? Description { get; init; }
-        public TaskStatus Status { get; init; }
+        public ClassLibrary_SEP3.TaskStatus Status { get; init; }
         public DateTime CreatedAt { get; set; }
     }
 }

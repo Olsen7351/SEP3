@@ -7,14 +7,14 @@ namespace ProjectMicroservice.Services
 {
     public class TaskService : ITaskService
     {
-        private readonly IMongoCollection<Models.Task> _tasks;
+        private readonly IMongoCollection<Models.TaskDatabase> _tasks;
 
         public TaskService(MongoDbContext context)
         {
-            _tasks = context.Database.GetCollection<Models.Task>("Tasks");
+            _tasks = context.Database.GetCollection<Models.TaskDatabase>("Tasks");
         }
 
-        public Models.Task CreateTask(Models.Task task)
+        public Models.TaskDatabase CreateTask(Models.TaskDatabase task)
         {
             // Set creation time
             task.CreatedAt = System.DateTime.UtcNow;
@@ -22,7 +22,7 @@ namespace ProjectMicroservice.Services
             return task;
         }
 
-        public Models.Task GetTask(ObjectId id)
+        public Models.TaskDatabase GetTask(ObjectId id)
         {
             return _tasks.Find(t => t.Id == id).FirstOrDefault();
         }
