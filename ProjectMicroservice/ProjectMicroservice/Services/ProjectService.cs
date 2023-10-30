@@ -1,22 +1,51 @@
 using System.Collections.Concurrent;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using ProjectMicroservice.Data;
+using ProjectMicroservice.DataTransferObjects;
 using ProjectMicroservice.Models;
 
 namespace ProjectMicroservice.Services
 {
     public class ProjectService : IProjectService
     {
-        private static readonly ConcurrentDictionary<int, Project> _projects = new();
+        private readonly IMongoCollection<Project> _projects;
 
-        public Project CreateProject(Project project)
+        public ProjectService(MongoDbContext context)
         {
-            // Placeholder for a database call.'
-            _projects.TryAdd(project.ProjectID, project);
-            return project;
+            _projects = context.Database.GetCollection<Project>("Projects");
         }
 
-        public bool ProjectExists(int projectId)
+        public Project CreateProject(CreateProjectRequest request) 
         {
-            return _projects.ContainsKey(projectId);
+            var newProject = new Project
+            {
+                Name = request.Name,
+                Description = request.Description,
+                StartDate = request.StartDate,
+                EndDate = request.EndDate
+            };
+
+            _projects.InsertOne(newProject);
+            return newProject;  // Now contains the MongoDB-generated ID
+        }
+
+        public Project GetProject(ObjectId id)
+        {
+            try
+            {
+                return _projects.Find(p => p.Id == id).FirstOrDefault();
+            }
+            catch (System.FormatException) { return null; }
+        }
+
+        public bool ProjectExists(ObjectId id)
+        {
+            try
+            {
+                return _projects.CountDocuments(b => b.Id == id) > 0;
+            }
+            catch (Exception) { return false; }
         }
     }
 }

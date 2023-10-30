@@ -1,22 +1,13 @@
-﻿namespace ClassLibrary_SEP3
+﻿using System;
+using DefaultNamespace;
+
+namespace ProjectMicroservice.Models
 {
     public class Backlog
     {
-        public int BacklogID { get; init; }
-        public int ProjectID { get; init; }
-        public string Description { get;set; }
-
+        public int Id { get; init; }
+        public int ProjectId { get; init; }
+        public string? Description { get; init; }
         
-        
-        //Change later
-        public Backlog(string description)
-        {
-            Description = description;
-        }
-
-        public Backlog()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
