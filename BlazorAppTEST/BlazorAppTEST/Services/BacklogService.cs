@@ -15,7 +15,6 @@ public class BacklogService
         this.httpClient = httpClient;
     }
     
-    
     //Post
     public async Task CreateBacklog(Backlog backlog)
     {
@@ -33,20 +32,5 @@ public class BacklogService
         {
             throw new Exception($"Error:{response.StatusCode}, {responseContent}");
         }
-    }
-    
-    //Get All
-    public async Task<ICollection<Backlog>?> GetAllBacklog()
-    {
-        HttpResponseMessage response = await httpClient.GetAsync(("/"));
-        string contentBacklog = await response.Content.ReadAsStringAsync();
-
-        if (!response.IsSuccessStatusCode)
-        {
-            throw new Exception($"Error:{response.StatusCode}, {contentBacklog}");
-        }
-
-        ICollection<Backlog>? backlogs = JsonSerializer.Deserialize<ICollection<Backlog>>(contentBacklog, new JsonSerializerOptions());
-        return backlogs;
     }
 }

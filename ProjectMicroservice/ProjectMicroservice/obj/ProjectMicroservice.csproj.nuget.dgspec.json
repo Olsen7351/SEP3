@@ -4,14 +4,14 @@
     "C:\\Users\\karee\\OneDrive\\Desktop\\GitHub Sep3\\SEP3\\ProjectMicroservice\\ProjectMicroservice\\ProjectMicroservice.csproj": {}
   },
   "projects": {
-    "C:\\Users\\karee\\OneDrive\\Desktop\\GitHub Sep3\\SEP3\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj": {
+    "C:\\Users\\karee\\OneDrive\\Desktop\\GitHub Sep3\\SEP3\\ProjectMicroservice\\ProjectMicroservice\\ProjectMicroservice.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\karee\\OneDrive\\Desktop\\GitHub Sep3\\SEP3\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj",
-        "projectName": "ClassLibrary_SEP3",
-        "projectPath": "C:\\Users\\karee\\OneDrive\\Desktop\\GitHub Sep3\\SEP3\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj",
+        "projectUniqueName": "C:\\Users\\karee\\OneDrive\\Desktop\\GitHub Sep3\\SEP3\\ProjectMicroservice\\ProjectMicroservice\\ProjectMicroservice.csproj",
+        "projectName": "ProjectMicroservice",
+        "projectPath": "C:\\Users\\karee\\OneDrive\\Desktop\\GitHub Sep3\\SEP3\\ProjectMicroservice\\ProjectMicroservice\\ProjectMicroservice.csproj",
         "packagesPath": "C:\\Users\\karee\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\karee\\OneDrive\\Desktop\\GitHub Sep3\\SEP3\\ClassLibrary_SEP3\\obj\\",
+        "outputPath": "C:\\Users\\karee\\OneDrive\\Desktop\\GitHub Sep3\\SEP3\\ProjectMicroservice\\ProjectMicroservice\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\karee\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -37,63 +37,6 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "C:\\Users\\karee\\OneDrive\\Desktop\\GitHub Sep3\\SEP3\\ProjectMicroservice\\ProjectMicroservice\\ProjectMicroservice.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\karee\\OneDrive\\Desktop\\GitHub Sep3\\SEP3\\ProjectMicroservice\\ProjectMicroservice\\ProjectMicroservice.csproj",
-        "projectName": "ProjectMicroservice",
-        "projectPath": "C:\\Users\\karee\\OneDrive\\Desktop\\GitHub Sep3\\SEP3\\ProjectMicroservice\\ProjectMicroservice\\ProjectMicroservice.csproj",
-        "packagesPath": "C:\\Users\\karee\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\karee\\OneDrive\\Desktop\\GitHub Sep3\\SEP3\\ProjectMicroservice\\ProjectMicroservice\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "C:\\Users\\karee\\AppData\\Roaming\\NuGet\\NuGet.Config"
-        ],
-        "originalTargetFrameworks": [
-          "net7.0"
-        ],
-        "sources": {
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
-            "projectReferences": {
-              "C:\\Users\\karee\\OneDrive\\Desktop\\GitHub Sep3\\SEP3\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj": {
-                "projectPath": "C:\\Users\\karee\\OneDrive\\Desktop\\GitHub Sep3\\SEP3\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj"
-              }
-            }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        }
-      },
-      "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
           "dependencies": {
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
@@ -102,6 +45,14 @@
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
               "version": "[17.7.2, )"
+            },
+            "MongoDB.Driver": {
+              "target": "Package",
+              "version": "[2.21.0, )"
+            },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.20.69, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
