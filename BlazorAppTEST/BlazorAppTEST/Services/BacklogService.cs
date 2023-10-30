@@ -49,4 +49,21 @@ public class BacklogService
         ICollection<Backlog>? backlogs = JsonSerializer.Deserialize<ICollection<Backlog>>(contentBacklog, new JsonSerializerOptions());
         return backlogs;
     }
+    
+    public async Task<Task?> GetTask(int taskId)
+    {
+        HttpResponseMessage response = await httpClient.GetAsync($"/api/Task/{taskId}");
+        string contentTask = await response.Content.ReadAsStringAsync();
+
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception($"Error:{response.StatusCode}, {contentTask}");
+        }
+
+        Task? task = JsonSerializer.Deserialize<Task>(contentTask, new JsonSerializerOptions());
+        return task;
+    }
+
+    
+    
 }
