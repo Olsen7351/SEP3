@@ -29,8 +29,13 @@
     public string ProjectIdAsString { get; set; }
     public int ProjectId { get; private set; }
     bool HasBacklog = false;
+    //MockTest
+    private List<Backlog>? backlogs = new List<Backlog>();
 
 
+    
+    
+    
     //Gets Current PostID
     protected override async void OnParametersSet()
     {
@@ -44,11 +49,19 @@
         HasBacklog = !string.IsNullOrEmpty(backlogId);
     }
     
+    
+    
+    
+    
     //Redirect to another page
     private void AddTask()
     {
         NavManager.NavigateTo("/BacklogCreateTask");
     }
+    
+   
+    
+    
     
     
     //Create backlog
@@ -56,10 +69,8 @@
     {
         var backlog = new Backlog()
         {
-            //Current ProjectID
             ProjectID = ProjectId
         };
-        
         //Create Backlog 
         await BacklogService.CreateBacklog(backlog);
     }
