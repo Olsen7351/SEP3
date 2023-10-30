@@ -1,17 +1,17 @@
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 using ProjectMicroservice.Models;
 
 namespace Broker.Services
 {
-    public class ProjektService : IProjektService
+    public class ProjectService : IProjectService
     {
         private readonly HttpClient httpClient;
 
-        public ProjektService(HttpClient httpClient)
+        public ProjectService(HttpClient httpClient)
         {
             this.httpClient = httpClient;
         }
@@ -24,6 +24,7 @@ namespace Broker.Services
             }
 
             HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/Project", projekt);
+
             if (response.IsSuccessStatusCode)
             {
                 return new OkResult();
@@ -34,16 +35,15 @@ namespace Broker.Services
             }
         }
 
-        public async Task<ActionResult<Project>> GetProjekt(int id)
+        public async Task<ActionResult<Project>> GetProjekt(string id)
         {
-            if (id < 0)
+            if (id == null)
             {
                 return new BadRequestResult();
             }
-            else
-            {
-                string requestUri = $"api/Project/{id}/Backlog";
-                HttpResponseMessage response = await httpClient.GetAsync(requestUri);
+            
+            string requestUri = $"api/Project/{id}";
+            HttpResponseMessage response = await httpClient.GetAsync(requestUri);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -60,9 +60,8 @@ namespace Broker.Services
                 }
                 else
                 {
-                    throw new HttpRequestException($"Failed getting the Projec. Status code: {response.StatusCode}.");
+                    throw new HttpRequestException($"Failed getting the Project. Status code: {response.StatusCode}.");
                 }
-            }
         }
     }
 }

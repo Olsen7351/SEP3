@@ -9,16 +9,16 @@ namespace ProjectMicroservice.Services
 {
     public class ProjectService : IProjectService
     {
-        private readonly IMongoCollection<Project> _projects;
+        private readonly IMongoCollection<ProjectDatabase> _projects;
 
         public ProjectService(MongoDbContext context)
         {
-            _projects = context.Database.GetCollection<Project>("Projects");
+            _projects = context.Database.GetCollection<ProjectDatabase>("Projects");
         }
 
-        public Project CreateProject(CreateProjectRequest request) 
+        public ProjectDatabase CreateProject(CreateProjectRequest request) 
         {
-            var newProject = new Project
+            var newProject = new ProjectDatabase
             {
                 Name = request.Name,
                 Description = request.Description,
@@ -30,7 +30,7 @@ namespace ProjectMicroservice.Services
             return newProject;  // Now contains the MongoDB-generated ID
         }
 
-        public Project GetProject(ObjectId id)
+        public ProjectDatabase GetProject(ObjectId id)
         {
             try
             {

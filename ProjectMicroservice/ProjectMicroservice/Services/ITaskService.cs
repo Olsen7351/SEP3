@@ -5,8 +5,8 @@ namespace ProjectMicroservice.Services
 {
     public interface ITaskService
     {
-        Models.Task CreateTask(Models.Task task);
-        Models.Task GetTask(ObjectId id);
+        Models.TaskDatabase CreateTask(Models.TaskDatabase task);
+        Models.TaskDatabase GetTask(ObjectId id);
         bool DeleteTask(ObjectId id);
     }
 }

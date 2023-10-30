@@ -6,9 +6,9 @@ namespace ProjectMicroservice.Services
 {
     public interface IBacklogService
     {
-        Backlog GetBacklogByProjectId(ObjectId projectId);
+        BacklogDatabase GetBacklogByProjectId(ObjectId projectId);
 
-        Backlog CreateBacklog(ObjectId projectId, CreateBacklogRequest backlog);
+        BacklogDatabase CreateBacklog(ObjectId projectId, CreateBacklogRequest backlog);
         bool ProjectHasBacklog(ObjectId projectId);
         bool BacklogBelongsToProject(ObjectId backlogId, ObjectId projectId);
     }

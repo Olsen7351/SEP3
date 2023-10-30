@@ -1,8 +1,12 @@
-﻿namespace ClassLibrary_SEP3
+﻿using System;
+using MongoDB.Bson;
+
+namespace ProjectMicroservice.Models
 {
     public class Backlog
     {
-        public int BacklogID { get; init; }
-        public int ProjectID { get; init; }
+        public ObjectId Id { get; init; }
+        public ObjectId ProjectId { get; init; }
+        public string? Description { get; init; }
     }
 }

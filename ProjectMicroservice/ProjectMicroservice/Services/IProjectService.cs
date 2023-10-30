@@ -6,8 +6,8 @@ namespace ProjectMicroservice.Services
 {
     public interface IProjectService
     {
-        Project CreateProject(CreateProjectRequest project);
-        Project GetProject(ObjectId id);
+        ProjectDatabase CreateProject(CreateProjectRequest project);
+        ProjectDatabase GetProject(ObjectId id);
         bool ProjectExists(ObjectId projectId);
     }
 }

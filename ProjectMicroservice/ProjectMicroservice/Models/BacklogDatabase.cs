@@ -4,7 +4,7 @@ using System;
 
 namespace ProjectMicroservice.Models
 {
-    public class Backlog
+    public class BacklogDatabase
     {
         [BsonId]
         public ObjectId Id { get; init; }

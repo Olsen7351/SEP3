@@ -3,7 +3,7 @@ using MongoDB.Bson;
 
 namespace ProjectMicroservice.Models;
 
-public class Project
+public class ProjectDatabase
 {
     [BsonId]
     public ObjectId Id { get; init; }

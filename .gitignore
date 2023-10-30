@@ -107,3 +107,7 @@ yarn-error.log*
 
 # Ignore Visual Studio Code workspace settings
 .vscode/
+*.cache
+*.dll
+*.json
+*.exe

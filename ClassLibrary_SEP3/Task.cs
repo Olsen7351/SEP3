@@ -1,14 +1,21 @@
-﻿using ClassLibrary_SEP3;
+﻿using MongoDB.Bson;
 
-namespace ProjectMicroservice.Models;
-
-public class Task
+namespace ClassLibrary_SEP3
 {
-    public string TaskID { get; set; }
-    public string BacklogID { get; set; }
-    public string Description { get; set; }
-    public string ProjectID { get; set; }
-    public List<TimeEntry> TimeEntries { get; set; }
-    
-   
+    public enum TaskStatus
+    {
+        ToDo,
+        InProgress,
+        Done
+    }
+    public class Task
+    {
+        public ObjectId Id { get; init; }
+        public ObjectId ProjectId { get; init; }
+        public ObjectId BacklogId { get; init; } // Associating with a specific backlog
+        public string Title { get; init; }
+        public string? Description { get; init; }
+        public TaskStatus Status { get; init; }
+        public DateTime CreatedAt { get; set; }
+    }
 }

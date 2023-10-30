@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using TaskStatus = ClassLibrary_SEP3.TaskStatus;
 
 namespace ProjectMicroservice.DataTransferObjects
 {
@@ -13,6 +14,6 @@ namespace ProjectMicroservice.DataTransferObjects
         public string? Description { get; init; }
 
         [Required]
-        public ProjectMicroservice.Models.TaskStatus Status { get; init; }
+        public TaskStatus Status { get; init; }
     }
 }
