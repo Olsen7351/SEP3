@@ -12,6 +12,16 @@
             @if (HasBacklog)
             {
                 <p>Backlog</p>
+                <ul class="task-list">
+                    @foreach (var task in backlogs)
+                    {
+                        <li class="task-item">
+                            <span>@task.TaskName</span>
+                            <button class="btn-delete-task" @onclick="() => DeleteTask(task.TaskID)">x</button>
+                        </li>
+                    }
+                </ul>
+
                 <button class="button" @onclick="AddTask">Add Task</button>
             }
             else
@@ -23,17 +33,15 @@
 </div>
 
 
-@code 
+@code
 {
     [Parameter]
     public string ProjectIdAsString { get; set; }
+
     public int ProjectId { get; private set; }
     bool HasBacklog = false;
-    
-    
-    //MockTest
-    private List<Backlog>? backlogs = new List<Backlog>();
 
+    
 
     //Gets Current PostID
     protected override async void OnParametersSet()
@@ -65,5 +73,37 @@
         };
     //Create Backlog 
         await BacklogService.CreateBacklog(backlog);
+    }
+
+
+    //DeleteTask
+    private async Task DeleteTask()
+    {
+    }
+
+
+    //------------------------------------------------
+    
+    // Mock data structure
+    public class BacklogTask
+    {
+        public int TaskID { get; set; }
+        public string TaskName { get; set; }
+    }
+
+    // Dummy data for demo purposes
+    private List<BacklogTask> backlogs = new List<BacklogTask>
+    {
+        new BacklogTask { TaskID = 1, TaskName = "task1" },
+        new BacklogTask { TaskID = 2, TaskName = "task2" }
+    // ... Other tasks
+    };
+
+    // Delete task method
+    private async Task DeleteTask(int taskId)
+    {
+    // Logic to delete task from the backend
+        backlogs.RemoveAll(t => t.TaskID == taskId);
+    // If you're deleting from a database or an API, you would have code here to do so
     }
 }

@@ -61,3 +61,25 @@ h2 {
 .container p {
     margin: 10px 0;
 }
+
+
+ .task-list {
+     list-style-type: none;
+     padding: 0;
+ }
+ 
+ 
+.task-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin: 5px 0;
+}
+.btn-delete-task {
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+}

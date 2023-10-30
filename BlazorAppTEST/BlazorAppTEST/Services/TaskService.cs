@@ -10,6 +10,7 @@ public class TaskService
         this.httpClient = httpClient;
     }
     
+    /*
     public async Task GetTaskByBacklogID(int BacklogID)
     {
         HttpResponseMessage response = await httpClient.PostAsync("/api/BacklogTask", BacklogID);
@@ -20,10 +21,10 @@ public class TaskService
             throw new Exception($"Error:{response.StatusCode}, {responseContent}");
         }
     }
+    */
     
     
-    
-    public async Task CreateTask(Task task)
+   /* public async Task CreateTask(Task task)
     {
         HttpResponseMessage response = await httpClient.PostAsync("/api/CreateTask", task);
         string responseContent = await response.Content.ReadAsStringAsync();
@@ -33,4 +34,17 @@ public class TaskService
             throw new Exception($"Error:{response.StatusCode}, {responseContent}");
         }
     }
+    */
+
+    /*public async Task DeleteSelectedTask(Task task)
+    {
+        HttpResponseMessage response = await httpClient.PostAsync("/api/DeleteTask", task);
+        string responseContent = await response.Content.ReadAsStringAsync();
+        
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception($"Error:{response.StatusCode}, {responseContent}");
+        }
+    }
+    */
 }
