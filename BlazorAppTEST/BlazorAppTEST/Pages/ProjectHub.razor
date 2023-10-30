@@ -11,7 +11,7 @@
         <div class="card backlog-section">
             @if (HasBacklog)
             {
-                <p>Backlog details go here...</p>
+                <p>Backlog</p>
                 <button class="button" @onclick="AddTask">Add Task</button>
             }
             else
@@ -44,13 +44,11 @@
         HasBacklog = !string.IsNullOrEmpty(backlogId);
     }
     
-    
     //Redirect to another page
     private void AddTask()
     {
         NavManager.NavigateTo("/BacklogCreateTask");
     }
-
     
     
     //Create backlog
@@ -64,6 +62,5 @@
         
         //Create Backlog 
         await BacklogService.CreateBacklog(backlog);
-        Console.Write("Everything went as planned");
     }
 }
