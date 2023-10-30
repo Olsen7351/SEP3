@@ -1,4 +1,3 @@
-
 using BlazorAppTEST.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -9,13 +8,19 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddScoped<IProjectService, ProjectService>();
+builder.Services.AddScoped<ProjectService>();
+builder.Services.AddScoped<BacklogService>();
+builder.Services.AddScoped(sp => 
+    new HttpClient 
+    { 
+        BaseAddress = new Uri("http://localhost:5172/") 
+    });
 
-#if DEBUG //Development
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:8002/") });
-#else //Production
-    builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:5002") });
-#endif
+
+
+
+
+
 
 var app = builder.Build();
 

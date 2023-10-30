@@ -1,0 +1,69 @@
+﻿@page "/project-hub/{ProjectIdAsString}"
+@using ClassLibrary_SEP3
+@using BlazorAppTEST.Services
+@inject BacklogService BacklogService
+@inject ProjectService ProjectService
+@inject NavigationManager NavManager
+
+<div class="container-fluid">
+    <div class="container">
+        <h2>Project Hub for Project ID: @ProjectId</h2>
+        <div class="card backlog-section">
+            @if (HasBacklog)
+            {
+                <p>Backlog</p>
+                <button class="button" @onclick="AddTask">Add Task</button>
+            }
+            else
+            {
+                <button class="button" @onclick="CreateBacklog">Create Backlog</button>
+            }
+        </div>
+    </div>
+</div>
+
+
+@code 
+{
+    [Parameter]
+    public string ProjectIdAsString { get; set; }
+    public int ProjectId { get; private set; }
+    bool HasBacklog = false;
+    
+    
+    //MockTest
+    private List<Backlog>? backlogs = new List<Backlog>();
+
+
+    //Gets Current PostID
+    protected override async void OnParametersSet()
+    {
+        if (int.TryParse(ProjectIdAsString, out var parsedId))
+        {
+            ProjectId = parsedId;
+        }
+
+    // Check if the project has a backlog
+        var backlogId = await ProjectService.GetBacklogIDForProject(ProjectId.ToString());
+        HasBacklog = !string.IsNullOrEmpty(backlogId);
+    }
+
+
+    //Redirect to another page
+    private void AddTask()
+    {
+        NavManager.NavigateTo("/BacklogCreateTask");
+    }
+
+
+    //Create backlog
+    private async Task CreateBacklog()
+    {
+        var backlog = new Backlog()
+        {
+            ProjectID = ProjectId
+        };
+    //Create Backlog 
+        await BacklogService.CreateBacklog(backlog);
+    }
+}

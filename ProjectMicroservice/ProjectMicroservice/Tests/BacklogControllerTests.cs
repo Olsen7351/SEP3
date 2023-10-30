@@ -20,6 +20,8 @@ namespace ProjectMicroservice.Tests
         private readonly BacklogService _backlogService;
         private readonly ProjectService _projectService;
         private readonly BacklogController _backlogController;
+        private readonly TaskService _taskService;
+        
 
         public BacklogControllerTests()
         {
@@ -46,7 +48,9 @@ namespace ProjectMicroservice.Tests
             // Initialize the services and controller
             _backlogService = new BacklogService(_mockDbContext.Object);
             _projectService = new ProjectService(_mockDbContext.Object);
-            _backlogController = new BacklogController(_backlogService, _projectService);
+            _taskService = new TaskService(_mockDbContext.Object);
+            
+            _backlogController = new BacklogController(_backlogService, _projectService, _taskService);
         }
 
         [Fact]

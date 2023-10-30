@@ -84,38 +84,5 @@ namespace ProjectMicroservice.Controllers
 
             return Ok(task);
         }
-        
-        [HttpDelete("{id}")]
-        public IActionResult DeleteTask(string projectId, string backlogId, string id)
-        {
-            ObjectId projectObjectId, backlogObjectId, taskObjectId;
-            if (!ObjectId.TryParse(projectId, out projectObjectId) ||
-                !ObjectId.TryParse(backlogId, out backlogObjectId) ||
-                !ObjectId.TryParse(id, out taskObjectId))
-            {
-                return BadRequest("Invalid project, backlog, or task id");
-            }
-
-            // Check if the backlog belongs to the project
-            if (!_backlogService.BacklogBelongsToProject(backlogObjectId, projectObjectId))
-            {
-                return NotFound("Specified backlog does not belong to the specified project.");
-            }
-
-            var task = _taskService.GetTask(taskObjectId);
-            if (task == null)
-            {
-                return NotFound("Task not found.");
-            }
-
-            // Ensure the task belongs to the specified backlog and project
-            if (task.ProjectId != projectObjectId || task.BacklogId != backlogObjectId)
-            {
-                return NotFound("Task not found under the specified backlog and project.");
-            }
-
-            _taskService.DeleteTask(taskObjectId);
-            return NoContent(); // 204 No Content is typically returned when a delete operation is successful.
-        }
     }
 }

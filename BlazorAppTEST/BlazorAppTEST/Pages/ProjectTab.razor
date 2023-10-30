@@ -1,0 +1,41 @@
+﻿@page "/projects"
+@using ProjectMicroservice.Models
+@using BlazorAppTEST.MockData 
+@using BlazorAppTEST.Services
+@using Task = System.Threading.Tasks.Task
+@inject ProjectService ProjectService
+
+<h2>Projects</h2>
+
+<div class="container-fluid">
+    <div class="container">
+        @foreach (var project in projects)
+        {
+            <div class="card">
+                <h3>@project.Name</h3>
+                <p>Description: @project.Description</p>
+                <p>Start Date: @project.StartDate</p>
+                <p>End Date: @project.EndDate</p>
+                <NavLink href="@($"/project-hub/{project.ProjectID}")" class="btn btn-primary">View Details</NavLink>
+            </div>
+        }
+    </div>
+</div>
+
+@code 
+{
+    private List<Project>? projects = new List<Project>();
+
+    
+    
+    
+    protected override Task OnInitializedAsync()
+    {
+    //TEST DATA
+        projects = TestData.Projects; 
+        return Task.CompletedTask;
+        
+    // Actual data fetch (you can uncomment this when you're ready)
+    // projects = (List<Project>)(await ProjectService.GetAllProjects())!;
+    }
+}

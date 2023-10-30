@@ -15,6 +15,7 @@ public class BacklogController : ControllerBase
         _backlogService = backlogService;
     }
     
+    //GetByID
     [HttpGet("{id}")]
     public async Task<IActionResult> GetBacklog([FromBody] int ProjectId)
     {
@@ -36,6 +37,8 @@ public class BacklogController : ControllerBase
         return Ok(await _backlogService.CreateBacklog(backlog));
     }
     
+    
+    //AddTaskToBacklog
     [HttpPost("{ProjectId}/Backlog/{IdBacklog}")]
     public async Task<IActionResult> AddTaskToBacklog([FromRoute] int ProjectId, [FromRoute] int IdBacklog, [FromBody] Task backLogTask)
     {

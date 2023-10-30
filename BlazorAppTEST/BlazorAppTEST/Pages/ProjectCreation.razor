@@ -1,19 +1,19 @@
 @page "/projectcreation"
-@using BlazorAppTEST.Services;
+@inject ProjectService Project_Service
 @using ProjectMicroservice.Models
-@inject IProjectService ProjectService;
+@using Task = System.Threading.Tasks.Task
+@using BlazorAppTEST.Services
+
 
 <div class="container">
     <div class="card">
         <!-- Project Creation Form -->
         <h3>Project Creation</h3>
         <EditForm Model="newProject" OnValidSubmit="CreateProject">
-            
             <div class="form-group">
                 <label for="name">Project Name:</label>
                 <InputText id="name" class="form-control" @bind-Value="newProject.Name"/>
             </div>
-
 
             <div class="form-group">
                 <label for="description">Description:</label>
@@ -32,60 +32,42 @@
 
             <button type="submit" class="button">Create</button>
         </EditForm>
-        
-        <!-- Display Created Project -->
-        @if (createdProject != null)
-        {
-            <h3>Created Project</h3>
-            <p><strong>Name:</strong> @createdProject.Name</p>
-            <p><strong>Description:</strong> @createdProject.Description</p>
-            <p><strong>Start Date:</strong> @createdProject.StartDate</p>
-            <p><strong>End Date:</strong> @createdProject.EndDate</p>
-        }
     </div>
-        <!-- Display Success Message -->
-        @if (!string.IsNullOrEmpty(successMessage))
-        {
-            <div class="alert alert-success">
-                @successMessage
-            </div>
-        }
-        
-        <!-- Display Error Message -->
-        @if (!string.IsNullOrEmpty(errorMessage))
-        {
-            <div class="alert alert-danger">
-                @errorMessage
-            </div>
-        }
-    
 </div>
+
+
+@if (createdProject != null)
+{
+    <div class="container-fluid">
+        <div class="card">
+            <h3 style="color: lime;">Created Project Successfully!</h3>
+            <p>
+                <strong>Name:</strong> @createdProject.Name
+            </p>
+            <p>
+                <strong>Description:</strong> @createdProject.Description
+            </p>
+            <p>
+                <strong>Start Date:</strong> @createdProject.StartDate.ToShortDateString()
+            </p>
+            <p>
+                <strong>End Date:</strong> @createdProject.EndDate.ToShortDateString()
+            </p>
+        </div>
+    </div>
+}
+
 
 @code {
     private Project newProject = new();
     private Project createdProject;
-    private string errorMessage;
-    private string successMessage;
-    
+
+
     private async Task CreateProject()
     {
-        try
-        {
-            await ProjectService.CreateProject(newProject);
-            createdProject = newProject; // Display the created project
-            newProject = new Project(); // Clear the form
-            
-            successMessage = "Project created successfully!";
-            errorMessage = null; // Clear any previous error message
-
-        }
-        catch (Exception e)
-        {
-            errorMessage = $"Error: {e.Message}";
-            successMessage = null;
-        }
-  
-
-      
+        createdProject = newProject; // Display the created project
+        newProject = new Project(); // Clear the form
+        await Project_Service.CreateProject(newProject); //Send it through the service
     }
+
 }
