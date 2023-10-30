@@ -5,6 +5,5 @@
         public int BacklogID { get; init; }
         public int ProjectID { get; init; }
         public string Description { get;set; }
-        
     }
 }
