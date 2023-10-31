@@ -1,6 +1,9 @@
 ﻿@page "/project-hub/{ProjectIdAsString}"
 @using ClassLibrary_SEP3
 @using BlazorAppTEST.Services
+@using MongoDB.Bson
+@using ProjectMicroservice.Models
+@using Task = System.Threading.Tasks.Task
 @inject BacklogService BacklogService
 @inject ProjectService ProjectService
 @inject NavigationManager NavManager
@@ -39,19 +42,13 @@
     [Parameter]
     public string ProjectIdAsString { get; set; }
 
-    public int ProjectId { get; private set; }
+    public ObjectId ProjectId { get; private set; }
     bool HasBacklog = false;
 
     
 
-    //Gets Current PostID
     protected override async void OnParametersSet()
     {
-        if (int.TryParse(ProjectIdAsString, out var parsedId))
-        {
-            ProjectId = parsedId;
-        }
-
     // Check if the project has a backlog
         var backlogId = await ProjectService.GetBacklogIDForProject(ProjectId.ToString());
         HasBacklog = !string.IsNullOrEmpty(backlogId);
@@ -70,7 +67,7 @@
     {
         var backlog = new Backlog()
         {
-            ProjectID = ProjectId
+            ProjectId = ProjectId
         };
     //Create Backlog 
         await BacklogService.CreateBacklog(backlog);

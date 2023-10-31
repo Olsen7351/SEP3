@@ -16,7 +16,7 @@
                 <p>Description: @project.Description</p>
                 <p>Start Date: @project.StartDate</p>
                 <p>End Date: @project.EndDate</p>
-                <NavLink href="@($"/project-hub/{project.ProjectID}")" class="btn btn-primary">View Details</NavLink>
+                <NavLink href="@($"/project-hub/{project.Id}")" class="btn btn-primary">View Details</NavLink>
             </div>
         }
     </div>
@@ -26,16 +26,4 @@
 {
     private List<Project>? projects = new List<Project>();
 
-    
-    
-    
-    protected override Task OnInitializedAsync()
-    {
-    //TEST DATA
-        projects = TestData.Projects; 
-        return Task.CompletedTask;
-        
-    // Actual data fetch (you can uncomment this when you're ready)
-    // projects = (List<Project>)(await ProjectService.GetAllProjects())!;
-    }
 }

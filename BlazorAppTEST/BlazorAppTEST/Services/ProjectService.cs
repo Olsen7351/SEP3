@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Text.Json;
+using ProjectMicroservice.DataTransferObjects;
 using ProjectMicroservice.Models;
 using Task = System.Threading.Tasks.Task;
 
@@ -17,14 +18,10 @@ public class ProjectService
 
     
     //Post
-    public async Task CreateProject(Project projekt)
+    public async Task CreateProject(CreateProjectRequest projekt)
     {
-        //Takes project and serialize to json
-        string createProjectToJson = JsonSerializer.Serialize(projekt);
-        StringContent contentProject = new(createProjectToJson, Encoding.UTF8, "application/json");
-       
-        //Try and send it trough
-        HttpResponseMessage response = await httpClient.PostAsync("/api/Projekt", contentProject);
+       //Try and send it trough
+        HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/Project", projekt);
         string responseContent = await response.Content.ReadAsStringAsync();
        
         

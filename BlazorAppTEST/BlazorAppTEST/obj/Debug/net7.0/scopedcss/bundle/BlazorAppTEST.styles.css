@@ -173,6 +173,28 @@ h2[b-4ecvk8wmjx] {
 .container p[b-4ecvk8wmjx] {
     margin: 10px 0;
 }
+
+
+ .task-list[b-4ecvk8wmjx] {
+     list-style-type: none;
+     padding: 0;
+ }
+ 
+ 
+.task-item[b-4ecvk8wmjx] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin: 5px 0;
+}
+.btn-delete-task[b-4ecvk8wmjx] {
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
 /* _content/BlazorAppTEST/Pages/ProjectTab.razor.rz.scp.css */
 .container[b-26q6kdj0o9] {
     display: flex;

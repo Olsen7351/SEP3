@@ -3,6 +3,7 @@
 @using ProjectMicroservice.Models
 @using Task = System.Threading.Tasks.Task
 @using BlazorAppTEST.Services
+@using ProjectMicroservice.DataTransferObjects
 
 
 <div class="container">
@@ -59,15 +60,15 @@
 
 
 @code {
-    private Project newProject = new();
-    private Project createdProject;
+    private CreateProjectRequest newProject = new();
+    private CreateProjectRequest createdProject;
 
 
     private async Task CreateProject()
     {
         createdProject = newProject; // Display the created project
-        newProject = new Project(); // Clear the form
         await Project_Service.CreateProject(newProject); //Send it through the service
+        newProject = new CreateProjectRequest(); // Clear the form
     }
 
 }

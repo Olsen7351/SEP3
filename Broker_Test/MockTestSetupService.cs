@@ -8,12 +8,12 @@ namespace Broker_Test
 {
     public class MockTestSetupService
     {
-        public static Mock<IProjektService> CreateMockProjektService()
+        /*public static Mock<IProjektService> CreateMockProjektService()
         {
             var mockProjektService = new Mock<IProjektService>();
 
-            // Set up method behavior for GetProjekt
-            /*mockProjektService.Setup(service => service.GetProjekt(It.IsAny<int>()))
+            //Set up method behavior for GetProjekt
+            mockProjektService.Setup(service => service.GetProjekt(It.IsAny<int>()))
                               .Returns((int projectId) =>
                               {
                                   // Create and return an IActionResult of Ok with a specific Projekt object based on the projectId
@@ -44,7 +44,7 @@ namespace Broker_Test
                                   return new NotFoundResult(); // You can modify this behavior as needed
                               });
 
-            */
+            
             // Set up method behavior for CreateProjekt
             mockProjektService.Setup(service => service.CreateProjekt(It.IsAny<Project>()))
                               .Returns((Project createdProjekt) =>
@@ -55,5 +55,5 @@ namespace Broker_Test
 
             return mockProjektService;
         }
-    }
+    }*/
 }

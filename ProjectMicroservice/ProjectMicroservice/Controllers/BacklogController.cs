@@ -90,7 +90,7 @@ if (!ObjectId.TryParse(projectId, out id))
                 return BadRequest(ModelState);
             }
            
-            var taskToBeAdded = new Models.Task
+            var taskToBeAdded = new Models.TaskDatabase
             {
                 ProjectId = id,
                 Title = request.Title,

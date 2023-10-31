@@ -1,9 +1,11 @@
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using ProjectMicroservice.Models;
+
 
 namespace Broker.Services
 {
@@ -16,15 +18,22 @@ namespace Broker.Services
             this.httpClient = httpClient;
         }
 
-        public async Task<ActionResult> CreateProjekt(Project projekt)
+        public async Task<IActionResult> CreateProjekt(Project projekt)
         {
             if (projekt == null)
             {
                 return new BadRequestResult();
             }
 
-            HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/Project", projekt);
-
+            HttpResponseMessage response = null!;
+            try
+            {
+                response = await httpClient.PostAsJsonAsync("api/Project", projekt);
+            }
+            catch (Exception ex)
+            {
+                int stopher = 0;
+            }
             if (response.IsSuccessStatusCode)
             {
                 return new OkResult();
@@ -35,33 +44,12 @@ namespace Broker.Services
             }
         }
 
-        public async Task<ActionResult<Project>> GetProjekt(string id)
+        public async Task<IActionResult> GetProjekt(string id)
         {
-            if (id == null)
-            {
-                return new BadRequestResult();
-            }
-            
             string requestUri = $"api/Project/{id}";
-            HttpResponseMessage response = await httpClient.GetAsync(requestUri);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var projekt = await response.Content.ReadFromJsonAsync<Project>();
-                    
-                    if (projekt != null)
-                    {
-                        return projekt;
-                    }
-                    else
-                    {
-                        return new NotFoundResult();
-                    }
-                }
-                else
-                {
-                    throw new HttpRequestException($"Failed getting the Project. Status code: {response.StatusCode}.");
-                }
+            var response = await httpClient.GetAsync(requestUri);
+            var projekt = await response.Content.ReadFromJsonAsync<Project>();
+            return new OkObjectResult(projekt);
         }
     }
 }
