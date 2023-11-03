@@ -11,6 +11,7 @@ namespace ClassLibrary_SEP3
     public class Task
     {
         public ObjectId Id { get; init; }
+        public string TaskID { get; set; }
         public ObjectId ProjectId { get; init; }
         public ObjectId BacklogId { get; init; } // Associating with a specific backlog
         public string Title { get; init; }
@@ -20,5 +21,7 @@ namespace ClassLibrary_SEP3
         public DateTime EstimateTime { get; set; }
         public DateTime ActualTimeUsed { get; set; }
         public string Responsible { get; set; }
+        public List<TimeEntry> TimeEntries { get; set; }
+        
     }
 }

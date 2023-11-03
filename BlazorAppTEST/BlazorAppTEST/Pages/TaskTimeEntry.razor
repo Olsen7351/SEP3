@@ -1,0 +1,42 @@
+@using BlazorAppTEST.Services
+@using ClassLibrary_SEP3
+@inject BacklogService BacklogService
+
+<h3>Time Entry for Task</h3>
+
+<div class="time-entry-container">
+    <label for="entryDate">Entry Date</label>
+    <input type="date" id="entryDate" @bind="entryDate" />
+
+    <label for="hoursWorked">Hours Worked</label>
+    <input type="number" id="hoursWorked" @bind="hoursWorked" />
+
+    <button @onclick="AddTimeEntry">Add Time Entry</button>
+</div>
+
+@code {
+    string TaskID { get; set; }
+    DateTime entryDate;
+    double hoursWorked;
+
+    private void AddTimeEntry()
+    {
+        var timeEntry = new TimeEntry
+        {
+            EntryDate = entryDate,
+            HoursWorked = TimeSpan.FromHours(hoursWorked)
+        };
+
+    // Gem tidsregistrering i opgaven
+        var task = BacklogService.GetTaskById(TaskID); // Brug din tjeneste til at hente opgaven
+        task.TimeEntries.Add(timeEntry);
+
+    // Gem opdateret opgave
+        BacklogService.UpdateTask(task);
+
+    // Nulstil inputfelter
+        entryDate = DateTime.Now;
+        hoursWorked = 0;
+    }
+    
+}
