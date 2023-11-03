@@ -1,4 +1,5 @@
 ﻿using Broker.Services;
+using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 using ProjectMicroservice.Models;
 using Task = ClassLibrary_SEP3.Task;
@@ -47,5 +48,17 @@ public class BacklogController : ControllerBase
             return BadRequest();
         }
         return Ok(await _backlogService.AddTaskToBackLog(ProjectId,backLogTask));
+    }
+
+    [HttpDelete("{ProjectId}/Backlog/{IdBacklog}")]
+    public async Task<IActionResult> DeleteTaskFromBacklog([FromRoute] int ProjectId, [FromRoute] int IdBacklog,
+        [FromBody] DeleteBacklogTaskRequest backlogTask)
+    {
+        if (backlogTask == null)
+        {
+            return BadRequest();
+        }
+
+        return Ok(await _backlogService.DeleteTaskFromBacklog(ProjectId, IdBacklog,backlogTask));
     }
 }

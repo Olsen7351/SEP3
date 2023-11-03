@@ -941,6 +941,9 @@
         }
       },
       "ClassLibrary_SEP3/1.0.0": {
+        "dependencies": {
+          "MongoDB.Bson": "2.21.0"
+        },
         "runtime": {
           "ClassLibrary_SEP3.dll": {}
         }

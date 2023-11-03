@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MongoDB.Bson;
+using System.ComponentModel.DataAnnotations;
 using System.Dynamic;
 
 namespace ProjectMicroservice.DataTransferObjects;
@@ -6,11 +7,14 @@ namespace ProjectMicroservice.DataTransferObjects;
 public class AddBacklogTaskRequest
 {
     [Required]
-    public int ProjectId { get; set; }
+    public ObjectId ProjectId { get; init; }
     [Required]
-    public int TaskId { get; set; }
-    [Required]
-    
-    [MaxLength(100)]
+    public ObjectId BacklogId { get; init; } // Associating with a specific backlog
     public string Title { get; set; }
+    public string? Description { get; set; }
+    public TaskStatus Status { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public DateTime EstimateTime { get; set; }
+    public DateTime ActualTimeUsed { get; set; }
+    public string Responsible { get; set; }
 }

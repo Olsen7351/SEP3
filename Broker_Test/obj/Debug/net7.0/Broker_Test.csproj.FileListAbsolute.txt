@@ -342,3 +342,12 @@ C:\Users\karee\OneDrive\Desktop\GitHub Sep3\SEP3\Broker_Test\obj\Debug\net7.0\re
 C:\Users\karee\OneDrive\Desktop\GitHub Sep3\SEP3\Broker_Test\obj\Debug\net7.0\Broker_Test.pdb
 C:\Users\karee\OneDrive\Desktop\GitHub Sep3\SEP3\Broker_Test\obj\Debug\net7.0\Broker_Test.genruntimeconfig.cache
 C:\Users\karee\OneDrive\Desktop\GitHub Sep3\SEP3\Broker_Test\obj\Debug\net7.0\ref\Broker_Test.dll
+C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\bin\Debug\net7.0\CoverletSourceRootsMapping
+C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\obj\Debug\net7.0\Broker_Test.csproj.AssemblyReference.cache
+C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\obj\Debug\net7.0\Broker_Test.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\obj\Debug\net7.0\Broker_Test.AssemblyInfoInputs.cache
+C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\obj\Debug\net7.0\Broker_Test.AssemblyInfo.cs
+C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\obj\Debug\net7.0\Broker_Test.csproj.CoreCompileInputs.cache
+C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\obj\Debug\net7.0\Broker_Test.dll
+C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\obj\Debug\net7.0\refint\Broker_Test.dll
+C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\obj\Debug\net7.0\Broker_Test.pdb

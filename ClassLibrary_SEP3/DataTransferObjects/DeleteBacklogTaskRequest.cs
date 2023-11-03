@@ -1,11 +1,16 @@
 using System.ComponentModel.DataAnnotations;
+using MongoDB.Bson;
 
-namespace DefaultNamespace;
+namespace ClassLibrary_SEP3.DataTransferObjects;
 
 public class DeleteBacklogTaskRequest
 {
     [Required]
     public int ProjectId { get; init; }
+
     [Required]
-    public int TaskId { get; init; }
+    public string BacklogId { get; init;}
+
+    [Required]
+    public ObjectId TaskId { get; init; }
 }

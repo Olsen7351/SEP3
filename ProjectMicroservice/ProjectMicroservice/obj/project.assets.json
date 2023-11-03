@@ -2120,6 +2120,19 @@
         "runtime": {
           "lib/net6.0/ZstdSharp.dll": {}
         }
+      },
+      "ClassLibrary_SEP3/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "MongoDB.Bson": "2.21.0"
+        },
+        "compile": {
+          "bin/placeholder/ClassLibrary_SEP3.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ClassLibrary_SEP3.dll": {}
+        }
       }
     }
   },
@@ -6708,10 +6721,16 @@
         "zstdsharp.port.0.6.2.nupkg.sha512",
         "zstdsharp.port.nuspec"
       ]
+    },
+    "ClassLibrary_SEP3/1.0.0": {
+      "type": "project",
+      "path": "../../ClassLibrary_SEP3/ClassLibrary_SEP3.csproj",
+      "msbuildProject": "../../ClassLibrary_SEP3/ClassLibrary_SEP3.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net7.0": [
+      "ClassLibrary_SEP3 >= 1.0.0",
       "Microsoft.AspNetCore.OpenApi >= 7.0.9",
       "Microsoft.NET.Test.Sdk >= 17.7.2",
       "MongoDB.Driver >= 2.21.0",
@@ -6721,30 +6740,42 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\karee\\.nuget\\packages\\": {}
+    "C:\\Users\\olsen\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\karee\\OneDrive\\Desktop\\GitHub Sep3\\SEP3\\ProjectMicroservice\\ProjectMicroservice\\ProjectMicroservice.csproj",
+      "projectUniqueName": "C:\\Users\\olsen\\OneDrive\\Documents\\GitHub\\SEP3_V2\\ProjectMicroservice\\ProjectMicroservice\\ProjectMicroservice.csproj",
       "projectName": "ProjectMicroservice",
-      "projectPath": "C:\\Users\\karee\\OneDrive\\Desktop\\GitHub Sep3\\SEP3\\ProjectMicroservice\\ProjectMicroservice\\ProjectMicroservice.csproj",
-      "packagesPath": "C:\\Users\\karee\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\karee\\OneDrive\\Desktop\\GitHub Sep3\\SEP3\\ProjectMicroservice\\ProjectMicroservice\\obj\\",
+      "projectPath": "C:\\Users\\olsen\\OneDrive\\Documents\\GitHub\\SEP3_V2\\ProjectMicroservice\\ProjectMicroservice\\ProjectMicroservice.csproj",
+      "packagesPath": "C:\\Users\\olsen\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\olsen\\OneDrive\\Documents\\GitHub\\SEP3_V2\\ProjectMicroservice\\ProjectMicroservice\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\karee\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\olsen\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\olsen\\OneDrive\\Documents\\GitHub\\SEP3_V2\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj": {
+              "projectPath": "C:\\Users\\olsen\\OneDrive\\Documents\\GitHub\\SEP3_V2\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -6801,7 +6832,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   }

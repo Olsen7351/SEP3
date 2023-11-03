@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using ProjectMicroservice.Models;
 using System.Net.Http;
+using ClassLibrary_SEP3.DataTransferObjects;
 using Xunit.Sdk;
 using Task = ClassLibrary_SEP3.Task;
 
@@ -89,9 +90,9 @@ public class BacklogService : IBacklogService
             return new BadRequestResult();
         }
     }
-    public async Task<IActionResult> DeleteTaskFromBacklog(int projectId, int BacklogId, ClassLibrary_SEP3.Task task)
+    public async Task<IActionResult> DeleteTaskFromBacklog(int projectId, int BacklogId, DeleteBacklogTaskRequest task)
     {
-        string requestUri = $"api/Project/{projectId}/Backlog/{BacklogId}/Task/{task.Id}";
+        string requestUri = $"api/Project/{projectId}/Backlog/{BacklogId}/Task/{task.TaskId}";
         HttpResponseMessage response = await httpClient.DeleteAsync(requestUri);
         if (response.IsSuccessStatusCode)
         {
