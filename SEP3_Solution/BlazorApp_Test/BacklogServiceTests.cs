@@ -1,15 +1,13 @@
-﻿using System;
+﻿
 using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Threading;
+
 using Moq;
 using Moq.Protected;
-using Xunit;
+
 using BlazorAppTEST.Services;
-using ClassLibrary_SEP3;
-using System.Text;
+
 using System.Text.Json;
+using ProjectMicroservice.Models;
 using Task = System.Threading.Tasks.Task;
 
 namespace YourNamespace.Tests
@@ -39,11 +37,11 @@ namespace YourNamespace.Tests
             var httpClient = new HttpClient(handlerMock.Object);
             var backlogService = new BacklogService(httpClient);
 
-            
+
             Backlog backlog = new Backlog
             {
-                BacklogID = 1,
-                ProjectID = 1
+                Id = MongoDB.Bson.ObjectId.GenerateNewId(), // Generate a new ObjectId
+                ProjectId = MongoDB.Bson.ObjectId.GenerateNewId(), // Example for ProjectId, use the appropriate value
             };
 
             // Act
@@ -60,6 +58,8 @@ namespace YourNamespace.Tests
                         new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase })),
                 ItExpr.IsAny<CancellationToken>()
             );
+
+
         }
     }
 }
