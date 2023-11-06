@@ -23,7 +23,8 @@ namespace ProjectMicroservice.Services
                 Name = request.Name,
                 Description = request.Description,
                 StartDate = request.StartDate,
-                EndDate = request.EndDate
+                EndDate = request.EndDate,
+                Backlog = new Backlog()
             };
 
             _projects.InsertOne(newProject);

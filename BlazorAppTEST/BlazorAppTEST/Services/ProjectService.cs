@@ -1,7 +1,10 @@
 ﻿using System.Text;
 using System.Text.Json;
+using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 using ProjectMicroservice.DataTransferObjects;
 using ProjectMicroservice.Models;
+using Xunit.Sdk;
 using Task = System.Threading.Tasks.Task;
 
 namespace BlazorAppTEST.Services;
@@ -47,6 +50,17 @@ public class ProjectService
 
         ICollection<Project>? projects = JsonSerializer.Deserialize<ICollection<Project>>(contentProject, new JsonSerializerOptions());
         return projects;
+    }
+
+    public async Task<Project?> GetProject(string id)
+    {
+        HttpResponseMessage response = await httpClient.GetAsync($"api/Project/{id}");
+        var projekt = await response.Content.ReadFromJsonAsync<Project>();
+        if (projekt == null)
+        {
+            throw new Exception("Project is empty or do not exsist");
+        }
+        return projekt;
     }
     
     

@@ -1,12 +1,11 @@
 ﻿using System;
 using MongoDB.Bson;
+using Task = ClassLibrary_SEP3.Task;
 
 namespace ProjectMicroservice.Models
 {
     public class Backlog
     {
-        public ObjectId Id { get; init; }
-        public ObjectId ProjectId { get; init; }
-        public string? Description { get; init; }
+        public List<Task>? BacklogTasks { get; init; }
     }
 }

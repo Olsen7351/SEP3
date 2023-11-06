@@ -25,15 +25,8 @@ namespace Broker.Services
                 return new BadRequestResult();
             }
 
-            HttpResponseMessage response = null!;
-            try
-            {
-                response = await httpClient.PostAsJsonAsync("api/Project", projekt);
-            }
-            catch (Exception ex)
-            {
-                int stopher = 0;
-            }
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/Project", projekt);
+
             if (response.IsSuccessStatusCode)
             {
                 return new OkResult();

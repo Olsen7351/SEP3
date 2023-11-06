@@ -11,12 +11,10 @@ namespace ProjectMicroservice.Controllers
     public class TaskController : ControllerBase
     {
         private readonly ITaskService _taskService;
-        private readonly IBacklogService _backlogService;
 
-        public TaskController(ITaskService taskService, IBacklogService backlogService)
+        public TaskController(ITaskService taskService)
         {
             _taskService = taskService;
-            _backlogService = backlogService;
         }
 
         [HttpPost]
@@ -26,11 +24,6 @@ namespace ProjectMicroservice.Controllers
             if (!ObjectId.TryParse(projectId, out projectObjectId) || !ObjectId.TryParse(backlogId, out backlogObjectId))
             {
                 return BadRequest("Invalid project or backlog id");
-            }
-
-            if (!_backlogService.BacklogBelongsToProject(backlogObjectId, projectObjectId))
-            {
-                return NotFound("Specified backlog does not belong to the specified project.");
             }
 
             if (!ModelState.IsValid)
@@ -44,8 +37,9 @@ namespace ProjectMicroservice.Controllers
                 BacklogId = backlogObjectId,
                 Title = request.Title,
                 Description = request.Description,
-                Status = request.Status
-            };
+                Status = request.Status,
+                CreatedAt = System.DateTime.UtcNow
+        };
 
             var createdTask = _taskService.CreateTask(task);
             return CreatedAtAction(
@@ -55,7 +49,8 @@ namespace ProjectMicroservice.Controllers
                     projectId,
                     backlogId,
                     id = createdTask.Id,
-                    status = createdTask.Status
+                    status = createdTask.Status,
+                    CreatedAt = System.DateTime.UtcNow
                 },
                 createdTask
             );

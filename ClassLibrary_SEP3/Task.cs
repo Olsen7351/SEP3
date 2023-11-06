@@ -11,12 +11,10 @@ namespace ClassLibrary_SEP3
     public class Task
     {
         public ObjectId Id { get; init; }
-        public string TaskID { get; set; }
-        public ObjectId ProjectId { get; init; }
-        public ObjectId BacklogId { get; init; } // Associating with a specific backlog
+        public ObjectId ProjectId { get; set; }
         public string Title { get; init; }
-        public string? Description { get; init; }
-        public TaskStatus Status { get; init; }
+        public string? Description { get; set; }
+        public TaskStatus Status { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime EstimateTime { get; set; }
         public DateTime ActualTimeUsed { get; set; }

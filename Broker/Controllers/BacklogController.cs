@@ -16,32 +16,9 @@ public class BacklogController : ControllerBase
         _backlogService = backlogService;
     }
     
-    //GetByID
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetBacklog([FromBody] int ProjectId)
-    {
-        if (ProjectId < 0)
-        {
-            return BadRequest();
-        }
-        
-        return Ok(await _backlogService.GetBacklog(ProjectId));
-    }
-    [HttpPost]
-    public async Task<IActionResult> CreateBacklog([FromBody] Backlog backlog)
-    {
-        if (backlog == null)
-        {
-            return BadRequest();
-        }
-        
-        return Ok(await _backlogService.CreateBacklog(backlog));
-    }
-    
-    
     //AddTaskToBacklog
-    [HttpPost("{ProjectId}/Backlog/{IdBacklog}")]
-    public async Task<IActionResult> AddTaskToBacklog([FromRoute] int ProjectId, [FromRoute] int IdBacklog, [FromBody] Task backLogTask)
+    [HttpPost("{ProjectId}/Backlog/Add")]
+    public async Task<IActionResult> AddTaskToBacklog([FromRoute] int ProjectId, [FromBody] Task backLogTask)
     {
         if (backLogTask == null)
         {
@@ -50,8 +27,8 @@ public class BacklogController : ControllerBase
         return Ok(await _backlogService.AddTaskToBackLog(ProjectId,backLogTask));
     }
 
-    [HttpDelete("{ProjectId}/Backlog/{IdBacklog}")]
-    public async Task<IActionResult> DeleteTaskFromBacklog([FromRoute] int ProjectId, [FromRoute] int IdBacklog,
+    [HttpDelete("{ProjectId}/Backlog/Delete")]
+    public async Task<IActionResult> DeleteTaskFromBacklog([FromRoute] int ProjectId,
         [FromBody] DeleteBacklogTaskRequest backlogTask)
     {
         if (backlogTask == null)

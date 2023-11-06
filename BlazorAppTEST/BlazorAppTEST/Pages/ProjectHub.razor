@@ -3,6 +3,7 @@
 @using BlazorAppTEST.Services
 @using MongoDB.Bson
 @using ProjectMicroservice.Models
+@using Xunit.Sdk
 @using Task = System.Threading.Tasks.Task
 @inject BacklogService BacklogService
 @inject ProjectService ProjectService
@@ -10,28 +11,25 @@
 
 <div class="container-fluid">
     <div class="container">
-        <h2>Project Hub for Project ID: @ProjectId</h2>
+        <h2>Project Hub for Project ID: @ProjectIdAsString</h2>
         <div class="card backlog-section">
-            @if (HasBacklog)
-            {
                 <p>Backlog</p>
-                <ul class="task-list">
-                    @foreach (var task in backlogs)
-                    {
-                        <li class="task-item">
-                            <span>@task.TaskName</span>
-                            <button class="btn-delete-task" @onclick="() => DeleteTask(task.TaskID)">x</button>
-                        </li>
-                    }
-                </ul>
+            <ul class="task-list">
+                @if (Backlog != null)
+                {
 
+                
+                @foreach (var task in Backlog.BacklogTasks)
+                {
+                    <li class="task-item">
+                        <span>@task</span>
+                        <button class="btn-delete-task" @onclick="() => DeleteTask(task.Id)">x</button>
+                    </li>
+                }
+                }
+            </ul>
+                
                 <button class="button" @onclick="AddTask">Add Task</button>
-            }
-            else
-            {
-                <button class="button" @onclick="CreateBacklog">Create Backlog</button>
-            }
-            
         </div>
     </div>
 </div>
@@ -42,66 +40,36 @@
     [Parameter]
     public string ProjectIdAsString { get; set; }
 
-    public ObjectId ProjectId { get; private set; }
-    bool HasBacklog = false;
+    public Project? Project { get; set; }
 
-    
+    public Backlog? Backlog { get; set; }
 
-    protected override async void OnParametersSet()
+
+
+    protected override async Task OnParametersSetAsync()
     {
-    // Check if the project has a backlog
-        var backlogId = await ProjectService.GetBacklogIDForProject(ProjectId.ToString());
-        HasBacklog = !string.IsNullOrEmpty(backlogId);
+        Project ProjectInput = await ProjectService.GetProject(ProjectIdAsString);
+        Project = ProjectInput ?? throw new Exception("Project not found");
+        Backlog = Project.Backlog;
     }
 
 
     //Redirect to another page
     private void AddTask()
     {
-        NavManager.NavigateTo("/BacklogCreateTask");
-    }
-
-
-    //Create backlog
-    private async Task CreateBacklog()
-    {
-        var backlog = new Backlog()
-        {
-            ProjectId = ProjectId
-        };
-    //Create Backlog 
-        await BacklogService.CreateBacklog(backlog);
+        
     }
 
 
     //DeleteTask
     private async Task DeleteTask()
     {
+        //TODO
     }
-
-
-    //------------------------------------------------
-    
-    // Mock data structure
-    public class BacklogTask
-    {
-        public int TaskID { get; set; }
-        public string TaskName { get; set; }
-    }
-
-    // Dummy data for demo purposes
-    private List<BacklogTask> backlogs = new List<BacklogTask>
-    {
-        new BacklogTask { TaskID = 1, TaskName = "task1" },
-        new BacklogTask { TaskID = 2, TaskName = "task2" }
-    // ... Other tasks
-    };
-
     // Delete task method
-    private async Task DeleteTask(int taskId)
+    private async Task DeleteTask(ObjectId taskId)
     {
-    // Logic to delete task from the backend
-        backlogs.RemoveAll(t => t.TaskID == taskId);
-    // If you're deleting from a database or an API, you would have code here to do so
+        string Id = taskId.ToString();
+    //TODO
     }
 }

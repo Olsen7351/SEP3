@@ -16,8 +16,6 @@ namespace ProjectMicroservice.Services
 
         public Models.TaskDatabase CreateTask(Models.TaskDatabase task)
         {
-            // Set creation time
-            task.CreatedAt = System.DateTime.UtcNow;
             _tasks.InsertOne(task);
             return task;
         }
