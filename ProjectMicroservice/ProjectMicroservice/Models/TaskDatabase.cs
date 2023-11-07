@@ -20,11 +20,10 @@ namespace ProjectMicroservice.Models
         public string? Description { get; init; }
         public ClassLibrary_SEP3.TaskStatus Status { get; init; }
         public DateTime CreatedAt { get; init; }
-        public ObjectId BacklogId { get; init; } // Associating with a specific backlog
-        public DateTime EstimateTime { get; init; }
-        public DateTime ActualTimeUsed { get; init; }
+        public DateTime? EstimateTime { get; init; }
+        public DateTime? ActualTimeUsed { get; init; }
         public string? Responsible { get; init; }
-        public List<TimeEntry>? TimeEntries { get; init; }
+        //public List<TimeEntry>? TimeEntries { get; init; }
 
     }
 }

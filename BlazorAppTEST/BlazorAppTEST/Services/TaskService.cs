@@ -1,4 +1,10 @@
-﻿namespace BlazorAppTEST.Services;
+﻿using System.Reflection.Metadata;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+using ProjectMicroservice.DataTransferObjects;
+using Task = ClassLibrary_SEP3.Task;
+
+namespace BlazorAppTEST.Services;
 
 public class TaskService
 {
@@ -10,31 +16,20 @@ public class TaskService
         this.httpClient = httpClient;
     }
     
-    /*
-    public async Task GetTaskByBacklogID(int BacklogID)
-    {
-        HttpResponseMessage response = await httpClient.PostAsync("/api/BacklogTask", BacklogID);
-        string responseContent = await response.Content.ReadAsStringAsync();
-        
+   public async Task<Task?> CreateTask(AddBacklogTaskRequest task)
+   {
+       string Url = $"api/Backlog/{task.ProjectId}/Backlog/Add";
+       var response = await httpClient.PostAsJsonAsync(Url,task);
+       
         if (!response.IsSuccessStatusCode)
         {
-            throw new Exception($"Error:{response.StatusCode}, {responseContent}");
+            throw new Exception($"Error:{response.StatusCode}");
         }
-    }
-    */
+        var taskResponse = response.Content.ReadFromJsonAsync<Task>().Result;
+
+        return taskResponse;
+   }
     
-    
-   /* public async Task CreateTask(Task task)
-    {
-        HttpResponseMessage response = await httpClient.PostAsync("/api/CreateTask", task);
-        string responseContent = await response.Content.ReadAsStringAsync();
-        
-        if (!response.IsSuccessStatusCode)
-        {
-            throw new Exception($"Error:{response.StatusCode}, {responseContent}");
-        }
-    }
-    */
 
     /*public async Task DeleteSelectedTask(Task task)
     {

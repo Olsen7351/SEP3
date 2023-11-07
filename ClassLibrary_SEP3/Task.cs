@@ -19,7 +19,7 @@ namespace ClassLibrary_SEP3
         public DateTime EstimateTime { get; set; }
         public DateTime ActualTimeUsed { get; set; }
         public string Responsible { get; set; }
-        public List<TimeEntry> TimeEntries { get; set; }
+        //public List<TimeEntry> TimeEntries { get; set; }
         
     }
 }

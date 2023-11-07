@@ -6,6 +6,6 @@ namespace ProjectMicroservice.Models
 {
     public class Backlog
     {
-        public List<Task>? BacklogTasks { get; init; }
+        public List<Task?>? BacklogTasks { get; set; }
     }
 }

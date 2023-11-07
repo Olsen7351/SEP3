@@ -3,27 +3,30 @@ using ProjectMicroservice.Services;
 using ProjectMicroservice.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
+using Task = ClassLibrary_SEP3.Task;
 
 namespace ProjectMicroservice.Controllers
 {
-    [Route("api/Project/{projectId}/Backlog/{backlogId}/[controller]")]
+    [Route("api/Project/{projectId}/Backlog/[controller]")]
     [ApiController]
     public class TaskController : ControllerBase
     {
         private readonly ITaskService _taskService;
+        private readonly IProjectService _projectService;
 
-        public TaskController(ITaskService taskService)
+        public TaskController(ITaskService taskService, IProjectService projectService)
         {
             _taskService = taskService;
+            _projectService = projectService;
         }
 
         [HttpPost]
-        public IActionResult CreateTask(string projectId, string backlogId, [FromBody] CreateTaskRequest request)
+        public async Task<IActionResult> CreateTask(string projectId, [FromBody] AddBacklogTaskRequest request)
         {
-            ObjectId projectObjectId, backlogObjectId;
-            if (!ObjectId.TryParse(projectId, out projectObjectId) || !ObjectId.TryParse(backlogId, out backlogObjectId))
+            ObjectId projectObjectId;
+            if (!ObjectId.TryParse(projectId, out projectObjectId))
             {
-                return BadRequest("Invalid project or backlog id");
+                return BadRequest("Invalid projectId");
             }
 
             if (!ModelState.IsValid)
@@ -31,53 +34,32 @@ namespace ProjectMicroservice.Controllers
                 return BadRequest(ModelState);
             }
 
-            var task = new Models.TaskDatabase
+            var existingProject = _projectService.GetProject(projectObjectId);
+
+            // Create the new task
+            var taskToBeAdded = new Task
             {
                 ProjectId = projectObjectId,
-                BacklogId = backlogObjectId,
                 Title = request.Title,
                 Description = request.Description,
                 Status = request.Status,
-                CreatedAt = System.DateTime.UtcNow
-        };
-
-            var createdTask = _taskService.CreateTask(task);
-            return CreatedAtAction(
-                nameof(CreateTask),
-                new
+                CreatedAt = DateTime.UtcNow,
+                EstimateTime = request.EstimateTime,
+                Responsible = request.Responsible,
+            };
+            // Add the new task to the project's backlog
+            if (existingProject.Backlog.BacklogTasks == null)
+            {
+                existingProject.Backlog = new Backlog
                 {
-                    projectId,
-                    backlogId,
-                    id = createdTask.Id,
-                    status = createdTask.Status,
-                    CreatedAt = System.DateTime.UtcNow
-                },
-                createdTask
-            );
-        }
-
-        [HttpGet("{id}")]
-        public IActionResult GetTask(string projectId, string backlogId, string id)
-        {
-            ObjectId taskId;
-            if (!ObjectId.TryParse(id, out taskId))
-            {
-                return BadRequest("Invalid task id");
+                    BacklogTasks = new List<Task>()
+                };
             }
+            existingProject.Backlog.BacklogTasks.Add(taskToBeAdded);
+            // Save the updated project with the added task back to the database
+            var createdTask = _projectService.UpdateProject(existingProject);
 
-            var task = _taskService.GetTask(taskId);
-            if (task == null)
-            {
-                return NotFound();
-            }
-
-            // Additional validation to ensure the task belongs to the specified backlog and project
-            if (task.ProjectId != ObjectId.Parse(projectId) || task.BacklogId != ObjectId.Parse(backlogId))
-            {
-                return NotFound("Task not found under the specified backlog and project.");
-            }
-
-            return Ok(task);
+            return new OkObjectResult(taskToBeAdded);
         }
     }
 }

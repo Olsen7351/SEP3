@@ -23,7 +23,7 @@ namespace ProjectMicroservice.Controllers
         }
 
         [HttpPost("BackLogTask")]
-        public IActionResult AddTask(int projectId, [FromBody] CreateTaskRequest request)
+        public IActionResult AddTask(int projectId, [FromBody] AddBacklogTaskRequest request)
         {
             ObjectId id;
             if (!ObjectId.TryParse(projectId.ToString(), out id))

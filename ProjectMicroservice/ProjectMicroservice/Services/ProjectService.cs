@@ -1,9 +1,11 @@
 using System.Collections.Concurrent;
+using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using ProjectMicroservice.Data;
 using ProjectMicroservice.DataTransferObjects;
 using ProjectMicroservice.Models;
+using ZstdSharp;
 
 namespace ProjectMicroservice.Services
 {
@@ -37,7 +39,11 @@ namespace ProjectMicroservice.Services
             {
                 return _projects.Find(p => p.Id == id).FirstOrDefault();
             }
-            catch (System.FormatException) { return null; }
+            catch (System.FormatException)
+            {
+                Console.WriteLine("Could Not find project");
+                return null;
+            }
         }
 
         public bool ProjectExists(ObjectId id)
@@ -47,6 +53,28 @@ namespace ProjectMicroservice.Services
                 return _projects.CountDocuments(b => b.Id == id) > 0;
             }
             catch (Exception) { return false; }
+        }
+        public ProjectDatabase UpdateProject(ProjectDatabase project)
+        {
+            try {
+                var filter = Builders<ProjectDatabase>.Filter.Eq(p => p.Id, project.Id);
+
+                var result = _projects.ReplaceOne(filter, project);
+
+                if (result.ModifiedCount == 1)
+                {
+                    return project; // Successfully updated
+                }
+                else
+                {
+                    throw new MongoException("Failed to update project in database"); // Update failed
+                }
+                return project;
+            }
+            catch (Exception)
+            {
+                throw new Exception("Failed to update project in database");
+            }
         }
     }
 }

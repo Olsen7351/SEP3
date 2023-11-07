@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProjectMicroservice.Models;
 using System.Net.Http;
 using ClassLibrary_SEP3.DataTransferObjects;
+using ProjectMicroservice.DataTransferObjects;
 using Xunit.Sdk;
 using Task = ClassLibrary_SEP3.Task;
 
@@ -18,85 +19,26 @@ public class BacklogService : IBacklogService
         this.httpClient = httpClient;
     }
 
-
-    public async Task<IActionResult> GetBacklog(int projectId)
-    {
-        if (projectId < 0)
-        {
-            throw new BadHttpRequestException("ProjectId must be greater than 0");
-        }
-
-        string requestUri = $"api/Backlog/{projectId}";
-        HttpResponseMessage response = await httpClient.GetAsync(requestUri);
-
-        if (response.IsSuccessStatusCode)
-        {
-            var backlog = await response.Content.ReadFromJsonAsync<Backlog>();
-
-            if (backlog != null)
-            {
-                return new OkObjectResult(backlog);
-            }
-            else
-            {
-                return new NotFoundResult();
-            }
-        }
-        else
-        {
-            return new BadRequestResult();
-        }
-    }
-
-    public async Task<IActionResult> CreateBacklog(Backlog backlog)
-    {
-        string requestUri = $"api/Backlog";
-        HttpResponseMessage response = await httpClient.PostAsJsonAsync(requestUri, backlog);
-        if (response.IsSuccessStatusCode)
-        {
-            var backlogResponse = await response.Content.ReadFromJsonAsync<Backlog>();
-            if (backlogResponse != null)
-            {
-                return new OkObjectResult(backlogResponse);
-            }
-            else
-            {
-                return new BadRequestResult();
-            }
-        }
-        else
-        {
-            return new BadRequestResult();
-        }
-    }
-
-    public async Task<IActionResult> AddTaskToBackLog(int projectId, Task task)
+    public async Task<Task> AddTaskToBackLog(string projectId, AddBacklogTaskRequest? task)
     {
         string requestUri = $"api/Project/{projectId}/Backlog/Task";
         HttpResponseMessage response = await httpClient.PostAsJsonAsync(requestUri, task);
+        var taskResponse = response.Content.ReadFromJsonAsync<Task>().Result;
         if (response.IsSuccessStatusCode)
         {
-            var backlogTaskResponse = await response.Content.ReadFromJsonAsync<ClassLibrary_SEP3.Task>();
-            if (backlogTaskResponse != null)
-            {
-                return new OkObjectResult(backlogTaskResponse);
-            }
-            else
-            {
-                return new BadRequestResult();
-            }
-        } else
-        {
-            return new BadRequestResult();
+            return taskResponse;
         }
+
+        throw new Exception("Failed to add task");
     }
-    public async Task<IActionResult> DeleteTaskFromBacklog(int projectId, int BacklogId, DeleteBacklogTaskRequest task)
+    public async Task<IActionResult> DeleteTaskFromBacklog(string projectId, DeleteBacklogTaskRequest task)
     {
-        string requestUri = $"api/Project/{projectId}/Backlog/{BacklogId}/Task/{task.TaskId}";
+        string requestUri = $"api/Project/{projectId}/Backlog/Task/{task.TaskId}";
         HttpResponseMessage response = await httpClient.DeleteAsync(requestUri);
+        var taskResponse = response.Content.ReadFromJsonAsync<Task>();
         if (response.IsSuccessStatusCode)
         {
-            return new OkObjectResult(response);
+            return new OkObjectResult(taskResponse);
         }
         else
         {

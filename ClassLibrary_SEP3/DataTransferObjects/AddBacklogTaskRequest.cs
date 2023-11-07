@@ -8,8 +8,7 @@ namespace ProjectMicroservice.DataTransferObjects;
 
 public class AddBacklogTaskRequest
 {
-    [Required]
-    public ObjectId ProjectId { get; set; }
+    public string ProjectId { get; set; }
     public string Title { get; set; }
     public string? Description { get; set; }
     public TaskStatus Status { get; set; }
@@ -17,5 +16,5 @@ public class AddBacklogTaskRequest
     public DateTime EstimateTime { get; set; }
     public DateTime ActualTimeUsed { get; set; }
     public string? Responsible { get; set; }
-    public List<TimeEntry>? TimeEntries { get; set; }
+    //public List<TimeEntry>? TimeEntries { get; set; }
 }

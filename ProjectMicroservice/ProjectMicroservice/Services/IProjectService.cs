@@ -9,5 +9,6 @@ namespace ProjectMicroservice.Services
         ProjectDatabase CreateProject(CreateProjectRequest project);
         ProjectDatabase GetProject(ObjectId id);
         bool ProjectExists(ObjectId projectId);
+        ProjectDatabase UpdateProject(ProjectDatabase project);
     }
 }
