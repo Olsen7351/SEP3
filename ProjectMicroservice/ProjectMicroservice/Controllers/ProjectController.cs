@@ -53,7 +53,7 @@ namespace ProjectMicroservice.Controllers
                 return NotFound();
             }
 
-            return Ok(project);
+            return new OkObjectResult(project);
         }
     }
 }

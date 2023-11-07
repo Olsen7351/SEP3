@@ -31,9 +31,9 @@ public class BacklogService : IBacklogService
 
         throw new Exception("Failed to add task");
     }
-    public async Task<IActionResult> DeleteTaskFromBacklog(string projectId, DeleteBacklogTaskRequest task)
+    public async Task<IActionResult> DeleteTaskFromBacklog(string id, string ProjectId)
     {
-        string requestUri = $"api/Project/{projectId}/Backlog/Task/{task.TaskId}";
+        string requestUri = $"api/Project/{ProjectId}/Backlog/Task/{id}";
         HttpResponseMessage response = await httpClient.DeleteAsync(requestUri);
         var taskResponse = response.Content.ReadFromJsonAsync<Task>();
         if (response.IsSuccessStatusCode)

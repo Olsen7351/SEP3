@@ -18,16 +18,13 @@
         <div class="card backlog-section">
                 <p>Backlog</p>
             <ul class="task-list">
-                @if (BacklogTasks != null)
-                {
-                    @foreach (var task in BacklogTasks)
+                    @foreach (var task in BacklogTasks!)
                     {
                         <li class="task-item">
                             <span>@task</span>
-                            <button class="btn-delete-task" @onclick="() => DeleteTask(task.Id)">x</button>
+                            <button class="btn-delete-task" @onclick="() => DeleteTask(task.Id.ToString())">x</button>
                         </li>
                     }
-                }
             </ul>
             <div class="create-task-form">
                 <h3>Create a New Task</h3>
@@ -60,9 +57,9 @@
     [Parameter]
     public string ProjectIdAsString { get; set; }
 
-    public Project? Project { get; set; }
+    public Project Project { get; set; }
 
-    public List<ClassLibrary_SEP3.Task?>? BacklogTasks { get; set; }
+    public List<ClassLibrary_SEP3.Task?>? BacklogTasks { get; set; } = new List<ClassLibrary_SEP3.Task?>();
     private AddBacklogTaskRequest newTask = new AddBacklogTaskRequest();
 
 
@@ -70,16 +67,9 @@
 
     protected override async Task OnParametersSetAsync()
     {
-        Project? ProjectInput = await ProjectService.GetProject(ProjectIdAsString);
-        Project = ProjectInput ?? throw new Exception("Project not found");
-        if (Project.Backlog == null)
-        {
-            Project.Backlog = new Backlog
-            {
-                BacklogTasks = new List<ClassLibrary_SEP3.Task?>()
-            };
-        }
+        Project = await ProjectService.GetProject(ProjectIdAsString);
         BacklogTasks = Project.Backlog.BacklogTasks;
+
     }
 
 
@@ -98,20 +88,21 @@
         };
 
         var response = await TaskService.CreateTask(task);
-
         BacklogTasks.Add(response);
     }
 
 
     //DeleteTask
-    private async Task DeleteTask()
+    private async Task DeleteTask(string id)
     {
-        //TODO
-    }
-    // Delete task method
-    private async Task DeleteTask(ObjectId taskId)
-    {
-        string Id = taskId.ToString();
-    //TODO
+        try
+        {
+            await TaskService.DeleteTask(id, ProjectIdAsString);
+        }
+        catch (Exception ex)
+        {
+            throw new NullReferenceException("Failed to delete Task");
+        }
+        
     }
 }

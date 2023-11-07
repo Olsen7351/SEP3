@@ -11,15 +11,12 @@ namespace ProjectMicroservice.Controllers
     [ApiController]
     public class BacklogController : ControllerBase
     {
-        private readonly IProjectService _projectService;  // Injecting IProjectService
-        private readonly ITaskService _taskService;
+        /*private readonly IProjectService _projectService;  // Injecting IProjectService
 
         
-        public BacklogController( IProjectService projectService,
-            ITaskService taskService)
+        public BacklogController( IProjectService projectService)
         {
             _projectService = projectService;
-            _taskService = taskService;
         }
 
         [HttpPost("BackLogTask")]
@@ -82,6 +79,6 @@ namespace ProjectMicroservice.Controllers
 
             return NoContent();
         }
-        
+        */
     }
 }

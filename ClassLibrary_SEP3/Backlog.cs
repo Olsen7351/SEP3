@@ -1,8 +1,4 @@
-﻿using System;
-using MongoDB.Bson;
-using Task = ClassLibrary_SEP3.Task;
-
-namespace ProjectMicroservice.Models
+﻿namespace ClassLibrary_SEP3
 {
     public class Backlog
     {

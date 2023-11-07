@@ -1,6 +1,7 @@
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using ClassLibrary_SEP3;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
@@ -37,12 +38,21 @@ namespace Broker.Services
             }
         }
 
-        public async Task<IActionResult> GetProjekt(string id)
+        public async Task<Project> GetProjekt(string id)
         {
             string requestUri = $"api/Project/{id}";
             var response = await httpClient.GetAsync(requestUri);
-            var projekt = await response.Content.ReadFromJsonAsync<Project>();
-            return new OkObjectResult(projekt);
+            var projekt = await response.Content.ReadFromJsonAsync<ProjectDatabase>();
+            var convertedProject = new Project
+            {
+                Backlog = projekt.Backlog,
+                Description = projekt.Description,
+                EndDate = projekt.EndDate,
+                Id = projekt.Id,
+                Name = projekt.Name,
+                StartDate = projekt.StartDate
+            };
+            return convertedProject;
         }
     }
 }

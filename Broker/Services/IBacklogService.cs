@@ -9,5 +9,5 @@ namespace Broker.Services;
 public interface IBacklogService
 {
     public Task<Task> AddTaskToBackLog(string projectId, AddBacklogTaskRequest? task);
-    public Task<IActionResult> DeleteTaskFromBacklog(string projectId, DeleteBacklogTaskRequest task);
+    public Task<IActionResult> DeleteTaskFromBacklog(string id,string projectId);
 }

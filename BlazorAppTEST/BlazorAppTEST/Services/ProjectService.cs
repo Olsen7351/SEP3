@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Text.Json;
+using ClassLibrary_SEP3;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using ProjectMicroservice.DataTransferObjects;
@@ -24,7 +25,7 @@ public class ProjectService
     public async Task CreateProject(CreateProjectRequest projekt)
     {
        //Try and send it trough
-        HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/Project", projekt);
+        HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/BrokerProject", projekt);
         string responseContent = await response.Content.ReadAsStringAsync();
        
         
@@ -34,27 +35,10 @@ public class ProjectService
         }
     }
 
-    
-    
-    
-    //Get All
-    public async Task<ICollection<Project>?> GetAllProjects()
+
+    public async Task<Project> GetProject(string id)
     {
-        HttpResponseMessage response = await httpClient.GetAsync(("/"));
-        string contentProject = await response.Content.ReadAsStringAsync();
-
-        if (!response.IsSuccessStatusCode)
-        {
-            throw new Exception($"Error:{response.StatusCode}, {contentProject}");
-        }
-
-        ICollection<Project>? projects = JsonSerializer.Deserialize<ICollection<Project>>(contentProject, new JsonSerializerOptions());
-        return projects;
-    }
-
-    public async Task<Project?> GetProject(string id)
-    {
-        HttpResponseMessage response = await httpClient.GetAsync($"api/Project/{id}");
+        HttpResponseMessage response = await httpClient.GetAsync($"api/BrokerProject/{id}");
         var projekt = await response.Content.ReadFromJsonAsync<Project>();
         if (projekt == null)
         {
@@ -62,21 +46,4 @@ public class ProjectService
         }
         return projekt;
     }
-    
-    
-    
-    
-    //Get Backlog for Project
-    public async Task<string?> GetBacklogIDForProject(string projectId)
-    {
-        HttpResponseMessage response = await httpClient.GetAsync($"/api/Project/{projectId}/BacklogID");
-        string content = await response.Content.ReadAsStringAsync();
-
-        if (!response.IsSuccessStatusCode)
-        {
-            throw new Exception($"Error:{response.StatusCode}, {content}");
-        }
-        return content;
-    }
-
 }

@@ -1,6 +1,6 @@
 using MongoDB.Bson;
 
-namespace ProjectMicroservice.Models;
+namespace ClassLibrary_SEP3;
 
 public class Project
 {

@@ -1,4 +1,5 @@
 using System.Collections.Concurrent;
+using ClassLibrary_SEP3;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -42,7 +43,7 @@ namespace ProjectMicroservice.Services
             catch (System.FormatException)
             {
                 Console.WriteLine("Could Not find project");
-                return null;
+                throw new Exception("Project not found");
             }
         }
 

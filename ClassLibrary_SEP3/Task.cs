@@ -1,4 +1,5 @@
 ﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace ClassLibrary_SEP3
 {
@@ -10,6 +11,7 @@ namespace ClassLibrary_SEP3
     }
     public class Task
     {
+        [BsonId]
         public ObjectId Id { get; init; }
         public ObjectId ProjectId { get; set; }
         public string Title { get; init; }
