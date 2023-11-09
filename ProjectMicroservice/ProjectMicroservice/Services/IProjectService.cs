@@ -1,14 +1,17 @@
+using ClassLibrary_SEP3;
+using Microsoft.VisualBasic.CompilerServices;
 using MongoDB.Bson;
 using ProjectMicroservice.DataTransferObjects;
-using ProjectMicroservice.Models;
+using ProjectMicroservice.Tests;
+using ProjectDatabase = ClassLibrary_SEP3.Project;
 
 namespace ProjectMicroservice.Services
 {
     public interface IProjectService
     {
-        ProjectDatabase CreateProject(CreateProjectRequest project);
-        ProjectDatabase GetProject(ObjectId id);
+        Project CreateProject(CreateProjectRequest project);
+        Project GetProject(ObjectId id);
         bool ProjectExists(ObjectId projectId);
-        ProjectDatabase UpdateProject(ProjectDatabase project);
+        Project UpdateProject(Project project);
     }
 }

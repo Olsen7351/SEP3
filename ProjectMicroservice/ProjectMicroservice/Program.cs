@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using ProjectMicroservice.Data;
 using ProjectMicroservice.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,7 +18,11 @@ builder.Services.AddSingleton<MongoDbContext>(sp =>
         "test_db"
     )
 );
-
+builder.Services.AddMvc()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+    });
 
 // Registering the IProjectService and IBacklogService with their concrete implementations.
 builder.Services.AddScoped<IProjectService, ProjectService>();

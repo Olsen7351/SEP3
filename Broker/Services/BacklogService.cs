@@ -1,7 +1,6 @@
 ﻿
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using ProjectMicroservice.Models;
 using System.Net.Http;
 using ClassLibrary_SEP3.DataTransferObjects;
 using ProjectMicroservice.DataTransferObjects;

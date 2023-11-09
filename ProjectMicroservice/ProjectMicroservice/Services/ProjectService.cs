@@ -1,40 +1,44 @@
 using System.Collections.Concurrent;
 using ClassLibrary_SEP3;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic.CompilerServices;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using ProjectMicroservice.Data;
 using ProjectMicroservice.DataTransferObjects;
-using ProjectMicroservice.Models;
 using ZstdSharp;
+using Task = ClassLibrary_SEP3.Task;
 
 namespace ProjectMicroservice.Services
 {
     public class ProjectService : IProjectService
     {
-        private readonly IMongoCollection<ProjectDatabase> _projects;
+        private readonly IMongoCollection<Project> _projects;
 
         public ProjectService(MongoDbContext context)
         {
-            _projects = context.Database.GetCollection<ProjectDatabase>("Projects");
+            _projects = context.Database.GetCollection<Project>("Projects");
         }
 
-        public ProjectDatabase CreateProject(CreateProjectRequest request) 
+        public Project CreateProject(CreateProjectRequest request) 
         {
-            var newProject = new ProjectDatabase
+            var newProject = new Project()
             {
                 Name = request.Name,
                 Description = request.Description,
                 StartDate = request.StartDate,
                 EndDate = request.EndDate,
                 Backlog = new Backlog()
+                {
+                    BacklogTasks = new List<Task>()
+                }
             };
 
             _projects.InsertOne(newProject);
             return newProject;  // Now contains the MongoDB-generated ID
         }
 
-        public ProjectDatabase GetProject(ObjectId id)
+        public Project GetProject(ObjectId id)
         {
             try
             {
@@ -55,10 +59,10 @@ namespace ProjectMicroservice.Services
             }
             catch (Exception) { return false; }
         }
-        public ProjectDatabase UpdateProject(ProjectDatabase project)
+        public Project UpdateProject(Project project)
         {
             try {
-                var filter = Builders<ProjectDatabase>.Filter.Eq(p => p.Id, project.Id);
+                var filter = Builders<Project>.Filter.Eq(p => p.Id, project.Id);
 
                 var result = _projects.ReplaceOne(filter, project);
 

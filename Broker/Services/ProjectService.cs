@@ -1,11 +1,12 @@
 using System.Net;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 using ClassLibrary_SEP3;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
-using ProjectMicroservice.Models;
+using Xunit.Sdk;
 
 
 namespace Broker.Services
@@ -42,17 +43,13 @@ namespace Broker.Services
         {
             string requestUri = $"api/Project/{id}";
             var response = await httpClient.GetAsync(requestUri);
-            var projekt = await response.Content.ReadFromJsonAsync<ProjectDatabase>();
-            var convertedProject = new Project
+            var projekt = await response.Content.ReadFromJsonAsync<Project>();
+            if (projekt == null)
             {
-                Backlog = projekt.Backlog,
-                Description = projekt.Description,
-                EndDate = projekt.EndDate,
-                Id = projekt.Id,
-                Name = projekt.Name,
-                StartDate = projekt.StartDate
-            };
-            return convertedProject;
+                throw new Exception("Could not get project");
+            }
+
+            return projekt;
         }
     }
 }

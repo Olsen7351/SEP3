@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Broker.Services;
 using ClassLibrary_SEP3;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
-using ProjectMicroservice.Models;
 
 namespace Broker.Controllers
 {
@@ -26,8 +26,7 @@ namespace Broker.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProjekt(string id)
         {
-            var response = await projektService.GetProjekt(id);
-            
+            var response = projektService.GetProjekt(id).Result;
             return new OkObjectResult(response);
         }
 

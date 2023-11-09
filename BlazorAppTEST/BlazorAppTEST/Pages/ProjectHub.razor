@@ -3,7 +3,6 @@
 @using BlazorAppTEST.Services
 @using MongoDB.Bson
 @using ProjectMicroservice.DataTransferObjects
-@using ProjectMicroservice.Models
 @using Xunit.Sdk
 @using Task = System.Threading.Tasks.Task
 @using TaskStatus = ClassLibrary_SEP3.TaskStatus
@@ -18,13 +17,20 @@
         <div class="card backlog-section">
                 <p>Backlog</p>
             <ul class="task-list">
+                @if (BacklogTasks != null)
+                {
                     @foreach (var task in BacklogTasks!)
                     {
                         <li class="task-item">
-                            <span>@task</span>
-                            <button class="btn-delete-task" @onclick="() => DeleteTask(task.Id.ToString())">x</button>
+                            <span>@task.Id.ToString()</span>
+                            <span>@task.ProjectId</span>
+                            <span>@task.Title</span>
+                            <span>@task.Description</span>
+                            <span>@task.Status</span>
+                            <button class="btn-delete-task" @onclick="() => DeleteTask(task.Id)">x</button>
                         </li>
                     }
+                }
             </ul>
             <div class="create-task-form">
                 <h3>Create a New Task</h3>
@@ -59,7 +65,7 @@
 
     public Project Project { get; set; }
 
-    public List<ClassLibrary_SEP3.Task?>? BacklogTasks { get; set; } = new List<ClassLibrary_SEP3.Task?>();
+    public List<ClassLibrary_SEP3.Task?>? BacklogTasks { get; set; }
     private AddBacklogTaskRequest newTask = new AddBacklogTaskRequest();
 
 
@@ -67,8 +73,16 @@
 
     protected override async Task OnParametersSetAsync()
     {
+        
         Project = await ProjectService.GetProject(ProjectIdAsString);
-        BacklogTasks = Project.Backlog.BacklogTasks;
+        if (Project.Backlog.BacklogTasks != null)
+        {
+            BacklogTasks = Project.Backlog.BacklogTasks;
+        }
+        else
+        {
+            BacklogTasks = new List<ClassLibrary_SEP3.Task>()!;
+        }
 
     }
 
@@ -93,10 +107,11 @@
 
 
     //DeleteTask
-    private async Task DeleteTask(string id)
+    private async Task DeleteTask(ObjectId objectId)
     {
         try
         {
+            string id = objectId.ToString() ?? throw new InvalidOperationException();
             await TaskService.DeleteTask(id, ProjectIdAsString);
         }
         catch (Exception ex)

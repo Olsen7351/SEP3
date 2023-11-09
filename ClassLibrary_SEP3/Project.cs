@@ -1,9 +1,11 @@
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace ClassLibrary_SEP3;
 
 public class Project
 {
+    [BsonId]
     public ObjectId Id { get; set; }
     public string? Name { get; set; }
     public string? Description { get; set; }

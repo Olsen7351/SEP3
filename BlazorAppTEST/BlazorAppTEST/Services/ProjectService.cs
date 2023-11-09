@@ -4,7 +4,6 @@ using ClassLibrary_SEP3;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using ProjectMicroservice.DataTransferObjects;
-using ProjectMicroservice.Models;
 using Xunit.Sdk;
 using Task = System.Threading.Tasks.Task;
 
@@ -38,7 +37,7 @@ public class ProjectService
 
     public async Task<Project> GetProject(string id)
     {
-        HttpResponseMessage response = await httpClient.GetAsync($"api/BrokerProject/{id}");
+        var response = await httpClient.GetAsync($"api/BrokerProject/{id}");
         var projekt = await response.Content.ReadFromJsonAsync<Project>();
         if (projekt == null)
         {

@@ -1,8 +1,6 @@
 ﻿using Broker.Services;
-using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 using ProjectMicroservice.DataTransferObjects;
-using ProjectMicroservice.Models;
 using Task = ClassLibrary_SEP3.Task;
 
 namespace Broker.Controllers;
@@ -25,8 +23,8 @@ public class BacklogController : ControllerBase
     }
 
     [HttpDelete("{ProjectId}/Backlog/Task/{id}")]
-    public async Task<IActionResult> DeleteTaskFromBacklog([FromRoute] string id, string ProjectId)
+    public async Task<IActionResult> DeleteTaskFromBacklog([FromRoute] string ProjectId, [FromRoute] string id)
     {
-        return await _backlogService.DeleteTaskFromBacklog(ProjectId,id);
+        return await _backlogService.DeleteTaskFromBacklog(id,ProjectId);
     }
 }

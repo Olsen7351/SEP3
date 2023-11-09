@@ -1,10 +1,10 @@
+using ClassLibrary_SEP3;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using Moq;
 using ProjectMicroservice.Controllers;
 using ProjectMicroservice.Data;
 using ProjectMicroservice.DataTransferObjects;
-using ProjectMicroservice.Models;
 using ProjectMicroservice.Services;
 using Xunit;
 
@@ -55,7 +55,7 @@ public class ProjectControllerTests
         Assert.NotNull(actionResult);
         Assert.Equal(201, actionResult.StatusCode); // Checking HTTP 201 Created status
 
-        var createdProject = actionResult?.Value as ProjectDatabase;
+        var createdProject = actionResult?.Value as Project;
         Assert.NotNull(createdProject);
     
         Assert.Equal(request.Name, createdProject?.Name);
@@ -159,4 +159,8 @@ public class ProjectControllerTests
         Assert.NotNull(actionResult);
         Assert.Equal(400, actionResult.StatusCode);
     }
+}
+
+internal class ProjectDatabase
+{
 }

@@ -2,7 +2,6 @@ using System.Threading.Tasks;
 using ClassLibrary_SEP3;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
-using ProjectMicroservice.Models;
 
 namespace Broker.Services
 {

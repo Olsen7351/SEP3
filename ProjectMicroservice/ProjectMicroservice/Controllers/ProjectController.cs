@@ -1,10 +1,15 @@
 
-using ProjectMicroservice.Models;
+
+using ClassLibrary_SEP3;
+using Microsoft.AspNetCore.Http.HttpResults;
 using ProjectMicroservice.Services;
 
 using Microsoft.AspNetCore.Mvc;
 using ProjectMicroservice.DataTransferObjects;
 using MongoDB.Bson;
+using Newtonsoft.Json;
+using Xunit.Sdk;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace ProjectMicroservice.Controllers
 {
@@ -44,14 +49,10 @@ namespace ProjectMicroservice.Controllers
             ObjectId objectId;
             if (!ObjectId.TryParse(id, out objectId))
             {
-                return BadRequest("Invalid project id");
+                throw new Exception("Invalid project id");
             }
-            var project = _projectService.GetProject(objectId);
+            Project project = _projectService.GetProject(objectId);
 
-            if (project == null)
-            {
-                return NotFound();
-            }
 
             return new OkObjectResult(project);
         }

@@ -1,6 +1,5 @@
 ﻿using ClassLibrary_SEP3;
 using Microsoft.AspNetCore.Http.HttpResults;
-using ProjectMicroservice.Models;
 using ProjectMicroservice.Services;
 using ProjectMicroservice.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
@@ -64,7 +63,7 @@ namespace ProjectMicroservice.Controllers
             return new OkObjectResult(taskToBeAdded);
         }
 
-        [HttpDelete("{projectId},{id}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTask([FromRoute] string projectId, [FromRoute] string id)
         {
             ObjectId projectObjectId;
