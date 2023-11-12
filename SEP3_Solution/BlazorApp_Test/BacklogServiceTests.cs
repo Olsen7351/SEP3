@@ -10,6 +10,7 @@ using BlazorAppTEST.Services;
 using ClassLibrary_SEP3;
 using System.Text;
 using System.Text.Json;
+using ProjectMicroservice.Models;
 using Task = System.Threading.Tasks.Task;
 
 namespace YourNamespace.Tests
