@@ -2,7 +2,6 @@ using Moq;
 using Broker.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http.HttpResults;
-using ProjectMicroservice.Models;
 
 namespace Broker_Test
 {
@@ -44,7 +43,7 @@ namespace Broker_Test
                                   return new NotFoundResult(); // You can modify this behavior as needed
                               });
 
-            
+
             // Set up method behavior for CreateProjekt
             mockProjektService.Setup(service => service.CreateProjekt(It.IsAny<Project>()))
                               .Returns((Project createdProjekt) =>
@@ -56,4 +55,6 @@ namespace Broker_Test
             return mockProjektService;
         }
     }*/
+
+    }
 }
