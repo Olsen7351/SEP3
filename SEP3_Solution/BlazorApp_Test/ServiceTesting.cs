@@ -8,7 +8,6 @@ using ClassLibrary_SEP3;
 using Moq;
 using Moq.Protected;
 using Newtonsoft.Json;
-using ProjectMicroservice.Models;
 using Xunit;
 using Xunit.Abstractions;
 using Task = System.Threading.Tasks.Task;

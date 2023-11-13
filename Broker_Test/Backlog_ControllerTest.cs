@@ -4,7 +4,6 @@ using ClassLibrary_SEP3;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using Moq;
-using ProjectMicroservice.Models;
 
 namespace Broker_Test
 {
