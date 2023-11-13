@@ -1,12 +1,7 @@
-﻿using System;
-using MongoDB.Bson;
-
-namespace ProjectMicroservice.Models
+﻿namespace ClassLibrary_SEP3
 {
     public class Backlog
     {
-        public ObjectId Id { get; init; }
-        public ObjectId ProjectId { get; init; }
-        public string? Description { get; init; }
+        public List<Task?>? BacklogTasks { get; set; }
     }
 }

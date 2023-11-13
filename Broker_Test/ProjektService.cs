@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Broker_Test
 {
-    internal class BacklogServiceTest
+    internal class ProjektService
     {
     }
 }

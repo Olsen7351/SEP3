@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
-using ProjectMicroservice.Models;
 using ProjectMicroservice.Services;
 using ProjectMicroservice.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
@@ -11,68 +10,16 @@ namespace ProjectMicroservice.Controllers
     [ApiController]
     public class BacklogController : ControllerBase
     {
-        private readonly IBacklogService _backlogService;
-        private readonly IProjectService _projectService;  // Injecting IProjectService
-        private readonly ITaskService _taskService;
+        /*private readonly IProjectService _projectService;  // Injecting IProjectService
 
         
-        public BacklogController(IBacklogService backlogService, IProjectService projectService,
-            ITaskService taskService)
+        public BacklogController( IProjectService projectService)
         {
-            _backlogService = backlogService;
             _projectService = projectService;
-            _taskService = taskService;
         }
-
-        [HttpGet]
-        public IActionResult GetBacklogByProjectId(string projectId)
-        {
-            ObjectId id;
-if (!ObjectId.TryParse(projectId, out id))
-{
-    return BadRequest("Invalid project id");
-}
-            var backlog = _backlogService.GetBacklogByProjectId(id);
-            if (backlog == null)
-            {
-                return NotFound();
-            }
-            return Ok(backlog);
-        }
-
-        [HttpPost]
-        public IActionResult CreateBacklog(string projectId, [FromBody] CreateBacklogRequest request)
-        {
-            // Convert projectId to ObjectId
-            ObjectId id;
-            if (!ObjectId.TryParse(projectId, out id))
-            {
-                return BadRequest("Invalid project id");
-            }
-            if (!_projectService.ProjectExists(id))
-            {
-                return NotFound("Project not found");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (_backlogService.ProjectHasBacklog(id))
-            {
-                return Conflict("This project already has a backlog.");
-            }
-
-            var createdBacklog = _backlogService.CreateBacklog(id, request);
-            return CreatedAtAction(nameof(CreateBacklog), new { projectId, id = createdBacklog.Id }, createdBacklog);
-        }
-        
-      
-        
 
         [HttpPost("BackLogTask")]
-        public IActionResult AddTask(int projectId, [FromBody] CreateTaskRequest request)
+        public IActionResult AddTask(int projectId, [FromBody] AddBacklogTaskRequest request)
         {
             ObjectId id;
             if (!ObjectId.TryParse(projectId.ToString(), out id))
@@ -131,6 +78,6 @@ if (!ObjectId.TryParse(projectId, out id))
 
             return NoContent();
         }
-        
+        */
     }
 }

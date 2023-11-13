@@ -1,5 +1,6 @@
 @using BlazorAppTEST.Services
 @using ClassLibrary_SEP3
+@using Task = ClassLibrary_SEP3.Task
 @inject BacklogService BacklogService
 
 <h3>Time Entry for Task</h3>
@@ -29,7 +30,7 @@
 
     // Gem tidsregistrering i opgaven
         var task = BacklogService.GetTaskById(TaskID); // Brug din tjeneste til at hente opgaven
-        task.TimeEntries.Add(timeEntry);
+        //task.TimeEntries.Add(timeEntry);
 
     // Gem opdateret opgave
         BacklogService.UpdateTask(task);

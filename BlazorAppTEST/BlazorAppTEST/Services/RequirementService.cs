@@ -1,4 +1,4 @@
-﻿using ProjectMicroservice.Models;
+﻿using ClassLibrary_SEP3;
 using Task = System.Threading.Tasks.Task;
 
 namespace BlazorAppTEST.Services

@@ -1,10 +1,10 @@
+using ClassLibrary_SEP3;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using Moq;
 using ProjectMicroservice.Controllers;
 using ProjectMicroservice.Data;
 using ProjectMicroservice.DataTransferObjects;
-using ProjectMicroservice.Models;
 using ProjectMicroservice.Services;
 using Xunit;
 
@@ -15,7 +15,7 @@ public class ProjectControllerTests
     private readonly Mock<IMongoCollection<ProjectDatabase>> _mockCollection;
     private readonly Mock<MongoDbContext> _mockDbContext;
     private readonly ProjectService _projectService;
-    private readonly ProjectController _projectController;
+    private readonly ProjectController _brokerProjectController;
 
     public ProjectControllerTests()
     {
@@ -33,7 +33,7 @@ public class ProjectControllerTests
 
         // Initialize the service and controller
         _projectService = new ProjectService(_mockDbContext.Object);
-        _projectController = new ProjectController(_projectService);
+        _brokerProjectController = new ProjectController(_projectService);
     }
 
     [Fact]
@@ -49,13 +49,13 @@ public class ProjectControllerTests
         };
 
         // Act
-        var actionResult = _projectController.CreateProject(request) as CreatedAtActionResult;
+        var actionResult = _brokerProjectController.CreateProject(request) as CreatedAtActionResult;
 
         // Assert
         Assert.NotNull(actionResult);
         Assert.Equal(201, actionResult.StatusCode); // Checking HTTP 201 Created status
 
-        var createdProject = actionResult?.Value as ProjectDatabase;
+        var createdProject = actionResult?.Value as Project;
         Assert.NotNull(createdProject);
     
         Assert.Equal(request.Name, createdProject?.Name);
@@ -76,7 +76,7 @@ public class ProjectControllerTests
         };
 
         // Act
-        var actionResult = _projectController.CreateProject(request) as BadRequestResult;
+        var actionResult = _brokerProjectController.CreateProject(request) as BadRequestResult;
 
         // Assert
         Assert.NotNull(actionResult);
@@ -95,7 +95,7 @@ public class ProjectControllerTests
         };
 
         // Act
-        var actionResult = _projectController.CreateProject(request) as BadRequestResult;
+        var actionResult = _brokerProjectController.CreateProject(request) as BadRequestResult;
 
         // Assert
         Assert.NotNull(actionResult);
@@ -114,7 +114,7 @@ public class ProjectControllerTests
         };
 
         // Act
-        var actionResult = _projectController.CreateProject(request) as BadRequestResult;
+        var actionResult = _brokerProjectController.CreateProject(request) as BadRequestResult;
 
         // Assert
         Assert.NotNull(actionResult);
@@ -132,7 +132,7 @@ public class ProjectControllerTests
         };
 
         // Act
-        var actionResult = _projectController.CreateProject(request) as BadRequestResult;
+        var actionResult = _brokerProjectController.CreateProject(request) as BadRequestResult;
 
         // Assert
         Assert.NotNull(actionResult);
@@ -153,10 +153,14 @@ public class ProjectControllerTests
         };
 
         // Act
-        var actionResult = _projectController.CreateProject(request) as BadRequestResult;
+        var actionResult = _brokerProjectController.CreateProject(request) as BadRequestResult;
 
         // Assert
         Assert.NotNull(actionResult);
         Assert.Equal(400, actionResult.StatusCode);
     }
+}
+
+internal class ProjectDatabase
+{
 }

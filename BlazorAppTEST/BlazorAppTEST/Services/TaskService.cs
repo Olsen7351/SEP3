@@ -1,4 +1,9 @@
-﻿namespace BlazorAppTEST.Services;
+﻿using System.Reflection.Metadata;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+using ProjectMicroservice.DataTransferObjects;
+
+namespace BlazorAppTEST.Services;
 
 public class TaskService
 {
@@ -10,41 +15,30 @@ public class TaskService
         this.httpClient = httpClient;
     }
     
-    /*
-    public async Task GetTaskByBacklogID(int BacklogID)
-    {
-        HttpResponseMessage response = await httpClient.PostAsync("/api/BacklogTask", BacklogID);
-        string responseContent = await response.Content.ReadAsStringAsync();
-        
+   public async Task<ClassLibrary_SEP3.Task?> CreateTask(AddBacklogTaskRequest task)
+   {
+       string Url = $"api/{task.ProjectId}/Backlog/AddTask";
+       var response = await httpClient.PostAsJsonAsync(Url,task);
+       
         if (!response.IsSuccessStatusCode)
         {
-            throw new Exception($"Error:{response.StatusCode}, {responseContent}");
+            throw new Exception($"Error:{response.StatusCode}");
         }
-    }
-    */
-    
-    
-   /* public async Task CreateTask(Task task)
-    {
-        HttpResponseMessage response = await httpClient.PostAsync("/api/CreateTask", task);
-        string responseContent = await response.Content.ReadAsStringAsync();
-        
-        if (!response.IsSuccessStatusCode)
-        {
-            throw new Exception($"Error:{response.StatusCode}, {responseContent}");
-        }
-    }
-    */
+        var taskResponse = response.Content.ReadFromJsonAsync<ClassLibrary_SEP3.Task>().Result;
 
-    /*public async Task DeleteSelectedTask(Task task)
+        return taskResponse;
+   }
+    
+
+   public async Task DeleteTask(string id, string projectId)
     {
-        HttpResponseMessage response = await httpClient.PostAsync("/api/DeleteTask", task);
-        string responseContent = await response.Content.ReadAsStringAsync();
+        string Url = $"api/{projectId}/Backlog/Task/{id}";
+        var response = await httpClient.DeleteAsync(Url);
         
         if (!response.IsSuccessStatusCode)
         {
-            throw new Exception($"Error:{response.StatusCode}, {responseContent}");
+            throw new Exception($"Error:{response.StatusCode}");
         }
     }
-    */
+    
 }

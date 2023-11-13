@@ -1,37 +1,56 @@
 ﻿@page "/project-hub/{ProjectIdAsString}"
 @using ClassLibrary_SEP3
 @using BlazorAppTEST.Services
-@using MongoDB.Bson
-@using ProjectMicroservice.Models
+@using ProjectMicroservice.DataTransferObjects
 @using Task = System.Threading.Tasks.Task
-@inject BacklogService BacklogService
+@using TaskStatus = ClassLibrary_SEP3.TaskStatus
 @inject ProjectService ProjectService
+@inject TaskService TaskService;
+
 @inject NavigationManager NavManager
 
 <div class="container-fluid">
     <div class="container">
-        <h2>Project Hub for Project ID: @ProjectId</h2>
+        <h2>Project Hub for Project ID: @ProjectIdAsString</h2>
         <div class="card backlog-section">
-            @if (HasBacklog)
-            {
-                <p>Backlog</p>
-                <ul class="task-list">
-                    @foreach (var task in backlogs)
+            <p>Backlog</p>
+            <ul class="task-list">
+                @if (BacklogTasks != null)
+                {
+                    @foreach (var task in BacklogTasks!)
                     {
                         <li class="task-item">
-                            <span>@task.TaskName</span>
-                            <button class="btn-delete-task" @onclick="() => DeleteTask(task.TaskID)">x</button>
+                            <span>@task.Id</span>
+                            <span>@task.ProjectId</span>
+                            <span>@task.Title</span>
+                            <span>@task.Description</span>
+                            <span>@task.Status</span>
+                            <button class="btn-delete-task" @onclick="() => DeleteTask(task.Id)">x</button>
                         </li>
                     }
-                </ul>
+                }
+            </ul>
+            <div class="create-task-form">
+                <h3>Create a New Task</h3>
+                <div class="form-group">
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" @bind="newTask.Title"/>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea id="description" @bind="newTask.Description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="estimateTime">Estimate Time:</label>
+                    <input type="datetime-local" id="estimateTime" @bind="newTask.EstimateTime"/>
+                </div>
+                <div class="form-group">
+                    <label for="responsible">Responsible:</label>
+                    <input type="text" id="responsible" @bind="newTask.Responsible"/>
+                </div>
+                <button class="button" @onclick="AddTask">Save Task</button>
+            </div>
 
-                <button class="button" @onclick="AddTask">Add Task</button>
-            }
-            else
-            {
-                <button class="button" @onclick="CreateBacklog">Create Backlog</button>
-            }
-            
         </div>
     </div>
 </div>
@@ -42,66 +61,59 @@
     [Parameter]
     public string ProjectIdAsString { get; set; }
 
-    public ObjectId ProjectId { get; private set; }
-    bool HasBacklog = false;
+    public Project Project { get; set; }
 
-    
+    public List<ClassLibrary_SEP3.Task?>? BacklogTasks { get; set; }
+    private AddBacklogTaskRequest newTask = new AddBacklogTaskRequest();
 
-    protected override async void OnParametersSet()
+
+    protected override async Task OnParametersSetAsync()
     {
-    // Check if the project has a backlog
-        var backlogId = await ProjectService.GetBacklogIDForProject(ProjectId.ToString());
-        HasBacklog = !string.IsNullOrEmpty(backlogId);
-    }
-
-
-    //Redirect to another page
-    private void AddTask()
-    {
-        NavManager.NavigateTo("/BacklogCreateTask");
-    }
-
-
-    //Create backlog
-    private async Task CreateBacklog()
-    {
-        var backlog = new Backlog()
+        Project = await ProjectService.GetProject(ProjectIdAsString);
+        if (Project.Backlog.BacklogTasks != null)
         {
-            ProjectId = ProjectId
+            BacklogTasks = Project.Backlog.BacklogTasks;
+        }
+        else
+        {
+            BacklogTasks = new List<ClassLibrary_SEP3.Task>()!;
+        }
+    }
+
+
+    private async void AddTask()
+    {
+        var task = new AddBacklogTaskRequest()
+        {
+            ProjectId = ProjectIdAsString,
+            Title = newTask.Title,
+            Description = newTask.Description,
+            EstimateTime = newTask.EstimateTime,
+            Responsible = newTask.Responsible,
+            Status = TaskStatus.ToDo,
+            CreatedAt = DateTime.UtcNow
         };
-    //Create Backlog 
-        await BacklogService.CreateBacklog(backlog);
+        var response = await TaskService.CreateTask(task);
+
+        BacklogTasks.Add(response);
+        newTask = new AddBacklogTaskRequest();
+        StateHasChanged();
     }
 
 
     //DeleteTask
-    private async Task DeleteTask()
+    private async Task DeleteTask(string objectId)
     {
-    }
-
-
-    //------------------------------------------------
-    
-    // Mock data structure
-    public class BacklogTask
-    {
-        public int TaskID { get; set; }
-        public string TaskName { get; set; }
-    }
-
-    // Dummy data for demo purposes
-    private List<BacklogTask> backlogs = new List<BacklogTask>
-    {
-        new BacklogTask { TaskID = 1, TaskName = "task1" },
-        new BacklogTask { TaskID = 2, TaskName = "task2" }
-    // ... Other tasks
-    };
-
-    // Delete task method
-    private async Task DeleteTask(int taskId)
-    {
-    // Logic to delete task from the backend
-        backlogs.RemoveAll(t => t.TaskID == taskId);
-    // If you're deleting from a database or an API, you would have code here to do so
+        try
+        {
+            await TaskService.DeleteTask(objectId, ProjectIdAsString);
+            BacklogTasks.RemoveAll(task => task.Id == objectId);
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            throw new NullReferenceException("Failed to delete Task");
+        }
+        
     }
 }

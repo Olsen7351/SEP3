@@ -1,5 +1,6 @@
 ﻿using Broker.Controllers;
 using Broker.Services;
+using ClassLibrary_SEP3;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using Moq;
@@ -14,7 +15,7 @@ namespace Broker_Test
         {
             // Arrange
             var mockProjektService = new Mock<IProjectService>();
-            var controller = new ProjectController(mockProjektService.Object);
+            var controller = new BrokerProjectController(mockProjektService.Object);
             int validId = 1; // Valid Id
 
             // Mock the ProjektService to return an OkObjectResult with a sample Project
@@ -33,7 +34,7 @@ namespace Broker_Test
         {
             // Arrange
             var mockProjektService = new Mock<IProjectService>();
-            var controller = new ProjectController(mockProjektService.Object);
+            var controller = new BrokerProjectController(mockProjektService.Object);
             int negativeId = -1; // Negative Id
 
             // Act
@@ -48,7 +49,7 @@ namespace Broker_Test
         {
             // Arrange
             var mockProjektService = new Mock<IProjectService>();
-            var controller = new ProjectController(mockProjektService.Object);
+            var controller = new BrokerProjectController(mockProjektService.Object);
             var validProject = new Project(); // Valid Project
             validProject.Id = new ObjectId();
             validProject.Name = "Test";
@@ -72,7 +73,7 @@ namespace Broker_Test
         {
             // Arrange
             var mockProjektService = new Mock<IProjectService>();
-            var controller = new ProjectController(mockProjektService.Object);
+            var controller = new BrokerProjectController(mockProjektService.Object);
             Project nullProject = null; // Project is null
 
             // Act

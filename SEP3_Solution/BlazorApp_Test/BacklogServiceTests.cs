@@ -7,6 +7,7 @@ using Moq.Protected;
 using BlazorAppTEST.Services;
 
 using System.Text.Json;
+using ClassLibrary_SEP3;
 using ProjectMicroservice.Models;
 using Task = System.Threading.Tasks.Task;
 

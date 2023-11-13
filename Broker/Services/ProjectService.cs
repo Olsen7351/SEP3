@@ -1,10 +1,9 @@
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using ClassLibrary_SEP3;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Bson;
-using ProjectMicroservice.Models;
 
 
 namespace Broker.Services
@@ -25,15 +24,8 @@ namespace Broker.Services
                 return new BadRequestResult();
             }
 
-            HttpResponseMessage response = null!;
-            try
-            {
-                response = await httpClient.PostAsJsonAsync("api/Project", projekt);
-            }
-            catch (Exception ex)
-            {
-                int stopher = 0;
-            }
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/Project", projekt);
+
             if (response.IsSuccessStatusCode)
             {
                 return new OkResult();
@@ -44,12 +36,13 @@ namespace Broker.Services
             }
         }
 
-        public async Task<IActionResult> GetProjekt(string id)
+        public async Task<Project> GetProjekt(string id)
         {
             string requestUri = $"api/Project/{id}";
             var response = await httpClient.GetAsync(requestUri);
-            var projekt = await response.Content.ReadFromJsonAsync<Project>();
-            return new OkObjectResult(projekt);
+            var project = await response.Content.ReadFromJsonAsync<Project>();
+
+            return project;
         }
     }
 }

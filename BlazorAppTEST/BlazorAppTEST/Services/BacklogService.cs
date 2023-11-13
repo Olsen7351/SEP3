@@ -1,13 +1,12 @@
 ﻿using System.Text;
 using System.Text.Json;
-using ProjectMicroservice.Models;
 namespace BlazorAppTEST.Services;
 using ClassLibrary_SEP3;
 
 public class BacklogService
 {
 
-    private List<Task> tasks = new List<Task>();
+    private List<Task?> tasks = new List<Task?>();
     //HTTPClient
     private readonly HttpClient httpClient;
 
@@ -37,12 +36,12 @@ public class BacklogService
 
 
 
-    public Task GetTaskById(string taskId)
+    public Task? GetTaskById(string taskId)
     {
-        return tasks.FirstOrDefault(task => task.TaskID == taskId);
+        return tasks.FirstOrDefault(task => task!.Id.ToString() == taskId);
     }
 
-    public void UpdateTask(Task task)
+    public void UpdateTask(Task? task)
     {
         throw new NotImplementedException();
     }
