@@ -10,11 +10,11 @@ using Moq.Protected;
 using Broker.Services;
 using System.Text;
 using System.Text.Json;
-using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using ProjectMicroservice.DataTransferObjects;
 using ClassLibrary_SEP3;
+using TaskStatus = ClassLibrary_SEP3.TaskStatus;
 
 namespace Broker_Test
 {
@@ -33,15 +33,15 @@ namespace Broker_Test
             _backlogService = new BacklogService(_httpClient);
         }
         [Fact]
-        public async Task AddTaskToBackLog()
+        public async void AddTaskToBackLog()
         {
 
-            int projectId = 1;
-            var taskToAdd = new ClassLibrary_SEP3.Task
+            string projectId = "1";
+            var taskToAdd = new AddBacklogTaskRequest()
             {
-                ProjectId = ObjectId.GenerateNewId(),
+                ProjectId = projectId,
                 Title = "Test Task",
-                Description = "This is a test task",
+                Status = TaskStatus.ToDo
 
             };
             string responseTaskJson = JsonSerializer.Serialize(taskToAdd);
@@ -65,25 +65,22 @@ namespace Broker_Test
         }
 
         [Fact]
-        public async Task DeleteTaskFromBacklog_ValidRequest_ReturnsSuccess()
+        public async void DeleteTaskFromBacklog_ValidRequest_ReturnsSuccess()
         {
-            int projectId = 1;
-            int backlogId = 2;
-            var deleteTaskRequest = new DeleteBacklogTaskRequest
-            {
-                TaskId = ObjectId.GenerateNewId()
-            };
+            string ProjectId = "1";
+            string Id = "1";
+
             var mockResponse = new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.OK
             };
             _mockHttpMessageHandler.Protected().Setup<Task<HttpResponseMessage>>(
                     "SendAsync",
-                    ItExpr.Is<HttpRequestMessage>(req => req.Method == HttpMethod.Delete && req.RequestUri.ToString().EndsWith($"api/Project/{projectId}/Backlog/{backlogId}/Task/{deleteTaskRequest.TaskId}")),
+                    ItExpr.Is<HttpRequestMessage>(req => req.Method == HttpMethod.Delete && req.RequestUri.ToString().EndsWith($"api/Project/{ProjectId}/Backlog/Task/{Id}")),
                     ItExpr.IsAny<CancellationToken>())
                 .ReturnsAsync(mockResponse);
 
-            var result = await _backlogService.DeleteTaskFromBacklog(projectId, backlogId, deleteTaskRequest);
+            var result = await _backlogService.DeleteTaskFromBacklog(Id, ProjectId);
 
             var okResult = Assert.IsType<OkObjectResult>(result);
             Assert.NotNull(okResult.Value);
