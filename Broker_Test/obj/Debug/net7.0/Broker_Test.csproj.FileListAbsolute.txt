@@ -351,3 +351,9 @@ C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\obj\Debug\net7.0\Br
 C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\obj\Debug\net7.0\Broker_Test.dll
 C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\obj\Debug\net7.0\refint\Broker_Test.dll
 C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\obj\Debug\net7.0\Broker_Test.pdb
+C:\Users\45401\Desktop\SEP\SEP3\Broker_Test\bin\Debug\net7.0\CoverletSourceRootsMapping
+C:\Users\45401\Desktop\SEP\SEP3\Broker_Test\obj\Debug\net7.0\Broker_Test.csproj.AssemblyReference.cache
+C:\Users\45401\Desktop\SEP\SEP3\Broker_Test\obj\Debug\net7.0\Broker_Test.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\45401\Desktop\SEP\SEP3\Broker_Test\obj\Debug\net7.0\Broker_Test.AssemblyInfoInputs.cache
+C:\Users\45401\Desktop\SEP\SEP3\Broker_Test\obj\Debug\net7.0\Broker_Test.AssemblyInfo.cs
+C:\Users\45401\Desktop\SEP\SEP3\Broker_Test\obj\Debug\net7.0\Broker_Test.csproj.CoreCompileInputs.cache
