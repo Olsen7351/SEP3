@@ -1,5 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Http.HttpResults;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http;
 using ClassLibrary_SEP3.DataTransferObjects;
@@ -30,18 +29,16 @@ public class BacklogService : IBacklogService
 
         throw new Exception("Failed to add task");
     }
+
     public async Task<IActionResult> DeleteTaskFromBacklog(string id, string ProjectId)
     {
         string requestUri = $"api/Project/{ProjectId}/Backlog/Task/{id}";
         HttpResponseMessage response = await httpClient.DeleteAsync(requestUri);
-        var taskResponse = response.Content.ReadFromJsonAsync<Task>();
         if (response.IsSuccessStatusCode)
         {
-            return new OkObjectResult(taskResponse);
+            return new OkResult();
         }
-        else
-        {
-            return new BadRequestResult();
-        }
+
+        return new BadRequestResult();
     }
 }

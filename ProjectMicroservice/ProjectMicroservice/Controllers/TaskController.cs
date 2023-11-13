@@ -22,25 +22,20 @@ namespace ProjectMicroservice.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateTask(string projectId, [FromBody] AddBacklogTaskRequest request)
         {
-            ObjectId projectObjectId;
-            if (!ObjectId.TryParse(projectId, out projectObjectId))
-            {
-                return BadRequest("Invalid projectId");
-            }
 
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var existingProject = _projectService.GetProject(projectObjectId);
-            ObjectId objecid = ObjectId.GenerateNewId();
+            var existingProject = _projectService.GetProject(projectId);
+            string objecid = ObjectId.GenerateNewId().ToString() ?? string.Empty;
 
             // Create the new task
             var taskToBeAdded = new Task
             {
                 Id = objecid,
-                ProjectId = projectObjectId,
+                ProjectId = projectId,
                 Title = request.Title,
                 Description = request.Description,
                 Status = request.Status,
@@ -66,23 +61,17 @@ namespace ProjectMicroservice.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTask([FromRoute] string projectId, [FromRoute] string id)
         {
-            ObjectId projectObjectId;
-            if (!ObjectId.TryParse(projectId, out projectObjectId))
-            {
-                return BadRequest("Invalid projectId");
-            }
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var existingProject = _projectService.GetProject(projectObjectId);
+            var existingProject = _projectService.GetProject(projectId);
 
-            existingProject.Backlog.BacklogTasks.RemoveAll(task => task.Id == ObjectId.Parse(id));
+            existingProject.Backlog.BacklogTasks.RemoveAll(task => task.Id == id);
 
             // Save the updated project with the task removed
-            var updatedProject = _projectService.UpdateProject(existingProject);
+            _projectService.UpdateProject(existingProject);
 
             return new OkResult();
         }

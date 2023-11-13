@@ -45,13 +45,7 @@ namespace ProjectMicroservice.Controllers
         [HttpGet("{id}")]
         public IActionResult GetProject(string id)
         {
-            // Convert projectId to ObjectId
-            ObjectId objectId;
-            if (!ObjectId.TryParse(id, out objectId))
-            {
-                throw new Exception("Invalid project id");
-            }
-            Project project = _projectService.GetProject(objectId);
+            Project project = _projectService.GetProject(id);
 
 
             return new OkObjectResult(project);

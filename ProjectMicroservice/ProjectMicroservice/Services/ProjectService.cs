@@ -38,7 +38,7 @@ namespace ProjectMicroservice.Services
             return newProject;  // Now contains the MongoDB-generated ID
         }
 
-        public Project GetProject(ObjectId id)
+        public Project GetProject(string id)
         {
             try
             {
@@ -51,7 +51,7 @@ namespace ProjectMicroservice.Services
             }
         }
 
-        public bool ProjectExists(ObjectId id)
+        public bool ProjectExists(string id)
         {
             try
             {

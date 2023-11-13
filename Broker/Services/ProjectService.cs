@@ -1,12 +1,9 @@
 using System.Net;
 using System.Net.Http;
-using System.Text.Json;
 using System.Threading.Tasks;
 using ClassLibrary_SEP3;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Bson;
-using Xunit.Sdk;
 
 
 namespace Broker.Services
@@ -43,13 +40,9 @@ namespace Broker.Services
         {
             string requestUri = $"api/Project/{id}";
             var response = await httpClient.GetAsync(requestUri);
-            var projekt = await response.Content.ReadFromJsonAsync<Project>();
-            if (projekt == null)
-            {
-                throw new Exception("Could not get project");
-            }
+            var project = await response.Content.ReadFromJsonAsync<Project>();
 
-            return projekt;
+            return project;
         }
     }
 }

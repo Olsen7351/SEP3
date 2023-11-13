@@ -6,8 +6,11 @@ namespace ClassLibrary_SEP3
     public class Task
     {
         [BsonId]
-        public ObjectId Id { get; set; }
-        public ObjectId ProjectId { get; set; }
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
+
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string ProjectId { get; set; }
         public string Title { get; set; }
         public string? Description { get; set; }
         public TaskStatus Status { get; set; }

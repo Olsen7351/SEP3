@@ -25,7 +25,7 @@ public class ProjectService
     {
        //Try and send it trough
         HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/BrokerProject", projekt);
-        string responseContent = await response.Content.ReadAsStringAsync();
+        var responseContent = await response.Content.ReadAsStringAsync();
        
         
         if (!response.IsSuccessStatusCode)
@@ -43,6 +43,9 @@ public class ProjectService
         {
             throw new Exception("Project is empty or do not exsist");
         }
+
+        Console.WriteLine(response.Content);
+        
         return projekt;
     }
 }
