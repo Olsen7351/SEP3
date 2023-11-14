@@ -3,7 +3,7 @@ using System.Text.Json;
 namespace BlazorAppTEST.Services;
 using ClassLibrary_SEP3;
 
-public class BacklogService
+public class BacklogService :IBacklogService
 {
 
     private List<Task?> tasks = new List<Task?>();
@@ -36,13 +36,7 @@ public class BacklogService
 
 
 
-    public Task? GetTaskById(string taskId)
-    {
-        return tasks.FirstOrDefault(task => task!.Id.ToString() == taskId);
-    }
+ 
 
-    public void UpdateTask(Task? task)
-    {
-        throw new NotImplementedException();
-    }
+  
 }

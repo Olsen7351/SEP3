@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "A5tKW7vOrm1h8f7VbWe5fGp/WSvX0F6TQIlOcr4PZ6pX5vaLvGGSwzd7m/krRgutIrruRnCV8lEjHRS/qJR0/A==",
+  "dgSpecHash": "Aon39t5K2subuiEcLIBdv1cBfiGFIf7/LjZRXNS9d5d8I8XFUxgtxNj2rkRmD+NW0jYtWvQu8tVArRhg4Pg8mA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\olsen\\OneDrive\\Documents\\GitHub\\SEP3_V2\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj",
+  "projectFilePath": "C:\\Users\\njbir\\OneDrive\\Skrivebord\\Java course\\SEP3\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\olsen\\.nuget\\packages\\mongodb.bson\\2.21.0\\mongodb.bson.2.21.0.nupkg.sha512",
-    "C:\\Users\\olsen\\.nuget\\packages\\system.memory\\4.5.5\\system.memory.4.5.5.nupkg.sha512",
-    "C:\\Users\\olsen\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512"
+    "C:\\Users\\njbir\\.nuget\\packages\\mongodb.bson\\2.21.0\\mongodb.bson.2.21.0.nupkg.sha512",
+    "C:\\Users\\njbir\\.nuget\\packages\\system.memory\\4.5.5\\system.memory.4.5.5.nupkg.sha512",
+    "C:\\Users\\njbir\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512"
   ],
   "logs": []
 }

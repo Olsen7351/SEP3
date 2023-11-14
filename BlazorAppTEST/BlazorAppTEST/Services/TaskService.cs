@@ -5,7 +5,7 @@ using ProjectMicroservice.DataTransferObjects;
 
 namespace BlazorAppTEST.Services;
 
-public class TaskService
+public class TaskService : ITaskService
 {
     //HTTPClient
     private readonly HttpClient httpClient;
