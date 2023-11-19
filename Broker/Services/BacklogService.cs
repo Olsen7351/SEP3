@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using System.Net.Http;
-using ClassLibrary_SEP3.DataTransferObjects;
 using ProjectMicroservice.DataTransferObjects;
 using Xunit.Sdk;
 using Task = ClassLibrary_SEP3.Task;
