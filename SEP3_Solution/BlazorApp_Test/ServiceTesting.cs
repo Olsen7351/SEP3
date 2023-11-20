@@ -54,7 +54,7 @@ namespace BlazorAppTest
     
             var project = new Project
             {
-                ProjectID = 1,
+                Id = "1",
                 Name = "Test Project",
                 Description = "This is a test project for unit testing.",
                 StartDate = DateTime.Now,

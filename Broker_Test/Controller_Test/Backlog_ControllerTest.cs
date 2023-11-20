@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using Moq;
 
-namespace Broker_Test
+namespace Broker_Test.Controller_Test
 {
     public class Projekt_Controller_Tests
     {
@@ -15,7 +15,7 @@ namespace Broker_Test
             // Arrange
             var mockProjektService = new Mock<IProjectService>();
             var controller = new BrokerProjectController(mockProjektService.Object);
-            int validId = 1; // Valid Id
+            string validId = "1"; // Valid Id
 
             // Mock the ProjektService to return an OkObjectResult with a sample Project
             mockProjektService.Setup(service => service.GetProjekt(validId))

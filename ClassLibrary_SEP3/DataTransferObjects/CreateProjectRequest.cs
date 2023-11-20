@@ -5,10 +5,10 @@ namespace ProjectMicroservice.DataTransferObjects;
 public class CreateProjectRequest
 {
     [Required]
-    [MaxLength(32)] // TODO: Change to reflect actual DB constraint
+    [MaxLength(32)] 
     public string? Name { get; set; }
 
-    [MaxLength(1000)] // TODO: Change to reflect actual DB constraint
+    [MaxLength(1000)]
     public string? Description { get; set; }
 
     [Required]
