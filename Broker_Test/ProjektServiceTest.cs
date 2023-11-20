@@ -61,6 +61,7 @@ namespace Broker_Test
             {
                 Name = "Test Project",
                 Description = "Test Project Description",
+                Id = "123",
                 StartDate = new DateTime(2023, 1, 1),
                 EndDate = new DateTime(2023, 12, 31)
             };
@@ -77,9 +78,14 @@ namespace Broker_Test
                     ItExpr.IsAny<CancellationToken>())
                 .ReturnsAsync(mockResponse);
 
+            
             var result = await _projectService.GetProjekt(projectId);
-            var okResult = Assert.IsType<OkObjectResult>(result);
-            var returnedProject = Assert.IsType<Project>(okResult.Value);
+            Assert.NotNull(result);
+            var project = Assert.IsType<Project>(result);
+            Assert.Equal(expectedProject.Id, project.Id);
+            Assert.Equal(expectedProject.Description, project.Description);
+            Assert.Equal(expectedProject.Name, project.Name);
+            
         }
     }
 }
