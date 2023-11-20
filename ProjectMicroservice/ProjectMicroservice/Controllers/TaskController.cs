@@ -40,7 +40,7 @@ namespace ProjectMicroservice.Controllers
                 Description = request.Description,
                 Status = request.Status,
                 CreatedAt = DateTime.UtcNow,
-                EstimateTime = request.EstimateTime,
+                EstimateTimeInMinutes = request.EstimateTimeInMinutes,
                 Responsible = request.Responsible,
             };
             // Add the new task to the project's backlog

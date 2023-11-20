@@ -14,7 +14,11 @@ using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using ProjectMicroservice.DataTransferObjects;
 using ClassLibrary_SEP3;
+<<<<<<< HEAD
 using TaskStatus = ClassLibrary_SEP3.TaskStatus;
+=======
+using Task = System.Threading.Tasks.Task;
+>>>>>>> 6dfc0a6a2782629b5a5101311f875082c0a4e329
 
 namespace Broker_Test
 {

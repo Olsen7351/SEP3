@@ -25,12 +25,10 @@ public class ProjectService
     {
        //Try and send it trough
         HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/BrokerProject", projekt);
-        var responseContent = await response.Content.ReadAsStringAsync();
-       
         
         if (!response.IsSuccessStatusCode)
         {
-            throw new Exception($"Error:{response.StatusCode}, {responseContent}");
+            throw new Exception($"Error:{response.StatusCode}");
         }
     }
 

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using ClassLibrary_SEP3;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using ProjectMicroservice.DataTransferObjects;
 
 
 namespace Broker.Services
@@ -17,7 +18,7 @@ namespace Broker.Services
             this.httpClient = httpClient;
         }
 
-        public async Task<IActionResult> CreateProjekt(Project projekt)
+        public async Task<IActionResult> CreateProjekt(CreateProjectRequest projekt)
         {
             if (projekt == null)
             {

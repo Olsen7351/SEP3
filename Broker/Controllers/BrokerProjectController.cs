@@ -9,6 +9,7 @@ using ClassLibrary_SEP3;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
+using ProjectMicroservice.DataTransferObjects;
 
 namespace Broker.Controllers
 {
@@ -32,7 +33,7 @@ namespace Broker.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateProjekt([FromBody] Project projekt)
+        public async Task<IActionResult> CreateProjekt([FromBody] CreateProjectRequest projekt)
         {
             if (projekt == null)
             {

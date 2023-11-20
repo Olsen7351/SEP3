@@ -17,8 +17,8 @@ public class AddBacklogTaskRequest
     public TaskStatus Status { get; set; }
     [Required]
     public DateTime CreatedAt { get; set; }
-    public DateTime EstimateTime { get; set; }
-    public DateTime ActualTimeUsed { get; set; }
+    public int EstimateTimeInMinutes { get; set; }
+    public int ActualTimeUsedInMinutes { get; set; }
     public string? Responsible { get; set; }
     //public List<TimeEntry>? TimeEntries { get; set; }
 }
