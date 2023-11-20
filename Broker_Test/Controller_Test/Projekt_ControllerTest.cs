@@ -3,7 +3,6 @@ using Broker.Services;
 using ClassLibrary_SEP3;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using ProjectMicroservice.Models;
 
 namespace Broker_Test
 {

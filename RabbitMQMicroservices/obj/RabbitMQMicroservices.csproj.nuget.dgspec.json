@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\45401\\Desktop\\SEP\\SEP3\\RabbitMQMicroservices\\RabbitMQMicroservices.csproj": {}
+    "C:\\Users\\karee\\OneDrive\\Desktop\\GitHub Sep3\\SEP3\\RabbitMQMicroservices\\RabbitMQMicroservices.csproj": {}
   },
   "projects": {
-    "C:\\Users\\45401\\Desktop\\SEP\\SEP3\\RabbitMQMicroservices\\RabbitMQMicroservices.csproj": {
+    "C:\\Users\\karee\\OneDrive\\Desktop\\GitHub Sep3\\SEP3\\RabbitMQMicroservices\\RabbitMQMicroservices.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\45401\\Desktop\\SEP\\SEP3\\RabbitMQMicroservices\\RabbitMQMicroservices.csproj",
+        "projectUniqueName": "C:\\Users\\karee\\OneDrive\\Desktop\\GitHub Sep3\\SEP3\\RabbitMQMicroservices\\RabbitMQMicroservices.csproj",
         "projectName": "RabbitMQMicroservices",
-        "projectPath": "C:\\Users\\45401\\Desktop\\SEP\\SEP3\\RabbitMQMicroservices\\RabbitMQMicroservices.csproj",
-        "packagesPath": "C:\\Users\\45401\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\45401\\Desktop\\SEP\\SEP3\\RabbitMQMicroservices\\obj\\",
+        "projectPath": "C:\\Users\\karee\\OneDrive\\Desktop\\GitHub Sep3\\SEP3\\RabbitMQMicroservices\\RabbitMQMicroservices.csproj",
+        "packagesPath": "C:\\Users\\karee\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\karee\\OneDrive\\Desktop\\GitHub Sep3\\SEP3\\RabbitMQMicroservices\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\45401\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\karee\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"

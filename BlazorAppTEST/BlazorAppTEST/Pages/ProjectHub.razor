@@ -78,7 +78,7 @@
     [Parameter]
     public string ProjectIdAsString { get; set; }
 
-    public Project Project { get; set; }
+    public Project? Project { get; set; }
 
     public List<ClassLibrary_SEP3.Task?>? BacklogTasks { get; set; }
     private AddBacklogTaskRequest newTask = new AddBacklogTaskRequest();
@@ -87,6 +87,7 @@
     protected override async Task OnParametersSetAsync()
     {
         Project = await ProjectService.GetProject(ProjectIdAsString);
+
         if (Project.Backlog.BacklogTasks != null)
         {
             BacklogTasks = Project.Backlog.BacklogTasks;
