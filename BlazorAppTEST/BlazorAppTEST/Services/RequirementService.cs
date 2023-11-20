@@ -3,7 +3,7 @@ using Task = System.Threading.Tasks.Task;
 
 namespace BlazorAppTEST.Services
 {
-    public class RequirementService
+    public class RequirementService : IRequirementService
     {
         
         //HTTPClient

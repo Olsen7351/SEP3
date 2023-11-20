@@ -9,7 +9,7 @@ using Task = System.Threading.Tasks.Task;
 
 namespace BlazorAppTEST.Services;
 
-public class ProjectService
+public class ProjectService: IProjectService
 {
    //HTTPClient
        private readonly HttpClient httpClient; 
