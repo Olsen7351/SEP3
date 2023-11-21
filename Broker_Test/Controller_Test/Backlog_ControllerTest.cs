@@ -9,7 +9,7 @@ namespace Broker_Test.Controller_Test
 {
     public class Projekt_Controller_Tests
     {
-        /*
+        
         [Fact]
         public void ProjektController_GetProjekt_ReturnsOk_WhenIdIsValid()
         {
