@@ -3,10 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Broker.Controllers;
 using Broker.Services;
 using ClassLibrary_SEP3;
-<<<<<<< HEAD
 
-=======
->>>>>>> Tests2
 namespace Broker_Test;
 
 public class UnitTest1

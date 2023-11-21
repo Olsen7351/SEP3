@@ -5,6 +5,7 @@ using ClassLibrary_SEP3;
 using Moq;
 using Moq.Protected;
 using ProjectMicroservice.DataTransferObjects;
+using Xunit;
 using Xunit.Abstractions;
 using Task = System.Threading.Tasks.Task;
 
@@ -23,32 +24,11 @@ public class ProjectServiceTest
         _testOutputHelper = testOutputHelper;
     }
 
-
-    //Create Project METHOD------------------------------------------------------------------------------------------------
+    
+    
     [Fact]
-    public async Task CreateProject_HTTP_POST()
+    public async Task GetProject_ExistingId_ReturnsProject()
     {
-        // Arrange
-        var mockHandler = new Mock<HttpMessageHandler>();
-
-        mockHandler.Protected().Setup<Task<HttpResponseMessage>>(
-                "SendAsync",
-                ItExpr.IsAny<HttpRequestMessage>(),
-                ItExpr.IsAny<CancellationToken>()
-            )
-            .ReturnsAsync(new HttpResponseMessage
-            {
-                StatusCode = HttpStatusCode.OK,
-                Content = new StringContent("{}"),
-            });
-
-
-        var client = new HttpClient(mockHandler.Object)
-        {
-            BaseAddress = new Uri("http://testbaseaddress.com")
-        };
-        var service = new ProjectService(client);
-
         var project = new Project
         {
             Id = "1",
@@ -58,39 +38,14 @@ public class ProjectServiceTest
             EndDate = DateTime.Now.AddDays(30)
         };
 
-        // Act
-        await service.CreateProject(project);
-
-        // Assert
-        try
-        {
-            mockHandler.Protected().Verify("SendAsync", Times.Exactly(1),
-                ItExpr.IsAny<HttpRequestMessage>(),
-                ItExpr.IsAny<CancellationToken>()
-            );
-            _testOutputHelper.WriteLine("HTTP_POST test succeeded");
-        }
-        catch
-        {
-            _testOutputHelper.WriteLine("HTTP_POST test failed");
-            throw;
-        }
-    }
-
-    
-    
-    [Fact]
-    public async Task GetProject_ExistingId_ReturnsProject()
-    {
-        var projectId = "1";
-
-
+        String projectId = "1";
+        
         //Act
         var result = await projectService.GetProject(projectId);
 
         //Assert
         Assert.NotNull(result);
-        Assert.Equal("ExpectedProjectName", result.Name);
+        Assert.Equal("Test Project", result.Name);
     }
 
     

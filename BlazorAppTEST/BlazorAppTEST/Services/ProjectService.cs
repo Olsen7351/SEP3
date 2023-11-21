@@ -21,7 +21,7 @@ public class ProjectService: IProjectService
 
     
     //Post
-    public async Task CreateProject(Project project)
+    public async Task CreateProject(CreateProjectRequest project)
     {
        //Try and send it trough
         HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/BrokerProject", project);
