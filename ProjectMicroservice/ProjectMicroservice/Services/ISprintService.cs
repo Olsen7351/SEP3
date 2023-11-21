@@ -1,9 +1,7 @@
-using ClassLibrary_SEP3;
-
 namespace DefaultNamespace;
 
-public interface IProjectSprint
+public class IProjectSprint
 {
-    SprintBacklog createSprintBacklog(SprintBackLogRequest sprintBacklog);
+    SprintBacklog createSprintBacklog(SprintBacklogRequest sprintBacklog);
     SprintBacklog getSprintBacklog(SprintBacklog sprintBacklog);
 }

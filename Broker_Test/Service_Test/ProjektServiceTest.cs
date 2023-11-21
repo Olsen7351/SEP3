@@ -32,7 +32,7 @@ namespace Broker_Test
         [Fact]
         public async Task CreateProjekt_ValidProject_ReturnsOk()
         {
-            var projectToCreate = new Project
+            var projectToCreate = new CreateProjectRequest()
             {
                 Name = "Test Project",
                 Description = "Test Project Description",
