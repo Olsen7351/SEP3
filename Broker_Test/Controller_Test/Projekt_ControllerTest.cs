@@ -17,11 +17,11 @@ namespace Broker_Test
             int validId = 1; // Valid Id
 
             // Mock the ProjektService to return a sample Project
-            mockProjektService.Setup(service => service.GetProjekt(validId))
+            mockProjektService.Setup(service => service.GetProjekt(validId.ToString()))
                 .ReturnsAsync(new OkObjectResult(new Project()));
 
             // Act
-            var result = controller.GetProjekt(validId);
+            var result = controller.GetProjekt(validId.ToString());
 
             // Assert
             Assert.IsType<OkObjectResult>(result);
