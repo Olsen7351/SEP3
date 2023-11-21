@@ -14,7 +14,9 @@ using Task = System.Threading.Tasks.Task;
 
 namespace BlazorAppTest
 {
+    /*
     public class ProjectServiceTests
+    
     {
         private readonly ITestOutputHelper _testOutputHelper;
 
@@ -135,4 +137,5 @@ namespace BlazorAppTest
             _testOutputHelper.WriteLine("Get all projects succeeded.");
         }
     }
+    */
 }

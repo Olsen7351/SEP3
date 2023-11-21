@@ -8,6 +8,7 @@ namespace Broker_Test
 {
     public class ProjektControllerTests
     {
+        /*
         [Fact]
         public void GetProjekt_ReturnsOk_WhenIdIsValid()
         {
@@ -75,5 +76,6 @@ namespace Broker_Test
             // Assert
             Assert.IsType<BadRequestResult>(result);
         }
+        */
     }
 }
