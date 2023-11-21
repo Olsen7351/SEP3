@@ -6,7 +6,7 @@ namespace BlazorAppTEST.Services;
 
 public interface IProjectService
 {
-    Task CreateProject(CreateProjectRequest projekt);
+    Task CreateProject(Project projekt);
     Task<Project> GetProject(string id);
     
 }
