@@ -21,10 +21,10 @@ public class ProjectService: IProjectService
 
     
     //Post
-    public async Task CreateProject(CreateProjectRequest projekt)
+    public async Task CreateProject(Project project)
     {
        //Try and send it trough
-        HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/BrokerProject", projekt);
+        HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/BrokerProject", project);
         
         if (!response.IsSuccessStatusCode)
         {

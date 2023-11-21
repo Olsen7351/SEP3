@@ -10,7 +10,7 @@ public class CreateUserTest
     public async Task CreateUser()
     {
         // Arrange
-        var userService = new UserService();
+        var userService = new UserServiceHelper();
         var user = new User
         {
             Username = "Test1",
@@ -30,7 +30,7 @@ public class CreateUserTest
     public async Task CreatingUserWithLongUsername()
     {
         // Arrange
-        var userService = new UserService();
+        var userService = new UserServiceHelper();
         var user = new User
         {
             Username = new string('a', 17),

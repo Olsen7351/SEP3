@@ -6,7 +6,7 @@ using Task = System.Threading.Tasks.Task;
 
 namespace BlazorAppTest
 {
-    public class UserService
+    public class UserServiceHelper
     {
         private List<User> users = new List<User>();
 
