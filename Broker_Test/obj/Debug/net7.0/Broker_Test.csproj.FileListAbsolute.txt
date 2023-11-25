@@ -482,3 +482,6 @@ C:\Users\45401\Desktop\SEP\SEP3\Broker_Test\obj\Debug\net7.0\refint\Broker_Test.
 C:\Users\45401\Desktop\SEP\SEP3\Broker_Test\obj\Debug\net7.0\Broker_Test.pdb
 C:\Users\45401\Desktop\SEP\SEP3\Broker_Test\obj\Debug\net7.0\Broker_Test.genruntimeconfig.cache
 C:\Users\45401\Desktop\SEP\SEP3\Broker_Test\obj\Debug\net7.0\ref\Broker_Test.dll
+C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\obj\Debug\net7.0\Broker_Test.dll
+C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\obj\Debug\net7.0\refint\Broker_Test.dll
+C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\obj\Debug\net7.0\Broker_Test.pdb

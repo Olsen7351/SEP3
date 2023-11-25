@@ -1,4 +1,5 @@
 using ClassLibrary_SEP3;
+using Xunit;
 using Task = System.Threading.Tasks.Task;
 
 namespace BlazorAppTest;
@@ -9,7 +10,7 @@ public class UserLoginTest
     public async Task LoginWithRightLoginInformation()
     {
         // Arrange
-        var userService = new UserService();
+        var userService = new UserServiceHelper();
         var user = new User
         {
             Username = "TestUser",
@@ -31,7 +32,7 @@ public class UserLoginTest
     public void LoginWithWrongPassword()
     {
         // Arrange
-        var userService = new UserService();
+        var userService = new UserServiceHelper();
         var user = new User
         {
             Username = "TestUser",

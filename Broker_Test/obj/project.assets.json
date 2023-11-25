@@ -6897,32 +6897,40 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\45401\\.nuget\\packages\\": {}
+    "C:\\Users\\olsen\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\45401\\Desktop\\SEP\\SEP3\\Broker_Test\\Broker_Test.csproj",
+      "projectUniqueName": "C:\\Users\\olsen\\OneDrive\\Documents\\GitHub\\SEP3_V2\\Broker_Test\\Broker_Test.csproj",
       "projectName": "Broker_Test",
-      "projectPath": "C:\\Users\\45401\\Desktop\\SEP\\SEP3\\Broker_Test\\Broker_Test.csproj",
-      "packagesPath": "C:\\Users\\45401\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\45401\\Desktop\\SEP\\SEP3\\Broker_Test\\obj\\",
+      "projectPath": "C:\\Users\\olsen\\OneDrive\\Documents\\GitHub\\SEP3_V2\\Broker_Test\\Broker_Test.csproj",
+      "packagesPath": "C:\\Users\\olsen\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\olsen\\OneDrive\\Documents\\GitHub\\SEP3_V2\\Broker_Test\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\45401\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\olsen\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\45401\\Desktop\\SEP\\SEP3\\Broker\\Broker.csproj": {
-              "projectPath": "C:\\Users\\45401\\Desktop\\SEP\\SEP3\\Broker\\Broker.csproj"
+            "C:\\Users\\olsen\\OneDrive\\Documents\\GitHub\\SEP3_V2\\Broker\\Broker.csproj": {
+              "projectPath": "C:\\Users\\olsen\\OneDrive\\Documents\\GitHub\\SEP3_V2\\Broker\\Broker.csproj"
             }
           }
         }
@@ -6982,16 +6990,8 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.404\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file C:\\Users\\45401\\Desktop\\SEP\\SEP3\\Broker_Test\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }

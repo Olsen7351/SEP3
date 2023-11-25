@@ -1,0 +1,33 @@
+@page "/LoginPage"
+<div class="full-page">
+    <div class="login-container">
+        <h3 style="font-weight: bold">Login</h3>
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" @bind="Username"/>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" @bind="Password"/>
+        </div>
+        <div>
+            <button style="font-weight: bold" @onclick="Login">Login</button>
+        </div>
+        @if (!string.IsNullOrEmpty(ErrorMessage))
+        {
+            <p style="color: red;">@ErrorMessage</p>
+        }
+    </div>
+</div>
+
+
+@code {
+    string Username { get; set; }
+    string Password { get; set; }
+    string ErrorMessage { get; set; }
+
+    private async Task Login()
+    {
+        //Service
+    }
+}
