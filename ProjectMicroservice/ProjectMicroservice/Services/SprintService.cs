@@ -1,6 +1,6 @@
 namespace DefaultNamespace;
 
-public class ProjectSprint : ISprintService
+public class ProjectSprint 
 {
     
 }

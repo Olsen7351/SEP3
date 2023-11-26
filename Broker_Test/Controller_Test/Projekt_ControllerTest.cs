@@ -3,79 +3,71 @@ using Broker.Services;
 using ClassLibrary_SEP3;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using ProjectMicroservice.DataTransferObjects;
 
 namespace Broker_Test
 {
     public class ProjektControllerTests
     {
-        /*
+        
+        
+        
         [Fact]
-        public void GetProjekt_ReturnsOk_WhenIdIsValid()
+        
+        public async void GetProjekt_ReturnsOk_WhenIdIsValid()
         {
             // Arrange
             var mockProjektService = new Mock<IProjectService>();
             var controller = new BrokerProjectController(mockProjektService.Object);
-            int validId = 1; // Valid Id
+            string validId = "1"; // Valid Id
 
+            var project = new Project();
             // Mock the ProjektService to return a sample Project
-            mockProjektService.Setup(service => service.GetProjekt(validId.ToString()))
-                .ReturnsAsync(new OkObjectResult(new Project()));
+            mockProjektService.Setup(service => service.GetProjekt(validId))
+                .ReturnsAsync(project);
 
             // Act
-            var result = controller.GetProjekt(validId.ToString());
+            var result = await controller.GetProjekt(validId);
 
-            // Assert
-            Assert.IsType<OkObjectResult>(result);
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            Assert.Equal(project, okResult.Value);
         }
-
+        
         [Fact]
-        public void GetProjekt_ReturnsBadRequest_WhenIdIsNegative()
+        public async void CreateProjekt_ReturnsOk_WhenProjectIsNotNull()
         {
             // Arrange
             var mockProjektService = new Mock<IProjectService>();
             var controller = new BrokerProjectController(mockProjektService.Object);
-            int negativeId = -1; // Negative Id
-
-            // Act
-            var result = controller.GetProjekt(negativeId);
-
-            // Assert
-            Assert.IsType<BadRequestResult>(result);
-        }
-
-        [Fact]
-        public void CreateProjekt_ReturnsOk_WhenProjectIsNotNull()
-        {
-            // Arrange
-            var mockProjektService = new Mock<IProjectService>();
-            var controller = new BrokerProjectController(mockProjektService.Object);
-            var validProject = new Project(); // Valid Project
+            var project = new CreateProjectRequest(); // Valid Project
 
             // Mock the ProjektService to return IActionResult (e.g., OkResult)
-            mockProjektService.Setup(service => service.CreateProjekt(validProject))
+            mockProjektService.Setup(service => service.CreateProjekt(project))
                 .ReturnsAsync(new OkResult());
 
             // Act
-            var result = controller.CreateProjekt(validProject);
+            var result = await controller.CreateProjekt(project);
 
             // Assert
             Assert.IsType<OkObjectResult>(result);
         }
-
         [Fact]
-        public void CreateProjekt_ReturnsBadRequest_WhenProjectIsNull()
+        public async void CreateProjekt_ReturnsBadRequest_WhenProjectIsNull()
         {
             // Arrange
             var mockProjektService = new Mock<IProjectService>();
             var controller = new BrokerProjectController(mockProjektService.Object);
-            Project nullProject = null; // Project is null
+            CreateProjectRequest nullProject = null; // Project is null
 
             // Act
-            var result = controller.CreateProjekt(nullProject);
+            var result = await controller.CreateProjekt(nullProject);
 
             // Assert
             Assert.IsType<BadRequestResult>(result);
         }
-        */
+        
+        
+    
     }
+    
 }
