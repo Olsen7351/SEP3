@@ -21,38 +21,35 @@ namespace Broker.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllSprintBacklogs(string ProjectId)
         {
-            //TODO Get all SprintBacklogs
-            return new OkObjectResult(new List<SprintBacklog>());
+            return await _sprintBacklogService.GetSprintBacklogsAsync(ProjectId);
         }
 
         // GET api/<SprintBacklogController>/<ProjectId>/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSpecificSprintBacklog(string ProjectId, string id)
         {
-            //TODO Get a SprintBacklog by Id
-            return new OkObjectResult(new SprintBacklog());
+            return await _sprintBacklogService.GetSprintBacklogByIdAsync(ProjectId, id);
         }
 
         // POST api/<SprintBacklogController>/<ProjectId>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] SprintBacklog value)
+        public async Task<IActionResult> Post([FromBody] SprintBacklog sprintBacklog)
         {
-            //TODO Create a SprintBacklog
-            return new OkObjectResult(new SprintBacklog());
+            return await _sprintBacklogService.CreateSprintBacklogAsync(sprintBacklog);
         }
 
         // PUT api/<SprintBacklogController>/<ProjectId>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> Put(string Projectid, string id, [FromBody] SprintBacklog sprintBacklog)
         {
-            //TODO Update a SprintBacklog by Id
+            return await _sprintBacklogService.UpdateSprintBacklogAsync(Projectid, id, sprintBacklog);
         }
 
         // DELETE api/<SprintBacklogController>/<ProjectId>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(string ProjectId, string id)
         {
-            //TODO Delete a SprintBacklog by Id
+            return await _sprintBacklogService.DeleteSprintBacklogAsync(ProjectId, id);
         }
     }
 }
