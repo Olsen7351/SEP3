@@ -149,7 +149,7 @@ public class CreateUserTest
         var userWithEmptyPassword = new User
         {
             Username = "ValidUsername",
-            Password = "" // Invalid data
+            Password = "" 
         };
 
         // Setup the mock to throw a ValidationException for invalid user data

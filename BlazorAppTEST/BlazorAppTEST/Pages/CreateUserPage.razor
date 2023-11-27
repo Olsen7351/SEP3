@@ -1,4 +1,8 @@
 @page "/CreateUserPage"
+@inject UserService UserService
+@using BlazorAppTEST.Services
+@using ClassLibrary_SEP3
+@using Task = System.Threading.Tasks.Task
 <div class="full-page">
     <div class="login-container">
         <h3 style="font-weight: bold">Create</h3>
@@ -28,8 +32,16 @@
     string Password { get; set; }
     string ErrorMessage { get; set; }
 
+    
+    
     private async Task CreateUser()
     {
-        //Service
+        var User = new User()
+        {
+            Username = this.Username,
+            Password = this.Password
+        };
+        
+        await UserService.createUser(User);
     }
 }
