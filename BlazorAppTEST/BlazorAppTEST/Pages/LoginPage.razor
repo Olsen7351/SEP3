@@ -1,6 +1,10 @@
 @page "/LoginPage"
 @using BlazorAppTEST.Services
-@inject UserService UserService
+@using ClassLibrary_SEP3
+@using Task = System.Threading.Tasks.Task
+@inject UserService userService
+
+
 <div class="full-page">
     <div class="login-container">
         <h3 style="font-weight: bold">Login</h3>
@@ -23,13 +27,29 @@
 </div>
 
 
+
 @code {
     string Username { get; set; }
     string Password { get; set; }
     string ErrorMessage { get; set; }
+    
 
     private async Task Login()
     {
+        var User = new User()
+        {
+            Username = this.Username,
+            Password = this.Password
+        };
         
+        try
+        {
+            await userService.Login(User);
+        }
+        
+        catch (Exception e)
+        {
+           ErrorMessage = "Failed to login";
+        }
     }
 }

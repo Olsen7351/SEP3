@@ -1,22 +1,31 @@
 @page "/CreateUserPage"
+@inject NavigationManager NavigationManager
 @inject UserService UserService
 @using BlazorAppTEST.Services
 @using ClassLibrary_SEP3
+@using System.ComponentModel.DataAnnotations
 @using Task = System.Threading.Tasks.Task
+
 <div class="full-page">
     <div class="login-container">
-        <h3 style="font-weight: bold">Create</h3>
-        <div>
-            <label for="username">Username:</label>
-            <input type="text" id="username" @bind="Username"/>
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" @bind="Password"/>
-        </div>
-        <div>
-            <button style="font-weight: bold" @onclick="CreateUser">Create User</button>
-        </div>
+        <h3 style="font-weight: bold">Create User</h3>
+        <EditForm Model="@user" OnValidSubmit="CreateUser">
+            <DataAnnotationsValidator />
+            
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <InputText id="username" class="form-control" @bind-Value="user.Username"/>
+                <ValidationMessage For="@(() => user.Username)" />
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <InputText id="password" class="form-control" @bind-Value="user.Password" type="password"/>
+                <ValidationMessage For="@(() => user.Password)" />
+            </div>
+            <button type="submit" class="btn btn-primary">Create User</button>
+        </EditForm>
+        
         @if (!string.IsNullOrEmpty(ErrorMessage))
         {
             <p style="color: red">@ErrorMessage</p>
@@ -24,24 +33,23 @@
     </div>
 </div>
 
-
-
-@code 
-{
-    string Username { get; set; }
-    string Password { get; set; }
+@code {
+    private User user = new User();
     string ErrorMessage { get; set; }
 
-    
-    
     private async Task CreateUser()
     {
-        var User = new User()
+        try
         {
-            Username = this.Username,
-            Password = this.Password
-        };
-        
-        await UserService.createUser(User);
+            await UserService.createUser(user);
+            ErrorMessage = "User created successfully!";
+            user = new User(); // Reset the form
+            NavigationManager.NavigateTo("/");
+            
+        }
+        catch (Exception e)
+        {
+            ErrorMessage = "Failed to create user: " + e.Message;
+        }
     }
 }

@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<ProjectService>();
+builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<BacklogService>();
 builder.Services.AddScoped<TaskService>();
 builder.Services.AddScoped(sp => 

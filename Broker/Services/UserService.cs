@@ -1,0 +1,46 @@
+using Broker.Controllers;
+using ClassLibrary_SEP3;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Broker.Services;
+
+public class UserService : IUserService
+{
+    private readonly HttpClient httpClient;
+
+    public UserService(HttpClient client)
+    {
+        this.httpClient = client;
+    }
+
+
+    public async Task<IActionResult> CreateUser(User user)
+    {
+        /*
+        string requestUri = "api/CreateUser";
+        HttpResponseMessage response = await httpClient.PostAsJsonAsync(requestUri, user);
+        if (response.IsSuccessStatusCode)
+        {
+            return new CreatedAtActionResult(nameof(UserController.CreateUser), "UserController",
+                new { id = createdUser?.Id }, createdUser);
+        }
+
+        // You might want to handle different types of error responses differently.
+        // For simplicity, returning BadRequest for all error scenarios.
+        return new BadRequestResult();
+        */
+        return null;
+    }
+
+    
+    
+
+    public async Task<IActionResult> LoginWithUserCredentials(User user)
+    {
+        string requestUri = "api/Login";
+        var response = await httpClient.GetAsync(requestUri);
+        var ThisUser = await response.Content.ReadFromJsonAsync<User>();
+
+        return new OkObjectResult(ThisUser);
+    }
+}
