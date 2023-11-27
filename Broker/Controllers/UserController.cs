@@ -18,7 +18,7 @@ public class UserController : ControllerBase
         _IuserService = iuserService;
     }
 
-    
+
     //Create User
     [HttpPost]
     public async Task<IActionResult> CreateUser(User user)
@@ -30,9 +30,9 @@ public class UserController : ControllerBase
 
         return Ok(await _IuserService.CreateUser(user));
     }
-    
-    
-    
+
+
+
     [HttpPost("Login")]
     public async Task<IActionResult> LoginWithUserCredentials(User user)
     {
@@ -41,6 +41,20 @@ public class UserController : ControllerBase
             return BadRequest("User data is required.");
         }
         
-        return await _IuserService.LoginWithUserCredentials(user);
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var result = await _IuserService.LoginWithUserCredentials(user);
+
+        if (result != null) // Assuming 'result' is the actual result you'd get from _IuserService
+        {
+            return
+                Ok("Login successful"); // Make sure you're returning a string here, not result.Value or something else
+        }
+
+        return BadRequest("Invalid login attempt.");
     }
 }
+
