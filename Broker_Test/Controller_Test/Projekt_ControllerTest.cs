@@ -10,7 +10,6 @@ namespace Broker_Test
     public class ProjektControllerTests
     {
         
-        
         [Fact]
         
         public async void GetProjekt_ReturnsOk_WhenIdIsValid()
