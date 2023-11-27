@@ -8,13 +8,13 @@ namespace BlazorAppTest;
 
 public class UserLogin_Test
 {
-    private Mock<IUserLogin> _mockService;
-    private UserService _service;
+    private readonly Mock<IUserLogin> _mockUserService;
+    private IUserLogin _userService;
     
     public UserLogin_Test()
     {
-        _mockService = new Mock<IUserLogin>();
-        _service = _mockService;
+        _mockUserService = new Mock<IUserLogin>();
+        _userService = _mockUserService.Object;
     }
     [Fact]
     public async Task LoginWithRightInformation_ReturnsLoggedInUser()
@@ -35,16 +35,40 @@ public class UserLogin_Test
             // Set other properties as needed
         };
 
-        _mockService.Setup(service => service.Login(user))
+        _mockUserService.Setup(service => service.Login(user))
             .ReturnsAsync(loggedInUser);
 
         // Act
-        var result = await _service.Login(user);
+        var result = await _userService.Login(user);
 
         // Assert
         Assert.NotNull(result);
         Assert.Equal("TestUser", result.Username);
     }
+
+    [Fact]
+    public async Task LoginWithWrongInformation()
+    {
+        var mockHttpClient = new Mock<HttpClient>();
+        var userService = new UserService(mockHttpClient.Object);
+
+        var user = new User
+        {
+            Username = "WrongUser",
+            Password = "WrongPassword"
+        };
+
+        _mockUserService.Setup(service => service.Login(user))
+            .ReturnsAsync((User)null);
+
+        // Act
+        var result = await _userService.Login(user);
+
+        // Assert
+        Assert.Null(result);
+    }
+    
 }
-}
+
+
 
