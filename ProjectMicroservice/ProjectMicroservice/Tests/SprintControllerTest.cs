@@ -134,8 +134,7 @@ public class SprintControllerTest
             .Returns(true);
 
         var result = await _sprintController.DeleteSprintBacklog(projectId, sprintBacklogId);
-        var okResult = Assert.IsType<NoContent>(result);
-
+        Assert.IsType<NoContentResult>(result);
     }
 }
 
