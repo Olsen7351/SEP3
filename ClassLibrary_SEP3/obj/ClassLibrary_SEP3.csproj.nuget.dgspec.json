@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\45401\\Desktop\\SEP\\SEP3\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj": {}
+    "C:\\Users\\Kim\\Desktop\\SEP#\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj": {}
   },
   "projects": {
-    "C:\\Users\\45401\\Desktop\\SEP\\SEP3\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj": {
+    "C:\\Users\\Kim\\Desktop\\SEP#\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\45401\\Desktop\\SEP\\SEP3\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj",
+        "projectUniqueName": "C:\\Users\\Kim\\Desktop\\SEP#\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj",
         "projectName": "ClassLibrary_SEP3",
-        "projectPath": "C:\\Users\\45401\\Desktop\\SEP\\SEP3\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj",
-        "packagesPath": "C:\\Users\\45401\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\45401\\Desktop\\SEP\\SEP3\\ClassLibrary_SEP3\\obj\\",
+        "projectPath": "C:\\Users\\Kim\\Desktop\\SEP#\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj",
+        "packagesPath": "C:\\Users\\Kim\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Kim\\Desktop\\SEP#\\ClassLibrary_SEP3\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\45401\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Kim\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
