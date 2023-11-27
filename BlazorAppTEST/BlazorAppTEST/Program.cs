@@ -14,7 +14,7 @@ builder.Services.AddScoped<TaskService>();
 builder.Services.AddScoped(sp => 
     new HttpClient 
     { 
-        BaseAddress = new Uri("https://localhost:8002/") 
+        BaseAddress = new Uri("http://localhost:8002/") 
     });
 
 

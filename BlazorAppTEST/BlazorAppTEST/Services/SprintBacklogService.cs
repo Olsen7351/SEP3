@@ -8,53 +8,42 @@ namespace BlazorAppTEST.Services
     public class SprintBacklogService : ISprintBacklogService
     {
         private readonly HttpClient _httpClient;
-        public SprintBacklogService(HttpClient _httpclient)
+        public SprintBacklogService(HttpClient httpclient)
         {
-            this._httpClient = _httpClient;
+            this._httpClient = httpclient;
         }
         public async Task<IActionResult> CreateSprintBacklogAsync(SprintBacklog sprintBacklog)
         {
-            string createSprintBacklogToJson = JsonSerializer.Serialize(sprintBacklog);
-            StringContent contentSprint =
-                new StringContent(createSprintBacklogToJson, Encoding.UTF8, "application/json");
-            HttpResponseMessage message = await _httpClient.PostAsync("api/SprintBacklog", contentSprint);
+            HttpResponseMessage message = await _httpClient.PostAsJsonAsync("api/SprintBacklog", sprintBacklog);
             if (message.IsSuccessStatusCode)
             {
-                return new OkObjectResult(await message.Content.ReadAsStringAsync());
+                return new OkObjectResult(await message.Content.ReadFromJsonAsync<SprintBacklog>());
             }
-            else
-            {
-                return new StatusCodeResult((int)message.StatusCode);
-            }
-            
+            return new NotFoundResult();
+
         }
 
         public async Task<IActionResult> GetSprintBacklogsAsync(string ProjectId)
         {
-            HttpResponseMessage response = await _httpClient.GetAsync($"api/SprintBacklog/{ProjectId}");
-            if (response.IsSuccessStatusCode)
+            var response = await _httpClient.GetFromJsonAsync<IEnumerable<SprintBacklog>>($"api/SprintBacklog/{ProjectId}");
+
+            if (response == null)
             {
-                string content = await response.Content.ReadAsStringAsync();
-                return new OkObjectResult(content);
+                return new NotFoundResult();
             }
-            else
-            {
-                return new StatusCodeResult((int)response.StatusCode);
-            }
+
+            return new OkObjectResult(response);
         }
 
         public async Task<IActionResult> GetSprintBacklogByIdAsync(string ProjectId, string Id)
         {
-            HttpResponseMessage response = await _httpClient.GetAsync($"api/SprintBacklog/{ProjectId}/{Id}");
-            if (response.IsSuccessStatusCode)
+            var response = await _httpClient.GetFromJsonAsync<SprintBacklog>($"api/SprintBacklog/{ProjectId}/{Id}");
+
+            if (response == null)
             {
-                string content = await response.Content.ReadAsStringAsync();
-                return new OkObjectResult(content);
+                return new NotFoundResult();
             }
-            else
-            {
-                return new StatusCodeResult((int)response.StatusCode);
-            }
+            return new OkObjectResult(response);
         }
     }
 }
