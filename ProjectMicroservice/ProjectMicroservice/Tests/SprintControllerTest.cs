@@ -2,6 +2,8 @@ using ClassLibrary_SEP3;
 using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using ProjectMicroservice.Controllers;
+using ProjectMicroservice.Services;
 using Xunit;
 using Task = System.Threading.Tasks.Task;
 using TaskStatus = System.Threading.Tasks.TaskStatus;

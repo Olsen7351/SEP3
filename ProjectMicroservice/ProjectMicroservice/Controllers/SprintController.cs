@@ -1,30 +1,27 @@
-<<<<<<< HEAD
+
+using ClassLibrary_SEP3;
+using ClassLibrary_SEP3.DataTransferObjects;
+using DefaultNamespace;
 using Microsoft.AspNetCore.Mvc;
 using ProjectMicroservice.Services;
 
 namespace ProjectMicroservice.Controllers;
-=======
-using ClassLibrary_SEP3;
-using ClassLibrary_SEP3.DataTransferObjects;
-using Microsoft.AspNetCore.Mvc;
-using ProjectMicroservice.Services;
-namespace DefaultNamespace;
->>>>>>> Tests2
+
+
 
 [Route("api/[controller]")]
 [ApiController]
 public class SprintController : ControllerBase
 {
-<<<<<<< HEAD
+
     public ISprintService SprintService;
-=======
+
     private readonly ISprintService ISprintService;
 
     public SprintController(ISprintService sprintService)
     {
         this.ISprintService = sprintService;
     }
->>>>>>> Tests2
     
     [HttpGet]
     public async Task<IActionResult> GetAllSprintBacklogs(string ProjectId)
