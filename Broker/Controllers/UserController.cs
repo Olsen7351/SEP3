@@ -40,7 +40,7 @@ public class UserController : ControllerBase
         {
             return BadRequest("User data is required.");
         }
-
+        
         return await _IuserService.LoginWithUserCredentials(user);
     }
 }
