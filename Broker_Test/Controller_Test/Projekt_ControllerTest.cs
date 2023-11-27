@@ -11,7 +11,6 @@ namespace Broker_Test
     {
         
         
-        
         [Fact]
         
         public async void GetProjekt_ReturnsOk_WhenIdIsValid()
@@ -24,7 +23,7 @@ namespace Broker_Test
             var project = new Project();
             // Mock the ProjektService to return a sample Project
             mockProjektService.Setup(service => service.GetProjekt(validId))
-                .ReturnsAsync(project);
+                .ReturnsAsync(new OkObjectResult(project));
 
             // Act
             var result = await controller.GetProjekt(validId);
