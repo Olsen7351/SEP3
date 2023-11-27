@@ -1,14 +1,14 @@
 using ClassLibrary_SEP3;
 using ClassLibrary_SEP3.DataTransferObjects;
+using DefaultNamespace;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using ProjectMicroservice.Controllers;
-using ProjectMicroservice.Services;
 using Xunit;
 using Task = System.Threading.Tasks.Task;
-using TaskStatus = System.Threading.Tasks.TaskStatus;
 
-namespace DefaultNamespace;
+namespace ProjectMicroservice.Tests;
 
 public class SprintControllerTest
 {
@@ -134,12 +134,9 @@ public class SprintControllerTest
             .Returns(true);
 
         var result = await _sprintController.DeleteSprintBacklog(projectId, sprintBacklogId);
-        var okResult = Assert.IsType<OkResult>(result);
+        var okResult = Assert.IsType<NoContent>(result);
 
     }
-    
-
-
 }
 
     
