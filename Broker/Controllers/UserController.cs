@@ -33,15 +33,14 @@ public class UserController : ControllerBase
     
     
     
-    //Login User
-    [HttpGet]
+    [HttpPost("Login")]
     public async Task<IActionResult> LoginWithUserCredentials(User user)
     {
         if (user == null)
         {
-            return new BadRequestResult();
+            return BadRequest("User data is required.");
         }
 
-        return Ok(await _IuserService.LoginWithUserCredentials(user));
+        return await _IuserService.LoginWithUserCredentials(user);
     }
 }

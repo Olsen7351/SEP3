@@ -38,9 +38,16 @@ public class UserService : IUserService
     public async Task<IActionResult> LoginWithUserCredentials(User user)
     {
         string requestUri = "api/Login";
-        var response = await httpClient.GetAsync(requestUri);
-        var ThisUser = await response.Content.ReadFromJsonAsync<User>();
+        var response = await httpClient.PostAsJsonAsync(requestUri, user);
 
-        return new OkObjectResult(ThisUser);
+        if (response.IsSuccessStatusCode)
+        {
+            var loggedInUser = await response.Content.ReadFromJsonAsync<User>();
+            return new OkObjectResult(loggedInUser);
+        }
+        else
+        {
+            return new BadRequestResult(); 
+        }
     }
 }
