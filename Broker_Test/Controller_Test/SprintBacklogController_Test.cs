@@ -94,8 +94,9 @@ namespace Broker_Test.Controller_Test
             Assert.NotNull(result);
             var objectResult = Assert.IsType<OkObjectResult>(result);
             var returnedValue = Assert.IsType<SprintBacklog>(objectResult.Value);
-            Assert.Equal(expectedSprintBacklog, returnedValue); // Adjust the expected value according to your requirements
+            Assert.Equal(expectedSprintBacklog, returnedValue); 
         }
+        
         [Fact]
                  public async Task Get_ReturnsSprintBacklogs()
                  {

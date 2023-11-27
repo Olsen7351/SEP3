@@ -5,8 +5,9 @@ using Task = System.Threading.Tasks.Task;
 
 namespace Broker.Controllers
 {
-    [Route("api/[controller]/{ProjectId}")]
+    [Route("api/")]
     [ApiController]
+    
     public class SprintBacklogController : ControllerBase
     {
         private readonly ISprintBacklogService _sprintBacklogService;
