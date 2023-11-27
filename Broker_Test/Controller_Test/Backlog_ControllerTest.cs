@@ -4,6 +4,7 @@ using ClassLibrary_SEP3;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using Moq;
+using ProjectMicroservice.DataTransferObjects;
 
 namespace Broker_Test.Controller_Test
 {
@@ -35,7 +36,7 @@ namespace Broker_Test.Controller_Test
             // Arrange
             var mockProjektService = new Mock<IProjectService>();
             var controller = new BrokerProjectController(mockProjektService.Object);
-            int negativeId = -1; // Negative Id
+            string negativeId = "-1"; // Negative Id
 
             // Act
             var result = controller.GetProjekt(negativeId);
@@ -50,8 +51,7 @@ namespace Broker_Test.Controller_Test
             // Arrange
             var mockProjektService = new Mock<IProjectService>();
             var controller = new BrokerProjectController(mockProjektService.Object);
-            var validProject = new Project(); // Valid Project
-            validProject.Id = "1";
+            var validProject = new CreateProjectRequest(); // Valid Project
             validProject.Name = "Test";
             validProject.Description = "Test";
             validProject.StartDate = new DateTime(2021, 1, 1);
@@ -74,7 +74,7 @@ namespace Broker_Test.Controller_Test
             // Arrange
             var mockProjektService = new Mock<IProjectService>();
             var controller = new BrokerProjectController(mockProjektService.Object);
-            Project nullProject = null; // Project is null
+            CreateProjectRequest nullProject = null; // Project is null
 
             // Act
             var result = controller.CreateProjekt(nullProject);
@@ -83,6 +83,5 @@ namespace Broker_Test.Controller_Test
             Assert.IsType<BadRequestResult>(result);
         }
     }
-    */
+    
     }
-}

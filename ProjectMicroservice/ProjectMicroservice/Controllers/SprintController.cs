@@ -1,10 +1,13 @@
-namespace DefaultNamespace;
+using Microsoft.AspNetCore.Mvc;
+using ProjectMicroservice.Services;
+
+namespace ProjectMicroservice.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class SprintController : BaseController
+public class SprintController : ControllerBase
 {
-    public IProjectSprint ProjectSprint;
+    public ISprintService SprintService;
     
     
 }

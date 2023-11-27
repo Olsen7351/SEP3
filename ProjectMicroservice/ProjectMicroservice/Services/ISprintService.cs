@@ -1,7 +1,9 @@
-namespace DefaultNamespace;
+using ClassLibrary_SEP3;
 
-public class IProjectSprint
+namespace ProjectMicroservice.Services;
+
+public interface ISprintService
 {
-    SprintBacklog createSprintBacklog(SprintBacklogRequest sprintBacklog);
+    SprintBacklog createSprintBacklog(SprintBackLogRequest sprintBacklog);
     SprintBacklog getSprintBacklog(SprintBacklog sprintBacklog);
 }
