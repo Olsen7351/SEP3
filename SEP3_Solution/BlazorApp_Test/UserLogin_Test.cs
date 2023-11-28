@@ -76,7 +76,7 @@ public class UserLogin_Test
         // Arrange
         var user = new User
         {
-            Username = null, // Null username
+            Username = null, 
             Password = "TestPassword"
         };
 
@@ -91,7 +91,7 @@ public class UserLogin_Test
         // Arrange
         var user = new User
         {
-            Username = "", // Empty username
+            Username = "", 
             Password = "TestPassword"
         };
 
@@ -107,7 +107,7 @@ public class UserLogin_Test
         // Arrange
         var user = new User
         {
-            Username = "IAmOver16CharactersLong", // Empty username
+            Username = "IAmOver16CharactersLong", 
             Password = "TestPassword"
         };
 
@@ -141,7 +141,7 @@ public class UserLogin_Test
         // Arrange
         var user = new User
         {
-            Username = "James", // Null username
+            Username = "James", 
             Password = ""
         };
 
