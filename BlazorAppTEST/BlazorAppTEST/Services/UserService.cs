@@ -19,7 +19,12 @@ public class UserService : IUserService, IUserLogin
     {
         if (String.IsNullOrEmpty(user.Username) || String.IsNullOrEmpty(user.Password))
         {
-            throw new Exception("One or many fourms is emppty, please fill them out before creating a new user");
+            throw new Exception("One or many forms is empty, please fill them out before creating a new user");
+        }
+
+        if (user.Username.Length > 16)
+        {
+            throw new Exception("Username cant exceed 16 characters");
         }
         
         HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/CreateUser", user);
