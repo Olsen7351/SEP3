@@ -11,7 +11,7 @@ namespace Broker_Test.Controller_Test;
 
 public class User_ControllerTest
 {
-    /*
+    
     [Fact]
     public async void CreateUser_ReturnsOk_WhenUserIsNotNull()
     {
@@ -71,9 +71,6 @@ public class User_ControllerTest
         var okResult = Assert.IsType<OkObjectResult>(result);
         Assert.Equal("Login successful", okResult.Value);
     }
-
-    
-
     
     [Fact]
     public async Task LoginNullUser()
@@ -89,8 +86,6 @@ public class User_ControllerTest
         // Assert
         Assert.IsType<BadRequestObjectResult>(result);
     }
-    
-    
     
     
     [Fact]
@@ -120,12 +115,6 @@ public class User_ControllerTest
         Assert.NotNull(passwordErrors);
         Assert.Contains("Password is required", passwordErrors);
     }
-
-
-
-
-    
-    
     
     [Fact]
     public async Task LoginNullUsername()
@@ -154,10 +143,6 @@ public class User_ControllerTest
         Assert.NotNull(usernameErrors);
         Assert.Contains("Username is required", usernameErrors);
     }
-    
-    
-    
-    
     [Fact]
     public async Task LoginWithTooLongUsername()
     {

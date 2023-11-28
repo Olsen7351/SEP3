@@ -16,7 +16,7 @@ public class UserService : IUserService
 
     public async Task<IActionResult> CreateUser(User user)
     {
-        /*
+        
         string requestUri = "api/CreateUser";
         HttpResponseMessage response = await httpClient.PostAsJsonAsync(requestUri, user);
         if (response.IsSuccessStatusCode)
@@ -24,12 +24,8 @@ public class UserService : IUserService
             return new CreatedAtActionResult(nameof(UserController.CreateUser), "UserController",
                 new { id = createdUser?.Id }, createdUser);
         }
-
-        // You might want to handle different types of error responses differently.
-        // For simplicity, returning BadRequest for all error scenarios.
+        
         return new BadRequestResult();
-        */
-        return null;
     }
 
     
