@@ -6897,19 +6897,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Kim\\.nuget\\packages\\": {}
+    "C:\\Users\\45401\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Kim\\Desktop\\SEP#\\Broker_Test\\Broker_Test.csproj",
+      "projectUniqueName": "C:\\Users\\45401\\Desktop\\SEP\\SEP3\\Broker_Test\\Broker_Test.csproj",
       "projectName": "Broker_Test",
-      "projectPath": "C:\\Users\\Kim\\Desktop\\SEP#\\Broker_Test\\Broker_Test.csproj",
-      "packagesPath": "C:\\Users\\Kim\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Kim\\Desktop\\SEP#\\Broker_Test\\obj\\",
+      "projectPath": "C:\\Users\\45401\\Desktop\\SEP\\SEP3\\Broker_Test\\Broker_Test.csproj",
+      "packagesPath": "C:\\Users\\45401\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\45401\\Desktop\\SEP\\SEP3\\Broker_Test\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Kim\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\45401\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
@@ -6921,8 +6921,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\Kim\\Desktop\\SEP#\\Broker\\Broker.csproj": {
-              "projectPath": "C:\\Users\\Kim\\Desktop\\SEP#\\Broker\\Broker.csproj"
+            "C:\\Users\\45401\\Desktop\\SEP\\SEP3\\Broker\\Broker.csproj": {
+              "projectPath": "C:\\Users\\45401\\Desktop\\SEP\\SEP3\\Broker\\Broker.csproj"
             }
           }
         }
