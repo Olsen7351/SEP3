@@ -87,11 +87,23 @@ public class ProjectService_Test
     
     
     [Fact]
-    public async Task Add()
+    public async Task AddUserInsideProject()
     {
         
+        string username = "James";
+        string nonExistingProjectId = "2";
+
+        _mockService.Setup(service => service.AddUserToProject(username, nonExistingProjectId))
+            .ReturnsAsync(new Project()) 
+            .Verifiable(); 
+
+        // Act
+        var result = await _mockService.Object.AddUserToProject(username, nonExistingProjectId);
+
+        // Assert
+        Assert.NotNull(result); 
+        _mockService.Verify(service => service.AddUserToProject(username, nonExistingProjectId)); 
     }
-    
-    
+
 }
 

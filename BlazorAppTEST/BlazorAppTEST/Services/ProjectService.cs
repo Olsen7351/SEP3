@@ -25,6 +25,12 @@ public class ProjectService: IProjectService
     //Post
     public async Task<IActionResult> CreateProject(CreateProjectRequest project)
     {
+        if (String.IsNullOrEmpty(project.Name))
+        {
+            throw new Exception("Project name cant be empty");
+        }
+        
+        
         //Try and send it trough
         HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/BrokerProject", project);
         

@@ -21,6 +21,7 @@ public class UserService : IUserService, IUserLogin
         {
             throw new Exception("One or many fourms is emppty, please fill them out before creating a new user");
         }
+        
         HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/CreateUser", user);
         if (!response.IsSuccessStatusCode)
         {
