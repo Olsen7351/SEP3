@@ -28,7 +28,9 @@ namespace Broker_Test
             var result = await controller.GetProjekt(validId);
 
             var okResult = Assert.IsType<OkObjectResult>(result);
-            Assert.Equal(project, okResult.Value);
+            var resultProject = okResult.Value as Project;
+            Assert.NotNull(resultProject);
+            Assert.Equal(project, resultProject);
         }
         
         [Fact]
