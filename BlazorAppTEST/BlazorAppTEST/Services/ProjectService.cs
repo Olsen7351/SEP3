@@ -61,6 +61,13 @@ public class ProjectService: IProjectService
 
     public async Task<Project> AddUserToProject(string username, string projectId)
     {
+        if (String.IsNullOrEmpty(username) || String.IsNullOrEmpty(projectId))
+        {
+            throw new Exception("Either username or projectID couldn't be retrieved");
+        }
+        
+        // Service to check maybe if username exists inside the database
+        
         var payload = new { Username = username, ProjectId = projectId };
         HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/AddUserToProject", payload);
 

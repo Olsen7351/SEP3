@@ -34,17 +34,29 @@ public class CreateUser_Test
         var user = new User
         {
             Username = "Test1",
-            Password = "hetasjdbaj1437"
+            Password = "sjhbafjhasbf"
         };
 
-        _mockUserService.Setup(service => service.createUser(user))
-            .Returns(Task.CompletedTask);
+        var mockHttpMessageHandler = new Mock<HttpMessageHandler>();
+        mockHttpMessageHandler.Protected()
+            .Setup<Task<HttpResponseMessage>>(
+                "SendAsync",
+                ItExpr.IsAny<HttpRequestMessage>(),
+                ItExpr.IsAny<CancellationToken>())
+            .ReturnsAsync(new HttpResponseMessage(HttpStatusCode.OK));
 
+        var httpClient = new HttpClient(mockHttpMessageHandler.Object)
+        {
+            BaseAddress = new Uri("http://localhost/") 
+        };
+        var userService = new UserService(httpClient);
+
+        
         // Act
-        var exception = await Record.ExceptionAsync(() => _userService.createUser(user));
+        Func<Task> act = async () => await userService.createUser(user);
 
         // Assert
-        Assert.Null(exception);
+        await act(); 
     }
 
 
