@@ -6,8 +6,10 @@ using Moq;
 using Xunit;
 using Task = System.Threading.Tasks.Task;
 using System.ComponentModel.DataAnnotations;
+using System.Net;
 using Xunit;
 using ClassLibrary_SEP3;
+using Moq.Protected;
 
 
 public class CreateUser_Test
@@ -50,19 +52,30 @@ public class CreateUser_Test
     public async Task CreatingUserWithLongUsername()
     {
         // Arrange
-        var user = new User
+        var userWithNullUsername = new User
         {
-            Username = "imimimimimimimimimimimimimimimimimimim",
-            Password = "password123"
+            Username = "IAmOver16CharactersLong",
+            Password = "ValidPassword"
         };
 
-        _mockUserService.Setup(service => service.createUser(It.IsAny<User>()))
-            .ThrowsAsync(new ArgumentException("Username is too long, only 16 characters are allowed"));
+        var mockHttpMessageHandler = new Mock<HttpMessageHandler>();
+        mockHttpMessageHandler.Protected()
+            .Setup<Task<HttpResponseMessage>>(
+                "SendAsync",
+                ItExpr.IsAny<HttpRequestMessage>(),
+                ItExpr.IsAny<CancellationToken>())
+            .ReturnsAsync(new HttpResponseMessage(HttpStatusCode.OK)); 
 
+        var httpClient = new HttpClient(mockHttpMessageHandler.Object)
+        {
+            BaseAddress = new Uri("http://localhost/") 
+        };
+        var userService = new UserService(httpClient);
+
+        
         // Act & Assert
-        var exception = await Assert.ThrowsAsync<ArgumentException>(() => _userService.createUser(user));
-
-        Assert.Equal("Username is too long, only 16 characters are allowed", exception.Message);
+        var exception = await Assert.ThrowsAsync<Exception>(() => userService.createUser(userWithNullUsername));
+        Assert.Contains("Username cant exceed 16 characters", exception.Message);
     }
 
 
@@ -72,38 +85,62 @@ public class CreateUser_Test
         // Arrange
         var userWithNullUsername = new User
         {
-            Username = null, // Invalid data
+            Username = null, // Null username should trigger exception
             Password = "ValidPassword"
         };
 
-        // Setup the mock to throw a ValidationException for invalid user data
-        _mockUserService.Setup(service => service.createUser(It.Is<User>(u => u.Username == null)))
-            .ThrowsAsync(new ValidationException("Username is required"));
+        var mockHttpMessageHandler = new Mock<HttpMessageHandler>();
+        mockHttpMessageHandler.Protected()
+            .Setup<Task<HttpResponseMessage>>(
+                "SendAsync",
+                ItExpr.IsAny<HttpRequestMessage>(),
+                ItExpr.IsAny<CancellationToken>())
+            .ReturnsAsync(new HttpResponseMessage(HttpStatusCode.OK)); 
 
+        var httpClient = new HttpClient(mockHttpMessageHandler.Object)
+        {
+            BaseAddress = new Uri("http://localhost/") 
+        };
+        var userService = new UserService(httpClient);
+
+        
         // Act & Assert
-        var exception =
-            await Assert.ThrowsAsync<ValidationException>(() => _userService.createUser(userWithNullUsername));
-        Assert.Contains("Username is required", exception.Message);
+        var exception = await Assert.ThrowsAsync<Exception>(() => userService.createUser(userWithNullUsername));
+        Assert.Contains("One or many forms is empty, please fill them out before creating a new user", exception.Message);
     }
 
+
+    
+    
+    
     [Fact]
     public async Task CreateUserWithEmptyUsername()
     {
         // Arrange
-        var userWithEmptyUsername = new User
+        var userWithNullUsername = new User
         {
             Username = "", 
-            Password = "123456"
+            Password = "ValidPassword"
         };
 
-        // Setup the mock to throw a ValidationException for invalid user data
-        _mockUserService.Setup(service => service.createUser(It.Is<User>(u => u.Username == "")))
-            .ThrowsAsync(new ValidationException("Username is required"));
+        var mockHttpMessageHandler = new Mock<HttpMessageHandler>();
+        mockHttpMessageHandler.Protected()
+            .Setup<Task<HttpResponseMessage>>(
+                "SendAsync",
+                ItExpr.IsAny<HttpRequestMessage>(),
+                ItExpr.IsAny<CancellationToken>())
+            .ReturnsAsync(new HttpResponseMessage(HttpStatusCode.OK)); 
 
+        var httpClient = new HttpClient(mockHttpMessageHandler.Object)
+        {
+            BaseAddress = new Uri("http://localhost/") 
+        };
+        var userService = new UserService(httpClient);
+
+        
         // Act & Assert
-        var exception =
-            await Assert.ThrowsAsync<ValidationException>(() => _userService.createUser(userWithEmptyUsername));
-        Assert.Contains("Username is required", exception.Message);
+        var exception = await Assert.ThrowsAsync<Exception>(() => userService.createUser(userWithNullUsername));
+        Assert.Contains("One or many forms is empty, please fill them out before creating a new user", exception.Message);
     }
 
 
@@ -112,20 +149,30 @@ public class CreateUser_Test
     public async Task CreateUserWithNullPassword()
     {
         // Arrange
-        var userWithNullPassword = new User
+        var userWithNullUsername = new User
         {
-            Username = "123456",
-            Password = null 
+            Username = "James", 
+            Password = null
         };
 
-        // Setup the mock to throw a ValidationException for invalid user data
-        _mockUserService.Setup(service => service.createUser(It.Is<User>(u => u.Password == null)))
-            .ThrowsAsync(new ValidationException("Password is required"));
+        var mockHttpMessageHandler = new Mock<HttpMessageHandler>();
+        mockHttpMessageHandler.Protected()
+            .Setup<Task<HttpResponseMessage>>(
+                "SendAsync",
+                ItExpr.IsAny<HttpRequestMessage>(),
+                ItExpr.IsAny<CancellationToken>())
+            .ReturnsAsync(new HttpResponseMessage(HttpStatusCode.OK)); 
 
+        var httpClient = new HttpClient(mockHttpMessageHandler.Object)
+        {
+            BaseAddress = new Uri("http://localhost/") 
+        };
+        var userService = new UserService(httpClient);
+
+        
         // Act & Assert
-        var exception =
-            await Assert.ThrowsAsync<ValidationException>(() => _userService.createUser(userWithNullPassword));
-        Assert.Contains("Password is required", exception.Message);
+        var exception = await Assert.ThrowsAsync<Exception>(() => userService.createUser(userWithNullUsername));
+        Assert.Contains("One or many forms is empty, please fill them out before creating a new user", exception.Message);
     }
 
     
@@ -134,19 +181,29 @@ public class CreateUser_Test
     public async Task CreateUserWithEmptyPassword()
     {
         // Arrange
-        var userWithEmptyPassword = new User
+        var userWithNullUsername = new User
         {
-            Username = "ValidUsername",
-            Password = "" 
+            Username = "James", 
+            Password = ""
         };
 
-        // Setup the mock to throw a ValidationException for invalid user data
-        _mockUserService.Setup(service => service.createUser(It.Is<User>(u => u.Password == "")))
-            .ThrowsAsync(new ValidationException("Password is required"));
+        var mockHttpMessageHandler = new Mock<HttpMessageHandler>();
+        mockHttpMessageHandler.Protected()
+            .Setup<Task<HttpResponseMessage>>(
+                "SendAsync",
+                ItExpr.IsAny<HttpRequestMessage>(),
+                ItExpr.IsAny<CancellationToken>())
+            .ReturnsAsync(new HttpResponseMessage(HttpStatusCode.OK)); 
 
+        var httpClient = new HttpClient(mockHttpMessageHandler.Object)
+        {
+            BaseAddress = new Uri("http://localhost/") 
+        };
+        var userService = new UserService(httpClient);
+
+        
         // Act & Assert
-        var exception =
-            await Assert.ThrowsAsync<ValidationException>(() => _userService.createUser(userWithEmptyPassword));
-        Assert.Contains("Password is required", exception.Message);
+        var exception = await Assert.ThrowsAsync<Exception>(() => userService.createUser(userWithNullUsername));
+        Assert.Contains("One or many forms is empty, please fill them out before creating a new user", exception.Message);
     }
 }
