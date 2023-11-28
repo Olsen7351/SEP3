@@ -88,6 +88,24 @@ public class ProjectService_Test
 
     }
 
+    [Fact]
+    public async Task Exception_ReturnsInternalServerError()
+    {
+        var createProjectRequest = new CreateProjectRequest();
+        _mockService.Setup(service => service.CreateProject(createProjectRequest))
+            .ThrowsAsync(new Exception("An unexpected error."));
+
+        var result = await _mockService.Object.CreateProject(createProjectRequest) as ObjectResult;
+        
+        _mockService.Verify(service => service.CreateProject(createProjectRequest), Times.Once);
+
+        Assert.NotNull(result);
+        Assert.Equal(500,result.StatusCode);
+        Assert.Equal("An unexpected error",result.Value);
+
+    }
+    
+
 
 
 
