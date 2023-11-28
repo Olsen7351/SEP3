@@ -7,6 +7,7 @@ using ProjectMicroservice.DataTransferObjects;
 using Xunit.Sdk;
 using Task = System.Threading.Tasks.Task;
 
+
 namespace BlazorAppTEST.Services;
 
 public class ProjectService: IProjectService
@@ -21,7 +22,7 @@ public class ProjectService: IProjectService
 
     
     //Post
-    public async Task CreateProject(CreateProjectRequest project)
+    public async Task<IActionResult> CreateProject(CreateProjectRequest project)
     {
        //Try and send it trough
         HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/BrokerProject", project);
@@ -30,6 +31,8 @@ public class ProjectService: IProjectService
         {
             throw new Exception($"Error:{response.StatusCode}");
         }
+
+        return new OkResult();
     }
 
 

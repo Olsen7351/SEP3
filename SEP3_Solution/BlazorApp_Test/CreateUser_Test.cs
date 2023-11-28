@@ -10,13 +10,13 @@ using Xunit;
 using ClassLibrary_SEP3;
 
 
-public class CreateUserTest
+public class CreateUser_Test
 {
     private readonly Mock<IUserService> _mockUserService;
     private IUserService _userService;
 
 
-    public CreateUserTest()
+    public CreateUser_Test()
     {
         _mockUserService = new Mock<IUserService>();
         _userService = _mockUserService.Object;
