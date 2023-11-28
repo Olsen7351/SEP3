@@ -19,18 +19,25 @@ namespace Broker_Test
             var controller = new BrokerProjectController(mockProjektService.Object);
             string validId = "1"; // Valid Id
 
-            var project = new Project();
+            var project = new Project
+            {
+                Id = "1",
+                Name = "Alma",
+                Description = "Brush Alma",
+            };
+            
             // Mock the ProjektService to return a sample Project
             mockProjektService.Setup(service => service.GetProjekt(validId))
-                .ReturnsAsync(new OkObjectResult(project));
+                .ReturnsAsync(project);
 
             // Act
             var result = await controller.GetProjekt(validId);
 
             var okResult = Assert.IsType<OkObjectResult>(result);
-            var resultProject = okResult.Value as Project;
-            Assert.NotNull(resultProject);
-            Assert.Equal(project, resultProject);
+            
+            
+            Assert.IsType<Project>(okResult.Value);
+            Assert.Equal(project,  okResult.Value);
         }
         
         [Fact]

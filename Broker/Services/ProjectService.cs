@@ -37,13 +37,14 @@ namespace Broker.Services
             }
         }
 
-        public async Task<IActionResult> GetProjekt(string id)
+        public async Task<Project> GetProjekt(string id)
         {
             string requestUri = $"api/Project/{id}";
             var response = await httpClient.GetAsync(requestUri);
-            var project = await response.Content.ReadFromJsonAsync<Project>();
+            return await response.Content.ReadFromJsonAsync<Project>();
 
-            return new OkObjectResult(project);
+            
+           
         }
     }
 }

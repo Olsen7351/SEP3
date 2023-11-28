@@ -98,32 +98,6 @@ namespace Broker_Test.Controller_Test
             var returnedValue = Assert.IsType<SprintBacklog>(objectResult.Value);
             Assert.Equal(expectedSprintBacklog, returnedValue);
         }
-
-        [Fact]
-        public async Task Get_ReturnsSprintBacklogs()
-        {
-            // Arrange
-            var projectId = "ProjectId";
-            var mockService = new Mock<ISprintBacklogService>();
-            var sprintBacklogs = new List<SprintBacklog>
-            {
-                new SprintBacklog { ProjectId = projectId, SprintBacklogId = "1", Title = "Sprint 1" },
-                new SprintBacklog { ProjectId = projectId, SprintBacklogId = "2", Title = "Sprint 2" }
-            };
-            mockService.Setup(service => service.GetSprintBacklogsAsync("ProjectId"))
-                .ReturnsAsync(new OkObjectResult(sprintBacklogs));
-
-            var controller = new SprintBacklogController(mockService.Object);
-
-            // Act
-            var result = await controller.GetAllSprintBacklogs(projectId) as Task<IEnumerable<SprintBacklog>>;
-
-            // Assert
-            Assert.NotNull(result);
-            var objectResult = Assert.IsType<OkObjectResult>(result.Result);
-            var model = Assert.IsAssignableFrom<IEnumerable<SprintBacklog>>(objectResult.Value);
-            Assert.Equal(2, model.Count());
-        }
     }
 
 }

@@ -27,9 +27,8 @@ namespace Broker.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProjekt(string id)
         {
-            var response = projektService.GetProjekt(id);
-            var project = response.Result;
-            return new OkObjectResult(project);
+            var response = await projektService.GetProjekt(id);
+            return new OkObjectResult(response);
         }
 
         [HttpPost]
