@@ -22,21 +22,9 @@ public class CreateUser_Test
         _userService = _mockUserService.Object;
     }
 
-    private void ValidateModel(User user)
-    {
-        var context = new ValidationContext(user, serviceProvider: null, items: null);
-        var results = new List<ValidationResult>();
+    
 
-        bool isValid = Validator.TryValidateObject(user, context, results, true);
-        if (!isValid)
-        {
-            var compositeErrors = string.Join("; ", results.Select(r => r.ErrorMessage));
-            throw new ValidationException(compositeErrors);
-        }
-    }
-
-
-    //-------------------------------------------------------------------------------------------------------------------------------------------------------- User
+    //--------------------------------------------------------------------------------------------------------------- User
     [Fact]
     public async Task CreateUser()
     {
@@ -119,7 +107,7 @@ public class CreateUser_Test
     }
 
 
-    // -------------------------------------------------------------------------------------------------------------------------------------------------------- Password
+    // -------------------------------------------------------------------------------------------------------- Password
     [Fact]
     public async Task CreateUserWithNullPassword()
     {

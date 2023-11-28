@@ -17,6 +17,10 @@ public class UserService : IUserService, IUserLogin
     
     public async Task createUser(User user)
     {
+        if (String.IsNullOrEmpty(user.Username) || String.IsNullOrEmpty(user.Password))
+        {
+            throw new Exception("One or many fourms is emppty, please fill them out before creating a new user");
+        }
         HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/CreateUser", user);
         if (!response.IsSuccessStatusCode)
         {
@@ -29,14 +33,23 @@ public class UserService : IUserService, IUserLogin
     {
         HttpResponseMessage responseMessage = await httpClient.PostAsJsonAsync("api/Login", user);
 
+        //Guards
+        if (String.IsNullOrEmpty(user.Username) || String.IsNullOrEmpty(user.Password))
+        {
+            throw new Exception("One or many forms is empty, please fill them out before logging in");
+        }
+        
+        if (user.Username.Length > 16)
+        {
+            throw new Exception("Usernames can only be up to 16 characters long");
+        }
+        
         if (responseMessage.IsSuccessStatusCode)
         {
-            // Use ReadAsAsync<T> to deserialize JSON content
             return await responseMessage.Content.ReadFromJsonAsync<User>();
         }
         else
         {
-            // Handle the failure case, for example, return null or throw an exception
             return null;
         }
     }
