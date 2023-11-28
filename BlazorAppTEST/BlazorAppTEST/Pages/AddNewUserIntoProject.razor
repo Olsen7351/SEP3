@@ -1,0 +1,46 @@
+@page "/AddNewUserIntoProject/{ProjectIdAsString}"
+@using ClassLibrary_SEP3
+@using Task = System.Threading.Tasks.Task
+@using BlazorAppTEST.Services
+@inject IProjectService ProjectService 
+
+<h3>Add User to Project</h3>
+
+<EditForm Model="@this" OnValidSubmit="AddUserToProject">
+    <div class="card">
+        <div>
+            <label for="username">Username:</label>
+            <InputText id="username" @bind-Value="username" />
+            <ValidationMessage For="@(() => username)" />
+        </div>
+        <button type="submit">Add User</button>
+    </div>
+</EditForm>
+
+<div>
+    @if (project != null)
+    {
+        <h3>@project.Name</h3>
+        <p>Description: @project.Description</p>
+    }
+</div>
+
+
+@code 
+{
+    [Parameter]
+    public string ProjectIdAsString { get; set; }
+    private Project project; 
+    private string username;
+
+    protected override async Task OnInitializedAsync()
+    {
+        project = await ProjectService.GetProject(ProjectIdAsString);
+    }
+
+    private async Task AddUserToProject()
+    {
+        await ProjectService.AddUserToProject(username, ProjectIdAsString);
+        username = string.Empty;
+    }
+}

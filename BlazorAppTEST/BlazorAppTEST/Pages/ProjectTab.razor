@@ -16,15 +16,14 @@
                 <p>Start Date: @project.StartDate</p>
                 <p>End Date: @project.EndDate</p>
                 <NavLink href="@($"/project-hub/{project.Id}")" class="btn btn-primary">View Details</NavLink>
+                <NavLink href="@("/AddNewUserIntoProject")" class="btn btn-primary">Add New User</NavLink>
             </div>
         }
     </div>
 </div>
 
+
 @code 
 {
     private List<Project>? projects = new List<Project>();
-
-
-
 }

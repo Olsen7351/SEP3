@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using System.Text.Json;
 using ClassLibrary_SEP3;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using ProjectMicroservice.DataTransferObjects;
@@ -12,7 +13,7 @@ namespace BlazorAppTEST.Services;
 public class ProjectService: IProjectService
 {
    //HTTPClient
-       private readonly HttpClient httpClient; 
+   private readonly HttpClient httpClient; 
 
     public ProjectService(HttpClient httpClient)
     {
@@ -23,7 +24,7 @@ public class ProjectService: IProjectService
     //Post
     public async Task CreateProject(CreateProjectRequest project)
     {
-       //Try and send it trough
+        //Try and send it trough
         HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/BrokerProject", project);
         
         if (!response.IsSuccessStatusCode)
@@ -45,5 +46,24 @@ public class ProjectService: IProjectService
         Console.WriteLine(response.Content);
         
         return projekt;
+    }
+
+    
+
+    public async Task<Project> AddUserToProject(string username, string projectId)
+    {
+        var payload = new { Username = username, ProjectId = projectId };
+        HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/AddUserToProject", payload);
+
+        if (response.IsSuccessStatusCode)
+        {
+            var project = await response.Content.ReadFromJsonAsync<Project>();
+            return project;
+        }
+        
+        else
+        {
+            throw new Exception($"Error: {response.StatusCode}");
+        }
     }
 }

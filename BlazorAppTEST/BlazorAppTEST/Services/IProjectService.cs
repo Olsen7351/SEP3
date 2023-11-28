@@ -8,5 +8,7 @@ public interface IProjectService
 {
     Task CreateProject(CreateProjectRequest project);
     Task<Project> GetProject(string id);
-    
+
+    Task<Project> AddUserToProject(string username, string projectId);
+
 }
