@@ -66,5 +66,6 @@ public class UserController : ControllerBase
 
         return BadRequest("Invalid login attempt.");
     }
+    
 }
 

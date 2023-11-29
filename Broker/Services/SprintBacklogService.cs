@@ -2,6 +2,8 @@ using Broker.Controllers;
 using ClassLibrary_SEP3;
 using Microsoft.AspNetCore.Mvc;
 using Xunit.Sdk;
+using Task = ClassLibrary_SEP3.Task;
+
 namespace Broker.Services;
 
 public class SprintBacklogService : ISprintBacklogService
@@ -26,9 +28,9 @@ public class SprintBacklogService : ISprintBacklogService
 
         return new BadRequestResult();
     }
-    public async Task<IActionResult> GetSprintBacklogsAsync(string ProjectId)
+    public async Task<IActionResult> GetSprintBacklogsAsync(string projectId)
     {
-        string requestUri = $"api/Project/{ProjectId}/SprintBacklog";
+        string requestUri = $"api/Project/{projectId}/SprintBacklog";
         HttpResponseMessage responseMessage = await httpClient.GetAsync(requestUri);
         if (responseMessage.IsSuccessStatusCode)
         {
@@ -41,9 +43,9 @@ public class SprintBacklogService : ISprintBacklogService
         }
         return new BadRequestResult();
     }
-    public async Task<IActionResult> GetSprintBacklogByIdAsync(string ProjectId, string Id)
+    public async Task<IActionResult> GetSprintBacklogByIdAsync(string projectId, string Id)
     {
-        string requestUri = $"api/Project/{ProjectId}/SprintBacklog/{Id}";
+        string requestUri = $"api/Project/{projectId}/SprintBacklog/{Id}";
         HttpResponseMessage responseMessage = await httpClient.GetAsync(requestUri);
         if (responseMessage.IsSuccessStatusCode)
         {
@@ -71,6 +73,18 @@ public class SprintBacklogService : ISprintBacklogService
             return new OkResult();
         }
         return new BadRequestResult();
+    }
+
+    public Task<IActionResult> AddTaskToSprintBacklogAsync(string projectId, string id, Task task)
+    {
+        //TODO 
+        throw new NotImplementedException();
+    }
+
+    public Task<IActionResult> GetTasksFromSprintBacklogAsync(string projectId, string Id)
+    {
+        //TODO 
+        throw new NotImplementedException();
     }
     
 }

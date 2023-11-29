@@ -1,7 +1,8 @@
 ﻿using Broker.Services;
 using ClassLibrary_SEP3;
 using Microsoft.AspNetCore.Mvc;
-using Task = System.Threading.Tasks.Task;
+using Task = ClassLibrary_SEP3.Task;
+
 
 namespace Broker.Controllers
 {
@@ -50,6 +51,20 @@ namespace Broker.Controllers
         public async Task<IActionResult> Delete(string ProjectId, string id)
         {
             return await _sprintBacklogService.DeleteSprintBacklogAsync(ProjectId, id);
+        }
+        [HttpPost("{sprintId}/AddTask")]
+        public async Task<IActionResult> AddTaskToSprintBacklog(string projectId, string sprintId, Task task)
+        {
+            //TODO
+            throw new NotImplementedException();
+        }
+
+        // GET api/<SprintBacklogController>/<ProjectId>/<SprintId>/Tasks
+        [HttpGet("{sprintId}/Tasks")]
+        public async Task<IActionResult> GetAllTasksForSprintBacklog(string projectId, string sprintId)
+        {
+            //TODO
+            throw new NotImplementedException();
         }
     }
 }
