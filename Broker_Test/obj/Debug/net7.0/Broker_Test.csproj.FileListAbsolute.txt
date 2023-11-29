@@ -619,3 +619,8 @@ C:\Users\Kim\Desktop\SEP#\Broker_Test\obj\Debug\net7.0\refint\Broker_Test.dll
 C:\Users\Kim\Desktop\SEP#\Broker_Test\obj\Debug\net7.0\Broker_Test.pdb
 C:\Users\Kim\Desktop\SEP#\Broker_Test\obj\Debug\net7.0\Broker_Test.genruntimeconfig.cache
 C:\Users\Kim\Desktop\SEP#\Broker_Test\obj\Debug\net7.0\ref\Broker_Test.dll
+C:\Users\45401\Desktop\SEP\SEP3\Broker_Test\bin\Debug\net7.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\45401\Desktop\SEP\SEP3\Broker_Test\bin\Debug\net7.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\45401\Desktop\SEP\SEP3\Broker_Test\bin\Debug\net7.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\45401\Desktop\SEP\SEP3\Broker_Test\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\45401\Desktop\SEP\SEP3\Broker_Test\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll

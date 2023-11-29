@@ -6,16 +6,18 @@ using System.Threading.Tasks;
 using Broker.Controllers;
 using Broker.Services;
 using ClassLibrary_SEP3;
+using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Task = ClassLibrary_SEP3.Task;
+using TaskStatus = ClassLibrary_SEP3.TaskStatus;
 
 namespace Broker_Test.Controller_Test
 {
     public class SprintBacklogControllerTest
     {
         [Fact]
-        public async void Get_ReturnsSprintBacklogs2()
+        public async void Get_ReturnsSprintBacklogs()
         {
             // Arrange
             var projectId = "ProjectId";
@@ -53,7 +55,7 @@ namespace Broker_Test.Controller_Test
                 Tasks = new List<ClassLibrary_SEP3.Task>()
             };
             var sprintId = "2";
-            var task = new Task
+            var task = new AddSprintTaskRequest()
             {
                 SprintId = "2",
                 Title = "Brush Alma"
@@ -126,7 +128,7 @@ namespace Broker_Test.Controller_Test
         }
 
         [Fact]
-        public void AddTaskToSprintBacklogValid()
+        public async void AddTaskToSprintBacklogValid()
         {
             var projectId = "1";
             var sprintBacklogId = "5";
@@ -138,10 +140,58 @@ namespace Broker_Test.Controller_Test
                 Title = "Sample Sprint",
                 CreatedAt= new DateTime(2021, 1, 1),
                 Tasks = new List<ClassLibrary_SEP3.Task>()
-            }; 
-            var task = new Task
+            };
+            var addTaskRequest = new AddSprintTaskRequest
             {
-                Id 
+                ProjectId = "1",
+                SprintId = "5",
+                Title = "Implement methods",
+                Description = "Do it",
+                Status = TaskStatus.ToDo, 
+                CreatedAt = DateTime.Now,
+                EstimateTimeInMinutes = 120,
+                ActualTimeUsedInMinutes = 0,
+                Responsible = "John Doe"
+            };
+            mockService.Setup(service => service.GetSprintBacklogByIdAsync(projectId, sprintBacklogId))
+                .ReturnsAsync(new OkObjectResult(expectedSprintBacklog));
+            
+            var controller = new SprintBacklogController(mockService.Object);
+            var result = await controller.AddTaskToSprintBacklog(projectId, sprintBacklogId, addTaskRequest);
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var sprintBacklog = Assert.IsType<SprintBacklog>(okResult.Value);
+
+            Assert.NotNull(result);
+            Assert.Contains(sprintBacklog.Tasks, task => task.Title == addTaskRequest.Title);
+
+
+        }
+
+        [Fact]
+        public async void GetAllTasksForSprintBacklog()
+        {
+            var projectId = "1";
+            var sprintBacklogId = "4";
+            var mockService = new Mock<ISprintBacklogService>();
+            var expectedTask = new List<Task>
+            {
+                new Task { Id = "1", ProjectId = "1", SprintId = "2", Title = "Task", Description = "Try and code" },
+                new Task { Id = "2", ProjectId = "1", SprintId = "2", Title = "Task 2", Description = "I dont know what to put here" },
+            };
+            mockService.Setup(service => service.GetSprintBacklogByIdAsync(projectId, sprintBacklogId))
+                .ReturnsAsync(new OkObjectResult(expectedTask));
+            var controller = new SprintBacklogController(mockService.Object);
+            var result = await controller.GetAllTasksForSprintBacklog("1", "4");
+           
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var returnedTasks = Assert.IsAssignableFrom<IEnumerable<Task>>(okResult.Value);
+            foreach (var task in expectedTask)
+            {
+                var actualTask = returnedTasks.FirstOrDefault(t => t.Id == task.Id);
+                Assert.NotNull(actualTask); // Ensure the task is found
+                Assert.Equal(task.ProjectId, actualTask.ProjectId);
+                Assert.Equal(task.SprintId, actualTask.SprintId);
+                Assert.Equal(task.Title, actualTask.Title);
             }
         }
     }
