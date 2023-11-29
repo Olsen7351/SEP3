@@ -124,5 +124,25 @@ namespace Broker_Test.Controller_Test
             var returnedValue = Assert.IsType<SprintBacklog>(objectResult.Value);
             Assert.Equal(expectedSprintBacklog, returnedValue); // Adjust the expected value according to your requirements
         }
+
+        [Fact]
+        public void AddTaskToSprintBacklogValid()
+        {
+            var projectId = "1";
+            var sprintBacklogId = "5";
+            var mockService = new Mock<ISprintBacklogService>();
+            var expectedSprintBacklog = new SprintBacklog
+            {
+                ProjectId = projectId,
+                SprintBacklogId = sprintBacklogId,
+                Title = "Sample Sprint",
+                CreatedAt= new DateTime(2021, 1, 1),
+                Tasks = new List<ClassLibrary_SEP3.Task>()
+            }; 
+            var task = new Task
+            {
+                Id 
+            }
+        }
     }
 }
