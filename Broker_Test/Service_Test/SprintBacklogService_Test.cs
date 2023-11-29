@@ -16,7 +16,6 @@ using TaskSys = System.Threading.Tasks.Task;
 
 namespace Broker_Test
 {
-    /*
     public class SprintBacklogService_Test
     {
         [Fact]
@@ -111,5 +110,4 @@ namespace Broker_Test
             Assert.Equal(expectedSprintBacklog, sprintBacklog);
         }
     }
-    */
 }
