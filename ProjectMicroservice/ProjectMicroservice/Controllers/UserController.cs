@@ -5,6 +5,8 @@ using ProjectMicroservice.Services;
 
 namespace ProjectMicroservice.Controllers;
 
+
+[Route("api/[controller]")]
 [ApiController]
 public class UserController : ControllerBase
 {
@@ -15,7 +17,7 @@ public class UserController : ControllerBase
         _iUserService = iUserService;
     }
 
-    [HttpPost]
+    [HttpPost("CreateUser")]
     public IActionResult CreateUser([FromBody] User user)
     {
         if (!ModelState.IsValid)
@@ -38,7 +40,7 @@ public class UserController : ControllerBase
     
     [HttpPost]
     [Route("Login")]
-    public IActionResult Login([FromBody] UserLoginRequest loginRequest)
+    public IActionResult Login([FromBody] User loginRequest)
     {
         try
         {
@@ -50,5 +52,4 @@ public class UserController : ControllerBase
             return Unauthorized(ex.Message);
         }
     }
-
 }

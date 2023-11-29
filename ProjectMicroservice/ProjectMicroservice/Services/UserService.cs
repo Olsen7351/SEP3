@@ -35,7 +35,7 @@ public class UserService: IUserService
     {
         // Step 1: Validate the credentials
         var existingUser = _users.Find(u => u.Username == user.Username).FirstOrDefault();
-        if (existingUser == null || !VerifyPassword(user.Password, existingUser.PasswordHash))
+        if (existingUser == null || !VerifyPassword(user.Password, existingUser.Password))
         {
             throw new Exception("Invalid credentials");
         }
@@ -63,8 +63,8 @@ public class UserService: IUserService
 
     
     
-    private bool VerifyPassword(string providedPassword, string storedPasswordHash)
+    private bool VerifyPassword(string providedPassword, string storedPassword)
     {
-        return providedPassword == storedPasswordHash;
+        return providedPassword == storedPassword;
     }
 }
