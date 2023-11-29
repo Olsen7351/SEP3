@@ -11,7 +11,9 @@
 
 <div class="container-fluid">
     <div class="container">
+        <!--Title-->
         <h2>Project Hub for Project ID: @ProjectIdAsString</h2>
+        <!--Backlog section----------------------------------------------------------->
         <div class="card backlog-section">
             <p>Backlog</p>
             <ul class="task-list">
@@ -59,7 +61,7 @@
                 </div>
                 <div class="form-group">
                     <label for="estimateHours">Estimate Minutes:</label>
-                    <input type="number" id="estimateHours" @bind="newTask.EstimateTimeInMinutes" />
+                    <input type="number" id="estimateHours" @bind="newTask.EstimateTimeInMinutes"/>
                 </div>
                 <div class="form-group">
                     <label for="responsible">Responsible:</label>
@@ -67,8 +69,32 @@
                 </div>
                 <button class="button" @onclick="AddTask">Save Task</button>
             </div>
-
         </div>
+        <!--Backlog section End----------------------------------------------------------->
+
+        <!--Create Logbog----------------------------------------------------------------->
+       <div class="card logbook-section">
+           <p>Logbook Entries</p>
+           <table>
+               <thead>
+                   <tr>
+                       <th>Owner Username</th>
+                       <th>Description</th>
+                       <th>Created Time Stamp</th>
+                   </tr>
+               </thead>
+               <tbody>
+                   @foreach (var entry in LogBookEntries)
+                   {
+                       <tr>
+                           <td>@entry.OwnerUsername</td>
+                           <td>@entry.Description</td>
+                           <td>@entry.createdTimeStamp.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                       </tr>
+                   }
+               </tbody>
+           </table>
+       </div>
     </div>
 </div>
 
@@ -79,8 +105,9 @@
     public string ProjectIdAsString { get; set; }
 
     public Project? Project { get; set; }
-
     public List<ClassLibrary_SEP3.Task?>? BacklogTasks { get; set; }
+    public List<LogBookEntryPoints>? LogBookEntries { get; set; }
+    public List<ClassLibrary_SEP3.LogBook?>? LogBook { get; set; }
     private AddBacklogTaskRequest newTask = new AddBacklogTaskRequest();
 
 
@@ -96,6 +123,18 @@
         {
             BacklogTasks = new List<ClassLibrary_SEP3.Task>()!;
         }
+        
+        /* Service for logbook needs to be added -----------------------------------------
+        var logbook = await ProjectService.GetLogBook(ProjectIdAsString);
+        if (logbook != null && logbook.LogBookEntryPoints != null)
+        {
+            LogBookEntries = logbook.LogBookEntryPoints;
+        }
+        else
+        {
+            LogBookEntries = new List<LogBookEntryPoints>();
+        }
+        */
     }
 
     private async void AddTask()
@@ -105,7 +144,7 @@
             ProjectId = ProjectIdAsString,
             Title = newTask.Title,
             Description = newTask.Description,
-            EstimateTimeInMinutes= newTask.EstimateTimeInMinutes,
+            EstimateTimeInMinutes = newTask.EstimateTimeInMinutes,
             Responsible = newTask.Responsible,
             Status = TaskStatus.ToDo,
             CreatedAt = DateTime.UtcNow

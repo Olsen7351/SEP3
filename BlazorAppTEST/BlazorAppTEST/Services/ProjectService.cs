@@ -32,7 +32,7 @@ public class ProjectService: IProjectService
         
         
         //Try and send it trough
-        HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/BrokerProject", project);
+        HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/Broker/BrokerProject", project);
         
         if (!response.IsSuccessStatusCode)
         {
@@ -69,7 +69,7 @@ public class ProjectService: IProjectService
         // Service to check maybe if username exists inside the database
         
         var payload = new { Username = username, ProjectId = projectId };
-        HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/AddUserToProject", payload);
+        HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/Broker/AddUserToProject", payload);
 
         if (response.IsSuccessStatusCode)
         {
