@@ -1,5 +1,6 @@
 using Broker.Controllers;
 using ClassLibrary_SEP3;
+using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Broker.Services;
@@ -14,15 +15,15 @@ public class UserService : IUserService
     }
 
 
-    public async Task<IActionResult> CreateUser(User user)
+    public async Task<IActionResult> CreateUser(CreateUserRequest user)
     {
         
         string requestUri = "api/CreateUser";
         HttpResponseMessage response = await httpClient.PostAsJsonAsync(requestUri, user);
         if (response.IsSuccessStatusCode)
         {
-            return new CreatedAtActionResult(nameof(UserController.CreateUser), "UserController",
-                new { id = createdUser?.Id }, createdUser);
+            var createdUser = await response.Content.ReadFromJsonAsync<User>();
+            return new OkObjectResult(createdUser);
         }
         
         return new BadRequestResult();

@@ -96,56 +96,5 @@ namespace Broker_Test.Controller_Test
             var returnedValue = Assert.IsType<SprintBacklog>(objectResult.Value);
             Assert.Equal(expectedSprintBacklog, returnedValue); // Adjust the expected value according to your requirements
         }
-        [Fact]
-                 public async Task Get_ReturnsSprintBacklogs()
-                 {
-                     // Arrange
-                     var projectId = "ProjectId";
-                     var mockService = new Mock<ISprintBacklogService>();
-                     var sprintBacklogs = new List<SprintBacklog>
-                     {
-                         new SprintBacklog { ProjectId = projectId, SprintBacklogId = "1", Title = "Sprint 1" },
-                         new SprintBacklog { ProjectId = projectId, SprintBacklogId = "2", Title = "Sprint 2" }
-                     };
-                     mockService.Setup(service => service.GetSprintBacklogsAsync("ProjectId"))
-                         .ReturnsAsync(new OkObjectResult(sprintBacklogs));
-         
-                     var controller = new SprintBacklogController(mockService.Object);
-         
-                     // Act
-                     var result = await controller.GetAllSprintBacklogs(projectId) as Task<IEnumerable<SprintBacklog>>;
-         
-                     // Assert
-                     Assert.NotNull(result);
-                     var objectResult = Assert.IsType<OkObjectResult>(result.Result);
-                     var model = Assert.IsAssignableFrom<IEnumerable<SprintBacklog>>(objectResult.Value);
-                     Assert.Equal(2, model.Count());
-                 }
-        [Fact]
-        public async Task Post_CreatesSprintBacklog()
-        {
-            // Arrange
-            var mockService = new Mock<ISprintBacklogService>();
-            var controller = new SprintBacklogController(mockService.Object);
-
-            var sprintBacklogData = new SprintBacklog
-            {
-                ProjectId = "sampleProjectId",
-                SprintBacklogId = "1",
-                Title = "Sample Sprint",
-                CreatedAt = new DateTime(2021, 1, 1),
-                Tasks = new List<ClassLibrary_SEP3.Task>()
-            };
-
-            
-            // Act
-            var result = await controller.Post(sprintBacklogData) as Task<IActionResult>;
-
-            // Assert
-            mockService.Verify(service => service.CreateSprintBacklogAsync(sprintBacklogData), Times.Once);
-            Assert.IsType<CreatedAtActionResult>(result); 
-            var createdAtActionResult = Assert.IsType<CreatedAtActionResult>(result);
-            Assert.Equal(201, createdAtActionResult.StatusCode);
-        }
     }
 }

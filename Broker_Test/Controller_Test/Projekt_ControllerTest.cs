@@ -4,15 +4,14 @@ using ClassLibrary_SEP3;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using ProjectMicroservice.DataTransferObjects;
+using Task = ClassLibrary_SEP3.Task;
 
 namespace Broker_Test
 {
     public class ProjektControllerTests
     {
         
-        
         [Fact]
-        
         public async void GetProjekt_ReturnsOk_WhenIdIsValid()
         {
             // Arrange
@@ -20,15 +19,20 @@ namespace Broker_Test
             var controller = new BrokerProjectController(mockProjektService.Object);
             string validId = "1"; // Valid Id
 
-            var project = new Project();
-            // Mock the ProjektService to return a sample Project
+            var project = new Project
+            {
+                Id = "1",
+                Name = "Alma",
+                Description = "Brush Alma",
+            };
             mockProjektService.Setup(service => service.GetProjekt(validId))
-                .ReturnsAsync(new OkObjectResult(project));
+                .ReturnsAsync(project);
 
             // Act
             var result = await controller.GetProjekt(validId);
 
             var okResult = Assert.IsType<OkObjectResult>(result);
+            Assert.IsType<Project>(okResult.Value);
             Assert.Equal(project, okResult.Value);
         }
         

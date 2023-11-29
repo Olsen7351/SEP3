@@ -1,5 +1,6 @@
 using Broker.Services;
 using ClassLibrary_SEP3;
+using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Task = ClassLibrary_SEP3.Task;
@@ -21,14 +22,23 @@ public class UserController : ControllerBase
 
     //Create User
     [HttpPost]
-    public async Task<IActionResult> CreateUser(User user)
+    public async Task<IActionResult> CreateUser([FromBody] CreateUserRequest user)
     {
         if (user == null)
         {
             return new BadRequestResult();
         }
 
-        return Ok(await _IuserService.CreateUser(user));
+        var serviceResult = await _IuserService.CreateUser(user);
+
+        if (serviceResult is OkObjectResult okResult)
+        {
+            return Ok(okResult.Value);
+        }
+        else
+        {
+            return serviceResult;
+        }
     }
 
 

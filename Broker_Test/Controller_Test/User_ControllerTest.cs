@@ -2,6 +2,7 @@ using Amazon.Util;
 using Broker.Controllers;
 using Broker.Services;
 using ClassLibrary_SEP3;
+using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -11,25 +12,29 @@ namespace Broker_Test.Controller_Test;
 
 public class User_ControllerTest
 {
-    
+
     [Fact]
-    public async void CreateUser_ReturnsOk_WhenUserIsNotNull()
+    public async Task CreateUser_ReturnsOk_WhenRequestIsValid()
     {
         // Arrange
         var mockUserService = new Mock<IUserService>();
         var controller = new UserController(mockUserService.Object);
-        var user = new User(); // Replace with valid user data
+        var createUserRequest = new CreateUserRequest { Username = "TestUser", Password = "TestPassword" };
 
-        // Mock the UserService to return an OkObjectResult for a successful user creation
-        mockUserService.Setup(service => service.CreateUser(user))
-            .ReturnsAsync(new OkObjectResult("User created successfully"));
+        mockUserService.Setup(service => service.CreateUser(createUserRequest))
+            .ReturnsAsync(new OkObjectResult(new User { Username = createUserRequest.Username, Password = createUserRequest.Password }));
 
         // Act
-        var result = await controller.CreateUser(user);
+        var result = await controller.CreateUser(createUserRequest);
 
         // Assert
         var okResult = Assert.IsType<OkObjectResult>(result);
-        Assert.Equal("User created successfully", okResult.Value);
+        var userResult = Assert.IsType<User>(okResult.Value);        
+        Assert.NotNull(userResult);
+        Assert.Equal(200, okResult.StatusCode);
+        Assert.Equal(userResult.Username, createUserRequest.Username);
+        Assert.Equal(userResult.Password, createUserRequest.Password );
+        
     }
 
     [Fact]
@@ -38,7 +43,7 @@ public class User_ControllerTest
         // Arrange
         var mockUserService = new Mock<IUserService>();
         var controller = new UserController(mockUserService.Object);
-        User nullUser = null; // User is null
+        CreateUserRequest nullUser = null; // User is null
 
         // Act
         var result = await controller.CreateUser(nullUser);
@@ -46,7 +51,7 @@ public class User_ControllerTest
         // Assert
         Assert.IsType<BadRequestResult>(result);
     }
-    */
+    
     // -------------------------------------------------------------------------------------------------Login
     [Fact]
     public async Task LoginWithUserCredentials()
