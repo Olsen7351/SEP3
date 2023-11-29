@@ -27,10 +27,11 @@ public class UserService : IUserService, IUserLogin
             throw new Exception("Username cant exceed 16 characters");
         }
         
-        HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/CreateUser", user);
+        HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/User/CreateUser", user);
         if (!response.IsSuccessStatusCode)
         {
-            throw new Exception("Failed to create user");
+            var error = await response.Content.ReadAsStringAsync();
+            throw new Exception($"Failed to create user: {error}");
         }
     }
 

@@ -21,7 +21,7 @@ public class UserController : ControllerBase
 
 
     //Create User
-    [HttpPost]
+    [HttpPost("CreateUser")]
     public async Task<IActionResult> CreateUser([FromBody] CreateUserRequest user)
     {
         if (user == null)

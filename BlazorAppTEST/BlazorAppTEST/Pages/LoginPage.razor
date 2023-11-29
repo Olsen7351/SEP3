@@ -2,6 +2,7 @@
 @using BlazorAppTEST.Services
 @using ClassLibrary_SEP3
 @using Task = System.Threading.Tasks.Task
+@inject NavigationManager NavigationManager
 @inject UserService userService
 
 
@@ -45,6 +46,7 @@
         try
         {
             await userService.Login(User);
+            NavigationManager.NavigateTo("/"); 
         }
         
         catch (Exception e)
