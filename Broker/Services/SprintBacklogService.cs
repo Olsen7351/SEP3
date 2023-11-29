@@ -1,5 +1,6 @@
 using Broker.Controllers;
 using ClassLibrary_SEP3;
+using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 using Xunit.Sdk;
 namespace Broker.Services;
@@ -14,14 +15,18 @@ public class SprintBacklogService : ISprintBacklogService
         this.httpClient = client;
     }
 
-    public async Task<IActionResult> CreateSprintBacklogAsync(SprintBacklog sprintBacklog)
+    public async Task<IActionResult> CreateSprintBacklogAsync(CreateSprintBackLogRequest? sprintBacklog)
     {
+        if (sprintBacklog == null)
+        {
+            throw new ArgumentNullException(nameof(sprintBacklog));
+        }
         string requestUri = $"api/Project/{sprintBacklog.ProjectId}/SprintBacklog";
         HttpResponseMessage response = await httpClient.PostAsJsonAsync(requestUri, sprintBacklog);
         if (response.IsSuccessStatusCode)
         {
-            return new CreatedAtActionResult(nameof(SprintBacklogController.GetSpecificSprintBacklog), "SprintBacklog",
-                new { id = sprintBacklog.SprintBacklogId }, sprintBacklog);
+            var createdSprintBacklog = await response.Content.ReadFromJsonAsync<SprintBacklog>();
+            return new OkObjectResult(createdSprintBacklog);
         }
 
         return new BadRequestResult();

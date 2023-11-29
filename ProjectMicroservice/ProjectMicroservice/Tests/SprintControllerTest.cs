@@ -78,7 +78,7 @@ public class SprintControllerTest
         string projectId = "1";
         var request = new CreateSprintBackLogRequest
         {
-            projectId = projectId,
+            ProjectId = projectId,
             Id = "newBacklogId",
             Title = "New Sprint Backlog",
             Timestamp = DateTime.UtcNow,

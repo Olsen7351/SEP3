@@ -7,8 +7,10 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
+using Moq.Protected;
 using Newtonsoft.Json;
 using Task = ClassLibrary_SEP3.Task;
 using TaskSys = System.Threading.Tasks.Task;
@@ -16,100 +18,142 @@ using TaskSys = System.Threading.Tasks.Task;
 
 namespace Broker_Test
 {
-    /*
+
     public class SprintBacklogService_Test
+
     {
-        [Fact]
-        public async TaskSys CreateSprintBacklogAsync_ReturnsSuccess()
+        private readonly HttpClient _httpClient;
+        private readonly Mock<HttpMessageHandler> _mockHttpMessageHandler;
+        private readonly ISprintBacklogService _sprintBacklogService;
+
+        public SprintBacklogService_Test()
         {
-            // Arrange
-            var mockHttpClient = new Mock<HttpClient>();
-            var service = new SprintBacklogService(mockHttpClient.Object);
-
-            var sprintBacklog = new SprintBacklog
+            _mockHttpMessageHandler = new Mock<HttpMessageHandler>();
+            _httpClient = new HttpClient(_mockHttpMessageHandler.Object)
             {
-                ProjectId = "project-1",
-                SprintBacklogId = "backlog-1",
-                Title = "Sample Sprint",
-                CreatedAt = DateTime.UtcNow,
-                Tasks = new List<Task>()
+                BaseAddress = new Uri("http://mockserver/")
             };
-
-            // Act
-            var result = await service.CreateSprintBacklogAsync(sprintBacklog);
-
-            // Assert
-            Assert.NotNull(result);
-            //If the SprintBacklog is created successfully, the result should be an CreatedAtActionResult
-            Assert.IsType<CreatedAtActionResult>(result);
+            _sprintBacklogService = new SprintBacklogService(_httpClient);
         }
 
         [Fact]
-        public async TaskSys GetSprintBacklogsAsync_ReturnsListOfSprintBacklogs()
+        public async void CreateSprintBacklogAsync_ReturnsSuccess()
         {
             // Arrange
-            var mockHttpClient = new Mock<HttpClient>();
-            var service = new SprintBacklogService(mockHttpClient.Object);
-            var projectId = "sampleProjectId";
+            var sprintBacklog = new CreateSprintBackLogRequest
+            {
+                ProjectId = "1",
+                Id = "1",
+                Title = "Sample Sprint",
+                Timestamp = DateTime.UtcNow,
+                Tasks = new List<Task>()
+            };
+            var mockResponse = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent(JsonConvert.SerializeObject(sprintBacklog))
+            };
 
-            // Setup HttpClient behavior for the GetSprintBacklogsAsync method
+            _mockHttpMessageHandler.Protected().Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.Is<HttpRequestMessage>(req =>
+                        req.Method == HttpMethod.Post && req.RequestUri.ToString()
+                            .EndsWith($"api/Project/{sprintBacklog.ProjectId}/SprintBacklog")),
+                    ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(mockResponse);
+
+            // Act
+            var result = await _sprintBacklogService.CreateSprintBacklogAsync(sprintBacklog);
+
+            // Assert
+            Assert.IsType<OkObjectResult>(result);
+        }
+
+        [Fact]
+        public async void GetSprintBacklogsAsync_ReturnsListOfSprintBacklogs()
+        {
+            // Arrange
+            var projectId = "1";
             var expectedSprintBacklogs = new List<SprintBacklog>
             {
                 new SprintBacklog
                 {
                     ProjectId = projectId,
-                    SprintBacklogId = "backlog-1",
-                    Title = "Sample Sprint 1",
-                    CreatedAt = DateTime.UtcNow,
+                    SprintBacklogId = "2",
+                    Title = "Alma",
                     Tasks = new List<Task>()
                 },
             };
-            var httpResponse = new HttpResponseMessage(HttpStatusCode.OK);
-            httpResponse.Content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(expectedSprintBacklogs));
-            mockHttpClient.Setup(client => client.GetAsync(It.IsAny<string>())).ReturnsAsync(httpResponse);
+            var mockResponse = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent(JsonConvert.SerializeObject(expectedSprintBacklogs))
+            };
+
+            _mockHttpMessageHandler.Protected().Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.Is<HttpRequestMessage>(req =>
+                        req.Method == HttpMethod.Get && req.RequestUri.ToString()
+                            .EndsWith($"api/Project/{projectId}/SprintBacklog")),
+                    ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(mockResponse);
 
             // Act
-            var result = await service.GetSprintBacklogsAsync(projectId);
-            var json = result.ToJson();
-            var sprintBacklogs = JsonConvert.DeserializeObject<List<SprintBacklog>>(json);
-            // Assert
-            Assert.NotNull(result);
-            Assert.IsType<OkObjectResult>(result);
-            Assert.Equal(expectedSprintBacklogs, sprintBacklogs);
-            Assert.Equal(expectedSprintBacklogs.Count, sprintBacklogs.Count);
-        }
+            var result = await _sprintBacklogService.GetSprintBacklogsAsync(projectId);
 
+            // Assert
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var sprintBacklogs = Assert.IsAssignableFrom<List<SprintBacklog>>(okResult.Value);
+            Assert.Equal(expectedSprintBacklogs.Count, sprintBacklogs.Count);
+
+            for (int i = 0; i < expectedSprintBacklogs.Count; i++)
+            {
+                Assert.Equal(expectedSprintBacklogs[i].ProjectId, sprintBacklogs[i].ProjectId);
+                Assert.Equal(expectedSprintBacklogs[i].SprintBacklogId, sprintBacklogs[i].SprintBacklogId);
+            }
+        }
+        
         [Fact]
-        public async TaskSys GetSprintBacklogByIdAsync_ReturnsSpecificSprintBacklog()
+        public async void GetSprintBacklogByIdAsync_ReturnsSpecificSprintBacklog()
         {
             // Arrange
-            var mockHttpClient = new Mock<HttpClient>();
-            var service = new SprintBacklogService(mockHttpClient.Object);
-            var projectId = "sampleProjectId";
-            var backlogId = "sampleBacklogId";
+            var projectId = "1";
+            var backlogId = "1";
 
-            // Setup HttpClient behavior for the GetSprintBacklogByIdAsync method
             var expectedSprintBacklog = new SprintBacklog
             {
                 ProjectId = projectId,
                 SprintBacklogId = backlogId,
-                Title = "Sample Sprint",
+                Title = "Alma",
                 CreatedAt = DateTime.UtcNow,
                 Tasks = new List<Task>()
             };
-            var httpResponse = new HttpResponseMessage(HttpStatusCode.OK);
-            httpResponse.Content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(expectedSprintBacklog));
-            mockHttpClient.Setup(client => client.GetAsync(It.IsAny<string>())).ReturnsAsync(httpResponse);
+            var httpResponse = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent(JsonConvert.SerializeObject(expectedSprintBacklog))
+            };
+
+            _mockHttpMessageHandler.Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.Is<HttpRequestMessage>(req =>
+                        req.Method == HttpMethod.Get &&
+                        req.RequestUri.ToString().EndsWith($"api/Project/{projectId}/SprintBacklog/{backlogId}")),
+                    ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(httpResponse);
 
             // Act
-            var result = await service.GetSprintBacklogByIdAsync(projectId, backlogId);
-            var jsonResult = result.ToJson();
-            var sprintBacklog = JsonConvert.DeserializeObject<SprintBacklog>(jsonResult);
+            var result = await _sprintBacklogService.GetSprintBacklogByIdAsync(projectId, backlogId);
+
             // Assert
-            Assert.NotNull(result);
-            Assert.IsType<OkObjectResult>(result);
-            Assert.Equal(expectedSprintBacklog, sprintBacklog);
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var sprintBacklog = Assert.IsType<SprintBacklog>(okResult.Value);
+            Assert.Equal(expectedSprintBacklog.ProjectId, sprintBacklog.ProjectId);
+            Assert.Equal(expectedSprintBacklog.SprintBacklogId, sprintBacklog.SprintBacklogId);
         }
+
+
+
+
     }
-    */
+
 }

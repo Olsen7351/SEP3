@@ -1,5 +1,6 @@
 ﻿using Broker.Services;
 using ClassLibrary_SEP3;
+using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 using Task = System.Threading.Tasks.Task;
 
@@ -33,7 +34,7 @@ namespace Broker.Controllers
 
         // POST api/<SprintBacklogController>/<ProjectId>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] SprintBacklog sprintBacklog)
+        public async Task<IActionResult> Post([FromBody] CreateSprintBackLogRequest sprintBacklog)
         {
             return await _sprintBacklogService.CreateSprintBacklogAsync(sprintBacklog);
         }
