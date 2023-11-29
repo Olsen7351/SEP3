@@ -8,11 +8,13 @@ namespace BlazorAppTEST.Services
     public class SprintBacklogService : ISprintBacklogService
     {
         private readonly HttpClient _httpClient;
-        public SprintBacklogService(HttpClient _httpclient)
+
+
+        public SprintBacklogService(HttpClient httpClient)
         {
-            this._httpClient = _httpClient;
+            _httpClient = httpClient;
         }
-      
+
         public async Task<IActionResult> CreateSprintBacklogAsync(SprintBacklog sprintBacklog)
         {
             string createSprintBacklogToJson = JsonSerializer.Serialize(sprintBacklog);
