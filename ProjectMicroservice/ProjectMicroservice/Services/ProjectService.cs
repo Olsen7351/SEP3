@@ -81,5 +81,10 @@ namespace ProjectMicroservice.Services
                 throw new Exception("Failed to update project in database");
             }
         }
+
+        public bool AddUserToProject(string projectId, string userName)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

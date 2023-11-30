@@ -2,6 +2,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using ClassLibrary_SEP3;
+using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using ProjectMicroservice.DataTransferObjects;
@@ -45,9 +46,23 @@ namespace Broker.Services
             return await response.Content.ReadFromJsonAsync<Project>();
         }
         
-        public Task<IActionResult> AddUserToProject(string projectId, string username)
+        public async Task<IActionResult> AddUserToProject(AddUserToProjectRequest request)
         {
-            throw new NotImplementedException();
+            if (request == null)
+            {
+                return new BadRequestResult();
+            }
+            
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/Project", request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return new OkResult();
+            }
+            else
+            {
+                return new BadRequestResult();
+            }
         }
     }
 }
