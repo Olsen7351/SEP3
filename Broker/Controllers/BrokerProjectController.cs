@@ -6,11 +6,8 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Broker.Services;
 using ClassLibrary_SEP3;
-<<<<<<< HEAD
 using ClassLibrary_SEP3.DataTransferObjects;
-=======
 using Microsoft.AspNetCore.Authorization;
->>>>>>> Developer
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;

@@ -51,15 +51,12 @@ public class UserController : ControllerBase
         //Get the token from the result and return it
         if (result is OkObjectResult okResult)
         {
-<<<<<<< HEAD
-            return Ok("Login successful"); // Make sure you're returning a string here, not result.Value or something else
-=======
+
             return Ok(okResult.Value);
         }
         else
         {
             return BadRequest();
->>>>>>> Developer
         }
     }
     
