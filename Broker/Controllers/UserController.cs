@@ -8,7 +8,7 @@ using Task = ClassLibrary_SEP3.Task;
 namespace Broker.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/Broker")]
 public class UserController : ControllerBase
 {
     private readonly IUserService _IuserService;
