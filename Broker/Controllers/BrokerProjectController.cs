@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Broker.Services;
 using ClassLibrary_SEP3;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
@@ -15,6 +16,7 @@ namespace Broker.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class BrokerProjectController : ControllerBase
     {
         private readonly IProjectService projektService;

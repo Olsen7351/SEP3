@@ -1,5 +1,6 @@
 ﻿using Broker.Services;
 using ClassLibrary_SEP3;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Task = ClassLibrary_SEP3.Task;
 
@@ -8,6 +9,7 @@ namespace Broker.Controllers
 {
     [Route("api/[controller]/{ProjectId}")]
     [ApiController]
+    [Authorize]
     public class SprintBacklogController : ControllerBase
     {
         private readonly ISprintBacklogService _sprintBacklogService;

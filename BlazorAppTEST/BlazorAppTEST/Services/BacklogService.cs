@@ -1,7 +1,11 @@
-﻿using System.Text;
+﻿using System.Net.Http.Headers;
+using System.Text;
 using System.Text.Json;
+using BlazorAppTEST.Services.Auth;
+
 namespace BlazorAppTEST.Services;
 using ClassLibrary_SEP3;
+using System.Net.Http;
 
 
 public class BacklogService :IBacklogService
@@ -14,6 +18,8 @@ public class BacklogService :IBacklogService
     public BacklogService(HttpClient httpClient)
     {
         this.httpClient = httpClient;
+        //Add JWT token to the header
+        this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", UserService.Jwt);
     }
     
     //Post

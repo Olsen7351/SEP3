@@ -1,6 +1,7 @@
 using Broker.Services;
 using ClassLibrary_SEP3;
 using ClassLibrary_SEP3.DataTransferObjects;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Task = ClassLibrary_SEP3.Task;
@@ -8,7 +9,7 @@ using Task = ClassLibrary_SEP3.Task;
 namespace Broker.Controllers;
 
 [ApiController]
-[Route("api/Broker")]
+[Route("api/Broker/[controller]" )]
 public class UserController : ControllerBase
 {
     private readonly IUserService _IuserService;
@@ -21,7 +22,7 @@ public class UserController : ControllerBase
 
 
     //Create User
-    [HttpPost("CreateUser")]
+    [HttpPost]
     public async Task<IActionResult> CreateUser([FromBody] CreateUserRequest user)
     {
         if (user == null)
@@ -46,25 +47,16 @@ public class UserController : ControllerBase
     [HttpPost("Login")]
     public async Task<IActionResult> LoginWithUserCredentials(User user)
     {
-        if (user == null)
-        {
-            return BadRequest("User data is required.");
-        }
-        
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-
         var result = await _IuserService.LoginWithUserCredentials(user);
-
-        if (result != null) // Assuming 'result' is the actual result you'd get from _IuserService
+        //Get the token from the result and return it
+        if (result is OkObjectResult okResult)
         {
-            return
-                Ok("Login successful"); // Make sure you're returning a string here, not result.Value or something else
+            return Ok(okResult.Value);
         }
-
-        return BadRequest("Invalid login attempt.");
+        else
+        {
+            return BadRequest();
+        }
     }
     
 }

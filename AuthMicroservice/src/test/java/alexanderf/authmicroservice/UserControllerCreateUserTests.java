@@ -60,7 +60,7 @@ public class UserControllerCreateUserTests {
     @Test
     void testRegisterUserWithValidData() {
         when(userService.registerNewUserAccount(any(UserDTO.class))).thenReturn(user);
-        ResponseEntity<User> response = userController.registerUser(userDto);
+        ResponseEntity<Void> response = userController.registerUser(userDto);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(user, response.getBody());
     }
@@ -76,8 +76,8 @@ public class UserControllerCreateUserTests {
                 .thenReturn(user)
                 .thenReturn(secondUser);
 
-        ResponseEntity<User> firstResponse = userController.registerUser(userDto);
-        ResponseEntity<User> secondResponse = userController.registerUser(secondUserDto);
+        ResponseEntity<Void> firstResponse = userController.registerUser(userDto);
+        ResponseEntity<Void> secondResponse = userController.registerUser(secondUserDto);
 
         assertEquals(HttpStatus.OK, firstResponse.getStatusCode());
         assertEquals(user, firstResponse.getBody());
