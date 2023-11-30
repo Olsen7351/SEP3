@@ -1,6 +1,12 @@
+using System.Text;
 using BlazorAppTEST.Services;
+using BlazorAppTEST.Services.Auth;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.IdentityModel.Tokens;
+using Shared.Auth;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,21 +15,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<ProjectService>();
-builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<IUserLogin,UserService>();
 builder.Services.AddScoped<BacklogService>();
 builder.Services.AddScoped<TaskService>();
+builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthProvider>();
+AuthorizationPolicies.AddPolicies(builder.Services);
 builder.Services.AddScoped(sp => 
     new HttpClient 
     { 
         BaseAddress = new Uri("http://localhost:8002/") 
     });
-
-
-
-
-
-
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

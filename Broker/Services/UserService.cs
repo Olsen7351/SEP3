@@ -12,13 +12,13 @@ public class UserService : IUserService
     public UserService(HttpClient client)
     {
         this.httpClient = client;
+        this.httpClient.BaseAddress = new Uri("http://localhost:8080/");
     }
 
 
     public async Task<IActionResult> CreateUser(CreateUserRequest user)
     {
-        
-        string requestUri = "api/CreateUser";
+        string requestUri = "api/users";
         HttpResponseMessage response = await httpClient.PostAsJsonAsync(requestUri, user);
         if (response.IsSuccessStatusCode)
         {
@@ -29,22 +29,22 @@ public class UserService : IUserService
         return new BadRequestResult();
     }
 
-    
-    
+
+
 
     public async Task<IActionResult> LoginWithUserCredentials(User user)
     {
-        string requestUri = "api/Login";
+        string requestUri = "api/users/authenticate";
         var response = await httpClient.PostAsJsonAsync(requestUri, user);
 
         if (response.IsSuccessStatusCode)
         {
-            var loggedInUser = await response.Content.ReadFromJsonAsync<User>();
-            return new OkObjectResult(loggedInUser);
+            var token = await response.Content.ReadFromJsonAsync<TokenResponse>();
+            return new OkObjectResult(token);
         }
         else
         {
-            return new BadRequestResult(); 
+            return new BadRequestResult();
         }
     }
 }

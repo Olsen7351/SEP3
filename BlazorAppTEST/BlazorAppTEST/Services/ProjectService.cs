@@ -1,5 +1,7 @@
-﻿using System.Text;
+﻿using System.Net.Http.Headers;
+using System.Text;
 using System.Text.Json;
+using BlazorAppTEST.Services.Auth;
 using ClassLibrary_SEP3;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -19,6 +21,8 @@ public class ProjectService: IProjectService
     public ProjectService(HttpClient httpClient)
     {
         this.httpClient = httpClient;
+        //Add JWT token to the header
+        this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", UserService.Jwt);
     }
 
     
@@ -29,8 +33,7 @@ public class ProjectService: IProjectService
         {
             throw new Exception("Project name cant be empty");
         }
-        
-        
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", UserService.Jwt);
         //Try and send it trough
         HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/BrokerProject", project);
         
