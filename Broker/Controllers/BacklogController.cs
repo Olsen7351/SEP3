@@ -1,4 +1,5 @@
 ﻿using Broker.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProjectMicroservice.DataTransferObjects;
 using Task = ClassLibrary_SEP3.Task;
@@ -6,6 +7,7 @@ using Task = ClassLibrary_SEP3.Task;
 namespace Broker.Controllers;
 
 [Route("api/")]
+[Authorize]
 public class BacklogController : ControllerBase
 {
     private readonly IBacklogService _backlogService;

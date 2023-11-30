@@ -5,6 +5,7 @@ namespace ClassLibrary_SEP3;
 public class LogBookEntryPoints
 {
     public int LogBookID { get; set; }
+    
     [Required] 
     public String OwnerUsername { get; set; }
 
@@ -12,5 +13,5 @@ public class LogBookEntryPoints
     public string Description { get; set; }
 
     [Required] 
-    public DateTime createdTimeStamp = DateTime.Today;
+    public DateTime CreatedTimeStamp { get; set;} = DateTime.Today;
 }

@@ -4,9 +4,9 @@ namespace ClassLibrary_SEP3;
 public class LogBook
 {
     [Required]
-    private String ProjectID;
+    public String ProjectID;
 
-    private int LogBookID;
+    public int LogBookID;
     
-    private List<LogBookEntryPoints> LogBookEntryPoints { get; set; }
+    public List<LogBookEntryPoints> LogBookEntryPoints { get; set; }
 }

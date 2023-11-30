@@ -7,6 +7,7 @@ using Xunit;
 using Task = System.Threading.Tasks.Task;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
+using BlazorAppTEST.Services.Auth;
 using Xunit;
 using ClassLibrary_SEP3;
 using Moq.Protected;

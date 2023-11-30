@@ -12,15 +12,43 @@ public class LogBookService : ILogBookService
     {
         this.httpClient = httpClient;
     }
+
     
+    
+    
+    
+    public async Task<IActionResult> GetEntriesForLogBook(String projectID)
+    {
+     
+        if ( String.IsNullOrEmpty(projectID))
+        {
+            throw new Exception("Either ProjectId is empty or null");
+        }
+        HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/GetLogEntries", projectID);
+        
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception($"Error:{response.StatusCode}");
+        }
+        return new OkResult();
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    //Create Entries 
     public async Task<IActionResult> CreateNewEntryToLogBook (LogBookEntryPoints logBookEntryPoints)
     {
-        if (String.IsNullOrEmpty(logBookEntryPoints.OwnerUsername) || logBookEntryPoints.createdTimeStamp == null)
+        if (String.IsNullOrEmpty(logBookEntryPoints.OwnerUsername) || logBookEntryPoints.CreatedTimeStamp == null)
         {
             throw new Exception("Either username hasn't been assigned or time stamp is null");
         }
 
-        if (logBookEntryPoints.createdTimeStamp > DateTime.Today)
+        if (logBookEntryPoints.CreatedTimeStamp > DateTime.Today || logBookEntryPoints.CreatedTimeStamp < DateTime.Today)
         {
             throw new Exception("Created entry needs to have a present timestamp");
         }

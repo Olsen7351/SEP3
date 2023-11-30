@@ -1,9 +1,10 @@
 @page "/LoginPage"
+@using BlazorAppTEST.Services.Auth
 @using BlazorAppTEST.Services
 @using ClassLibrary_SEP3
 @using Task = System.Threading.Tasks.Task
 @inject NavigationManager NavigationManager
-@inject UserService userService
+@inject IUserLogin userService
 
 
 <div class="full-page">
@@ -52,6 +53,7 @@
         catch (Exception e)
         {
            ErrorMessage = "Failed to login";
+            Console.WriteLine(e);
         }
     }
 }

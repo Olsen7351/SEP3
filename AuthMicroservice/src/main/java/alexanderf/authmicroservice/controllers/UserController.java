@@ -35,9 +35,9 @@ public class UserController {
     private JwtUtil jwtUtil;
 
     @PostMapping
-    public ResponseEntity<User> registerUser(@Valid @RequestBody UserDTO userDto) {
+    public ResponseEntity<Void> registerUser(@Valid @RequestBody UserDTO userDto) {
         User registered = userService.registerNewUserAccount(userDto);
-        return ResponseEntity.ok(registered);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/authenticate")

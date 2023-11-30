@@ -13,6 +13,27 @@ public class LogBookService : ILogBookService
     }
     
     
+    
+    //Get
+    public async Task<IActionResult> GetEntriesForLogBook(string projectID)
+    {
+        string requestUri = "api/GetEntriesForLogBook";
+        HttpResponseMessage response = await httpClient.PostAsJsonAsync(requestUri, projectID);
+
+        if (response.IsSuccessStatusCode)
+        {
+            var GetEntriesForLogBook = await response.Content.ReadFromJsonAsync<LogBook>();
+            return new OkObjectResult(GetEntriesForLogBook);
+        }
+        return new BadRequestResult();
+    }
+    
+    
+    
+    
+    
+    
+    //Create
     public async Task<IActionResult> CreateNewEntryLogBook(LogBookEntryPoints logBookEntryPoints)
     {
         string requestUri = "api/CreateNewEntryLogBook";
