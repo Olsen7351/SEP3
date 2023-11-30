@@ -12,5 +12,5 @@ public class LogBookEntryPoints
     public string Description { get; set; }
 
     [Required] 
-    public DateTime createdTimeStamp = DateTime.Today;
+    public DateTime CreatedTimeStamp { get; set;} = DateTime.Today;
 }

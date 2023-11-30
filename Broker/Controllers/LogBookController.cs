@@ -23,7 +23,28 @@ public class LogBookController : ControllerBase
     {
         _iLogBookService = iLogBookService;
     }
-    
+
+    // Get Logbook for project
+    [HttpGet("GetLogEntries")]
+    public async Task<IActionResult> GetLogbook([FromQuery] string projectID)
+    {
+        if (string.IsNullOrEmpty(projectID))
+        {
+            return BadRequest("ProjectID is required.");
+        }
+
+        try
+        {
+            var entries = await _iLogBookService.GetEntriesForLogBook(projectID);
+            return Ok(entries);
+        }
+        
+        catch (Exception e)
+        {
+            return StatusCode(500, "An error occurred while processing your request.");
+        }
+    }
+
     
     
     
