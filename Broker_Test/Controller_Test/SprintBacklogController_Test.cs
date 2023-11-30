@@ -151,7 +151,7 @@ namespace Broker_Test.Controller_Test
                 CreatedAt = DateTime.Now,
                 EstimateTimeInMinutes = 120,
                 ActualTimeUsedInMinutes = 0,
-                Responsible = "John Doe"
+                Responsible = "Tom Riddle"
             };
             mockService.Setup(service => service.GetSprintBacklogByIdAsync(projectId, sprintBacklogId))
                 .ReturnsAsync(new OkObjectResult(expectedSprintBacklog));

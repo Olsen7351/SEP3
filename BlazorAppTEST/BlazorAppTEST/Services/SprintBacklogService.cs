@@ -62,7 +62,7 @@ namespace BlazorAppTEST.Services
         
         }
 
-        public Task<IActionResult> AddTaskToSprintBacklog(string projectId, string sprintId,
+        public Task<IActionResult> AddTaskToSprintBacklogAsync(string projectId, string sprintId,
             AddSprintTaskRequest task)
         {
             //TODO
