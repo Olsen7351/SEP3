@@ -31,7 +31,7 @@ namespace Broker.Controllers
             return new OkObjectResult(response);
         }
 
-        [HttpPost]
+        [HttpPost("BrokerProject")]
         public async Task<IActionResult> CreateProjekt([FromBody] CreateProjectRequest projekt)
         {
             if (projekt == null)
