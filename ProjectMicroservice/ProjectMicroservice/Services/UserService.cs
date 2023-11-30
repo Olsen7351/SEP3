@@ -20,15 +20,11 @@ public class UserService: IUserService
         _users = context.Database.GetCollection<User>("Users");
     }
     
-    
-    
     public User CreateUser(User user)
     {
         _users.InsertOne(user);
         return user;
     }
-
-
     
     
     public string Login(User user)

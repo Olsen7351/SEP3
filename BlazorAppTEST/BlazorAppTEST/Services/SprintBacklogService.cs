@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using System.Text.Json;
 using ClassLibrary_SEP3;
+using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlazorAppTEST.Services
@@ -10,9 +11,9 @@ namespace BlazorAppTEST.Services
     
     {
         private readonly HttpClient _httpClient;
-        public SprintBacklogService(HttpClient _httpclient)
+        public SprintBacklogService(HttpClient httpclient)
         {
-            this._httpClient = _httpClient;
+            this._httpClient = httpclient;
         }
 
         public async Task<IActionResult> CreateSprintBacklogAsync(SprintBacklog sprintBacklog)
@@ -37,7 +38,8 @@ namespace BlazorAppTEST.Services
             if (response.IsSuccessStatusCode)
             {
                 string content = await response.Content.ReadAsStringAsync();
-                return new OkObjectResult(content);
+                var sprintBacklog = JsonSerializer.Deserialize<SprintBacklog>(content);
+                return new OkObjectResult(sprintBacklog);
             }
             else
             {
@@ -58,6 +60,19 @@ namespace BlazorAppTEST.Services
                 return new StatusCodeResult((int)response.StatusCode);
             }
         
+        }
+
+        public Task<IActionResult> AddTaskToSprintBacklog(string projectId, string sprintId,
+            AddSprintTaskRequest task)
+        {
+            //TODO
+            throw new NotImplementedException();
+        }
+
+        public Task<IActionResult> GetTasksFromSprintBacklogAsync(string projectId, string Id)
+        {
+            //TODO
+            throw new NotImplementedException();
         }
     }
 }

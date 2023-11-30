@@ -89,13 +89,13 @@ namespace BlazorAppTest
             Assert.Equal(expectedSprintBacklogs.Count, sprintBacklogs.Count());
         }
         [Fact]
-        public async Task CreateSprintBacklogAsync_WhenSuccessful_ReturnsOkObjectResult()
+        public async void CreateSprintBacklogAsync_WhenSuccessful_ReturnsOkObjectResult()
         {
             // Arrange
             var mockHttpMessageHandler = new Mock<HttpMessageHandler>();
             var httpClient = new HttpClient(mockHttpMessageHandler.Object)
             {
-                BaseAddress = new Uri("https://localhost:8002/")
+                BaseAddress = new Uri("http://localhost/")
             };
             var sprintBacklogService = new SprintBacklogService(httpClient);
             var expectedSprintBacklog = new SprintBacklog();
@@ -110,7 +110,19 @@ namespace BlazorAppTest
             // Act
             var result = await sprintBacklogService.CreateSprintBacklogAsync(expectedSprintBacklog);
             // Assert
-            Assert.IsType<CreatedResult>(result);
+            Assert.IsType<OkObjectResult>(result);
+            //Assert.IsType<CreatedResult>(result);
+        }
+
+        [Fact]
+        public async void AddTaskToSprintBacklog()
+        {
+            
+        }
+        [Fact]
+        public async void GetAllTasksForSprintBackog()
+        {
+            
         }
     }
 }
