@@ -48,7 +48,7 @@ public class LogBookService : ILogBookService
             throw new Exception("Either username hasn't been assigned or time stamp is null");
         }
 
-        if (logBookEntryPoints.CreatedTimeStamp > DateTime.Today)
+        if (logBookEntryPoints.CreatedTimeStamp > DateTime.Today || logBookEntryPoints.CreatedTimeStamp < DateTime.Today)
         {
             throw new Exception("Created entry needs to have a present timestamp");
         }
