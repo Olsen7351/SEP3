@@ -752,3 +752,7 @@ C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\obj\Debug\net7.0\re
 C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.dll
 C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\bin\Debug\net7.0\Microsoft.AspNetCore.Authorization.dll
+C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\bin\Debug\net7.0\Microsoft.AspNetCore.Metadata.dll
+C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\bin\Debug\net7.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\bin\Debug\net7.0\Microsoft.Extensions.Options.dll

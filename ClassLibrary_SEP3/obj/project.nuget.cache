@@ -1,9 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "7fn8b0lpyhDrJNvtB2YCA1WNlX0qQcFD+E81e/PY7mG/4dQHoqS8T5p6kPM/0B0HDcpGOc8johLJkv6SqkRenw==",
+  "dgSpecHash": "CodOIrgT2EB0ECO8olL/+5q7UkJOKAddMU5fz0AfcZc681qvBxADp/QJEMQkO4k67bK/ugs30CU9R7aBqHOaaA==",
   "success": true,
   "projectFilePath": "C:\\Users\\olsen\\OneDrive\\Documents\\GitHub\\SEP3_V2\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\olsen\\.nuget\\packages\\microsoft.aspnetcore.authorization\\7.0.14\\microsoft.aspnetcore.authorization.7.0.14.nupkg.sha512",
+    "C:\\Users\\olsen\\.nuget\\packages\\microsoft.aspnetcore.metadata\\7.0.14\\microsoft.aspnetcore.metadata.7.0.14.nupkg.sha512",
+    "C:\\Users\\olsen\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\7.0.0\\microsoft.extensions.dependencyinjection.7.0.0.nupkg.sha512",
+    "C:\\Users\\olsen\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\7.0.0\\microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
+    "C:\\Users\\olsen\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\7.0.1\\microsoft.extensions.logging.abstractions.7.0.1.nupkg.sha512",
+    "C:\\Users\\olsen\\.nuget\\packages\\microsoft.extensions.options\\7.0.1\\microsoft.extensions.options.7.0.1.nupkg.sha512",
+    "C:\\Users\\olsen\\.nuget\\packages\\microsoft.extensions.primitives\\7.0.0\\microsoft.extensions.primitives.7.0.0.nupkg.sha512",
     "C:\\Users\\olsen\\.nuget\\packages\\mongodb.bson\\2.21.0\\mongodb.bson.2.21.0.nupkg.sha512",
     "C:\\Users\\olsen\\.nuget\\packages\\system.memory\\4.5.5\\system.memory.4.5.5.nupkg.sha512",
     "C:\\Users\\olsen\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512"
