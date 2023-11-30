@@ -60,8 +60,7 @@ public class UserController : ControllerBase
 
         if (result != null) // Assuming 'result' is the actual result you'd get from _IuserService
         {
-            return
-                Ok("Login successful"); // Make sure you're returning a string here, not result.Value or something else
+            return Ok("Login successful"); // Make sure you're returning a string here, not result.Value or something else
         }
 
         return BadRequest("Invalid login attempt.");

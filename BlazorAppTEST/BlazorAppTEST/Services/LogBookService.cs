@@ -13,7 +13,6 @@ public class LogBookService : ILogBookService
         this.httpClient = httpClient;
     }
     
-    
     public async Task<IActionResult> CreateNewEntryToLogBook (LogBookEntryPoints logBookEntryPoints)
     {
         if (String.IsNullOrEmpty(logBookEntryPoints.OwnerUsername) || logBookEntryPoints.createdTimeStamp == null)
@@ -32,7 +31,7 @@ public class LogBookService : ILogBookService
         }
         
         //Ask for help
-        HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/BrokerProject", logBookEntryPoints);
+        HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/CreateLogEntry", logBookEntryPoints);
         if (!response.IsSuccessStatusCode)
         {
             throw new Exception($"Error:{response.StatusCode}");
