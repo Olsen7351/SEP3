@@ -32,7 +32,7 @@ public class ProjectService: IProjectService
         
         
         //Try and send it trough
-        HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/Broker/BrokerProject", project);
+        HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/BrokerProject", project);
         
         if (!response.IsSuccessStatusCode)
         {
