@@ -170,7 +170,7 @@ public class ProjectControllerTests
             UserName = "user123",
             ProjectId = projectId
         };
-        var actionResult = _brokerProjectController.AddUserToProject(projectId, request) as OkObjectResult;
+        var actionResult = _brokerProjectController.AddUserToProject(request) as OkObjectResult;
         Assert.NotNull(actionResult);
         Assert.Equal(200,actionResult.StatusCode);
         
@@ -186,7 +186,7 @@ public class ProjectControllerTests
         var projectId = "TestProjectId";
         var request = new AddUserToProjectRequest();
 
-        var actionResult = _brokerProjectController.AddUserToProject(projectId, request) as BadRequestResult;
+        var actionResult = _brokerProjectController.AddUserToProject(request) as BadRequestResult;
 
         Assert.NotNull(actionResult);
         Assert.Equal(400,actionResult.StatusCode);

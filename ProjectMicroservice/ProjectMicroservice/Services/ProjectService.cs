@@ -1,5 +1,6 @@
 using System.Collections.Concurrent;
 using ClassLibrary_SEP3;
+using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic.CompilerServices;
 using MongoDB.Bson;
@@ -82,7 +83,7 @@ namespace ProjectMicroservice.Services
             }
         }
 
-        public bool AddUserToProject(string projectId, string userName)
+        public bool AddUserToProject(AddUserToProjectRequest request)
         {
             throw new NotImplementedException();
         }

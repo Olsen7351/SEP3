@@ -1,4 +1,5 @@
 using ClassLibrary_SEP3;
+using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic.CompilerServices;
 using MongoDB.Bson;
@@ -14,6 +15,6 @@ namespace ProjectMicroservice.Services
         Project GetProject(string id);
         bool ProjectExists(string projectId);
         Project UpdateProject(Project project);
-        bool AddUserToProject(string projectId, string userName);
+        bool AddUserToProject(AddUserToProjectRequest request);
     }
 }
