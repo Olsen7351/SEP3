@@ -36,13 +36,18 @@ namespace Broker.Services
                 return new BadRequestResult();
             }
         }
-
+        
         public async Task<Project> GetProjekt(string id)
         {
             string requestUri = $"api/Project/{id}";
             var response = await httpClient.GetAsync(requestUri);
 
             return await response.Content.ReadFromJsonAsync<Project>();
+        }
+        
+        public Task<IActionResult> AddUserToProject(string projectId, string username)
+        {
+            throw new NotImplementedException();
         }
     }
 }

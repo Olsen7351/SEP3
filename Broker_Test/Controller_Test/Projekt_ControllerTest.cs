@@ -1,6 +1,7 @@
 using Broker.Controllers;
 using Broker.Services;
 using ClassLibrary_SEP3;
+using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using ProjectMicroservice.DataTransferObjects;
@@ -68,9 +69,35 @@ namespace Broker_Test
             // Assert
             Assert.IsType<BadRequestResult>(result);
         }
-        
+        [Fact]
+        public async void AddUserToProject_ReturnsOk_WhenRequestIsValid()
+        {
+            // Arrange
+            var mockProjektService = new Mock<IProjectService>();
+            var controller = new BrokerProjectController(mockProjektService.Object);
+            string validProjectId = "1";
+
+            var request = new AddUserToProjectRequest
+            {
+                UserName = "user123",
+            };
+
+            // Mocking AddUserToProject method to return OkObjectResult with some content
+            mockProjektService.Setup(service => service.AddUserToProject(validProjectId, request.UserName))
+                .ReturnsAsync(new OkObjectResult("Some content"));
+
+            // Act
+            var result = await controller.AddUserToProject(validProjectId, request);
+
+            // Assert
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            Assert.IsType<string>(okResult.Value); // Assuming the content is a string
+            Assert.Equal("Some content", okResult.Value);
+            
+        }
+        }
         
     
     }
     
-}
+
