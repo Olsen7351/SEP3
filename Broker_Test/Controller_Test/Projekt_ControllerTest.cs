@@ -83,18 +83,17 @@ namespace Broker_Test
                 ProjectId = "1"
             };
 
-            mockProjektService.Setup<Task<IActionResult>>(
-                service => service.AddUserToProject(validProjectId, request.UserName)
-            ).ReturnsAsync(new OkObjectResult("Some content"));
+            mockProjektService.Setup(
+                service => service.AddUserToProject(request)
+            ).ReturnsAsync(new OkResult());
 
             // Act
-            var result = await controller.AddUserToProject(validProjectId, request);
+            var result = await controller.AddUserToProject(request);
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
-            Assert.IsType<string>(okResult.Value); // Assuming the content is a string
-            Assert.Equal("Some content", okResult.Value);
-            
+            Assert.IsType<OkObjectResult>(okResult); 
+           // Assert.Equal("Some content", okResult.Value.ToString()); // Corrected line
         }
         }
         

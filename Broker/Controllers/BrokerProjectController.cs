@@ -44,9 +44,25 @@ namespace Broker.Controllers
         }
 
         [HttpPost("AddUserToProject")]
-        public async Task<IActionResult> AddUserToProject(string id, [FromBody] AddUserToProjectRequest request)
+        public async Task<IActionResult> AddUserToProject([FromBody] AddUserToProjectRequest request)
         {
-            return new BadRequestResult();
+            try
+            {
+                if (request == null)
+                {
+                    return new BadRequestResult();
+                }
+                
+                await projektService.AddUserToProject( request);
+
+
+                return Ok(await projektService.AddUserToProject(request));
+            }
+            catch (Exception ex)
+            {
+                // Handle specific exceptions if necessary
+                return BadRequest($"Failed to add user to project: {ex.Message}");
+            }
         }
     }
 
