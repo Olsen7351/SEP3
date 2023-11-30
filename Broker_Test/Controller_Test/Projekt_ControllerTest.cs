@@ -80,11 +80,12 @@ namespace Broker_Test
             var request = new AddUserToProjectRequest
             {
                 UserName = "user123",
+                ProjectId = "1"
             };
 
-            // Mocking AddUserToProject method to return OkObjectResult with some content
-            mockProjektService.Setup(service => service.AddUserToProject(validProjectId, request.UserName))
-                .ReturnsAsync(new OkObjectResult("Some content"));
+            mockProjektService.Setup<Task<IActionResult>>(
+                service => service.AddUserToProject(validProjectId, request.UserName)
+            ).ReturnsAsync(new OkObjectResult("Some content"));
 
             // Act
             var result = await controller.AddUserToProject(validProjectId, request);

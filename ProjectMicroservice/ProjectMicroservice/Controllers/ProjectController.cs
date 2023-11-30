@@ -1,6 +1,7 @@
 
 
 using ClassLibrary_SEP3;
+using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Http.HttpResults;
 using ProjectMicroservice.Services;
 
@@ -50,5 +51,24 @@ namespace ProjectMicroservice.Controllers
 
             return new OkObjectResult(project);
         }
+
+        [HttpPost("{projectId)/addUser")]
+        public IActionResult AddUserToProject(string projectId, [FromBody] AddUserToProjectRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var result = _projectService.AddUserToProject(projectId, request.UserName);
+        
+            if (result == null)
+            {
+                return NotFound(); 
+            }
+
+            return Ok(result);
+        }
+        
     }
 }

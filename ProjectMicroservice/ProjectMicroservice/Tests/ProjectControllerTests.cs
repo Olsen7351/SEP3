@@ -1,4 +1,5 @@
 using ClassLibrary_SEP3;
+using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using Moq;
@@ -158,6 +159,37 @@ public class ProjectControllerTests
         // Assert
         Assert.NotNull(actionResult);
         Assert.Equal(400, actionResult.StatusCode);
+    }
+
+    [Fact]
+    public void AddUserToProject_ValidRequest_ReturnOk()
+    {
+        var projectId = "TestProjectId";
+        var request = new AddUserToProjectRequest
+        {
+            UserName = "user123",
+            ProjectId = projectId
+        };
+        var actionResult = _brokerProjectController.AddUserToProject(projectId, request) as OkObjectResult;
+        Assert.NotNull(actionResult);
+        Assert.Equal(200,actionResult.StatusCode);
+        
+        
+        var resultUserName = actionResult?.Value as string;
+        Assert.NotNull(resultUserName);
+        Assert.Equal(request.UserName, resultUserName);
+    }
+
+    [Fact]
+    public void AddUserToProject_InvalidRequest_ReturnsBadRequest()
+    {
+        var projectId = "TestProjectId";
+        var request = new AddUserToProjectRequest();
+
+        var actionResult = _brokerProjectController.AddUserToProject(projectId, request) as BadRequestResult;
+
+        Assert.NotNull(actionResult);
+        Assert.Equal(400,actionResult.StatusCode);
     }
 }
 
