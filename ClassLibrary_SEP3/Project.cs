@@ -12,4 +12,6 @@ public class Project
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
     public Backlog? Backlog { get; set; }
+    
+    public List<User> Users { get; set; }
 }

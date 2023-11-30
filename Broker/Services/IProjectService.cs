@@ -10,5 +10,7 @@ namespace Broker.Services
     {
         public Task<Project> GetProjekt(string id);
         public Task<IActionResult> CreateProjekt(CreateProjectRequest projekt);
+        
+        Task<IActionResult> AddUserToProject(string projectId, string username);
     }
 }
