@@ -17,7 +17,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:8004/") });
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:8004/") });
 
 builder.Services.AddCors(options =>
 {
