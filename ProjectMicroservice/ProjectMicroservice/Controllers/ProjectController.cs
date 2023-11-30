@@ -32,7 +32,7 @@ namespace ProjectMicroservice.Controllers
             {
                 return BadRequest(ModelState); // Returns a 400 Bad Request with validation errors.
             }
-            
+
             if (request.StartDate > request.EndDate)
             {
                 ModelState.AddModelError("StartDate", "Start date must be before end date.");
@@ -51,8 +51,10 @@ namespace ProjectMicroservice.Controllers
 
             return new OkObjectResult(project);
         }
+  
+   
 
-        [HttpPost("{projectId)/addUser")]
+    [HttpPost("{projectId}/addUser")]
         public IActionResult AddUserToProject(string projectId, [FromBody] AddUserToProjectRequest request)
         {
             if (!ModelState.IsValid)

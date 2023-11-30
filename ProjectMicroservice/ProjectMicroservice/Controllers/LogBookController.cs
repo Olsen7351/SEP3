@@ -24,7 +24,7 @@ public class LogBookController : ControllerBase
     
     //Get Log Books
     [HttpGet("GetEntriesForLogBook")]
-    public async Task<IActionResult> GetLogbookForProject([FromBody] String ProjectID)
+    public async Task<IActionResult> GetLogbookForProject(String ProjectID)
     {
         if (String.IsNullOrEmpty(ProjectID))
         {
@@ -44,7 +44,7 @@ public class LogBookController : ControllerBase
     
     //Create Entries inside logbook
     [HttpPost("CreateLogEntry")]
-    public async Task<IActionResult> CreateLogBookEntry([FromBody] LogBookEntryPoints logBookEntryPoints)
+    public async Task<IActionResult> CreateLogBookEntry(LogBookEntryPoints logBookEntryPoints)
     {
         if (logBookEntryPoints == null)
         {
