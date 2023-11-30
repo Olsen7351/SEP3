@@ -3,77 +3,114 @@ using ClassLibrary_SEP3;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Moq;
+using Moq.Protected;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Xunit;
 using Task = System.Threading.Tasks.Task;
 
 namespace BlazorAppTest
 {
-    
-    public class SprintBacklogService_Test
+
+    public class SprintBacklogServiceTests
     {
-        private Mock<ISprintBacklogService> _mockService;
-        private SprintBacklogService _service;
-
-        public SprintBacklogService_Test()
-        {
-            _mockService = new Mock<ISprintBacklogService>();
-            _service = new SprintBacklogService();
-        }
-
         [Fact]
-        public async Task CreateSprintBacklogAsync_ValidInput_ReturnsOkResult()
+        public async Task GetSprintBacklogByIdAsync_WhenSuccessful_ReturnsOkObjectResult()
         {
             // Arrange
-            var sprintBacklog = new SprintBacklog(); // Create a sample SprintBacklog object
-            _mockService.Setup(service => service.CreateSprintBacklogAsync(sprintBacklog))
-                        .ReturnsAsync(new OkResult()); // Simulating the API call behavior
-
+            var mockHttpMessageHandler = new Mock<HttpMessageHandler>();
+            var httpClient = new HttpClient(mockHttpMessageHandler.Object)
+            {
+                BaseAddress = new Uri("https://localhost:8002/")
+            };
+            var sprintBacklogService = new SprintBacklogService(httpClient);
+            var projectId = "123";
+            var SprintbacklogId = "456";
+            var expectedSprintBacklog = new SprintBacklog
+            {
+                SprintBacklogId = SprintbacklogId,
+                ProjectId = projectId,
+            };
+            var response = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent(JsonSerializer.Serialize(expectedSprintBacklog), Encoding.UTF8, "application/json")
+            };
+            mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(response);
             // Act
-            var result = await _mockService.Object.CreateSprintBacklogAsync(sprintBacklog) as OkResult;
-
+            var result = await sprintBacklogService.GetSprintBacklogByIdAsync(projectId, SprintbacklogId);
             // Assert
-            Assert.NotNull(result);
-            Assert.Equal(200, result.StatusCode);
+            Assert.IsType<OkObjectResult>(result);
+            var okResult = (OkObjectResult)result;
+            Assert.IsType<SprintBacklog>(okResult.Value);
+            var actualSprintBacklog = (SprintBacklog)okResult.Value;
+            Assert.Equal(expectedSprintBacklog.SprintBacklogId, actualSprintBacklog.SprintBacklogId);
+            Assert.Equal(expectedSprintBacklog.ProjectId, actualSprintBacklog.ProjectId);
         }
-
         [Fact]
-        public async Task GetSprintBacklogsAsync_ReturnsOkObjectResult()
+        public async Task GetSprintBacklogsAsync_WhenSuccessful_ReturnsOkObjectResult()
         {
             // Arrange
-            var projectId = "sampleProjectId";
-            _mockService.Setup(service => service.GetSprintBacklogsAsync(projectId))
-                .ReturnsAsync(new OkObjectResult("Sample data")); // Simulating the API call behavior
-
+            var mockHttpMessageHandler = new Mock<HttpMessageHandler>();
+            var httpClient = new HttpClient(mockHttpMessageHandler.Object)
+            {
+                BaseAddress = new Uri("https://localhost:8002/") // Replace with your base address
+            };
+            var sprintBacklogService = new SprintBacklogService(httpClient);
+            var projectId = "123"; // Replace with a valid project ID
+            var expectedSprintBacklogs = new List<SprintBacklog>
+            {
+                new SprintBacklog(),
+                new SprintBacklog()
+            };
+            string json = JsonSerializer.Serialize(expectedSprintBacklogs);
+            var response = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent(json, Encoding.UTF8, "application/json")
+            };
+            mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(response);
             // Act
-            var result = await _mockService.Object.GetSprintBacklogsAsync(projectId) as OkObjectResult;
-
+            var result = await sprintBacklogService.GetSprintBacklogsAsync(projectId);
             // Assert
-            Assert.NotNull(result);
-            Assert.Equal(200, result.StatusCode);
-            Assert.Equal("Sample data", result.Value); // Ensure the returned data is as expected
+            Assert.IsType<OkObjectResult>(result);
+            var okResult = (OkObjectResult)result;
+            Assert.IsAssignableFrom<IEnumerable<SprintBacklog>>(okResult.Value);
+            var sprintBacklogs = (IEnumerable<SprintBacklog>)okResult.Value;
+            Assert.Equal(expectedSprintBacklogs.Count, sprintBacklogs.Count());
         }
-
         [Fact]
-        public async Task GetSprintBacklogByIdAsync_ReturnsOkObjectResult()
+        public async Task CreateSprintBacklogAsync_WhenSuccessful_ReturnsOkObjectResult()
         {
             // Arrange
-            var projectId = "sampleProjectId";
-            var id = "sampleId";
-            _mockService.Setup(service => service.GetSprintBacklogByIdAsync(projectId, id))
-                .ReturnsAsync(new OkObjectResult("Sample sprint backlog")); // Simulating the API call behavior
-
+            var mockHttpMessageHandler = new Mock<HttpMessageHandler>();
+            var httpClient = new HttpClient(mockHttpMessageHandler.Object)
+            {
+                BaseAddress = new Uri("https://localhost:8002/")
+            };
+            var sprintBacklogService = new SprintBacklogService(httpClient);
+            var expectedSprintBacklog = new SprintBacklog();
+            var response = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent(JsonSerializer.Serialize(expectedSprintBacklog), Encoding.UTF8, "application/json")
+            };
+            mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(response);
             // Act
-            var result = await _mockService.Object.GetSprintBacklogByIdAsync(projectId, id) as OkObjectResult;
-
+            var result = await sprintBacklogService.CreateSprintBacklogAsync(expectedSprintBacklog);
             // Assert
-            Assert.NotNull(result);
-            Assert.Equal(200, result.StatusCode);
-            Assert.Equal("Sample sprint backlog", result.Value); // Ensure the returned data is as expected
+            Assert.IsType<CreatedResult>(result);
         }
     }
 }
