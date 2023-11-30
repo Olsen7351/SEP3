@@ -8,14 +8,14 @@ using Broker.Services;
 using ClassLibrary_SEP3;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using Task = System.Threading.Tasks.Task;
+using Task = ClassLibrary_SEP3.Task;
 
 namespace Broker_Test.Controller_Test
 {
     public class SprintBacklogControllerTest
     {
         [Fact]
-        public async Task Get_ReturnsSprintBacklogs2()
+        public async void Get_ReturnsSprintBacklogs2()
         {
             // Arrange
             var projectId = "ProjectId";
@@ -36,9 +36,37 @@ namespace Broker_Test.Controller_Test
             var model = Assert.IsAssignableFrom<IEnumerable<SprintBacklog>>(objectResult.Value);
             Assert.Equal(2, model.Count());
         }
+
+        [Fact]
+        public async void AddTaskToSprintBacklog_ReturnsValue()
+        {
+            var mockService = new Mock<ISprintBacklogService>();
+            var controller = new SprintBacklogController(mockService.Object);
+            var projectId = "1";
+            var sprintBacklogId = "2";
+            var expectedSprintBacklog = new SprintBacklog
+            {
+                ProjectId = projectId,
+                SprintBacklogId = sprintBacklogId,
+                Title = "Sample Sprint",
+                CreatedAt= new DateTime(2021, 1, 1),
+                Tasks = new List<ClassLibrary_SEP3.Task>()
+            };
+            var sprintId = "2";
+            var task = new Task
+            {
+                SprintId = "2",
+                Title = "Brush Alma"
+            };
+            mockService.Setup(service => service.AddTaskToSprintBacklogAsync("1", "2", task))
+                .ReturnsAsync(new OkObjectResult(expectedSprintBacklog));
+            var result = await controller.AddTaskToSprintBacklog("1", "2", task);
+            Assert.NotNull(result);
+
+        }
         
         [Fact]
-        public async Task Post_CreatesSprintBacklog2()
+        public async void Post_CreatesSprintBacklog2()
         {
             // Arrange
             var mockService = new Mock<ISprintBacklogService>();
@@ -66,7 +94,7 @@ namespace Broker_Test.Controller_Test
             Assert.Equal(201, createdAtActionResult.StatusCode);
         }
         [Fact]
-        public async Task GetSpecificSprintBacklog_ReturnsValue()
+        public async void GetSpecificSprintBacklog_ReturnsValue()
         {
             // Arrange
             var projectId = "ProjectId";
