@@ -822,24 +822,49 @@
     ]
   },
   "packageFolders": {
+<<<<<<< HEAD
     "C:\\Users\\Kim\\.nuget\\packages\\": {}
+=======
+    "C:\\Users\\alexa\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+>>>>>>> Developer
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\Kim\\Desktop\\SEP#\\RabbitMQMicroservices\\RabbitMQMicroservices.csproj",
       "projectName": "RabbitMQMicroservices",
       "projectPath": "C:\\Users\\Kim\\Desktop\\SEP#\\RabbitMQMicroservices\\RabbitMQMicroservices.csproj",
       "packagesPath": "C:\\Users\\Kim\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Kim\\Desktop\\SEP#\\RabbitMQMicroservices\\obj\\",
+=======
+      "projectUniqueName": "C:\\Users\\alexa\\OneDrive\\Dokumenter\\GitHub\\SEP3\\RabbitMQMicroservices\\RabbitMQMicroservices.csproj",
+      "projectName": "RabbitMQMicroservices",
+      "projectPath": "C:\\Users\\alexa\\OneDrive\\Dokumenter\\GitHub\\SEP3\\RabbitMQMicroservices\\RabbitMQMicroservices.csproj",
+      "packagesPath": "C:\\Users\\alexa\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\alexa\\OneDrive\\Dokumenter\\GitHub\\SEP3\\RabbitMQMicroservices\\obj\\",
+>>>>>>> Developer
       "projectStyle": "PackageReference",
       "configFilePaths": [
+<<<<<<< HEAD
         "C:\\Users\\Kim\\AppData\\Roaming\\NuGet\\NuGet.Config"
+=======
+        "C:\\Users\\alexa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+>>>>>>> Developer
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
+<<<<<<< HEAD
+=======
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
+        "C:\\Users\\alexa\\OneDrive\\Dokumenter\\nuget local": {},
+>>>>>>> Developer
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -898,8 +923,20 @@
             "privateAssets": "all"
           }
         },
+<<<<<<< HEAD
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+=======
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+>>>>>>> Developer
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\alexa\\OneDrive\\Dokumenter\\GitHub\\SEP3\\RabbitMQMicroservices\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

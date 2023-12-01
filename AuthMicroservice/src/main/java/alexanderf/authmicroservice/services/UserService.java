@@ -31,6 +31,19 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
+    public void changePassword(String username, String newPassword) {
+        User user = userRepository.findByUsername(username);
+        if (user != null) {
+            // Encrypt the new password
+            user.setPassword(passwordEncoder.encode(newPassword));
+
+            // Save the updated user
+            userRepository.save(user);
+        } else {
+            throw new UsernameNotFoundException("User not found with username: " + username);
+        }
+    }
+
     public void deleteUser(String username) {
         User user = userRepository.findByUsername(username);
         if (user != null) {

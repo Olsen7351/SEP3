@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "C:\\Users\\Kim\\Desktop\\SEP#\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj": {}
   },
   "projects": {
@@ -12,14 +13,39 @@
         "projectPath": "C:\\Users\\Kim\\Desktop\\SEP#\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj",
         "packagesPath": "C:\\Users\\Kim\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\Kim\\Desktop\\SEP#\\ClassLibrary_SEP3\\obj\\",
+=======
+    "C:\\Users\\alexa\\OneDrive\\Dokumenter\\GitHub\\SEP3\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\alexa\\OneDrive\\Dokumenter\\GitHub\\SEP3\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\alexa\\OneDrive\\Dokumenter\\GitHub\\SEP3\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj",
+        "projectName": "ClassLibrary_SEP3",
+        "projectPath": "C:\\Users\\alexa\\OneDrive\\Dokumenter\\GitHub\\SEP3\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj",
+        "packagesPath": "C:\\Users\\alexa\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\alexa\\OneDrive\\Dokumenter\\GitHub\\SEP3\\ClassLibrary_SEP3\\obj\\",
+>>>>>>> Developer
         "projectStyle": "PackageReference",
         "configFilePaths": [
+<<<<<<< HEAD
           "C:\\Users\\Kim\\AppData\\Roaming\\NuGet\\NuGet.Config"
+=======
+          "C:\\Users\\alexa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+>>>>>>> Developer
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
+<<<<<<< HEAD
+=======
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "C:\\Users\\alexa\\OneDrive\\Dokumenter\\nuget local": {},
+>>>>>>> Developer
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -67,7 +93,11 @@
               "privateAssets": "all"
             }
           },
+<<<<<<< HEAD
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+=======
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+>>>>>>> Developer
         }
       }
     }

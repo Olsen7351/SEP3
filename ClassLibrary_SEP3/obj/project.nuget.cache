@@ -1,5 +1,6 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "HUiull/1YQxSd4cRxbn7LoNDpXWho1lSF0eQf2as0pjQSX3zySZFYovKwS6p1iwr4ByHbT7jLi/4oV/OP8eJpg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Kim\\Desktop\\SEP#\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj",
@@ -14,6 +15,29 @@
     "C:\\Users\\Kim\\.nuget\\packages\\mongodb.bson\\2.21.0\\mongodb.bson.2.21.0.nupkg.sha512",
     "C:\\Users\\Kim\\.nuget\\packages\\system.memory\\4.5.5\\system.memory.4.5.5.nupkg.sha512",
     "C:\\Users\\Kim\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512"
+=======
+  "dgSpecHash": "7OiW6WC5MTrkdeqoPWIl93M+QbDtynTzSkpb8IRgeZJaWHj588R4aEHQGlLbiIz8XJh06LNRKBzPgyGl0KX7mA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\alexa\\OneDrive\\Dokumenter\\GitHub\\SEP3\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\alexa\\.nuget\\packages\\microsoft.aspnetcore.authorization\\7.0.14\\microsoft.aspnetcore.authorization.7.0.14.nupkg.sha512",
+    "C:\\Users\\alexa\\.nuget\\packages\\microsoft.aspnetcore.metadata\\7.0.14\\microsoft.aspnetcore.metadata.7.0.14.nupkg.sha512",
+    "C:\\Users\\alexa\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\7.0.0\\microsoft.extensions.dependencyinjection.7.0.0.nupkg.sha512",
+    "C:\\Users\\alexa\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\7.0.0\\microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
+    "C:\\Users\\alexa\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\7.0.1\\microsoft.extensions.logging.abstractions.7.0.1.nupkg.sha512",
+    "C:\\Users\\alexa\\.nuget\\packages\\microsoft.extensions.options\\7.0.1\\microsoft.extensions.options.7.0.1.nupkg.sha512",
+    "C:\\Users\\alexa\\.nuget\\packages\\microsoft.extensions.primitives\\7.0.0\\microsoft.extensions.primitives.7.0.0.nupkg.sha512",
+    "C:\\Users\\alexa\\.nuget\\packages\\mongodb.bson\\2.21.0\\mongodb.bson.2.21.0.nupkg.sha512",
+    "C:\\Users\\alexa\\.nuget\\packages\\system.memory\\4.5.5\\system.memory.4.5.5.nupkg.sha512",
+    "C:\\Users\\alexa\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512"
+>>>>>>> Developer
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\alexa\\OneDrive\\Dokumenter\\GitHub\\SEP3\\ClassLibrary_SEP3\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
