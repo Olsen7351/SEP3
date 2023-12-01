@@ -24,7 +24,7 @@ public class User {
         this.password = password;
     }
 
-    public <T> User(String username, String password, List<T> roleUser) {
+    public <T> User(String username, String password) {
         this.username = username;
         this.password = password;
     }
