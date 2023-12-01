@@ -25,6 +25,7 @@ public class ProjectService: IProjectService
     public ProjectService(HttpClient httpClient)
     {
         this.httpClient = httpClient;
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", UserService.Jwt);
     }
 
     
@@ -35,7 +36,6 @@ public class ProjectService: IProjectService
         {
             throw new Exception("Project name cant be empty");
         }
-        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", UserService.Jwt);
         Console.WriteLine($"Token used to access: {UserService.Jwt}");
         //Try and send it trough
         HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/BrokerProject", project);
@@ -53,6 +53,7 @@ public class ProjectService: IProjectService
     {
         var response = await httpClient.GetAsync($"api/BrokerProject/{id}");
         var projekt = await response.Content.ReadFromJsonAsync<Project>();
+        
         if (projekt == null)
         {
             throw new Exception("Project is empty or do not exsist");
