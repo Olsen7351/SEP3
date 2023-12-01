@@ -21,9 +21,6 @@ builder.Services.AddScoped<BacklogService>();
 builder.Services.AddScoped<TaskService>();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthProvider>();
 
-builder.Services.AddAuthorizationCore();
-builder.Services.AddAuthenticationCore();
-
 builder.Services.AddScoped(sp => 
     new HttpClient 
     { 
