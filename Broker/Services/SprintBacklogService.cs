@@ -1,5 +1,6 @@
 using Broker.Controllers;
 using ClassLibrary_SEP3;
+using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 using Xunit.Sdk;
 using Task = ClassLibrary_SEP3.Task;
@@ -75,9 +76,9 @@ public class SprintBacklogService : ISprintBacklogService
         return new BadRequestResult();
     }
 
-    public Task<IActionResult> AddTaskToSprintBacklogAsync(string projectId, string id, Task task)
+    public Task<IActionResult> AddTaskToSprintBacklogAsync(string projectId, string id, AddSprintTaskRequest task)
     {
-        //TODO 
+        //TODO
         throw new NotImplementedException();
     }
 

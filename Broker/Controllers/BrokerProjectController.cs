@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 using Broker.Services;
 using ClassLibrary_SEP3;
 using ClassLibrary_SEP3.DataTransferObjects;
+
 using Microsoft.AspNetCore.Authorization;
+
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
-using ProjectMicroservice.DataTransferObjects;
-
 namespace Broker.Controllers
 {
     [Route("api/[controller]")]
@@ -28,15 +28,23 @@ namespace Broker.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetProjekt(string id)
+        public async Task<Project> GetProjekt(string id)
         {
             var response = await projektService.GetProjekt(id);
-            return new OkObjectResult(response);
+
+            if (response == null)
+            {
+                throw new Exception("Project is empty or do not exsist");
+            }
+            return response;
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateProjekt([FromBody] CreateProjectRequest projekt)
         {
+            var token = HttpContext.Request.Headers["Authorization"];
+            Console.WriteLine($"Token used to access: {token}");
+
             if (projekt == null)
             {
                 return new BadRequestResult();

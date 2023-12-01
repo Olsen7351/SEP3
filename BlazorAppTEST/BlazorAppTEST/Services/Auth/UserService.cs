@@ -1,6 +1,7 @@
 using ClassLibrary_SEP3;
 using System.Security.Claims;
 using System.Text.Json;
+using ClassLibrary_SEP3.DataTransferObjects;
 using Task = System.Threading.Tasks.Task;
 
 namespace BlazorAppTEST.Services.Auth;
@@ -19,7 +20,7 @@ public class UserService : IUserLogin
     }
 
 
-    public async Task createUser(User user)
+    public async Task createUser(CreateUserRequest user)
     {
         if (string.IsNullOrEmpty(user.Username) || string.IsNullOrEmpty(user.Password))
         {

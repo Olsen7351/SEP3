@@ -1,6 +1,8 @@
 ﻿using System.Text;
 using System.Text.Json;
+using BlazorAppTEST.Services.Interface;
 using ClassLibrary_SEP3;
+using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlazorAppTEST.Services
@@ -40,6 +42,19 @@ namespace BlazorAppTEST.Services
                 return new NotFoundResult();
             }
             return new OkObjectResult(response);
+        }
+
+        public Task<IActionResult> AddTaskToSprintBacklogAsync(string projectId, string sprintId,
+            AddSprintTaskRequest task)
+        {
+            //TODO
+            throw new NotImplementedException();
+        }
+
+        public Task<IActionResult> GetTasksFromSprintBacklogAsync(string projectId, string Id)
+        {
+            //TODO
+            throw new NotImplementedException();
         }
     }
 }

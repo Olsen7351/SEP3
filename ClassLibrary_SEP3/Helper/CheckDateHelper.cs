@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace BlazorAppTEST.Services
+namespace ClassLibrary_SEP3.Helper
 {
     public class CheckDateHelper : ValidationAttribute
     {

@@ -4,10 +4,9 @@ using ClassLibrary_SEP3;
 using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using ProjectMicroservice.DataTransferObjects;
 using Task = ClassLibrary_SEP3.Task;
 
-namespace Broker_Test
+namespace Broker_Test.Controller_Test
 {
     public class ProjektControllerTests
     {

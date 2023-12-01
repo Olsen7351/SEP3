@@ -22,8 +22,7 @@ public class UserService : IUserService
         HttpResponseMessage response = await httpClient.PostAsJsonAsync(requestUri, user);
         if (response.IsSuccessStatusCode)
         {
-            var createdUser = await response.Content.ReadFromJsonAsync<User>();
-            return new OkObjectResult(createdUser);
+            return new OkResult();
         }
         
         return new BadRequestResult();
