@@ -10,6 +10,7 @@ using System.Net;
 using BlazorAppTEST.Services.Auth;
 using Xunit;
 using ClassLibrary_SEP3;
+using ClassLibrary_SEP3.DataTransferObjects;
 using Moq.Protected;
 
 namespace BlazorAppTest;
@@ -32,10 +33,11 @@ public class CreateUser_Test
     public async Task CreateUser()
     {
         // Arrange
-        var user = new User
+        var user = new CreateUserRequest()
         {
             Username = "Test1",
-            Password = "sjhbafjhasbf"
+            Password = "sjhbafjhasbf",
+            Email = "test@gmail.com"
         };
 
         var mockHttpMessageHandler = new Mock<HttpMessageHandler>();
@@ -65,10 +67,11 @@ public class CreateUser_Test
     public async Task CreatingUserWithLongUsername()
     {
         // Arrange
-        var userWithNullUsername = new User
+        var userWithNullUsername = new CreateUserRequest()
         {
             Username = "IAmOver16CharactersLong",
-            Password = "ValidPassword"
+            Password = "ValidPassword",
+            Email = "test@gmail.com"
         };
 
         var mockHttpMessageHandler = new Mock<HttpMessageHandler>();
@@ -96,10 +99,11 @@ public class CreateUser_Test
     public async Task CreateUserWithNullUsername()
     {
         // Arrange
-        var userWithNullUsername = new User
+        var userWithNullUsername = new CreateUserRequest()
         {
             Username = null, // Null username should trigger exception
-            Password = "ValidPassword"
+            Password = "ValidPassword",
+            Email = "test@gmail.com"
         };
 
         var mockHttpMessageHandler = new Mock<HttpMessageHandler>();
@@ -130,10 +134,11 @@ public class CreateUser_Test
     public async Task CreateUserWithEmptyUsername()
     {
         // Arrange
-        var userWithNullUsername = new User
+        var userWithNullUsername = new CreateUserRequest()
         {
             Username = "", 
-            Password = "ValidPassword"
+            Password = "ValidPassword",
+            Email = "test@gmail.com"
         };
 
         var mockHttpMessageHandler = new Mock<HttpMessageHandler>();
@@ -162,10 +167,11 @@ public class CreateUser_Test
     public async Task CreateUserWithNullPassword()
     {
         // Arrange
-        var userWithNullUsername = new User
+        var userWithNullUsername = new CreateUserRequest()
         {
             Username = "James", 
-            Password = null
+            Password = null,
+            Email = "test@gmail.com"
         };
 
         var mockHttpMessageHandler = new Mock<HttpMessageHandler>();
@@ -194,10 +200,11 @@ public class CreateUser_Test
     public async Task CreateUserWithEmptyPassword()
     {
         // Arrange
-        var userWithNullUsername = new User
+        var userWithNullUsername = new CreateUserRequest()
         {
             Username = "James", 
-            Password = ""
+            Password = "",
+            Email = "test@gmail.com"
         };
 
         var mockHttpMessageHandler = new Mock<HttpMessageHandler>();

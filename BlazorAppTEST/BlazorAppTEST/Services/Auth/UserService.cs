@@ -27,6 +27,11 @@ public class UserService : IUserLogin
             throw new Exception("One or many forms is empty, please fill them out before creating a new user");
         }
 
+        if (user.Username.Length > 16)
+        {
+            throw new Exception("Username cant exceed 16 characters");   
+        }
+
         if (user.Password.Length < 4)
         {
             throw new Exception("Password must be more then 4 characters");
