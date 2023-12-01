@@ -1,5 +1,4 @@
 using System.Text.Json.Serialization;
-using DefaultNamespace;
 using ProjectMicroservice.Data;
 using ProjectMicroservice.Services;
 using Microsoft.Extensions.DependencyInjection;

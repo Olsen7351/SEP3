@@ -1,12 +1,8 @@
 using System.Collections.Concurrent;
 using ClassLibrary_SEP3;
 using ClassLibrary_SEP3.DataTransferObjects;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualBasic.CompilerServices;
-using MongoDB.Bson;
 using MongoDB.Driver;
 using ProjectMicroservice.Data;
-using ZstdSharp;
 using Task = ClassLibrary_SEP3.Task;
 
 namespace ProjectMicroservice.Services
