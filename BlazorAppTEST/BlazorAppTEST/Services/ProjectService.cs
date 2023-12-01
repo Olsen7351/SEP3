@@ -25,8 +25,6 @@ public class ProjectService: IProjectService
     public ProjectService(HttpClient httpClient)
     {
         this.httpClient = httpClient;
-        //Add JWT token to the header
-        this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", UserService.Jwt);
     }
 
     
@@ -38,6 +36,7 @@ public class ProjectService: IProjectService
             throw new Exception("Project name cant be empty");
         }
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", UserService.Jwt);
+        Console.WriteLine($"Token used to access: {UserService.Jwt}");
         //Try and send it trough
         HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/BrokerProject", project);
         

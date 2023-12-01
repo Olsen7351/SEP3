@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ClassLibrary_SEP3\ClassLibrary_SEP3.csproj" />
-    <ProjectReference Include="..\ProjectMicroservice\ProjectMicroservice\ProjectMicroservice.csproj" />
   </ItemGroup>
 
 </Project>
