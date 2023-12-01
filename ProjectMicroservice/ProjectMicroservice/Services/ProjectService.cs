@@ -10,15 +10,18 @@ using ProjectMicroservice.DataTransferObjects;
 using ZstdSharp;
 using Task = ClassLibrary_SEP3.Task;
 
+
 namespace ProjectMicroservice.Services
 {
     public class ProjectService : IProjectService
     {
         private readonly IMongoCollection<Project> _projects;
+        private readonly IMongoCollection<UsersAPartOfProjects> _userAPartOfProjects;
 
         public ProjectService(MongoDbContext context)
         {
             _projects = context.Database.GetCollection<Project>("Projects");
+            _userAPartOfProjects = context.Database.GetCollection<UsersAPartOfProjects>("UserAPartOfProjects");
         }
 
         public Project CreateProject(CreateProjectRequest request) 
@@ -85,7 +88,22 @@ namespace ProjectMicroservice.Services
 
         public bool AddUserToProject(AddUserToProjectRequest request)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var addUserToProjects = new UsersAPartOfProjects
+                {
+                    Username = request.UserName,
+                    ProjectID = new List<string> { request.ProjectId }
+                };
+
+                _userAPartOfProjects.InsertOne(addUserToProjects); // _usersApartOfProjectsCollection is the IMongoCollection<UsersAPartOfProjects>
+
+                return true; // Since InsertOne will throw an exception if it fails
+            }
+            catch (Exception)
+            {
+                throw new MongoException("Failed to add user to project in database");
+            }
         }
     }
 }

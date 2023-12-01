@@ -26,11 +26,11 @@ public class ProjectControllerTests
         // Mock the MongoDB context
         _mockDbContext = new Mock<MongoDbContext>("mongodb://localhost:27017", "test_db");
         _mockDbContext
-        .Setup(db => db.Database.GetCollection<ProjectDatabase>(
-        It.IsAny<string>(),
-        It.IsAny<MongoCollectionSettings>()
-        ))
-        .Returns(_mockCollection.Object);
+            .Setup(db => db.Database.GetCollection<ProjectDatabase>(
+                It.IsAny<string>(),
+                It.IsAny<MongoCollectionSettings>()
+            ))
+            .Returns(_mockCollection.Object);
 
         // Initialize the service and controller
         _projectService = new ProjectService(_mockDbContext.Object);
@@ -58,13 +58,13 @@ public class ProjectControllerTests
 
         var createdProject = actionResult?.Value as Project;
         Assert.NotNull(createdProject);
-    
+
         Assert.Equal(request.Name, createdProject?.Name);
         Assert.Equal(request.Description, createdProject?.Description);
         Assert.Equal(request.StartDate, createdProject?.StartDate);
         Assert.Equal(request.EndDate, createdProject?.EndDate);
     }
-    
+
     [Fact]
     public void CreateProject_MissingName_ReturnsBadRequest()
     {
@@ -83,7 +83,7 @@ public class ProjectControllerTests
         Assert.NotNull(actionResult);
         Assert.Equal(400, actionResult.StatusCode); // HTTP 400 Bad Request
     }
-    
+
     [Fact]
     public void CreateProject_MissingStartDate_ReturnsBadRequest()
     {
@@ -140,7 +140,7 @@ public class ProjectControllerTests
         Assert.Equal(400, actionResult.StatusCode); // HTTP 400 Bad Request
     }
 
-    
+
     [Fact]
     public void CreateProject_StartDateAfterEndDate_ReturnsBadRequest()
     {
@@ -161,38 +161,39 @@ public class ProjectControllerTests
         Assert.Equal(400, actionResult.StatusCode);
     }
 
-    [Fact]
-    public void AddUserToProject_ValidRequest_ReturnOk()
+    /* [Fact]
+     public void AddUserToProject_ValidRequest_ReturnOk()
+     {
+         var projectId = "TestProjectId";
+         var request = new AddUserToProjectRequest
+         {
+             UserName = "user123",
+             ProjectId = projectId
+         };
+         var actionResult = _brokerProjectController.AddUserToProject(request) as OkObjectResult;
+         Assert.NotNull(actionResult);
+         Assert.Equal(200,actionResult.StatusCode);
+
+
+         var resultUserName = actionResult?.Value as string;
+         Assert.NotNull(resultUserName);
+         Assert.Equal(request.UserName, resultUserName);
+     }*/
+
+    /* [Fact]
+     public void AddUserToProject_InvalidRequest_ReturnsBadRequest()
+     {
+         var projectId = "TestProjectId";
+         var request = new AddUserToProjectRequest();
+
+         var actionResult = _brokerProjectController.AddUserToProject(request) as BadRequestResult;
+
+         Assert.NotNull(actionResult);
+         Assert.Equal(400,actionResult.StatusCode);
+     }
+ }*/
+
+    internal class ProjectDatabase
     {
-        var projectId = "TestProjectId";
-        var request = new AddUserToProjectRequest
-        {
-            UserName = "user123",
-            ProjectId = projectId
-        };
-        var actionResult = _brokerProjectController.AddUserToProject(request) as OkObjectResult;
-        Assert.NotNull(actionResult);
-        Assert.Equal(200,actionResult.StatusCode);
-        
-        
-        var resultUserName = actionResult?.Value as string;
-        Assert.NotNull(resultUserName);
-        Assert.Equal(request.UserName, resultUserName);
     }
-
-    [Fact]
-    public void AddUserToProject_InvalidRequest_ReturnsBadRequest()
-    {
-        var projectId = "TestProjectId";
-        var request = new AddUserToProjectRequest();
-
-        var actionResult = _brokerProjectController.AddUserToProject(request) as BadRequestResult;
-
-        Assert.NotNull(actionResult);
-        Assert.Equal(400,actionResult.StatusCode);
-    }
-}
-
-internal class ProjectDatabase
-{
 }

@@ -62,7 +62,7 @@ namespace ProjectMicroservice.Controllers
                 return BadRequest(ModelState);
             }
 
-            var result = _projectService.AddUserToProject(projectId, request.UserName);
+            var result = _projectService.AddUserToProject( request);
         
             if (result == null)
             {
