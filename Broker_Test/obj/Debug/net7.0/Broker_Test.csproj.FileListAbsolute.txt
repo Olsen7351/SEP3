@@ -776,3 +776,10 @@ C:\Users\45401\Desktop\SEP\SEP3\Broker_Test\bin\Debug\net7.0\Microsoft.IdentityM
 C:\Users\45401\Desktop\SEP\SEP3\Broker_Test\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\45401\Desktop\SEP\SEP3\Broker_Test\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll
 >>>>>>> Test3
+C:\Users\45401\Desktop\SEP\SEP3\Broker_Test\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\45401\Desktop\SEP\SEP3\Broker_Test\bin\Debug\net7.0\Microsoft.AspNetCore.Authorization.dll
+C:\Users\45401\Desktop\SEP\SEP3\Broker_Test\bin\Debug\net7.0\Microsoft.AspNetCore.Metadata.dll
+C:\Users\45401\Desktop\SEP\SEP3\Broker_Test\bin\Debug\net7.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\45401\Desktop\SEP\SEP3\Broker_Test\bin\Debug\net7.0\Microsoft.Extensions.Options.dll
+C:\Users\45401\Desktop\SEP\SEP3\Broker_Test\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\45401\Desktop\SEP\SEP3\Broker_Test\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
