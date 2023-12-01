@@ -6,6 +6,7 @@
 @using TaskStatus = ClassLibrary_SEP3.TaskStatus
 @inject ProjectService ProjectService
 @inject TaskService TaskService;
+@inject NavigationManager NavigationManager
 
 @inject NavigationManager NavManager
 
@@ -13,6 +14,7 @@
     <div class="container">
         <!--Title-->
         <h2>Project Hub for Project ID: @ProjectIdAsString</h2>
+        
         <!--Backlog section----------------------------------------------------------->
         <div class="card backlog-section">
             <p>Backlog</p>
@@ -72,29 +74,32 @@
         </div>
         <!--Backlog section End----------------------------------------------------------->
 
+        
+        
         <!--Create Logbog----------------------------------------------------------------->
-       <div class="card logbook-section">
-           <p>Logbook Entries</p>
-           <table>
-               <thead>
-                   <tr>
-                       <th>Owner Username</th>
-                       <th>Description</th>
-                       <th>Created Time Stamp</th>
-                   </tr>
-               </thead>
-               <tbody>
-                   @foreach (var entry in LogBookEntries)
-                   {
-                       <tr>
-                           <td>@entry.OwnerUsername</td>
-                           <td>@entry.Description</td>
-                           <td>@entry.CreatedTimeStamp.ToString("yyyy-MM-dd HH:mm:ss")</td>
-                       </tr>
-                   }
-               </tbody>
-           </table>
-       </div>
+        <div class="card logbook-section">
+            <p>Logbook Entries</p>
+            <table>
+                <thead>
+                <tr>
+                    <th>Owner Username</th>
+                    <th>Description</th>
+                    <th>Created Time Stamp</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var entry in LogBookEntries)
+                {
+                    <tr>
+                        <td>@entry.OwnerUsername</td>
+                        <td>@entry.Description</td>
+                        <td>@entry.CreatedTimeStamp.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+        <button class="btn btn-primary" @onclick="NavigateToCreateEntry">Create New Entry</button>
     </div>
 </div>
 
@@ -170,5 +175,12 @@
         {
             throw new NullReferenceException("Failed to delete Task");
         }
+    }
+    
+    
+    
+    private void NavigateToCreateEntry()
+    {
+        NavigationManager.NavigateTo($"/create-new-entry-for-logbook/{ProjectIdAsString}");
     }
 }
