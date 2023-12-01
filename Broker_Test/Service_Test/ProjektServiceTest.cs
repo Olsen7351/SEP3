@@ -7,13 +7,14 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Broker.Services;
 using ClassLibrary_SEP3;
+using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Moq.Protected;
-using ProjectMicroservice.DataTransferObjects;
 using Task = System.Threading.Tasks.Task;
 
-namespace Broker_Test
+namespace Broker_Test.Service_Test
+
 {
     public class ProjectServiceTest
     {

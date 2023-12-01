@@ -2,7 +2,6 @@
 using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Http.HttpResults;
 using ProjectMicroservice.Services;
-using ProjectMicroservice.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using Task = ClassLibrary_SEP3.Task;

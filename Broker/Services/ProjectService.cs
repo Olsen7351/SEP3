@@ -5,7 +5,6 @@ using ClassLibrary_SEP3;
 using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using ProjectMicroservice.DataTransferObjects;
 
 
 namespace Broker.Services

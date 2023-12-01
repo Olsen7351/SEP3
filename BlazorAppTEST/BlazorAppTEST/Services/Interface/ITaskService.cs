@@ -1,7 +1,9 @@
-using ClassLibrary_SEP3.DataTransferObjects;
-using ProjectMicroservice.DataTransferObjects;
 
-namespace BlazorAppTEST.Services;
+
+using ClassLibrary_SEP3.DataTransferObjects;
+
+namespace BlazorAppTEST.Services.Interface;
+
 
 public interface ITaskService
 {
