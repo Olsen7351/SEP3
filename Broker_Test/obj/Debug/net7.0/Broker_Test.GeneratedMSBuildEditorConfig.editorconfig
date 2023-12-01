@@ -8,4 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Broker_Test
-build_property.ProjectDir = C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\
+build_property.ProjectDir = C:\Users\alexa\OneDrive\Dokumenter\GitHub\SEP3\Broker_Test\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
