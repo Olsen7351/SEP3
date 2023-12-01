@@ -5,7 +5,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import javax.crypto.spec.SecretKeySpec;
+import java.security.Key;
 import java.util.Date;
+import java.util.List;
 
 @Component
 public class JwtUtil {
@@ -16,12 +19,18 @@ public class JwtUtil {
     @Value("${jwt.expiration}")
     private long expiration;
 
+    private Key getSigningKey() {
+        return new SecretKeySpec(secret.getBytes(), SignatureAlgorithm.HS512.getJcaName());
+    }
+
     public String generateToken(UserDetails userDetails) {
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())
+                .setIssuer("authmicroservice")
+                .setAudience("SEP3")
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expiration * 1000))
-                .signWith(SignatureAlgorithm.HS512, secret)
+                .signWith(getSigningKey())
                 .compact();
     }
 

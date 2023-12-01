@@ -5,7 +5,6 @@ using MongoDB.Driver;
 using Moq;
 using ProjectMicroservice.Controllers;
 using ProjectMicroservice.Data;
-using ProjectMicroservice.DataTransferObjects;
 using ProjectMicroservice.Services;
 using Xunit;
 

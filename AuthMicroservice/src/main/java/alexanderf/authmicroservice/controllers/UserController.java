@@ -36,7 +36,9 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<Void> registerUser(@Valid @RequestBody UserDTO userDto) {
-        User registered = userService.registerNewUserAccount(userDto);
+        if (userService.findByUsername(userDto.getUsername())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
         return ResponseEntity.ok().build();
     }
 

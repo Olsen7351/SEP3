@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using ProjectMicroservice.Services;
 
 using Microsoft.AspNetCore.Mvc;
-using ProjectMicroservice.DataTransferObjects;
 using MongoDB.Bson;
 using Newtonsoft.Json;
 using Xunit.Sdk;
@@ -32,7 +31,7 @@ namespace ProjectMicroservice.Controllers
             {
                 return BadRequest(ModelState); // Returns a 400 Bad Request with validation errors.
             }
-
+            
             if (request.StartDate > request.EndDate)
             {
                 ModelState.AddModelError("StartDate", "Start date must be before end date.");
@@ -44,17 +43,15 @@ namespace ProjectMicroservice.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetProject(string id)
+        public Project GetProject(string id)
         {
             Project project = _projectService.GetProject(id);
 
 
-            return new OkObjectResult(project);
+            return project;
         }
-  
-   
 
-    [HttpPost("{projectId}/addUser")]
+        [HttpPost("{projectId}/addUser")]
         public IActionResult AddUserToProject(string projectId, [FromBody] AddUserToProjectRequest request)
         {
             if (!ModelState.IsValid)
@@ -62,7 +59,7 @@ namespace ProjectMicroservice.Controllers
                 return BadRequest(ModelState);
             }
 
-            var result = _projectService.AddUserToProject( request);
+            var result = _projectService.AddUserToProject(projectId, request.UserName);
         
             if (result == null)
             {

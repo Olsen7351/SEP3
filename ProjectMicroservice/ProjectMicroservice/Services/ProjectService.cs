@@ -1,27 +1,19 @@
 using System.Collections.Concurrent;
 using ClassLibrary_SEP3;
 using ClassLibrary_SEP3.DataTransferObjects;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualBasic.CompilerServices;
-using MongoDB.Bson;
 using MongoDB.Driver;
 using ProjectMicroservice.Data;
-using ProjectMicroservice.DataTransferObjects;
-using ZstdSharp;
 using Task = ClassLibrary_SEP3.Task;
-
 
 namespace ProjectMicroservice.Services
 {
     public class ProjectService : IProjectService
     {
         private readonly IMongoCollection<Project> _projects;
-        private readonly IMongoCollection<UsersAPartOfProjects> _userAPartOfProjects;
 
         public ProjectService(MongoDbContext context)
         {
             _projects = context.Database.GetCollection<Project>("Projects");
-            _userAPartOfProjects = context.Database.GetCollection<UsersAPartOfProjects>("UserAPartOfProjects");
         }
 
         public Project CreateProject(CreateProjectRequest request) 
@@ -86,24 +78,9 @@ namespace ProjectMicroservice.Services
             }
         }
 
-        public bool AddUserToProject(AddUserToProjectRequest request)
+        public bool AddUserToProject(string projectId, string userName)
         {
-            try
-            {
-                var addUserToProjects = new UsersAPartOfProjects
-                {
-                    Username = request.UserName,
-                    ProjectID = new List<string> { request.ProjectId }
-                };
-
-                _userAPartOfProjects.InsertOne(addUserToProjects); // _usersApartOfProjectsCollection is the IMongoCollection<UsersAPartOfProjects>
-
-                return true; // Since InsertOne will throw an exception if it fails
-            }
-            catch (Exception)
-            {
-                throw new MongoException("Failed to add user to project in database");
-            }
+            throw new NotImplementedException();
         }
     }
 }

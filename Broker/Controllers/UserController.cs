@@ -9,7 +9,11 @@ using Task = ClassLibrary_SEP3.Task;
 namespace Broker.Controllers;
 
 [ApiController]
+
 [Route("api/Broker/[controller]" )]
+
+[Route("api/[controller]")]
+
 public class UserController : ControllerBase
 {
     private readonly IUserService _IuserService;
@@ -32,14 +36,7 @@ public class UserController : ControllerBase
 
         var serviceResult = await _IuserService.CreateUser(user);
 
-        if (serviceResult is OkObjectResult okResult)
-        {
-            return Ok(okResult.Value);
-        }
-        else
-        {
-            return serviceResult;
-        }
+        return serviceResult;
     }
 
 

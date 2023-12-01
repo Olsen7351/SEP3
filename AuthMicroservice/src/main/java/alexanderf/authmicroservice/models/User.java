@@ -1,6 +1,8 @@
 package alexanderf.authmicroservice.models;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
@@ -9,6 +11,7 @@ import java.util.List;
 public class User {
     @Id
     private String id;
+    @Indexed(unique = true)
     private String username;
     private String email;
     private String password;
@@ -24,7 +27,7 @@ public class User {
         this.password = password;
     }
 
-    public <T> User(String username, String password, List<T> roleUser) {
+    public <T> User(String username, String password) {
         this.username = username;
         this.password = password;
     }

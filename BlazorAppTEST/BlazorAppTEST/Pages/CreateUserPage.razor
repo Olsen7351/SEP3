@@ -2,8 +2,10 @@
 @using BlazorAppTEST.Services.Auth
 @using ClassLibrary_SEP3
 @using Task = System.Threading.Tasks.Task
+@using BlazorAppTEST.Services
+@using ClassLibrary_SEP3.DataTransferObjects
 @inject NavigationManager NavigationManager
-@inject UserService UserService
+@inject IUserLogin UserService
 
 <div class="full-page">
     <div class="login-container">
@@ -22,6 +24,11 @@
                 <InputText id="password" class="form-control" @bind-Value="user.Password" type="password"/>
                 <ValidationMessage For="@(() => user.Password)" />
             </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <InputText id="email" class="form-control" @bind-Value="user.Email" type="email" />
+                <ValidationMessage For="@(() => user.Email)" />
+            </div>
             <button type="submit" class="btn btn-primary">Create User</button>
         </EditForm>
         
@@ -33,7 +40,7 @@
 </div>
 
 @code {
-    private User user = new User();
+    private CreateUserRequest user = new CreateUserRequest();
     string ErrorMessage { get; set; }
 
     private async Task CreateUser()
@@ -42,8 +49,8 @@
         {
             await UserService.createUser(user);
             ErrorMessage = "User created successfully!";
-            user = new User(); // Reset the form
-            NavigationManager.NavigateTo("/");
+            user = new CreateUserRequest(); // Reset the form
+            NavigationManager.NavigateTo("/LoginPage");
             
         }
         catch (Exception e)

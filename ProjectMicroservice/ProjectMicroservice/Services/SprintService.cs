@@ -1,7 +1,6 @@
 
 
 using ClassLibrary_SEP3;
-using DefaultNamespace;
 
 namespace ProjectMicroservice.Services;
 using ClassLibrary_SEP3.DataTransferObjects;

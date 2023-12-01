@@ -26,7 +26,7 @@ builder.Services.AddMvc()
 
 // Registering the IProjectService and IBacklogService with their concrete implementations.
 builder.Services.AddScoped<IProjectService, ProjectService>();
-
+builder.Services.AddScoped<ISprintService,SprintService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

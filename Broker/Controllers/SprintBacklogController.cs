@@ -1,6 +1,10 @@
 ﻿using Broker.Services;
 using ClassLibrary_SEP3;
+
 using Microsoft.AspNetCore.Authorization;
+
+using ClassLibrary_SEP3.DataTransferObjects;
+
 using Microsoft.AspNetCore.Mvc;
 using Task = ClassLibrary_SEP3.Task;
 
@@ -55,7 +59,7 @@ namespace Broker.Controllers
             return await _sprintBacklogService.DeleteSprintBacklogAsync(ProjectId, id);
         }
         [HttpPost("{sprintId}/AddTask")]
-        public async Task<IActionResult> AddTaskToSprintBacklog(string projectId, string sprintId, Task task)
+        public async Task<IActionResult> AddTaskToSprintBacklog(string projectId, string sprintId, AddSprintTaskRequest task)
         {
             //TODO
             throw new NotImplementedException();
