@@ -35,13 +35,11 @@
     private LogBookEntryPoints logBookEntry = new LogBookEntryPoints();
     
 
+    
     private async Task HandleValidSubmit()
     {
         logBookEntry.CreatedTimeStamp = DateTime.Now;
         await LogBookService.CreateNewEntryToLogBook(logBookEntry);
-
-      
-         // Navigate back to the project hub page with the project ID
         NavigationManager.NavigateTo($"/project-hub/{ProjectIdAsString}");
     }
 }
