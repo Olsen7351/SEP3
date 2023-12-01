@@ -1,10 +1,10 @@
 ﻿using Broker.Services;
 using ClassLibrary_SEP3;
-<<<<<<< HEAD
+
 using Microsoft.AspNetCore.Authorization;
-=======
+
 using ClassLibrary_SEP3.DataTransferObjects;
->>>>>>> Test3
+
 using Microsoft.AspNetCore.Mvc;
 using Task = ClassLibrary_SEP3.Task;
 

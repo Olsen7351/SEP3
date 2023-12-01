@@ -1,11 +1,11 @@
 ﻿using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
-<<<<<<< HEAD
+
 using BlazorAppTEST.Services.Auth;
-=======
+
 using BlazorAppTEST.Services.Interface;
->>>>>>> Test3
+
 using ClassLibrary_SEP3;
 using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Http.HttpResults;

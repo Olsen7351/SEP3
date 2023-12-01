@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 using Broker.Services;
 using ClassLibrary_SEP3;
 using ClassLibrary_SEP3.DataTransferObjects;
-<<<<<<< HEAD
+
 using Microsoft.AspNetCore.Authorization;
-=======
->>>>>>> Test3
+
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;

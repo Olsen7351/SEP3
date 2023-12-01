@@ -30,17 +30,7 @@ namespace BlazorAppTEST.Services
             var response = await _httpClient.GetFromJsonAsync<IEnumerable<SprintBacklog>>($"api/SprintBacklog/{ProjectId}");
             if (response == null)
             {
-<<<<<<< HEAD
                 return new NotFoundResult();
-=======
-                string content = await response.Content.ReadAsStringAsync();
-                var sprintBacklog = JsonSerializer.Deserialize<SprintBacklog>(content);
-                return new OkObjectResult(sprintBacklog);
-            }
-            else
-            {
-                return new StatusCodeResult((int)response.StatusCode);
->>>>>>> Test3
             }
             return new OkObjectResult(response);
         }

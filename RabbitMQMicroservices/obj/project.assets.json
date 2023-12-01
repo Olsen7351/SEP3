@@ -822,19 +822,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Kim\\.nuget\\packages\\": {}
+    "C:\\Users\\45401\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Kim\\Desktop\\SEP#\\RabbitMQMicroservices\\RabbitMQMicroservices.csproj",
+      "projectUniqueName": "C:\\Users\\45401\\Desktop\\SEP\\SEP3\\RabbitMQMicroservices\\RabbitMQMicroservices.csproj",
       "projectName": "RabbitMQMicroservices",
-      "projectPath": "C:\\Users\\Kim\\Desktop\\SEP#\\RabbitMQMicroservices\\RabbitMQMicroservices.csproj",
-      "packagesPath": "C:\\Users\\Kim\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Kim\\Desktop\\SEP#\\RabbitMQMicroservices\\obj\\",
+      "projectPath": "C:\\Users\\45401\\Desktop\\SEP\\SEP3\\RabbitMQMicroservices\\RabbitMQMicroservices.csproj",
+      "packagesPath": "C:\\Users\\45401\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\45401\\Desktop\\SEP\\SEP3\\RabbitMQMicroservices\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Kim\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\45401\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"

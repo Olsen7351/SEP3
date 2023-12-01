@@ -15,13 +15,13 @@ using Moq.Protected;
 namespace BlazorAppTest;
 public class CreateUser_Test
 {
-    private readonly Mock<IUserService> _mockUserService;
-    private IUserService _userService;
+    private readonly Mock<IUserLogin> _mockUserService;
+    private IUserLogin _userService;
 
 
     public CreateUser_Test()
     {
-        _mockUserService = new Mock<IUserService>();
+        _mockUserService = new Mock<IUserLogin>();
         _userService = _mockUserService.Object;
     }
 
