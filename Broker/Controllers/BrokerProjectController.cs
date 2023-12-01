@@ -37,6 +37,9 @@ namespace Broker.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateProjekt([FromBody] CreateProjectRequest projekt)
         {
+            var token = HttpContext.Request.Headers["Authorization"];
+            Console.WriteLine($"Token used to access: {token}");
+
             if (projekt == null)
             {
                 return new BadRequestResult();

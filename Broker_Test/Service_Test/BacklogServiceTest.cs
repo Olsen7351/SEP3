@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using ProjectMicroservice.DataTransferObjects;
 using ClassLibrary_SEP3;
-
+using ClassLibrary_SEP3.DataTransferObjects;
 using TaskStatus = ClassLibrary_SEP3.TaskStatus;
 using Task = System.Threading.Tasks.Task;
 

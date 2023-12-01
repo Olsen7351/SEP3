@@ -19,16 +19,52 @@ builder.Configuration.AddJsonFile("appsettings.json");
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
     {
+        options.RequireHttpsMetadata = false;
+        options.SaveToken = true;
+
         var jwtSettings = builder.Configuration.GetSection("JwtSettings");
         var secretKey = jwtSettings.GetValue<string>("SecretKey");
-
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
             ValidateAudience = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey)) // Using the secret key from appsettings.json
+            ValidAudience = "SEP3", // The audience of the token is broker
+            ValidIssuer = "authmicroservice", // The issuer of the token is authmicroservice
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey)), // Using the secret key from appsettings.json
+            //ValidateIssuerSigningKey = true
+        };
+
+        options.Events = new JwtBearerEvents
+        {
+            OnTokenValidated = context =>
+            {
+                var token = context.SecurityToken?.ToString();
+                if (token != null)
+                {
+                    Console.WriteLine($"Received and validated token: {token}");
+                }
+                else
+                {
+                    Console.WriteLine("Token validation failed.");
+                }
+                return Task.CompletedTask;
+            },
+            OnAuthenticationFailed = context =>
+            {
+                Console.WriteLine($"Authentication failed: {context.Exception.Message}");
+                return Task.CompletedTask;
+            }
         };
     });
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
+        .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+        .RequireAuthenticatedUser()
+        .Build());
+});
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -48,13 +84,7 @@ builder.Services.AddCors(options =>
             .AllowAnyHeader(); // Allow any HTTP headers
     });
 });
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
-        .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
-        .RequireAuthenticatedUser()
-        .Build());
-});
+
 
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IBacklogService, BacklogService>();
@@ -70,7 +100,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
 app.UseCors();
 
 app.UseAuthorization();

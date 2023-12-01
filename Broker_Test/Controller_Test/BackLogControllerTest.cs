@@ -1,4 +1,5 @@
-﻿using ProjectMicroservice.DataTransferObjects;
+﻿using ClassLibrary_SEP3.DataTransferObjects;
+using ProjectMicroservice.DataTransferObjects;
 
 namespace Broker_Test.Controller_Test;
 using Broker.Controllers;

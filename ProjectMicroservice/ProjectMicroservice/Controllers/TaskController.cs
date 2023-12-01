@@ -1,4 +1,5 @@
 ﻿using ClassLibrary_SEP3;
+using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Http.HttpResults;
 using ProjectMicroservice.Services;
 using ProjectMicroservice.DataTransferObjects;

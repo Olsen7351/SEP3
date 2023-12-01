@@ -9,7 +9,7 @@ using Task = ClassLibrary_SEP3.Task;
 namespace Broker.Controllers;
 
 [ApiController]
-[Route("api/Broker")]
+[Route("api/[controller]")]
 
 public class LogBookController : ControllerBase
 {

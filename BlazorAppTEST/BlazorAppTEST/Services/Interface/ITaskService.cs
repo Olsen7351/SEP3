@@ -1,3 +1,4 @@
+using ClassLibrary_SEP3.DataTransferObjects;
 using ProjectMicroservice.DataTransferObjects;
 
 namespace BlazorAppTEST.Services;

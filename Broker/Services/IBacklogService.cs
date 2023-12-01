@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ClassLibrary_SEP3.DataTransferObjects;
+using Microsoft.AspNetCore.Mvc;
 using ProjectMicroservice.DataTransferObjects;
 using Task = ClassLibrary_SEP3.Task;
 

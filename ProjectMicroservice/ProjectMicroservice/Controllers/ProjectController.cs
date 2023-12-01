@@ -52,7 +52,7 @@ namespace ProjectMicroservice.Controllers
             return new OkObjectResult(project);
         }
 
-        [HttpPost("{projectId)/addUser")]
+        [HttpPost("{projectId}/addUser")]
         public IActionResult AddUserToProject(string projectId, [FromBody] AddUserToProjectRequest request)
         {
             if (!ModelState.IsValid)

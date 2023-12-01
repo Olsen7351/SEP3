@@ -1,4 +1,5 @@
 ﻿using Broker.Services;
+using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProjectMicroservice.DataTransferObjects;

@@ -2,6 +2,7 @@ using System.Text;
 using BlazorAppTEST.Services;
 using BlazorAppTEST.Services.Auth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
@@ -19,7 +20,10 @@ builder.Services.AddScoped<IUserLogin,UserService>();
 builder.Services.AddScoped<BacklogService>();
 builder.Services.AddScoped<TaskService>();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthProvider>();
-AuthorizationPolicies.AddPolicies(builder.Services);
+
+builder.Services.AddAuthorizationCore();
+builder.Services.AddAuthenticationCore();
+
 builder.Services.AddScoped(sp => 
     new HttpClient 
     { 
@@ -35,7 +39,6 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
