@@ -14,7 +14,7 @@
     <div class="container">
         <!--Title-->
         <h2>Project Hub for Project ID: @ProjectIdAsString</h2>
-        
+
         <!--Backlog section----------------------------------------------------------->
         <div class="card backlog-section">
             <p>Backlog</p>
@@ -74,9 +74,8 @@
         </div>
         <!--Backlog section End----------------------------------------------------------->
 
-        
-        
-        <!--Create Logbog----------------------------------------------------------------->
+
+        <!-- Logbook section -->
         <div class="card logbook-section">
             <p>Logbook Entries</p>
             <table>
@@ -85,6 +84,7 @@
                     <th>Owner Username</th>
                     <th>Description</th>
                     <th>Created Time Stamp</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -94,6 +94,9 @@
                         <td>@entry.OwnerUsername</td>
                         <td>@entry.Description</td>
                         <td>@entry.CreatedTimeStamp.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                        <td>
+                            <button class="btn btn-secondary" @onclick="() => EditLogbookEntry(entry.EntryID)">Edit</button>
+                        </td>
                     </tr>
                 }
                 </tbody>
@@ -128,8 +131,8 @@
         {
             BacklogTasks = new List<ClassLibrary_SEP3.Task>()!;
         }
-        
-        /* Service for logbook needs to be added -----------------------------------------
+
+    /* Service for logbook needs to be added -----------------------------------------
         var logbook = await ProjectService.GetLogBook(ProjectIdAsString);
         if (logbook != null && logbook.LogBookEntryPoints != null)
         {
@@ -176,9 +179,14 @@
             throw new NullReferenceException("Failed to delete Task");
         }
     }
-    
-    
-    
+
+
+    private void EditLogbookEntry(string logbookEntryId)
+    {
+        NavigationManager.NavigateTo($"/edit-logbook-entry/{logbookEntryId}");
+    }
+
+
     private void NavigateToCreateEntry()
     {
         NavigationManager.NavigateTo($"/create-new-entry-for-logbook/{ProjectIdAsString}");
