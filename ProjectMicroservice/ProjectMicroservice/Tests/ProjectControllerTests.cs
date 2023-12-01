@@ -1,10 +1,10 @@
 using ClassLibrary_SEP3;
+using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using Moq;
 using ProjectMicroservice.Controllers;
 using ProjectMicroservice.Data;
-using ProjectMicroservice.DataTransferObjects;
 using ProjectMicroservice.Services;
 using Xunit;
 

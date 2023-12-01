@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Dynamic;
 using TaskStatus = ClassLibrary_SEP3.TaskStatus;
 
-namespace ProjectMicroservice.DataTransferObjects;
+namespace ClassLibrary_SEP3.DataTransferObjects;
 
 public class AddBacklogTaskRequest
 {

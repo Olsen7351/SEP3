@@ -1,7 +1,7 @@
 using ClassLibrary_SEP3;
 using Task = System.Threading.Tasks.Task;
 
-namespace BlazorAppTEST.Services;
+namespace BlazorAppTEST.Services.Interface;
 
 public interface IBacklogService
 {

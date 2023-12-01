@@ -1,6 +1,5 @@
 using ClassLibrary_SEP3;
 using Microsoft.AspNetCore.Mvc;
-using ProjectMicroservice.DataTransferObjects;
 using ProjectMicroservice.Services;
 
 namespace ProjectMicroservice.Controllers;

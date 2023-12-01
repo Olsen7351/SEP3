@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
-namespace BlazorAppTEST.Services
+namespace ClassLibrary_SEP3.Helper
 {
     [AttributeUsage(AttributeTargets.Class)]
     public class ValidEndDateAttribute : ValidationAttribute

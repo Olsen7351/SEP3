@@ -1,4 +1,4 @@
-﻿namespace ClassLibrary_SEP3;
+﻿namespace ClassLibrary_SEP3.DataTransferObjects;
 
 public class SprintBackLogRequest
 {

@@ -2,7 +2,7 @@
 using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BlazorAppTEST.Services
+namespace BlazorAppTEST.Services.Interface
 {
     public interface ISprintBacklogService
     {

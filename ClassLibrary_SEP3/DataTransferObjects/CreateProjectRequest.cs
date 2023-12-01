@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
-using BlazorAppTEST.Services;
+using ClassLibrary_SEP3.Helper;
 
-namespace ProjectMicroservice.DataTransferObjects;
+namespace ClassLibrary_SEP3.DataTransferObjects;
 
 
 [ValidEndDate("StartDate", "EndDate")]

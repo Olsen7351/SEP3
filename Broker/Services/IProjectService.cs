@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using ClassLibrary_SEP3;
+using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
-using ProjectMicroservice.DataTransferObjects;
 
 namespace Broker.Services
 {
