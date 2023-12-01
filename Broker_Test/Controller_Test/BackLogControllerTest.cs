@@ -1,10 +1,9 @@
-<<<<<<< HEAD
-﻿
+
+
 using ClassLibrary_SEP3.DataTransferObjects;
-=======
-﻿using ClassLibrary_SEP3.DataTransferObjects;
-using ProjectMicroservice.DataTransferObjects;
->>>>>>> 88775a473578bea3f63a1222ee554c9e09398857
+
+using ClassLibrary_SEP3.DataTransferObjects;
+
 
 namespace Broker_Test.Controller_Test;
 using Broker.Controllers;

@@ -1,9 +1,7 @@
 ﻿using Broker.Services;
-<<<<<<< HEAD
 
-=======
 using ClassLibrary_SEP3.DataTransferObjects;
->>>>>>> 88775a473578bea3f63a1222ee554c9e09398857
+
 using Microsoft.AspNetCore.Authorization;
 
 using ClassLibrary_SEP3.DataTransferObjects;
