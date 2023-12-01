@@ -1,8 +1,11 @@
 using ClassLibrary_SEP3;
+<<<<<<< HEAD
 using Microsoft.AspNetCore.Mvc;
+=======
+using ClassLibrary_SEP3.DataTransferObjects;
+>>>>>>> Test3
 using Microsoft.VisualBasic.CompilerServices;
 using MongoDB.Bson;
-using ProjectMicroservice.DataTransferObjects;
 using ProjectMicroservice.Tests;
 using ProjectDatabase = ClassLibrary_SEP3.Project;
 

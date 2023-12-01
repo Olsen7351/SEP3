@@ -1,7 +1,10 @@
 ﻿using Broker.Services;
+<<<<<<< HEAD
 using Microsoft.AspNetCore.Authorization;
+=======
+using ClassLibrary_SEP3.DataTransferObjects;
+>>>>>>> Test3
 using Microsoft.AspNetCore.Mvc;
-using ProjectMicroservice.DataTransferObjects;
 using Task = ClassLibrary_SEP3.Task;
 
 namespace Broker.Controllers;

@@ -8,8 +8,7 @@ using Xunit;
 using Task = System.Threading.Tasks.Task;
 using TaskStatus = System.Threading.Tasks.TaskStatus;
 
-namespace DefaultNamespace;
-
+namespace ProjectMicroservice.Tests;
 public class SprintControllerTest
 {
     private readonly Mock<ISprintService> _mockSprintService;
@@ -46,7 +45,7 @@ public class SprintControllerTest
             .Returns(sprintBacklogs);
 
 
-        var result = await _sprintController.GetAllSprintBacklogs(projectId);
+        var result = await _sprintController.GetAllSprints("1");
         var okResult = Assert.IsType<OkObjectResult>(result);
         Assert.Equal(sprintBacklogs, okResult.Value);
     }
@@ -66,7 +65,7 @@ public class SprintControllerTest
            
         };
         _mockSprintService.Setup(service => service.GetSprintBacklogById(sprintBacklogId)).Returns(sprintBacklog);
-        var result = await _sprintController.GetSpecificSprintBacklog(projectId, sprintBacklogId);
+        var result = await _sprintController.GetSpecificSprint(projectId, sprintBacklogId);
         var okResult = Assert.IsType<OkObjectResult>(result);
         Assert.Equal(sprintBacklog, okResult.Value);
 
@@ -93,7 +92,7 @@ public class SprintControllerTest
         _mockSprintService.Setup(service => service.CreateSprintBacklog(request))
             .Returns(createdSprintBacklog);
 
-        var result = await _sprintController.CreateSprintBacklog(projectId, request);
+        var result = await _sprintController.CreateSprint(projectId, request);
         var createdResult = Assert.IsType<CreatedAtActionResult>(result);
         Assert.Equal(createdSprintBacklog, createdResult.Value);
     }
@@ -119,7 +118,7 @@ public class SprintControllerTest
         _mockSprintService.Setup(service => service.UpdateSprintBacklog(sprintBacklogId, sprintBacklogToUpdate))
             .Returns(updatedSprintBacklog);
 
-        var result = await _sprintController.UpdateSprintBacklog(projectId, sprintBacklogId, sprintBacklogToUpdate);
+        var result = await _sprintController.UpdateSprint(projectId, sprintBacklogId, sprintBacklogToUpdate);
         var okResult = Assert.IsType<OkObjectResult>(result);
         Assert.Equal(updatedSprintBacklog, okResult.Value);
 
@@ -133,7 +132,7 @@ public class SprintControllerTest
         _mockSprintService.Setup(service => service.DeleteSprintBacklog(sprintBacklogId))
             .Returns(true);
 
-        var result = await _sprintController.DeleteSprintBacklog(projectId, sprintBacklogId);
+        var result = await _sprintController.DeleteSprint(projectId, sprintBacklogId);
         var okResult = Assert.IsType<OkResult>(result);
 
     }

@@ -1,11 +1,12 @@
 using System.Net;
 using System.Text;
 using BlazorAppTEST.Services;
+using BlazorAppTEST.Services.Interface;
 using ClassLibrary_SEP3;
+using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Moq.Protected;
-using ProjectMicroservice.DataTransferObjects;
 using Xunit;
 using Task = System.Threading.Tasks.Task;
 

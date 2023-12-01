@@ -1,9 +1,10 @@
 using ClassLibrary_SEP3;
+using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
-using ProjectMicroservice.DataTransferObjects;
 using Task = System.Threading.Tasks.Task;
 
-namespace BlazorAppTEST.Services;
+namespace BlazorAppTEST.Services.Interface;
+
 
 public interface IProjectService
 {

@@ -12,7 +12,7 @@ using Xunit;
 using ClassLibrary_SEP3;
 using Moq.Protected;
 
-
+namespace BlazorAppTest;
 public class CreateUser_Test
 {
     private readonly Mock<IUserService> _mockUserService;

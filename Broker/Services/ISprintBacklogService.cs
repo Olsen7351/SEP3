@@ -1,4 +1,5 @@
 ﻿using ClassLibrary_SEP3;
+using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 using Task = ClassLibrary_SEP3.Task;
 
@@ -11,7 +12,7 @@ namespace Broker.Services
         public Task<IActionResult> GetSprintBacklogByIdAsync(string ProjectId, string Id);
         Task<IActionResult> UpdateSprintBacklogAsync(string projectId, string id, SprintBacklog sprintBacklog);
         Task<IActionResult> DeleteSprintBacklogAsync(string projectId, string id);
-        public Task<IActionResult> AddTaskToSprintBacklogAsync(string projectId, string id, Task task);
+        public Task<IActionResult> AddTaskToSprintBacklogAsync(string projectId, string id, AddSprintTaskRequest task);
         public Task<IActionResult> GetTasksFromSprintBacklogAsync(string projectId, string Id);
     }
 }
