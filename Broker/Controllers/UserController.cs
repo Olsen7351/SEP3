@@ -36,14 +36,7 @@ public class UserController : ControllerBase
 
         var serviceResult = await _IuserService.CreateUser(user);
 
-        if (serviceResult is OkObjectResult okResult)
-        {
-            return Ok(okResult.Value);
-        }
-        else
-        {
-            return serviceResult;
-        }
+        return serviceResult;
     }
 
 

@@ -6,6 +6,7 @@
 @using TaskStatus = ClassLibrary_SEP3.TaskStatus
 @inject ProjectService ProjectService
 @inject TaskService TaskService;
+@attribute [Authorize]
 
 @inject NavigationManager NavManager
 
@@ -72,7 +73,7 @@
         </div>
         <!--Backlog section End----------------------------------------------------------->
 
-        <!--Create Logbog----------------------------------------------------------------->
+        @* <!--Create Logbog----------------------------------------------------------------->
        <div class="card logbook-section">
            <p>Logbook Entries</p>
            <table>
@@ -94,7 +95,7 @@
                    }
                </tbody>
            </table>
-       </div>
+       </div> *@
     </div>
 </div>
 
@@ -106,8 +107,8 @@
 
     public Project? Project { get; set; }
     public List<ClassLibrary_SEP3.Task?>? BacklogTasks { get; set; }
-    public List<LogBookEntryPoints>? LogBookEntries { get; set; }
-    public List<ClassLibrary_SEP3.LogBook?>? LogBook { get; set; }
+    //public List<LogBookEntryPoints>? LogBookEntries { get; set; }
+    // public List<ClassLibrary_SEP3.LogBook?>? LogBook { get; set; }
     private AddBacklogTaskRequest newTask = new AddBacklogTaskRequest();
 
 

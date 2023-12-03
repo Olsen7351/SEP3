@@ -28,10 +28,15 @@ namespace Broker.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetProjekt(string id)
+        public async Task<Project> GetProjekt(string id)
         {
             var response = await projektService.GetProjekt(id);
-            return new OkObjectResult(response);
+
+            if (response == null)
+            {
+                throw new Exception("Project is empty or do not exsist");
+            }
+            return response;
         }
 
         [HttpPost]

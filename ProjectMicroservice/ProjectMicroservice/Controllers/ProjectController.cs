@@ -43,12 +43,12 @@ namespace ProjectMicroservice.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetProject(string id)
+        public Project GetProject(string id)
         {
             Project project = _projectService.GetProject(id);
 
 
-            return new OkObjectResult(project);
+            return project;
         }
 
         [HttpPost("{projectId}/addUser")]

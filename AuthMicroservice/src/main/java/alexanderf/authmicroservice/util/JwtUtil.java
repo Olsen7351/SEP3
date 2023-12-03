@@ -21,6 +21,7 @@ public class JwtUtil {
     private Key getSigningKey() {
         return new SecretKeySpec(secret.getBytes(), SignatureAlgorithm.HS512.getJcaName());
     }
+
     public String generateToken(UserDetails userDetails) {
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())

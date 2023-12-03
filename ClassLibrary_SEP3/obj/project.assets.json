@@ -467,24 +467,33 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\45401\\.nuget\\packages\\": {}
+    "C:\\Users\\alexa\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\45401\\Desktop\\SEP\\SEP3\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj",
+      "projectUniqueName": "C:\\Users\\alexa\\OneDrive\\Dokumenter\\GitHub\\SEP3\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj",
       "projectName": "ClassLibrary_SEP3",
-      "projectPath": "C:\\Users\\45401\\Desktop\\SEP\\SEP3\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj",
-      "packagesPath": "C:\\Users\\45401\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\45401\\Desktop\\SEP\\SEP3\\ClassLibrary_SEP3\\obj\\",
+      "projectPath": "C:\\Users\\alexa\\OneDrive\\Dokumenter\\GitHub\\SEP3\\ClassLibrary_SEP3\\ClassLibrary_SEP3.csproj",
+      "packagesPath": "C:\\Users\\alexa\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\alexa\\OneDrive\\Dokumenter\\GitHub\\SEP3\\ClassLibrary_SEP3\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\45401\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\alexa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
+        "C:\\Users\\alexa\\OneDrive\\Dokumenter\\nuget local": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -532,8 +541,16 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\alexa\\OneDrive\\Dokumenter\\GitHub\\SEP3\\ClassLibrary_SEP3\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
