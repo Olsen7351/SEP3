@@ -1,33 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\alexa\\OneDrive\\Dokumenter\\GitHub\\SEP3\\RabbitMQMicroservices\\RabbitMQMicroservices.csproj": {}
+    "C:\\Users\\45401\\Desktop\\SEP\\SEP3\\RabbitMQMicroservices\\RabbitMQMicroservices.csproj": {}
   },
   "projects": {
-    "C:\\Users\\alexa\\OneDrive\\Dokumenter\\GitHub\\SEP3\\RabbitMQMicroservices\\RabbitMQMicroservices.csproj": {
+    "C:\\Users\\45401\\Desktop\\SEP\\SEP3\\RabbitMQMicroservices\\RabbitMQMicroservices.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\alexa\\OneDrive\\Dokumenter\\GitHub\\SEP3\\RabbitMQMicroservices\\RabbitMQMicroservices.csproj",
+        "projectUniqueName": "C:\\Users\\45401\\Desktop\\SEP\\SEP3\\RabbitMQMicroservices\\RabbitMQMicroservices.csproj",
         "projectName": "RabbitMQMicroservices",
-        "projectPath": "C:\\Users\\alexa\\OneDrive\\Dokumenter\\GitHub\\SEP3\\RabbitMQMicroservices\\RabbitMQMicroservices.csproj",
-        "packagesPath": "C:\\Users\\alexa\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\alexa\\OneDrive\\Dokumenter\\GitHub\\SEP3\\RabbitMQMicroservices\\obj\\",
+        "projectPath": "C:\\Users\\45401\\Desktop\\SEP\\SEP3\\RabbitMQMicroservices\\RabbitMQMicroservices.csproj",
+        "packagesPath": "C:\\Users\\45401\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\45401\\Desktop\\SEP\\SEP3\\RabbitMQMicroservices\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\alexa\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\45401\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
-          "C:\\Users\\alexa\\OneDrive\\Dokumenter\\nuget local": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -86,7 +78,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }
