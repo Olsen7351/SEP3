@@ -6,6 +6,8 @@ public class LogBookEntryPoints
 {
     public int LogBookID { get; set; }
     
+    public string EntryID { get; set; }
+        
     [Required] 
     public String OwnerUsername { get; set; }
 

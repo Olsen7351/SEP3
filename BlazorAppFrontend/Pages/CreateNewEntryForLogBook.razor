@@ -1,0 +1,45 @@
+@page "/create-new-entry-for-logbook/{ProjectIdAsString}"
+@using System.ComponentModel.DataAnnotations
+@inject ILogBookService LogBookService
+@using BlazorAppTEST.Services
+@using ClassLibrary_SEP3
+@using Task = System.Threading.Tasks.Task
+
+@inject NavigationManager NavigationManager
+
+<h3>Create New Entry for Logbook</h3>
+
+<EditForm Model="@logBookEntry" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="OwnerUsername">Owner Username:</label>
+        <InputText id="OwnerUsername" class="form-control" @bind-Value="logBookEntry.OwnerUsername" />
+    </div>
+
+    <div class="form-group">
+        <label for="Description">Description:</label>
+        <InputTextArea id="Description" class="form-control" @bind-Value="logBookEntry.Description" />
+    </div>
+
+    <button type="submit" class="btn btn-success">Create Entry</button>
+</EditForm>
+
+
+
+@code {
+    
+    [Parameter]
+    public string ProjectIdAsString { get; set; }
+    private LogBookEntryPoints logBookEntry = new LogBookEntryPoints();
+    
+
+    
+    private async Task HandleValidSubmit()
+    {
+        logBookEntry.CreatedTimeStamp = DateTime.Now;
+        await LogBookService.CreateNewEntryToLogBook(logBookEntry);
+        NavigationManager.NavigateTo($"/project-hub/{ProjectIdAsString}");
+    }
+}

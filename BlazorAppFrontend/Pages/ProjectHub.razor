@@ -1,0 +1,195 @@
+﻿@page "/project-hub/{ProjectIdAsString}"
+@using ClassLibrary_SEP3
+@using BlazorAppTEST.Services
+@using ClassLibrary_SEP3.DataTransferObjects
+
+@using Task = System.Threading.Tasks.Task
+@using TaskStatus = ClassLibrary_SEP3.TaskStatus
+@inject ProjectService ProjectService
+@inject TaskService TaskService;
+@inject NavigationManager NavigationManager
+
+@inject NavigationManager NavManager
+
+<div class="container-fluid">
+    <div class="container">
+        <!--Title-->
+        <h2>Project Hub for Project ID: @ProjectIdAsString</h2>
+
+        <!--Backlog section----------------------------------------------------------->
+        <div class="card backlog-section">
+            <p>Backlog</p>
+            <ul class="task-list">
+                @if (BacklogTasks != null)
+                {
+                    <table>
+                        <thead>
+                        <th>Title:</th>
+                        <th>Description:</th>
+                        <th>Status:</th>
+                        <th>Responsible:</th>
+                        <th>Estimate Time:</th>
+                        <th>Actual Time Used:</th>
+                        </thead>
+                        <tbody>
+
+                        @foreach (var task in BacklogTasks!)
+                        {
+                            <tr>
+
+                                <td>@task.Title</td>
+                                <td>@task.Description</td>
+                                <td>@task.Status</td>
+                                <td>@task.Responsible</td>
+                                <td>@task.EstimateTimeInMinutes</td>
+                                <td>@task.ActualTimeUsedInMinutes</td>
+                                <td>
+                                    <button class="btn-delete-task" @onclick="() => DeleteTask(task.Id)">x</button>
+                                </td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                }
+            </ul>
+            <div class="create-task-form">
+                <h3>Create a New Task</h3>
+                <div class="form-group">
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" @bind="newTask.Title"/>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea id="description" @bind="newTask.Description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="estimateHours">Estimate Minutes:</label>
+                    <input type="number" id="estimateHours" @bind="newTask.EstimateTimeInMinutes"/>
+                </div>
+                <div class="form-group">
+                    <label for="responsible">Responsible:</label>
+                    <input type="text" id="responsible" @bind="newTask.Responsible"/>
+                </div>
+                <button class="button" @onclick="AddTask">Save Task</button>
+            </div>
+        </div>
+        <!--Backlog section End----------------------------------------------------------->
+
+
+        <!-- Logbook section -->
+        <div class="card logbook-section">
+            <p>Logbook Entries</p>
+            <table>
+                <thead>
+                <tr>
+                    <th>Owner Username</th>
+                    <th>Description</th>
+                    <th>Created Time Stamp</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var entry in LogBookEntries)
+                {
+                    <tr>
+                        <td>@entry.OwnerUsername</td>
+                        <td>@entry.Description</td>
+                        <td>@entry.CreatedTimeStamp.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                        <td>
+                            <button class="btn btn-secondary" @onclick="() => EditLogbookEntry(entry.EntryID)">Edit</button>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+        <button class="btn btn-primary" @onclick="NavigateToCreateEntry">Create New Entry</button>
+    </div>
+</div>
+
+
+@code
+{
+    [Parameter]
+    public string ProjectIdAsString { get; set; }
+
+    public Project? Project { get; set; }
+    public List<ClassLibrary_SEP3.Task?>? BacklogTasks { get; set; }
+    public List<LogBookEntryPoints>? LogBookEntries { get; set; }
+    public List<ClassLibrary_SEP3.LogBook?>? LogBook { get; set; }
+    private AddBacklogTaskRequest newTask = new AddBacklogTaskRequest();
+
+
+    protected override async Task OnParametersSetAsync()
+    {
+        Project = await ProjectService.GetProject(ProjectIdAsString);
+
+        if (Project.Backlog.BacklogTasks != null)
+        {
+            BacklogTasks = Project.Backlog.BacklogTasks;
+        }
+        else
+        {
+            BacklogTasks = new List<ClassLibrary_SEP3.Task>()!;
+        }
+
+    /* Service for logbook needs to be added -----------------------------------------
+        var logbook = await ProjectService.GetLogBook(ProjectIdAsString);
+        if (logbook != null && logbook.LogBookEntryPoints != null)
+        {
+            LogBookEntries = logbook.LogBookEntryPoints;
+        }
+        else
+        {
+            LogBookEntries = new List<LogBookEntryPoints>();
+        }
+        */
+    }
+
+    private async void AddTask()
+    {
+        var task = new AddBacklogTaskRequest()
+        {
+            ProjectId = ProjectIdAsString,
+            Title = newTask.Title,
+            Description = newTask.Description,
+            EstimateTimeInMinutes = newTask.EstimateTimeInMinutes,
+            Responsible = newTask.Responsible,
+            Status = TaskStatus.ToDo,
+            CreatedAt = DateTime.UtcNow
+        };
+        var response = await TaskService.CreateTask(task);
+
+        BacklogTasks.Add(response);
+        newTask = new AddBacklogTaskRequest();
+        StateHasChanged();
+    }
+
+
+    //DeleteTask
+    private async Task DeleteTask(string objectId)
+    {
+        try
+        {
+            await TaskService.DeleteTask(objectId, ProjectIdAsString);
+            BacklogTasks.RemoveAll(task => task.Id == objectId);
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            throw new NullReferenceException("Failed to delete Task");
+        }
+    }
+
+
+    private void EditLogbookEntry(string logbookEntryId)
+    {
+        NavigationManager.NavigateTo($"/edit-logbook-entry/{logbookEntryId}");
+    }
+
+
+    private void NavigateToCreateEntry()
+    {
+        NavigationManager.NavigateTo($"/create-new-entry-for-logbook/{ProjectIdAsString}");
+    }
+}

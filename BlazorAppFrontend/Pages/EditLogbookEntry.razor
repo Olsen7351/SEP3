@@ -1,0 +1,71 @@
+@page "/edit-logbook-entry/{EntryID}"
+@inject ILogBookService LogBookService
+@inject NavigationManager NavigationManager
+@using ClassLibrary_SEP3
+@using BlazorAppTEST.Services
+@using Task = System.Threading.Tasks.Task
+
+<h3>Edit Logbook Entry</h3>
+
+@if (logBookEntry == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <EditForm Model="@logBookEntry" OnValidSubmit="@EditEntry">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="form-group">
+            <label for="Description">Description:</label>
+            <InputTextArea id="Description" class="form-control" @bind-Value="logBookEntry.Description" />
+        </div>
+
+        <button type="submit" class="btn btn-success">Update Entry</button>
+    </EditForm>
+}
+
+
+
+
+@code {
+    [Parameter]
+    public string EntryID { get; set; }
+
+    private LogBookEntryPoints logBookEntry;
+    private string errorMessage;
+
+    
+    
+    
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            //Need to add service
+            //logBookEntry = await LogBookService.GetLogbookEntryById(EntryID);
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error loading logbook entry: {ex.Message}";
+        }
+    }
+
+    
+    
+    
+    private async Task EditEntry()
+    {
+        try
+        {
+            //Need at add service
+            //await LogBookService.UpdateLogbookEntry(logBookEntry);
+            NavigationManager.NavigateTo($"/project-hub/{logBookEntry.LogBookID}");
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error updating logbook entry: {ex.Message}";
+        }
+    }
+}

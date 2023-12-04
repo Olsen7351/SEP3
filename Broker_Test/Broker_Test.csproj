@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Broker\Broker.csproj" />
+    <ProjectReference Include="..\ClassLibrary_SEP3\ClassLibrary_SEP3.csproj" />
   </ItemGroup>
 
 </Project>
