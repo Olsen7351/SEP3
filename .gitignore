@@ -22,6 +22,10 @@ TestResults/
 *.suo
 *.user
 
+#Folder obj and bin
+**/bin/
+**/obj/
+
 # Java and .NET Core Build and Dependency Files
 *.class
 *.jar
