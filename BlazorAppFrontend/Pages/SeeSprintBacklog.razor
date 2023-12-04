@@ -1,0 +1,153 @@
+﻿@page "/project-hub/{ProjectIdAsString}/SeeSprintBacklog"
+@using BlazorAppTEST.Services
+@using BlazorAppTEST.Services.Interface
+@using ClassLibrary_SEP3
+@using ClassLibrary_SEP3.DataTransferObjects
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Mvc
+@using Task = System.Threading.Tasks.Task
+@using TaskStatus = System.Threading.Tasks.TaskStatus
+@inject ISprintBacklogService SprintBacklogService
+@inject NavigationManager NavigationManager
+@attribute [Authorize]
+
+    <!-- Sprint Backlogs -->
+    <div>
+        <h2>Sprint Backlogs for Project ID: @ProjectIdAsString</h2>
+        @if (sprintBacklogs != null && sprintBacklogs.Any())
+        {
+            foreach (var sprintBacklog in sprintBacklogs)
+            {
+                <div class="card sprint-section">
+                    <p>Sprint: @sprintBacklog.Title</p>
+                    <p>Created At: @sprintBacklog.CreatedAt.ToString("yyyy-MM-dd")</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                                <th>Responsible</th>
+                                <th>Estimate Time</th>
+                                <th>Actual Time Used</th>
+                                <th>Created At</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var task in sprintBacklog.Tasks)
+                            {
+                                <tr>
+                                    <td>@task.Title</td>
+                                    <td>@task.Description</td>
+                                    <td>@task.Status</td>
+                                    <td>@task.Responsible</td>
+                                    <td>@task.EstimateTimeInMinutes</td>
+                                    <td>@task.ActualTimeUsedInMinutes</td>
+                                    <td>@task.CreatedAt.ToString("yyyy-MM-dd")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <button class="btn btn-primary" @onclick="() => NavigateToSprintDetails(sprintBacklog.SprintBacklogId)">View Sprint Details</button>
+                </div>
+            }
+        }
+        else
+        {
+            <p>No sprint backlogs available.</p>
+        }
+    </div>
+
+    <!-- Add Task Section -->
+    <div>
+        <h2>Add a Task</h2>
+        <EditForm Model="@newTask" OnValidSubmit="HandleValidSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div>
+                <label for="title">Title:</label>
+                <InputText id="title" @bind-Value="newTask.Title" />
+            </div>
+
+            <div>
+                <label for="description">Description:</label>
+                <InputTextArea id="description" @bind-Value="newTask.Description" />
+            </div>
+
+            <div>
+                <label for="status">Status:</label>
+                <InputSelect @bind-Value="newTask.Status">
+                    @foreach (var status in Enum.GetValues(typeof(TaskStatus)))
+                    {
+                        <option value="@status">@status</option>
+                    }
+                </InputSelect>
+            </div>
+
+            <div>
+                <label for="responsible">Responsible:</label>
+                <InputText id="responsible" @bind-Value="newTask.Responsible" />
+            </div>
+
+            <div>
+                <label for="estimateTime">Estimate Time (Minutes):</label>
+                <InputNumber id="estimateTime" @bind-Value="newTask.EstimateTimeInMinutes" />
+            </div>
+
+            <div>
+                <label for="actualTimeUsed">Actual Time Used (Minutes):</label>
+                <InputNumber id="actualTimeUsed" @bind-Value="newTask.ActualTimeUsedInMinutes" />
+            </div>
+
+            <button type="submit">Add Task</button>
+        </EditForm>
+    </div>
+
+   @code {
+       [Parameter]
+       public string ProjectIdAsString { get; set; }
+       private string feedbackMessage = ""; // To store the feedback message
+   
+       private List<SprintBacklog> sprintBacklogs;
+       private AddSprintTaskRequest newTask = new AddSprintTaskRequest();       
+       protected override async Task OnInitializedAsync()
+       {
+           await LoadSprintBacklogs();
+       }
+   
+       private async Task HandleValidSubmit()
+       {
+           var result = await SprintBacklogService.AddTaskToSprintBacklogAsync(newTask);
+           if (result is OkObjectResult) // Assuming the service returns a boolean indicating success
+           {
+               feedbackMessage = "Task added successfully!";
+               newTask = new AddSprintTaskRequest(); // Reset the form
+               await LoadSprintBacklogs(); // Refresh the list
+           }
+           else if (result is NotFoundResult)
+           {
+               feedbackMessage = "Failed to add task. Sprint backlog not found.";
+           }
+           else
+           {
+               feedbackMessage = "Failed to add task due to an unknown error.";
+           }
+       }
+   
+       private async Task LoadSprintBacklogs()
+       {
+           var result = await SprintBacklogService.GetSprintBacklogsAsync(ProjectIdAsString);
+
+           if (result is OkObjectResult okResult && okResult.Value is IEnumerable<SprintBacklog> backlogs)
+           {
+               sprintBacklogs = backlogs.ToList();
+           }
+       }
+   
+       private void NavigateToSprintDetails(string sprintId)
+       {
+           NavigationManager.NavigateTo($"/sprint-details/{sprintId}");
+       }
+   }
+

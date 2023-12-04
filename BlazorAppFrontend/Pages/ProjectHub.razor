@@ -74,6 +74,7 @@
                 </div>
                 <button class="button" @onclick="AddTask">Save Task</button>
             </div>
+            <button class="btn btn-primary" @onclick="NavigateToSeeSprints">See all sprints</button>
         </div>
         <!--Backlog section End----------------------------------------------------------->
 
@@ -186,5 +187,10 @@
     private void NavigateToCreateEntry()
     {
         NavigationManager.NavigateTo($"/create-new-entry-for-logbook/{ProjectIdAsString}");
+    }
+
+    private void NavigateToSeeSprints()
+    {
+        NavigationManager.NavigateTo("/project-hub/{ProjectIdAsString}/SeeSprintBacklog");
     }
 }
