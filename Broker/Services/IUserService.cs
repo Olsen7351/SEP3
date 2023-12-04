@@ -9,4 +9,6 @@ public interface IUserService
     public Task<IActionResult> CreateUser(CreateUserRequest user);
     
     public Task<IActionResult> LoginWithUserCredentials (User user);
+
+    public Task<IActionResult> ChangeUserPassword(string jwt, ChangePasswordRequest changePasswordRequest);
 }

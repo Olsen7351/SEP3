@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Text.Json;
 using ClassLibrary_SEP3.DataTransferObjects;
 using Task = System.Threading.Tasks.Task;
+using System.Net.Http.Headers;
 
 namespace BlazorAppTEST.Services.Auth;
 
@@ -74,6 +75,19 @@ public class UserService : IUserLogin
             throw new Exception($"Failed to login: {responseMessage.StatusCode}");
         }
     }
+
+    public async Task ChangePassword(ChangePasswordRequest changePasswordRequest)
+    {
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Jwt);
+        HttpResponseMessage responseMessage = await httpClient.PutAsJsonAsync("api/Broker/User/ChangePassword", changePasswordRequest);
+        
+        // Return response
+        if (!responseMessage.IsSuccessStatusCode)
+        {
+            throw new Exception($"Failed to change password: {responseMessage.StatusCode}");
+        }
+    }
+
     private static ClaimsPrincipal CreateClaimsPrincipal()
     {
         if (string.IsNullOrEmpty(Jwt))

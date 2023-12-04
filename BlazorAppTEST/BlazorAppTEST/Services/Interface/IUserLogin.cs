@@ -7,6 +7,7 @@ namespace BlazorAppTEST.Services;
 
 public interface IUserLogin
 {
+    Task ChangePassword(ChangePasswordRequest changePasswordRequest);
     Task Login(User user);
     public Task LogoutAsync();
     public Task<ClaimsPrincipal> GetAuthAsync();
