@@ -13,7 +13,22 @@ public class LogBookService : ILogBookService
         this.httpClient = httpClient;
     }
 
-    
+
+
+    public async Task<IActionResult> GetLogBookEntryByID(String EntryID)
+    {
+        if (String.IsNullOrEmpty(EntryID))
+        {
+            throw new Exception("EntryID was unable to be retrieved");
+        }
+        HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/GetLogBookEntryByID", EntryID);
+        
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception($"Error:{response.StatusCode}");
+        }
+        return new OkResult();
+    }
     
     
     
@@ -34,9 +49,22 @@ public class LogBookService : ILogBookService
     }
     
     
-    
-    
-    
+    public async Task<IActionResult> UpdateEntry(String EntryID, String Description)
+    {
+        if (String.IsNullOrEmpty(EntryID))
+        {
+            throw new Exception("EntryID was unable to be retrieved");
+        }
+
+        var payload = new { EntryID = EntryID, Description = Description };
+        HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/UpdateEntry", payload);
+        
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception($"Error:{response.StatusCode}");
+        }
+        return new OkResult();
+    }
     
     
     

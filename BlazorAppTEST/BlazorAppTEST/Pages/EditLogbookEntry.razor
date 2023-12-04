@@ -43,8 +43,7 @@ else
     {
         try
         {
-            //Need to add service
-            //logBookEntry = await LogBookService.GetLogbookEntryById(EntryID);
+          await LogBookService.GetLogBookEntryByID(EntryID);
         }
         catch (Exception ex)
         {
@@ -55,12 +54,12 @@ else
     
     
     
+    
     private async Task EditEntry()
     {
         try
         {
-            //Need at add service
-            //await LogBookService.UpdateLogbookEntry(logBookEntry);
+            await LogBookService.UpdateEntry(EntryID);
             NavigationManager.NavigateTo($"/project-hub/{logBookEntry.LogBookID}");
         }
         catch (Exception ex)
