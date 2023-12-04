@@ -1,0 +1,77 @@
+﻿@page "/see-sprint-backlog"
+@using BlazorAppTEST.Services.Interface
+@using ClassLibrary_SEP3
+@using Task = System.Threading.Tasks.Task
+@inject ISprintBacklogService SprintBacklogService
+@inject NavigationManager NavigationManager
+
+@{
+    Layout = null;
+    List<SprintBacklog> sprintBacklogs = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>See Sprint Backlog</title>
+</head>
+<body>
+    <div>
+        <h2>Sprint Backlogs for Project ID: @ProjectIdAsString</h2>
+        @if (sprintBacklogs != null && sprintBacklogs.Any())
+        {
+            foreach (var sprintBacklog in sprintBacklogs)
+            {
+                <div class="card sprint-section">
+                    <p>Sprint: @sprintBacklog.Title</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                                <th>Responsible</th>
+                                <th>Estimate Time</th>
+                                <th>Actual Time Used</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var task in sprintBacklog.Tasks)
+                            {
+                                <tr>
+                                    <td>@task.Title</td>
+                                    <td>@task.Description</td>
+                                    <td>@task.Status</td>
+                                    <td>@task.Responsible</td>
+                                    <td>@task.EstimateTimeInMinutes</td>
+                                    <td>@task.ActualTimeUsedInMinutes</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <button class="btn btn-primary" @onclick="() => NavigateToSprintDetails(sprintBacklog.SprintBacklogId)">View Sprint Details</button>
+                </div>
+            }
+        }
+        else
+        {
+            <p>No sprint backlogs available.</p>
+        }
+    </div>
+
+    @code {
+        [Parameter]
+        public string ProjectIdAsString { get; set; }
+
+        protected override async Task OnInitializedAsync()
+        {
+            SprintBacklogs = await SprintBacklogService.GetSprintBacklogsAsync(ProjectIdAsString);
+        }
+
+        private void NavigateToSprintDetails(string sprintId)
+        {
+            NavigationManager.NavigateTo($"/sprint-details/{sprintId}");
+        }
+    }
+</body>
+</html>
