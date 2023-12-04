@@ -1,12 +1,14 @@
 {
   "profiles": {
-    "ProjectMicroservice": {
+    "http": {
       "commandName": "Project",
+      "dotnetRunMessages": true,
       "launchBrowser": true,
+      "launchUrl": "swagger",
+      "applicationUrl": "http://localhost:8004",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "applicationUrl": "https://localhost:58169;http://localhost:58171"
+      }
     }
   }
-}
+  

@@ -11,9 +11,6 @@ namespace Broker.Controllers;
 [ApiController]
 
 [Route("api/Broker/[controller]" )]
-
-[Route("api/[controller]")]
-
 public class UserController : ControllerBase
 {
     private readonly IUserService _IuserService;

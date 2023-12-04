@@ -41,6 +41,7 @@ public class UserController {
         if (userService.findByUsername(userDto.getUsername())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
+        userService.registerNewUserAccount(userDto);
         return ResponseEntity.ok().build();
     }
 
