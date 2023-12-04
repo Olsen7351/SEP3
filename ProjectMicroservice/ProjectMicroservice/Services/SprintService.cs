@@ -1,38 +1,124 @@
-
-
+using System.Collections.Concurrent;
+using System.Data.Common;
 using ClassLibrary_SEP3;
 
-namespace ProjectMicroservice.Services;
 using ClassLibrary_SEP3.DataTransferObjects;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic.CompilerServices;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using ProjectMicroservice.Data;
+using ProjectMicroservice.Services;
+using ZstdSharp;
+using Task = ClassLibrary_SEP3.Task;
+namespace ProjectMicroservice.Services;
 
 public class SprintService : ISprintService
 {
 
+    private readonly IMongoCollection<SprintBacklog> _sprints;
 
-    public List<SprintBacklog> GetAllSprintBacklogs(string projectId)
+    public SprintService(MongoDbContext context)
     {
-        throw new NotImplementedException();
+        _sprints = context.Database.GetCollection<SprintBacklog>("Sprints");
     }
     
-
-    public SprintBacklog GetSprintBacklogById(string sprintBacklogId)
-    {
-        throw new NotImplementedException();
-    }
-
     public SprintBacklog CreateSprintBacklog(CreateSprintBackLogRequest request)
     {
-        throw new NotImplementedException();
-    }
+        var filter =
+            Builders<SprintBacklog>.Filter.Eq(sprint => sprint.SprintBacklogId, request.Id);
+        var sprintBacklog = _sprints.Find(filter).FirstOrDefault();
 
-    public SprintBacklog UpdateSprintBacklog(string id, SprintBacklog sprintBacklog)
+        if (sprintBacklog == null)
+        {
+            sprintBacklog = new SprintBacklog()
+            {
+                ProjectId = request.projectId,
+                SprintBacklogId = request.Id,
+                Title = request.Title,
+                CreatedAt = DateTime.Today,
+                Tasks = new List<Task>()
+            };
+            _sprints.InsertOne(sprintBacklog);
+        }
+        else
+        {
+            var update = Builders<SprintBacklog>.Update.Set(sprint => sprint.Title, request.Title);
+            _sprints.UpdateOne(filter, update);        }
+
+        return sprintBacklog;
+
+    } 
+    public SprintBacklog GetSprintBacklogById(string projectId,string sprintBacklogId)
     {
-        throw new NotImplementedException();
+        try
+        {
+            return _sprints.Find(p => p.ProjectId == projectId && p.SprintBacklogId == sprintBacklogId)
+                .FirstOrDefault();
+        }catch (System.FormatException)
+        {
+            Console.WriteLine($"Could Not find Sprintbacklog {sprintBacklogId} for project {projectId}");
+            throw new Exception("Project not found");
+        }
+    }
+    public List<SprintBacklog> GetAllSprintBacklogs(string projectId)
+    {
+        return _sprints.Find(sprint => sprint.ProjectId == projectId).ToList();
     }
 
-    public bool DeleteSprintBacklog(string id)
+
+
+    public SprintBacklog UpdateSprintBacklog(string id, SprintBacklog updatedSprintBacklog)
+    {
+        var filter = Builders<SprintBacklog>.Filter.Eq(sprint => sprint.SprintBacklogId, id);
+        var update = Builders<SprintBacklog>.Update
+            .Set(sprint => sprint.ProjectId, updatedSprintBacklog.ProjectId)
+            .Set(sprint => sprint.Title, updatedSprintBacklog.Title);
+        update = update.Set(sprint => sprint.Tasks, updatedSprintBacklog.Tasks);
+        _sprints.UpdateOne(filter, update);
+        return _sprints.Find(filter).FirstOrDefault();
+
+    }
+
+    public bool DeleteSprintBacklog(string projectId, string sprintBacklogId)
 
     {
-        throw new NotImplementedException();
+            var filter = Builders<SprintBacklog>.Filter.Eq(sprint => sprint.SprintBacklogId, sprintBacklogId);
+            var result = _sprints.DeleteOne(filter);
+            return result.DeletedCount > 0;
     }
+
+    public SprintBacklog AddTaskToSprintBacklog(AddSprintTaskRequest request, string sprintBacklogId)
+    {
+        Task newTask = new Task
+        {
+            ProjectId = request.ProjectId,
+            SprintId = request.SprintId,
+            Title = request.Title,
+            Description = request.Description,
+            Status = request.Status,
+            CreatedAt = request.CreatedAt,
+            EstimateTimeInMinutes = request.EstimateTimeInMinutes,
+            ActualTimeUsedInMinutes = request.ActualTimeUsedInMinutes,
+            Responsible = request.Responsible
+        };
+        var filter = Builders<SprintBacklog>.Filter.Eq(sprint => sprint.SprintBacklogId, sprintBacklogId);
+        var update = Builders<SprintBacklog>.Update.Push(sprint => sprint.Tasks, newTask);
+        _sprints.UpdateOne(filter, update);
+        return _sprints.Find(filter).FirstOrDefault();
+    }
+
+    public List<Task> GetAllTasksForSprintBacklog(string projectId, string sprintBacklogId)
+    {
+        var filter = Builders<SprintBacklog>.Filter.Where(sprint => sprint.ProjectId == projectId && sprint.SprintBacklogId == sprintBacklogId);
+        var sprintBacklog = _sprints.Find(filter).FirstOrDefault();
+        if (sprintBacklog != null)
+        {
+            return sprintBacklog.Tasks;
+        }
+        return new List<Task>();
+    }
+
+    
+    
 }

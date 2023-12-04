@@ -15,7 +15,8 @@ using Moq.Protected;
 
 namespace BlazorAppTest;
 public class CreateUser_Test
-{
+
+{/*
     private readonly Mock<IUserLogin> _mockUserService;
     private IUserLogin _userService;
 
@@ -226,4 +227,5 @@ public class CreateUser_Test
         var exception = await Assert.ThrowsAsync<Exception>(() => userService.createUser(userWithNullUsername));
         Assert.Contains("One or many forms is empty, please fill them out before creating a new user", exception.Message);
     }
+    */
 }

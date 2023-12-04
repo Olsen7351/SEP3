@@ -5,13 +5,16 @@ using Microsoft.VisualBasic.CompilerServices;
 using MongoDB.Bson;
 using ProjectMicroservice.Tests;
 using ProjectDatabase = ClassLibrary_SEP3.Project;
+using Task = ClassLibrary_SEP3.Task;
 
 namespace ProjectMicroservice.Services;
 public interface ISprintService
 {
-    List<SprintBacklog> GetAllSprintBacklogs(string projectId);
-    SprintBacklog GetSprintBacklogById(string sprintBacklogId);
     SprintBacklog CreateSprintBacklog(CreateSprintBackLogRequest request);
-    SprintBacklog UpdateSprintBacklog(string id, SprintBacklog sprintBacklog);
-    bool DeleteSprintBacklog(string id);
+    SprintBacklog GetSprintBacklogById(string projectId, string sprintBacklogId);
+    List<SprintBacklog> GetAllSprintBacklogs(string projectId);
+    SprintBacklog UpdateSprintBacklog(string id, SprintBacklog updatedSprintBacklog);
+    bool DeleteSprintBacklog(string projectId, string sprintBacklogId);
+    SprintBacklog AddTaskToSprintBacklog(AddSprintTaskRequest request, string sprintBacklogId);
+    List<Task> GetAllTasksForSprintBacklog(string projectId, string sprintBacklogId);
 }

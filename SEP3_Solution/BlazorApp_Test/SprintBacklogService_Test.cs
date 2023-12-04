@@ -148,13 +148,14 @@ namespace BlazorAppTest
                 .Protected()
                 .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
                 .ReturnsAsync(response);
-            var result =
-                await sprintBacklogService.AddTaskToSprintBacklogAsync(projectId, sprintBacklogId, addTaskRequest);
             
-            Assert.IsType<OkObjectResult>(result);
-            var okResult = result as OkObjectResult;
-            var returnedTask = JsonSerializer.Deserialize<AddSprintTaskRequest>(okResult.Value.ToString());
-            Assert.NotNull(result);
+            var result = await sprintBacklogService.AddTaskToSprintBacklogAsync(addTaskRequest);
+
+            // Assert
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            Assert.NotNull(okResult.Value);
+
+            var returnedTask = Assert.IsType<AddSprintTaskRequest>(okResult.Value);
             Assert.Equal(addTaskRequest.Title, returnedTask.Title);
             Assert.Equal(addTaskRequest.Description, returnedTask.Description);
         }
@@ -169,26 +170,36 @@ namespace BlazorAppTest
             };
             var sprintBacklogService = new SprintBacklogService(httpClient);
             var projectId = "1";
-            string sprintBacklogId = null; 
-            
+            string sprintBacklogId = null;
+
             var addTaskRequest = new AddSprintTaskRequest()
             {
                 ProjectId = "1",
                 SprintId = "5",
                 Title = "Implement methods",
                 Description = "Do it",
-                Status = TaskStatus.ToDo, 
+                Status = TaskStatus.ToDo,
                 CreatedAt = DateTime.Now,
                 EstimateTimeInMinutes = 120,
                 ActualTimeUsedInMinutes = 0,
                 Responsible = "Tom Riddle"
             };
+            var response = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent(JsonSerializer.Serialize(addTaskRequest), Encoding.UTF8, "application/json")
+            };
+
             mockHttpMessageHandler
                 .Protected()
                 .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
-                .ThrowsAsync(new HttpRequestException("Sprint backlog ID cannot be null."));
-            await Assert.ThrowsAsync<HttpRequestException>(() => sprintBacklogService.AddTaskToSprintBacklogAsync(projectId, sprintBacklogId, addTaskRequest));
+                .ReturnsAsync(response);
+            var result = await sprintBacklogService.AddTaskToSprintBacklogAsync(addTaskRequest);
+            Assert.IsType<OkObjectResult>(result);
+            var okResult = result as OkObjectResult;
+            Assert.NotNull(okResult);
+            
         }
+
         [Fact]
         public async void GetAllTasksForSprintBackog()
         {

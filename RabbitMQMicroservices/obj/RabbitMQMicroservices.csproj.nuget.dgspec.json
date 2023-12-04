@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "C:\\Users\\Kim\\Desktop\\SEP#\\RabbitMQMicroservices\\RabbitMQMicroservices.csproj": {}
   },
   "projects": {
@@ -15,6 +16,22 @@
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Kim\\AppData\\Roaming\\NuGet\\NuGet.Config"
+=======
+    "C:\\Users\\45401\\Desktop\\SEP\\SEP3\\RabbitMQMicroservices\\RabbitMQMicroservices.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\45401\\Desktop\\SEP\\SEP3\\RabbitMQMicroservices\\RabbitMQMicroservices.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\45401\\Desktop\\SEP\\SEP3\\RabbitMQMicroservices\\RabbitMQMicroservices.csproj",
+        "projectName": "RabbitMQMicroservices",
+        "projectPath": "C:\\Users\\45401\\Desktop\\SEP\\SEP3\\RabbitMQMicroservices\\RabbitMQMicroservices.csproj",
+        "packagesPath": "C:\\Users\\45401\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\45401\\Desktop\\SEP\\SEP3\\RabbitMQMicroservices\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\45401\\AppData\\Roaming\\NuGet\\NuGet.Config"
+>>>>>>> Test3
         ],
         "originalTargetFrameworks": [
           "net7.0"

@@ -60,9 +60,9 @@ namespace Broker_Test.Controller_Test
                 SprintId = "2",
                 Title = "Brush Alma"
             };
-            mockService.Setup(service => service.AddTaskToSprintBacklogAsync("1", "2", task))
+            mockService.Setup(service => service.AddTaskToSprintBacklogAsync(task))
                 .ReturnsAsync(new OkObjectResult(expectedSprintBacklog));
-            var result = await controller.AddTaskToSprintBacklog("1", "2", task);
+            var result = await controller.AddTaskToSprintBacklog(task);
             Assert.NotNull(result);
 
         }
@@ -110,17 +110,15 @@ namespace Broker_Test.Controller_Test
                 CreatedAt= new DateTime(2021, 1, 1),
                 Tasks = new List<ClassLibrary_SEP3.Task>()
             };
-
-            // Mock the behavior of GetSprintBacklogByIdAsync to return a specific backlog
+            
             mockService.Setup(service => service.GetSprintBacklogByIdAsync(projectId, sprintBacklogId))
                 .ReturnsAsync(new OkObjectResult(expectedSprintBacklog));
 
             var controller = new SprintBacklogController(mockService.Object);
 
-            // Act
+         
             var result = await controller.GetSpecificSprintBacklog(projectId, sprintBacklogId);
-
-            // Assert
+            
             Assert.NotNull(result);
             var objectResult = Assert.IsType<OkObjectResult>(result);
             var returnedValue = Assert.IsType<SprintBacklog>(objectResult.Value);
@@ -133,38 +131,51 @@ namespace Broker_Test.Controller_Test
             var projectId = "1";
             var sprintBacklogId = "5";
             var mockService = new Mock<ISprintBacklogService>();
+            var addTaskRequest = new AddSprintTaskRequest
+                        {
+                            ProjectId = "1",
+                            SprintId = "5",
+                            Title = "Implement methods",
+                            Description = "Do it",
+                            Status = TaskStatus.ToDo, 
+                            CreatedAt = DateTime.Now,
+                            EstimateTimeInMinutes = 120,
+                            ActualTimeUsedInMinutes = 0,
+                            Responsible = "Tom Riddle"
+                        };
+            var mockTask = new Task
+            {
+                Id = "1",
+                ProjectId = addTaskRequest.ProjectId,
+                SprintId = addTaskRequest.SprintId,
+                Title = addTaskRequest.Title,
+                Description = addTaskRequest.Description,
+                Status = addTaskRequest.Status,
+                CreatedAt = addTaskRequest.CreatedAt,
+                EstimateTimeInMinutes = addTaskRequest.EstimateTimeInMinutes,
+                ActualTimeUsedInMinutes = addTaskRequest.ActualTimeUsedInMinutes,
+                Responsible = addTaskRequest.Responsible
+            };
             var expectedSprintBacklog = new SprintBacklog
             {
                 ProjectId = projectId,
                 SprintBacklogId = sprintBacklogId,
                 Title = "Sample Sprint",
                 CreatedAt= new DateTime(2021, 1, 1),
-                Tasks = new List<ClassLibrary_SEP3.Task>()
+                Tasks = new List<ClassLibrary_SEP3.Task>{mockTask}
             };
-            var addTaskRequest = new AddSprintTaskRequest
-            {
-                ProjectId = "1",
-                SprintId = "5",
-                Title = "Implement methods",
-                Description = "Do it",
-                Status = TaskStatus.ToDo, 
-                CreatedAt = DateTime.Now,
-                EstimateTimeInMinutes = 120,
-                ActualTimeUsedInMinutes = 0,
-                Responsible = "Tom Riddle"
-            };
-            mockService.Setup(service => service.GetSprintBacklogByIdAsync(projectId, sprintBacklogId))
-                .ReturnsAsync(new OkObjectResult(expectedSprintBacklog));
             
+            mockService.Setup(service => service.AddTaskToSprintBacklogAsync(It.IsAny<AddSprintTaskRequest>()))
+                .ReturnsAsync(new OkObjectResult(expectedSprintBacklog));
+
             var controller = new SprintBacklogController(mockService.Object);
-            var result = await controller.AddTaskToSprintBacklog(projectId, sprintBacklogId, addTaskRequest);
+            var result = await controller.AddTaskToSprintBacklog(addTaskRequest);
+
             var okResult = Assert.IsType<OkObjectResult>(result);
             var sprintBacklog = Assert.IsType<SprintBacklog>(okResult.Value);
 
             Assert.NotNull(result);
-            Assert.Contains(sprintBacklog.Tasks, task => task.Title == addTaskRequest.Title);
-
-
+            Assert.Contains(sprintBacklog.Tasks, task => task.Title == mockTask.Title && task.Description == mockTask.Description);
         }
 
         [Fact]
@@ -178,7 +189,7 @@ namespace Broker_Test.Controller_Test
                 new Task { Id = "1", ProjectId = "1", SprintId = "2", Title = "Task", Description = "Try and code" },
                 new Task { Id = "2", ProjectId = "1", SprintId = "2", Title = "Task 2", Description = "I dont know what to put here" },
             };
-            mockService.Setup(service => service.GetSprintBacklogByIdAsync(projectId, sprintBacklogId))
+            mockService.Setup(service => service.GetTasksFromSprintBacklogAsync(projectId, sprintBacklogId))
                 .ReturnsAsync(new OkObjectResult(expectedTask));
             var controller = new SprintBacklogController(mockService.Object);
             var result = await controller.GetAllTasksForSprintBacklog("1", "4");

@@ -76,16 +76,38 @@ public class SprintBacklogService : ISprintBacklogService
         return new BadRequestResult();
     }
 
-    public Task<IActionResult> AddTaskToSprintBacklogAsync(string projectId, string id, AddSprintTaskRequest task)
+    public async Task<IActionResult> AddTaskToSprintBacklogAsync(AddSprintTaskRequest task)
     {
-        //TODO
-        throw new NotImplementedException();
+        if (string.IsNullOrWhiteSpace(task.ProjectId) || string.IsNullOrWhiteSpace(task.SprintId))
+        {
+            return new BadRequestResult();
+        }
+
+        string requestUri = $"api/Project/{task.ProjectId}/SprintBacklog/{task.SprintId}/tasks";
+        HttpResponseMessage response = await httpClient.PostAsJsonAsync(requestUri, task);
+    
+        if (response.IsSuccessStatusCode)
+        {
+            return new OkObjectResult(await response.Content.ReadFromJsonAsync<SprintBacklog>());
+        }
+
+        return new BadRequestResult();
     }
 
-    public Task<IActionResult> GetTasksFromSprintBacklogAsync(string projectId, string Id)
+    public async Task<IActionResult> GetTasksFromSprintBacklogAsync(string projectId, string sprintBacklogId)
     {
-        //TODO 
-        throw new NotImplementedException();
+        string requestUri = $"api/Project/{projectId}/SprintBacklog/{sprintBacklogId}/tasks";
+        HttpResponseMessage responseMessage = await httpClient.GetAsync(requestUri);
+        if (responseMessage.IsSuccessStatusCode)
+        {
+            var tasks = await responseMessage.Content.ReadFromJsonAsync<List<Task>>();
+            if (tasks == null || !tasks.Any()) 
+            {
+                return new NotFoundResult(); 
+            }
+            return new OkObjectResult(tasks);
+        }
+        return new BadRequestResult();
     }
     
 }
