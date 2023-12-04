@@ -56,6 +56,11 @@ public class UserService : IUserLogin
             throw new Exception("One or many forms is empty, please fill them out before logging in");
         }
 
+        if (user.Username.Length > 16)
+        {
+            throw new Exception("Usernames can only be up to 16 characters long");
+        }
+
         if (responseMessage.IsSuccessStatusCode)
         {
             var Token = await responseMessage.Content.ReadFromJsonAsync<TokenResponse>();
