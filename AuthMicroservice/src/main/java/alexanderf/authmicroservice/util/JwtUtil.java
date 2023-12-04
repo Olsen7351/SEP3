@@ -18,7 +18,7 @@ public class JwtUtil {
     @Value("${jwt.expiration}")
     private long expiration;
 
-    private Key getSigningKey() {
+    public Key getSigningKey() {
         return new SecretKeySpec(secret.getBytes(), SignatureAlgorithm.HS512.getJcaName());
     }
 
@@ -31,6 +31,25 @@ public class JwtUtil {
                 .setExpiration(new Date(System.currentTimeMillis() + expiration * 1000))
                 .signWith(getSigningKey())
                 .compact();
+    }
+
+    public String extractSubjectFromToken(String jwtToken) {
+        String subject;
+        try {
+            // Parse the JWT token to extract the subject
+            Claims claims = Jwts.parserBuilder()
+                    .setSigningKey(getSigningKey())
+                    .build()
+                    .parseClaimsJws(jwtToken)
+                    .getBody();
+
+            // Extract subject from claims
+            subject = claims.getSubject();
+        } catch (Exception e) {
+            // Handle parsing or validation exceptions
+            subject = null;
+        }
+        return subject;
     }
 
     public Boolean validateToken(String token, UserDetails userDetails) {
