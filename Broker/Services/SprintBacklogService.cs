@@ -94,10 +94,20 @@ public class SprintBacklogService : ISprintBacklogService
         return new BadRequestResult();
     }
 
-    public Task<IActionResult> GetTasksFromSprintBacklogAsync(string projectId, string Id)
+    public async Task<IActionResult> GetTasksFromSprintBacklogAsync(string projectId, string sprintBacklogId)
     {
-        //TODO 
-        throw new NotImplementedException();
+        string requestUri = $"api/Project/{projectId}/SprintBacklog/{sprintBacklogId}/tasks";
+        HttpResponseMessage responseMessage = await httpClient.GetAsync(requestUri);
+        if (responseMessage.IsSuccessStatusCode)
+        {
+            var tasks = await responseMessage.Content.ReadFromJsonAsync<List<Task>>();
+            if (tasks == null || !tasks.Any()) 
+            {
+                return new NotFoundResult(); 
+            }
+            return new OkObjectResult(tasks);
+        }
+        return new BadRequestResult();
     }
     
 }

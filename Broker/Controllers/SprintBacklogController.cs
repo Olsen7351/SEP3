@@ -59,18 +59,16 @@ namespace Broker.Controllers
             return await _sprintBacklogService.DeleteSprintBacklogAsync(ProjectId, id);
         }
         [HttpPost("{sprintId}/AddTask")]
-        public async Task<IActionResult> AddTaskToSprintBacklog(string projectId, string sprintId, AddSprintTaskRequest task)
+        public async Task<IActionResult> AddTaskToSprintBacklog(AddSprintTaskRequest task)
         {
-            //TODO
-            throw new NotImplementedException();
+            return await _sprintBacklogService.AddTaskToSprintBacklogAsync(task);
         }
 
         // GET api/<SprintBacklogController>/<ProjectId>/<SprintId>/Tasks
         [HttpGet("{sprintId}/Tasks")]
         public async Task<IActionResult> GetAllTasksForSprintBacklog(string projectId, string sprintId)
         {
-            //TODO
-            throw new NotImplementedException();
+            return await _sprintBacklogService.GetTasksFromSprintBacklogAsync(projectId, sprintId);
         }
     }
 }

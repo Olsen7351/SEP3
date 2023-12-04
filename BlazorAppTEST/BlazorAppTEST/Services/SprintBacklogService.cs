@@ -45,15 +45,15 @@ namespace BlazorAppTEST.Services
             return new OkObjectResult(response);
         }
 
-        public async Task<IActionResult> AddTaskToSprintBacklogAsync(string projectId, string sprintId,
+        public async Task<IActionResult> AddTaskToSprintBacklogAsync(
             AddSprintTaskRequest task)
         {
-            if (string.IsNullOrWhiteSpace(sprintId))
+            if (string.IsNullOrWhiteSpace(task.SprintId))
             {
                 throw new HttpRequestException("Sprint backlog ID cannot be null.");
             }
 
-            HttpResponseMessage message = await _httpClient.PostAsJsonAsync($"api/SprintBacklog/{projectId}/{sprintId}/tasks", task);
+            HttpResponseMessage message = await _httpClient.PostAsJsonAsync($"api/SprintBacklog/{task.ProjectId}/{task.SprintId}/tasks", task);
             if (message.IsSuccessStatusCode)
             {
                 return new OkObjectResult(await message.Content.ReadFromJsonAsync<AddSprintTaskRequest>());
