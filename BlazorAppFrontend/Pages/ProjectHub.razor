@@ -1,11 +1,14 @@
 ﻿@page "/project-hub/{ProjectIdAsString}"
 @using ClassLibrary_SEP3
 @using BlazorAppTEST.Services
+@using ClassLibrary_SEP3
 @using ClassLibrary_SEP3.DataTransferObjects
+@using LogBookService = Broker.Services.LogBookService
 
 @using Task = System.Threading.Tasks.Task
 @using TaskStatus = ClassLibrary_SEP3.TaskStatus
 @inject ProjectService ProjectService
+@inject LogBookService LogBookService
 @inject TaskService TaskService;
 @inject NavigationManager NavigationManager
 
@@ -120,30 +123,23 @@
     private AddBacklogTaskRequest newTask = new AddBacklogTaskRequest();
 
 
-    protected override async Task OnParametersSetAsync()
+    protected override async Task OnInitializedAsync()
     {
-        Project = await ProjectService.GetProject(ProjectIdAsString);
+        try
+        {
+             // Fetch backlog tasks
+            Project = await ProjectService.GetProject(ProjectIdAsString);
+            BacklogTasks = Project?.Backlog?.BacklogTasks ?? new List<ClassLibrary_SEP3.Task>();
 
-        if (Project.Backlog.BacklogTasks != null)
-        {
-            BacklogTasks = Project.Backlog.BacklogTasks;
+             // Fetch logbook entries
+            var logbook = await LogBookService.GetEntriesForLogBook(ProjectIdAsString);
+            LogBookEntries = logbook?.LogBookEntryPoints ?? new List<LogBookEntryPoints>();
         }
-        else
+        
+        catch (Exception ex)
         {
-            BacklogTasks = new List<ClassLibrary_SEP3.Task>()!;
+            errorMessage = $"Error: {ex.Message}";
         }
-
-    /* Service for logbook needs to be added -----------------------------------------
-        var logbook = await ProjectService.GetLogBook(ProjectIdAsString);
-        if (logbook != null && logbook.LogBookEntryPoints != null)
-        {
-            LogBookEntries = logbook.LogBookEntryPoints;
-        }
-        else
-        {
-            LogBookEntries = new List<LogBookEntryPoints>();
-        }
-        */
     }
 
     private async void AddTask()

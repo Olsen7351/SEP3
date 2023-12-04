@@ -13,18 +13,80 @@ public class LogBookService : ILogBookService
         this.httpClient = httpClient;
     }
 
-    
-    
-    
-    
-    public async Task<IActionResult> GetEntriesForLogBook(String projectID)
+
+
+    public async Task<LogBookEntryPoints> GetLogBookEntryByID(string entryID)
     {
-     
-        if ( String.IsNullOrEmpty(projectID))
+        if (string.IsNullOrEmpty(entryID))
         {
-            throw new Exception("Either ProjectId is empty or null");
+            throw new ArgumentException("EntryID is empty or null.");
         }
-        HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/GetLogEntries", projectID);
+
+        HttpResponseMessage response = await httpClient.GetAsync($"api/LogBookEntries/{entryID}");
+
+        if (response.IsSuccessStatusCode)
+        {
+            // Directly deserialize the JSON response into a LogBookEntryPoints object
+            var entry = await response.Content.ReadFromJsonAsync<LogBookEntryPoints>();
+
+            if (entry != null)
+            {
+                return entry; // Return the deserialized object
+            }
+            else
+            {
+                throw new Exception("LogBook entry was not found.");
+            }
+        }
+        else
+        {
+            throw new HttpRequestException($"Error retrieving logbook entry: {response.ReasonPhrase}");
+        }
+    }
+
+
+
+
+
+    public async Task<LogBook> GetEntriesForLogBook(string projectID)
+    {
+        if (string.IsNullOrEmpty(projectID))
+        {
+            throw new ArgumentException("Project ID is empty or null.");
+        }
+
+        HttpResponseMessage response = await httpClient.GetAsync($"api/logbook/{projectID}");
+
+        if (response.IsSuccessStatusCode)
+        {
+            var logBook = await response.Content.ReadFromJsonAsync<LogBook>();
+
+            if (logBook != null)
+            {
+                return logBook;
+            }
+            else
+            {
+                throw new Exception("LogBook data was not found.");
+            }
+        }
+        else
+        {
+            // You can handle different status codes differently if needed
+            throw new HttpRequestException($"Error retrieving logbook entries: {response.ReasonPhrase}");
+        }
+    }
+
+
+    public async Task<IActionResult> UpdateEntry(String EntryID, String Description)
+    {
+        if (String.IsNullOrEmpty(EntryID))
+        {
+            throw new Exception("EntryID was unable to be retrieved");
+        }
+
+        var payload = new { EntryID = EntryID, Description = Description };
+        HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/UpdateEntry", payload);
         
         if (!response.IsSuccessStatusCode)
         {
@@ -32,11 +94,6 @@ public class LogBookService : ILogBookService
         }
         return new OkResult();
     }
-    
-    
-    
-    
-    
     
     
     
