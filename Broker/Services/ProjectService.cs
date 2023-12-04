@@ -45,6 +45,9 @@ namespace Broker.Services
             return await response.Content.ReadFromJsonAsync<Project>();
         }
         
+        
+        
+        
         public async Task<IActionResult> AddUserToProject(AddUserToProjectRequest request)
         {
             if (request == null)
@@ -52,7 +55,7 @@ namespace Broker.Services
                 return new BadRequestResult();
             }
             
-            HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/Project", request);
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/Project/addUser", request);
 
             if (response.IsSuccessStatusCode)
             {

@@ -1,6 +1,7 @@
 using System.Text;
 using BlazorAppTEST.Services;
 using BlazorAppTEST.Services.Auth;
+using Broker.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
@@ -8,6 +9,10 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.IdentityModel.Tokens;
 using Shared.Auth;
+using BacklogService = BlazorAppTEST.Services.BacklogService;
+using IProjectService = BlazorAppTEST.Services.Interface.IProjectService;
+using ProjectService = BlazorAppTEST.Services.ProjectService;
+using UserService = BlazorAppTEST.Services.Auth.UserService;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,7 +20,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddScoped<ProjectService>();
+builder.Services.AddScoped<IProjectService,ProjectService>();
 builder.Services.AddScoped<IUserLogin,UserService>();
 builder.Services.AddScoped<BacklogService>();
 builder.Services.AddScoped<TaskService>();

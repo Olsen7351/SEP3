@@ -44,26 +44,19 @@ namespace ProjectMicroservice.Controllers
         public Project GetProject(string id)
         {
             Project project = _projectService.GetProject(id);
-
-
             return project;
         }
 
-        [HttpPost("{projectId}/addUser")]
-        public IActionResult AddUserToProject(string projectId, [FromBody] AddUserToProjectRequest request)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var result = _projectService.AddUserToProject(projectId, request.UserName);
         
+        
+        [HttpPost("/addUser")]
+        public IActionResult AddUserToProject(AddUserToProjectRequest request)
+        {
+            var result = _projectService.AddUserToProject(request);
             if (result == null)
             {
                 return NotFound(); 
             }
-
             return Ok(result);
         }
         
