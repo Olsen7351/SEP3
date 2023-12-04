@@ -469,18 +469,12 @@ C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\xunit.runner.reporters.ne
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\xunit.runner.utility.netcoreapp10.dll
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Broker.deps.json
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Broker.runtimeconfig.json
-C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\ProjectMicroservice.deps.json
-C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\ProjectMicroservice.runtimeconfig.json
-C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\ProjectMicroservice.exe
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Broker.exe
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Broker_Test.deps.json
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Broker_Test.runtimeconfig.json
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Broker_Test.dll
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Broker_Test.pdb
-C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\AWSSDK.Core.dll
-C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\AWSSDK.SecurityToken.dll
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Castle.Core.dll
-C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\DnsClient.dll
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Microsoft.AspNetCore.OpenApi.dll
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Microsoft.VisualStudio.CodeCoverage.Shim.dll
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Microsoft.OpenApi.dll
@@ -492,14 +486,9 @@ C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Microsoft.TestPlatform.Cr
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Microsoft.TestPlatform.Utilities.dll
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Microsoft.VisualStudio.TestPlatform.Common.dll
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\MongoDB.Bson.dll
-C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\MongoDB.Driver.dll
-C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\MongoDB.Driver.Core.dll
-C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\MongoDB.Libmongocrypt.dll
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Moq.dll
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Newtonsoft.Json.dll
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\NuGet.Frameworks.dll
-C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\SharpCompress.dll
-C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Snappier.dll
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -507,7 +496,6 @@ C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\xunit.abstractions.dll
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\xunit.assert.dll
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\xunit.core.dll
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\xunit.execution.dotnet.dll
-C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\ZstdSharp.dll
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\cs\Microsoft.TestPlatform.CoreUtilities.resources.dll
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\cs\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\de\Microsoft.TestPlatform.CoreUtilities.resources.dll
@@ -573,15 +561,10 @@ C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\zh-Hans\Microsoft.VisualS
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\zh-Hant\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\zh-Hant\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\zh-Hant\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
-C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\runtimes\linux\native\libmongocrypt.so
-C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\runtimes\osx\native\libmongocrypt.dylib
-C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\runtimes\win\native\mongocrypt.dll
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Broker.dll
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\ClassLibrary_SEP3.dll
-C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\ProjectMicroservice.dll
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Broker.pdb
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\ClassLibrary_SEP3.pdb
-C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\ProjectMicroservice.pdb
 C:\Users\Kim\Desktop\SEP#\Broker_Test\obj\Debug\net7.0\Broker_Test.csproj.AssemblyReference.cache
 C:\Users\Kim\Desktop\SEP#\Broker_Test\obj\Debug\net7.0\Broker_Test.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Kim\Desktop\SEP#\Broker_Test\obj\Debug\net7.0\Broker_Test.AssemblyInfoInputs.cache
@@ -599,7 +582,6 @@ C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Microsoft.AspNetCore.Auth
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Microsoft.AspNetCore.Metadata.dll
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Microsoft.Extensions.Logging.Abstractions.dll
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Microsoft.Extensions.Options.dll
-C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Microsoft.IdentityModel.Abstractions.dll
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Microsoft.IdentityModel.JsonWebTokens.dll
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Microsoft.IdentityModel.Logging.dll
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.dll
@@ -608,7 +590,6 @@ C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Microsoft.IdentityModel.T
 C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\bin\Debug\net7.0\CoverletSourceRootsMapping
 =======
-<<<<<<< HEAD
 C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\bin\Debug\net7.0\appsettings.Development.json
 C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\bin\Debug\net7.0\appsettings.json
 C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\bin\Debug\net7.0\testhost.exe
@@ -619,10 +600,7 @@ C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\bin\Debug\net7.0\Br
 C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\bin\Debug\net7.0\ProjectMicroservice.deps.json
 C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\bin\Debug\net7.0\ProjectMicroservice.runtimeconfig.json
 C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\bin\Debug\net7.0\ProjectMicroservice.exe
-C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\bin\Debug\net7.0\appsettings.Development.json
-C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\bin\Debug\net7.0\appsettings.json
 C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\bin\Debug\net7.0\Broker.exe
-C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\bin\Debug\net7.0\testhost.exe
 C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\bin\Debug\net7.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll
 C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\bin\Debug\net7.0\xunit.runner.reporters.netcoreapp10.dll
 C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\bin\Debug\net7.0\xunit.runner.utility.netcoreapp10.dll
@@ -758,28 +736,6 @@ C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\obj\Debug\net7.0\re
 C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\obj\Debug\net7.0\Broker_Test.pdb
 C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\obj\Debug\net7.0\Broker_Test.genruntimeconfig.cache
 C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\obj\Debug\net7.0\ref\Broker_Test.dll
-<<<<<<< HEAD
-=======
-C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
-C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.dll
-C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
-C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\bin\Debug\net7.0\Microsoft.AspNetCore.Authorization.dll
-C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\bin\Debug\net7.0\Microsoft.AspNetCore.Metadata.dll
-C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\bin\Debug\net7.0\Microsoft.Extensions.Logging.Abstractions.dll
-C:\Users\olsen\OneDrive\Documents\GitHub\SEP3_V2\Broker_Test\bin\Debug\net7.0\Microsoft.Extensions.Options.dll
-C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
-C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Microsoft.AspNetCore.Authorization.dll
-C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Microsoft.AspNetCore.Metadata.dll
-C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Microsoft.Extensions.Logging.Abstractions.dll
-C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Microsoft.Extensions.Options.dll
-C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Microsoft.IdentityModel.Abstractions.dll
-C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Microsoft.IdentityModel.JsonWebTokens.dll
-C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Microsoft.IdentityModel.Logging.dll
-C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.dll
-C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
-C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
-C:\Users\Kim\Desktop\SEP#\Broker_Test\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll
-=======
 C:\Users\45401\Desktop\SEP\SEP3\Broker_Test\bin\Debug\net7.0\Microsoft.IdentityModel.JsonWebTokens.dll
 C:\Users\45401\Desktop\SEP\SEP3\Broker_Test\bin\Debug\net7.0\Microsoft.IdentityModel.Logging.dll
 C:\Users\45401\Desktop\SEP\SEP3\Broker_Test\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
@@ -792,4 +748,3 @@ C:\Users\45401\Desktop\SEP\SEP3\Broker_Test\bin\Debug\net7.0\Microsoft.Extension
 C:\Users\45401\Desktop\SEP\SEP3\Broker_Test\bin\Debug\net7.0\Microsoft.Extensions.Options.dll
 C:\Users\45401\Desktop\SEP\SEP3\Broker_Test\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.dll
 C:\Users\45401\Desktop\SEP\SEP3\Broker_Test\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
->>>>>>> 5e043251f27fd67039da772a65b5d5f847064da9

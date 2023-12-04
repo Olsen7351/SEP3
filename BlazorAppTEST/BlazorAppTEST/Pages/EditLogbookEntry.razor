@@ -3,9 +3,17 @@
 @inject NavigationManager NavigationManager
 @using ClassLibrary_SEP3
 @using BlazorAppTEST.Services
+@using Microsoft.AspNetCore.Mvc
 @using Task = System.Threading.Tasks.Task
 
 <h3>Edit Logbook Entry</h3>
+
+@if (errorMessage != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @errorMessage
+    </div>
+}
 
 @if (logBookEntry == null)
 {
@@ -26,40 +34,35 @@ else
     </EditForm>
 }
 
-
-
-
 @code {
     [Parameter]
     public string EntryID { get; set; }
 
-    private LogBookEntryPoints logBookEntry;
+    private LogBookEntryPoints logBookEntry { get; set; }
     private string errorMessage;
 
-    
-    
-    
     protected override async Task OnInitializedAsync()
     {
         try
         {
-          await LogBookService.GetLogBookEntryByID(EntryID);
+            logBookEntry = await LogBookService.GetLogBookEntryByID(EntryID);
+            if (logBookEntry == null)
+            {
+                errorMessage = "Logbook entry not found.";
+            }
         }
         catch (Exception ex)
         {
             errorMessage = $"Error loading logbook entry: {ex.Message}";
         }
     }
-
-    
-    
     
     
     private async Task EditEntry()
     {
         try
         {
-            await LogBookService.UpdateEntry(EntryID);
+            await LogBookService.UpdateEntry(EntryID, logBookEntry.Description);
             NavigationManager.NavigateTo($"/project-hub/{logBookEntry.LogBookID}");
         }
         catch (Exception ex)

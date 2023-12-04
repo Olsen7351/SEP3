@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ClassLibrary_SEP3")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7f7dd3c021dc0a0523573738bb3c218c1919a62e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("ClassLibrary_SEP3")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ClassLibrary_SEP3")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

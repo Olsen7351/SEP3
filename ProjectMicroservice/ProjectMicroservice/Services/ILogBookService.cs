@@ -5,6 +5,6 @@ namespace ProjectMicroservice.Services;
 public interface ILogBookService
 {
     LogBook CreateNewEntry(LogBookEntryPoints logBookEntryPoints);
-    
-    String GetLogbookForProject(String projectID);
+
+    Task<LogBook> GetLogbookForProject(string projectID);
 }
