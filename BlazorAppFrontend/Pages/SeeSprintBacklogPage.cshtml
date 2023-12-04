@@ -1,6 +1,9 @@
-﻿@page "/see-sprint-backlog"
+﻿
+@page "/see-sprint-backlog"
+@using BlazorAppTEST.Services
 @using BlazorAppTEST.Services.Interface
 @using ClassLibrary_SEP3
+@using Microsoft.AspNetCore.Authorization
 @inject ISprintBacklogService SprintBacklogService
 @inject NavigationManager NavigationManager
 @attribute [Authorize]
@@ -10,7 +13,7 @@
     ClassLibrary_SEP3.Task newTask = new ClassLibrary_SEP3.Task();
 }
 <!DOCTYPE html>
-<html>
+<html lang="En">
 <head>
     <title>See Sprint Backlog</title>
 </head>
@@ -107,17 +110,7 @@
     </EditForm>
     </div>
 </body>
-@code {
-    [Parameter]
-public string ProjectIdAsString { get; set; }
-private string feedbackMessage = "";
-    protected override async Task OnInitializedAsync()
-    {
-await LoadSprintBacklogs();
-    }
-
-    private async Task HandleValidSubmit()
-    {
-      await SprintBacklogService.AddTaskToSprintBacklogAsync(newTask);
-    }
+    @code {
+       
+    
 }
