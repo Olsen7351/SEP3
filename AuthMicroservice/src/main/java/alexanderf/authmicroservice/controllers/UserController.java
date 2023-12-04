@@ -5,7 +5,10 @@ import alexanderf.authmicroservice.DTO.UserDTO;
 import alexanderf.authmicroservice.models.JwtResponse;
 import alexanderf.authmicroservice.services.UserService;
 import alexanderf.authmicroservice.util.JwtUtil;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,14 +17,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.security.oauth2.jwt.Jwt;
 
 
 import javax.validation.Valid;
+import java.util.Base64;
 
 @RestController
 @RequestMapping("/api/users")
@@ -37,7 +38,6 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<Void> registerUser(@Valid @RequestBody UserDTO userDto) {
-        System.out.println("TEST");
         if (userService.findByUsername(userDto.getUsername())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
@@ -62,10 +62,14 @@ public class UserController {
     }
 
     @PutMapping("/change-password")
-    public ResponseEntity<?> changePassword(@Valid @RequestBody ChangePasswordDTO changePasswordDto) {
+    public ResponseEntity<?> changePassword(@Valid @RequestBody ChangePasswordDTO changePasswordDto,
+                                            @RequestHeader("Authorization") String authorizationHeader) {
         try {
-            // Extract username from the Security Context (JWT)
-            String currentLoggedInUsername = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+            // Extract token from the Authorization header
+            String jwtToken = authorizationHeader.substring(7); // Remove "Bearer " prefix
+
+            // Extract username from the JWT token
+            String currentLoggedInUsername = jwtUtil.extractSubjectFromToken(jwtToken);
             System.out.println("Trying to change password for user: " + currentLoggedInUsername);
 
             // Authenticate the user with the current password
@@ -82,7 +86,6 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication failed: " + e.getMessage());
         }
     }
-
 }
 
 

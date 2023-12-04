@@ -56,6 +56,27 @@ public class UserController : ControllerBase
             return BadRequest();
         }
     }
-    
-}
 
+    [HttpPut("ChangePassword")]
+    public async Task<IActionResult> ChangeUserPassword([FromBody] ChangePasswordRequest changePasswordRequest)
+    {
+        if (changePasswordRequest == null)
+        {
+            return BadRequest("Invalid request");
+        }
+
+        var jwt = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+        if (string.IsNullOrEmpty(jwt))
+        {
+            return Unauthorized("JWT token is missing");
+        }
+
+        var serviceResult = await _IuserService.ChangeUserPassword(jwt, changePasswordRequest);
+
+        if (serviceResult is OkResult)
+        {
+            return Ok("Password changed successfully");
+        }
+        return serviceResult;
+    }
+}

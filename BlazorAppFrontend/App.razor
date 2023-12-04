@@ -1,0 +1,26 @@
+﻿@using BlazorAppFrontend.Shared
+<CascadingAuthenticationState>
+    <div class="center-content">
+        <Router AppAssembly="@typeof(App).Assembly">
+            <Found Context="routeData">
+                <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                    <NotAuthorized>
+                        <div class="center-content">
+                            <h1 class="center-content">You'll have to log in!</h1>
+                            <img width="100%" src="https://i.kym-cdn.com/entries/icons/original/000/002/144/You_Shall_Not_Pass!_0-1_screenshot.jpg" />
+                        </div>
+                    </NotAuthorized>
+                </AuthorizeRouteView>
+                <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+            </Found>
+            <NotFound>
+                <PageTitle>Not found</PageTitle>
+                <LayoutView Layout="@typeof(MainLayout)">
+                    <div class="center-content">
+                        <p role="alert">Sorry, there's nothing at this address.</p>
+                    </div>
+                </LayoutView>
+            </NotFound>
+        </Router>
+    </div>
+</CascadingAuthenticationState>
