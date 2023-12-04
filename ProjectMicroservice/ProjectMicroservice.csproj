@@ -24,7 +24,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\ClassLibrary_SEP3\ClassLibrary_SEP3.csproj" />
+      <ProjectReference Include="..\ClassLibrary_SEP3\ClassLibrary_SEP3.csproj" />
     </ItemGroup>
 
 
