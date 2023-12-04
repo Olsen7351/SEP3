@@ -6,7 +6,7 @@ using ClassLibrary_SEP3.DataTransferObjects;
 
 using Microsoft.VisualBasic.CompilerServices;
 using MongoDB.Bson;
-using ProjectMicroservice.Tests;
+
 using ProjectDatabase = ClassLibrary_SEP3.Project;
 
 namespace ProjectMicroservice.Services

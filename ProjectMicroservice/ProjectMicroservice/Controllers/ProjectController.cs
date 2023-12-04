@@ -7,8 +7,7 @@ using ProjectMicroservice.Services;
 
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
-using Newtonsoft.Json;
-using Xunit.Sdk;
+
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace ProjectMicroservice.Controllers
