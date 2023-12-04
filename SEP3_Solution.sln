@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectMicroservice", "Proj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMQMicroservices", "RabbitMQMicroservices\RabbitMQMicroservices.csproj", "{09CFFDF9-F806-4707-BB58-7F8F7C4EFBAA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectMicroservice_Tests", "ProjectMicroservice_Tests\ProjectMicroservice_Tests.csproj", "{E2A05E5D-3221-4FA6-84AF-E3164A3A50FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{09CFFDF9-F806-4707-BB58-7F8F7C4EFBAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09CFFDF9-F806-4707-BB58-7F8F7C4EFBAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09CFFDF9-F806-4707-BB58-7F8F7C4EFBAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2A05E5D-3221-4FA6-84AF-E3164A3A50FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2A05E5D-3221-4FA6-84AF-E3164A3A50FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2A05E5D-3221-4FA6-84AF-E3164A3A50FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2A05E5D-3221-4FA6-84AF-E3164A3A50FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

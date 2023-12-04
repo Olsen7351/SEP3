@@ -113,5 +113,4 @@ yarn-error.log*
 .vscode/
 *.cache
 *.dll
-*.json
 *.exe

@@ -3,7 +3,6 @@
 @using BlazorAppTEST.Services
 @using ClassLibrary_SEP3
 @using ClassLibrary_SEP3.DataTransferObjects
-@using LogBookService = Broker.Services.LogBookService
 
 @using Task = System.Threading.Tasks.Task
 @using TaskStatus = ClassLibrary_SEP3.TaskStatus
@@ -138,7 +137,7 @@
         
         catch (Exception ex)
         {
-            errorMessage = $"Error: {ex.Message}";
+            throw new Exception(ex.Message);
         }
     }
 
