@@ -1,4 +1,4 @@
-﻿@page "/see-sprint-backlog"
+﻿@page "/project-hub/{ProjectIdAsString}/SeeSprintBacklog"
 @using BlazorAppTEST.Services
 @using BlazorAppTEST.Services.Interface
 @using ClassLibrary_SEP3
@@ -11,12 +11,6 @@
 @inject NavigationManager NavigationManager
 @attribute [Authorize]
 
-<!DOCTYPE html>
-<html lang="En">
-<head>
-    <title>See Sprint Backlog</title>
-</head>
-<body>
     <!-- Sprint Backlogs -->
     <div>
         <h2>Sprint Backlogs for Project ID: @ProjectIdAsString</h2>
@@ -109,7 +103,7 @@
             <button type="submit">Add Task</button>
         </EditForm>
     </div>
-</body>
+
    @code {
        [Parameter]
        public string ProjectIdAsString { get; set; }
@@ -156,4 +150,4 @@
            NavigationManager.NavigateTo($"/sprint-details/{sprintId}");
        }
    }
-</html>
+
