@@ -12,7 +12,7 @@ namespace Broker.Services
         public Task<IActionResult> GetSprintBacklogByIdAsync(string ProjectId, string Id);
         Task<IActionResult> UpdateSprintBacklogAsync(string projectId, string id, SprintBacklog sprintBacklog);
         Task<IActionResult> DeleteSprintBacklogAsync(string projectId, string id);
-        public Task<IActionResult> AddTaskToSprintBacklogAsync(string projectId, string id, AddSprintTaskRequest task);
+        public Task<IActionResult> AddTaskToSprintBacklogAsync(AddSprintTaskRequest task);
         public Task<IActionResult> GetTasksFromSprintBacklogAsync(string projectId, string Id);
     }
 }

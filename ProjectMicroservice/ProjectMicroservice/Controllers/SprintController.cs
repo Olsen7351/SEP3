@@ -15,62 +15,114 @@ public class SprintController : ControllerBase
     {
         _sprintService = sprintService;
     }
-
-    [HttpGet("{projectId}/backlog")]
-    public async Task<IActionResult> GetSprintBacklog(string projectId)
+    [HttpPost("{projectId}/backlog/sprints")]
+    public IActionResult CreateSprint( [FromBody] CreateSprintBackLogRequest  request)
     {
-        // Implementation for getting the sprint backlog of the specified project
-        return new StatusCodeResult(StatusCodes.Status501NotImplemented);
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        var createdSprint = _sprintService.CreateSprintBacklog(request);
+        if (createdSprint == null)
+        {
+            return BadRequest("Sprint could not be created");
+        }
+
+        return CreatedAtAction(nameof(GetSpecificSprint),
+            new { projectId = createdSprint.ProjectId, sprintId = createdSprint.SprintBacklogId });
+    }
+    [HttpGet("{projectId}/backlog")]
+    public IActionResult GetSprintBacklog(string projectId, string sprintBacklogId)
+    {
+        var sprintBacklog = _sprintService.GetSprintBacklogById(projectId, sprintBacklogId);
+        if (sprintBacklog == null)
+        {
+            return BadRequest("Sprint could not be Found");
+        }
+        return Ok(sprintBacklog); 
+        
     }
 
     [HttpGet("{projectId}/backlog/sprints")]
-    public async Task<IActionResult> GetAllSprints(string projectId)
+    public IActionResult GetAllSprints(string projectId)
     {
-        // Implementation for getting all sprints in the backlog of the specified project
-        return new StatusCodeResult(StatusCodes.Status501NotImplemented);
+        var sprints = _sprintService.GetAllSprintBacklogs(projectId);
+        if (sprints == null)
+        {
+            return BadRequest($"No sprints found for project with Id {projectId}.");
+        }
+        return Ok(sprints);
     }
 
     [HttpGet("{projectId}/backlog/sprints/{sprintId}")]
-    public async Task<IActionResult> GetSpecificSprint(string projectId, string sprintId)
+    public IActionResult GetSpecificSprint(string projectId, string sprintId)
     {
-        // Implementation for getting a specific sprint in the backlog of the specified project
-        return new StatusCodeResult(StatusCodes.Status501NotImplemented);
-    }
+        var sprint = _sprintService.GetSprintBacklogById(projectId, sprintId);
+        if (sprint == null)
+        {
+            return BadRequest($"No sprint was found for project with ID {projectId} or sprintbacklog Id {sprintId}");
+        }
 
-    [HttpPost("{projectId}/backlog/sprints")]
-    public async Task<IActionResult> CreateSprint(string projectId, [FromBody] CreateSprintBackLogRequest  request)
-    {
-        // Implementation for creating a new sprint in the backlog of the specified project
-        return new StatusCodeResult(StatusCodes.Status501NotImplemented);
+        return Ok(sprint);
+
     }
 
     [HttpPut("{projectId}/backlog/sprints/{sprintId}")]
-    public async Task<IActionResult> UpdateSprint(string projectId, string sprintId, [FromBody] SprintBacklog sprint)
+    public IActionResult UpdateSprint(string projectId, string sprintId, [FromBody] SprintBacklog sprint)
     {
-        // Implementation for updating a specific sprint in the backlog of the specified project
-        return new StatusCodeResult(StatusCodes.Status501NotImplemented);
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var updatedSprint = _sprintService.UpdateSprintBacklog(sprintId, sprint);
+        if (updatedSprint == null)
+        {
+            return BadRequest("The updated sprint is null");
+        }
+
+        return Ok(updatedSprint);
     }
 
     [HttpDelete("{projectId}/backlog/sprints/{sprintId}")]
-    public async Task<IActionResult> DeleteSprint(string projectId, string sprintId)
+    public IActionResult DeleteSprint(string projectId, string sprintBacklogId)
     {
-        // Implementation for deleting a specific sprint in the backlog of the specified project
-        return new StatusCodeResult(StatusCodes.Status501NotImplemented);
+        var success = _sprintService.DeleteSprintBacklog(projectId, sprintBacklogId);
+        if (!success)
+        {
+            return BadRequest($"Sprint with ID {sprintBacklogId} not found.");
+        }
+
+        return NoContent();
     }
 
     [HttpPost("{projectId}/backlog/sprints/{sprintId}/tasks")]
-    public async Task<IActionResult> AddTaskToSprint(string projectId, string sprintId, [FromBody] AddSprintTaskRequest request)
+    public IActionResult AddTaskToSprint(string sprintId, [FromBody] AddSprintTaskRequest request)
     {
-        // Implementation for adding a task to a specific sprint in the backlog of the specified project
-        return new StatusCodeResult(StatusCodes.Status501NotImplemented);
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var updatedSprint = _sprintService.AddTaskToSprintBacklog(request, sprintId);
+        if (updatedSprint == null)
+        {
+            return BadRequest($"Task could not be added");
+        }
+
+        return Ok(updatedSprint);
     }
 
     [HttpGet("{projectId}/backlog/sprints/{sprintId}/tasks")]
-    public async Task<IActionResult> GetTasksFromSprint(string projectId, string sprintId)
+    public IActionResult GetTasksFromSprint(string projectId, string sprintId)
     {
-        // Implementation for getting tasks from a specific sprint in the backlog of the specified project
-        return new StatusCodeResult(StatusCodes.Status501NotImplemented);
+        var tasks = _sprintService.GetAllTasksForSprintBacklog(projectId, sprintId);
+        if (tasks == null)
+        {
+            return BadRequest("The tasks could not be retrieved");
+        }
+
+        return Ok(tasks);
     }
 
-    // ... Additional methods as needed ...
 }
