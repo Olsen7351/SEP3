@@ -82,7 +82,7 @@ namespace Broker_Test.Controller_Test
             };
 
             mockService.Setup(service => service.CreateSprintBacklogAsync(It.IsAny<CreateSprintBackLogRequest>()))
-                .ReturnsAsync(new CreatedAtActionResult(nameof(SprintBacklogController.GetSpecificSprintBacklog), "SprintBacklog", new { id = sprintBacklogData.Id }, sprintBacklogData));
+                .ReturnsAsync(new OkResult());
 
             // Act
             var actionResult = await controller.Post(sprintBacklogData);
@@ -90,8 +90,8 @@ namespace Broker_Test.Controller_Test
             // Assert
             mockService.Verify(service => service.CreateSprintBacklogAsync(It.IsAny<CreateSprintBackLogRequest>()), Times.Once);
             Assert.NotNull(actionResult);
-            var createdAtActionResult = Assert.IsType<CreatedAtActionResult>(actionResult);
-            Assert.Equal(201, createdAtActionResult.StatusCode);
+            var okResult = Assert.IsType<OkResult>(actionResult); 
+            Assert.Equal(200, okResult.StatusCode);
         }
         [Fact]
         public async void GetSpecificSprintBacklog_ReturnsValue()

@@ -103,7 +103,6 @@ namespace BlazorAppTest
             var sprintBacklogService = new SprintBacklogService(httpClient);
             var expectedSprintBacklog = new CreateSprintBackLogRequest
             {
-                Id = "1",
                 projectId = "2",
                 Title = "Sprint 2"
             };
