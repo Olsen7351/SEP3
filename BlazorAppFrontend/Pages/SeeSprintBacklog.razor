@@ -179,7 +179,15 @@
 
        private async Task CreateSprintBacklog()
        {
-           var result = await SprintBacklogService.CreateSprintBacklogAsync(sprintBacklog);
+           CreateSprintBackLogRequest sprintBackLogRequest = new CreateSprintBackLogRequest
+           {
+
+               projectId = ProjectIdAsString,
+               Title = sprintBacklog.Title,
+               Timestamp = sprintBacklog.CreatedAt
+
+           };
+           var result = await SprintBacklogService.CreateSprintBacklogAsync(sprintBackLogRequest);
            if (result is OkObjectResult)
            {
                feedbackMessage = "Created SprintBacklog";

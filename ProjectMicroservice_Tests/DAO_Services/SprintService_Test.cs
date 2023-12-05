@@ -18,7 +18,7 @@ namespace ProjectMicroservice_Tests.DAO_Services
     {
         private readonly MongoDbContext _dbContext;
         private readonly SprintService _sprintService;
-
+        private string _sprintBacklogId;
         public SprintServiceTests()
         {
             var configBuilder = new ConfigurationBuilder()
@@ -39,18 +39,17 @@ namespace ProjectMicroservice_Tests.DAO_Services
             // Arrange
             var request = new CreateSprintBackLogRequest
             {
-                Id = "1",
                 projectId = "project_id_1",
                 Title = "Test Sprint",
                 // Add more properties needed for your request
             };
-
+            
             // Act
             var result = _sprintService.CreateSprintBacklog(request);
 
+            _sprintBacklogId= result.SprintBacklogId;
             // Assert
             Assert.NotNull(result);
-            Assert.Equal(request.Id, result.SprintBacklogId);
             Assert.Equal(request.projectId, result.ProjectId);
             Assert.Equal(request.Title, result.Title);
             // Add more assertions as needed
@@ -60,19 +59,27 @@ namespace ProjectMicroservice_Tests.DAO_Services
         public void GetSprintBacklogById_SprintBacklogExists_ReturnsSprintBacklog()
         {
             // Arrange
-            var projectId = "project_id_1";
-            var sprintBacklogId = "1";
+            var request = new CreateSprintBackLogRequest
+            {
+                projectId = "project_id_12",
+                Title = "Test Sprint",
+                // Add more properties needed for your request
+            };
+
+            var createdSprint = _sprintService.CreateSprintBacklog(request);
+            var sprintBacklogId = createdSprint.SprintBacklogId; // Retrieve the ID of the newly created Sprint
 
             // Act
-            var result = _sprintService.GetSprintBacklogById(projectId, sprintBacklogId);
-            Console.WriteLine(result);
+            var result = _sprintService.GetSprintBacklogById(sprintBacklogId);
+
             // Assert
             Assert.NotNull(result);
             Assert.Equal(sprintBacklogId, result.SprintBacklogId);
-            Assert.Equal(projectId, result.ProjectId);
-            // Add more assertions based on your SprintBacklog structure and expected data
+            Assert.Equal(request.projectId, result.ProjectId);
+            Assert.Equal(request.Title, result.Title);
         }
+
     }
-    
+
 
 }

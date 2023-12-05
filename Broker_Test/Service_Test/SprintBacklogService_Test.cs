@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using Newtonsoft.Json;
@@ -26,13 +27,12 @@ namespace Broker_Test.Service_Test
             var mockHttpClient = new Mock<HttpClient>();
             var service = new SprintBacklogService(mockHttpClient.Object);
 
-            var sprintBacklog = new SprintBacklog
+            var sprintBacklog = new CreateSprintBackLogRequest()
             {
-                ProjectId = "project-1",
-                SprintBacklogId = "backlog-1",
+                projectId = "1",
                 Title = "Sample Sprint",
-                CreatedAt = DateTime.UtcNow,
-                Tasks = new List<Task>()
+                Timestamp = DateTime.UtcNow,
+               
             };
 
             // Act
@@ -58,7 +58,7 @@ namespace Broker_Test.Service_Test
                 new SprintBacklog
                 {
                     ProjectId = projectId,
-                    SprintBacklogId = "backlog-1",
+                    SprintBacklogId = "1",
                     Title = "Sample Sprint 1",
                     CreatedAt = DateTime.UtcNow,
                     Tasks = new List<Task>()

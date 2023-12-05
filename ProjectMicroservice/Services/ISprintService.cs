@@ -10,7 +10,7 @@ namespace ProjectMicroservice.Services;
 public interface ISprintService
 {
     SprintBacklog CreateSprintBacklog(CreateSprintBackLogRequest request);
-    SprintBacklog GetSprintBacklogById(string projectId, string sprintBacklogId);
+    SprintBacklog GetSprintBacklogById(string sprintBacklogId);
     List<SprintBacklog> GetAllSprintBacklogs(string projectId);
     SprintBacklog UpdateSprintBacklog(string id, SprintBacklog updatedSprintBacklog);
     bool DeleteSprintBacklog(string projectId, string sprintBacklogId);

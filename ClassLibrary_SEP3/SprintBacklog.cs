@@ -10,10 +10,10 @@ namespace ClassLibrary_SEP3
 {
     public class SprintBacklog
     {
+        
+        public string ProjectId { get; set; }
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
-        public string ProjectId { get; set; }
         public string SprintBacklogId { get; set; }
 
         public string Title { get; set; }

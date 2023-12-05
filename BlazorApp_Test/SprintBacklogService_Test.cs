@@ -87,8 +87,8 @@ namespace BlazorAppTest
             // Assert
             Assert.IsType<OkObjectResult>(result);
             var okResult = (OkObjectResult)result;
-            Assert.IsAssignableFrom<IEnumerable<SprintBacklog>>(okResult.Value);
-            var sprintBacklogs = (IEnumerable<SprintBacklog>)okResult.Value;
+            Assert.IsAssignableFrom<IEnumerable<CreateSprintBackLogRequest>>(okResult.Value);
+            var sprintBacklogs = (IEnumerable<CreateSprintBackLogRequest>)okResult.Value;
             Assert.Equal(expectedSprintBacklogs.Count, sprintBacklogs.Count());
         }
         [Fact]
@@ -101,7 +101,11 @@ namespace BlazorAppTest
                 BaseAddress = new Uri("http://localhost/")
             };
             var sprintBacklogService = new SprintBacklogService(httpClient);
-            var expectedSprintBacklog = new SprintBacklog();
+            var expectedSprintBacklog = new CreateSprintBackLogRequest
+            {
+                projectId = "2",
+                Title = "Sprint 2"
+            };
             var response = new HttpResponseMessage(HttpStatusCode.OK)
             {
                 Content = new StringContent(JsonSerializer.Serialize(expectedSprintBacklog), Encoding.UTF8, "application/json")
