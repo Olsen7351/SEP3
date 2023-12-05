@@ -62,7 +62,6 @@ NuGet.Config
 
 # Visual Studio Code settings
 .vscode/
-.settings.json
 .code-workspace
 
 # Ignore macOS-specific files
@@ -81,9 +80,7 @@ ehthumbs.db
 *.iws
 *.classpath
 *.project
-*.settings/
 *.factorypath
-.settings.json
 .vscode/
 .vs/
 *.suo
