@@ -17,7 +17,7 @@ public class LogBookService : ILogBookService
     //Get
     public async Task<IActionResult> GetEntriesForLogBook(string projectID)
     {
-        string requestUri = "api/GetEntriesForLogBook";
+        string requestUri = "api/LogBook/GetEntriesForLogBook";
         HttpResponseMessage response = await httpClient.PostAsJsonAsync(requestUri, projectID);
 
         if (response.IsSuccessStatusCode)
