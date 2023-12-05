@@ -8,7 +8,7 @@ using ProjectMicroservice.Data;
 using ProjectMicroservice.Services;
 using Xunit;
 
-namespace ProjectMicroservice.Tests;
+namespace ProjectMicroservice_Tests.Controller;
 
 public class ProjectControllerTests
 {
