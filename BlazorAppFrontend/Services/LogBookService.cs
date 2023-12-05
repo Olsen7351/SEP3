@@ -1,7 +1,9 @@
+using BlazorAppTEST.Services.Auth;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlazorAppTEST.Services;
 using ClassLibrary_SEP3;
+using System.Net.Http.Headers;
 
 public class LogBookService : ILogBookService
 {
@@ -11,6 +13,7 @@ public class LogBookService : ILogBookService
     public LogBookService(HttpClient httpClient)
     {
         this.httpClient = httpClient;
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", UserService.Jwt);
     }
 
 
@@ -55,7 +58,7 @@ public class LogBookService : ILogBookService
             throw new ArgumentException("Project ID is empty or null.");
         }
 
-        HttpResponseMessage response = await httpClient.GetAsync($"api/logbook/{projectID}");
+        HttpResponseMessage response = await httpClient.GetAsync($"api/LogBook/{projectID}");
 
         if (response.IsSuccessStatusCode)
         {

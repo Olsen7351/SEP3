@@ -19,6 +19,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<ProjectService>();
 builder.Services.AddScoped<IUserLogin,UserService>();
 builder.Services.AddScoped<ISprintBacklogService,SprintBacklogService>();
+builder.Services.AddScoped<ILogBookService,LogBookService>();
 builder.Services.AddScoped<BacklogService>();
 builder.Services.AddScoped<TaskService>();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthProvider>();

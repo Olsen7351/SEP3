@@ -109,11 +109,11 @@
        public string ProjectIdAsString { get; set; }
        private string feedbackMessage = ""; // To store the feedback message
    
-       private List<SprintBacklog> sprintBacklogs;
+       private List<SprintBacklog> sprintBacklogs = new List<SprintBacklog>();
        private AddSprintTaskRequest newTask = new AddSprintTaskRequest();       
        protected override async Task OnInitializedAsync()
        {
-           await LoadSprintBacklogs();
+           //await LoadSprintBacklogs();
        }
    
        private async Task HandleValidSubmit()
