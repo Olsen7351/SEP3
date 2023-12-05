@@ -77,7 +77,6 @@ namespace Broker_Test.Controller_Test
             var sprintBacklogData = new CreateSprintBackLogRequest
             {
                 projectId = "sampleProjectId",
-                Id = "1",
                 Title = "Sample Sprint",
                 Timestamp = new DateTime(2021, 1, 1),
             };

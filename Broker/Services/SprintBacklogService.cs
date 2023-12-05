@@ -23,8 +23,7 @@ public class SprintBacklogService : ISprintBacklogService
         HttpResponseMessage response = await httpClient.PostAsJsonAsync(requestUri, sprintBacklog);
         if (response.IsSuccessStatusCode)
         {
-            return new CreatedAtActionResult(nameof(SprintBacklogController.GetSpecificSprintBacklog), "SprintBacklog",
-                new { id = sprintBacklog.Id }, sprintBacklog);
+            return new OkResult();
         }
 
         return new BadRequestResult();

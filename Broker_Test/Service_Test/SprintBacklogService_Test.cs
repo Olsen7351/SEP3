@@ -30,7 +30,6 @@ namespace Broker_Test.Service_Test
             var sprintBacklog = new CreateSprintBackLogRequest()
             {
                 projectId = "1",
-                Id = "2",
                 Title = "Sample Sprint",
                 Timestamp = DateTime.UtcNow,
                
