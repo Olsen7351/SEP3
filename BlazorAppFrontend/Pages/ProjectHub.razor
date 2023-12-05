@@ -7,10 +7,10 @@
 @using Task = System.Threading.Tasks.Task
 @using TaskStatus = ClassLibrary_SEP3.TaskStatus
 @inject ProjectService ProjectService
-@inject LogBookService LogBookService
+@inject ILogBookService LogBookService
 @inject TaskService TaskService;
 @inject NavigationManager NavigationManager
-
+@inject IJSRuntime JSRuntime
 @inject NavigationManager NavManager
 
 <div class="container-fluid">
@@ -118,12 +118,12 @@
 
     public Project? Project { get; set; }
     public List<ClassLibrary_SEP3.Task?>? BacklogTasks { get; set; }
-    public List<LogBookEntryPoints>? LogBookEntries { get; set; }
-    public List<ClassLibrary_SEP3.LogBook?>? LogBook { get; set; }
+    public List<LogBookEntryPoints>? LogBookEntries { get; set; } = new List<LogBookEntryPoints>();
+    public List<ClassLibrary_SEP3.LogBook?>? LogBook { get; set; } = new List<ClassLibrary_SEP3.LogBook>();
     private AddBacklogTaskRequest newTask = new AddBacklogTaskRequest();
 
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnParametersSetAsync()
     {
         try
         {
@@ -133,12 +133,17 @@
 
              // Fetch logbook entries
             var logbook = await LogBookService.GetEntriesForLogBook(ProjectIdAsString);
-            LogBookEntries = logbook?.LogBookEntryPoints ?? new List<LogBookEntryPoints>();
+            if (logbook != null)
+            {
+                LogBookEntries = logbook?.LogBookEntryPoints ?? new List<LogBookEntryPoints>();
+            }
         }
         
         catch (Exception ex)
         {
-            throw new Exception(ex.Message);
+            //Show error message to user
+            Console.WriteLine(ex.Message);
+            JSRuntime.InvokeVoidAsync("alert", "Failed to fetch some data from the server");
         }
     }
 
@@ -191,6 +196,6 @@
 
     private void NavigateToSeeSprints()
     {
-        NavigationManager.NavigateTo("/project-hub/{ProjectIdAsString}/SeeSprintBacklog");
+        NavigationManager.NavigateTo($"/project-hub/{ProjectIdAsString}/SeeSprintBacklog");
     }
 }
