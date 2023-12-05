@@ -1,4 +1,5 @@
 using ClassLibrary_SEP3;
+using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 using ProjectMicroservice.Services;
 
@@ -44,7 +45,7 @@ public class LogBookController : ControllerBase
     
     //Create Entries inside logbook
     [HttpPost("CreateLogEntryMicro")]
-    public async Task<IActionResult> CreateLogBookEntry(LogBookEntryPoints logBookEntryPoints)
+    public async Task<IActionResult> CreateLogBookEntry(AddEntryPointRequest logBookEntryPoints)
     {
         if (logBookEntryPoints == null)
         {
@@ -57,7 +58,7 @@ public class LogBookController : ControllerBase
         }
         catch (Exception e)
         {
-            return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred");
+            return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
         }
     }
 }

@@ -6,13 +6,13 @@ namespace ClassLibrary_SEP3;
 
 public class LogBookEntryPoints
 {
-    public String ProjectID { get; set; }
+    public string ProjectID { get; set; }
     
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
-    public string EntryID { get; set; }
+    public string EntryID { get;} = ObjectId.GenerateNewId().ToString();
     
-    public String OwnerUsername { get; set; }
+    public string OwnerUsername { get; set; }
 
     [Required] 
     public string Description { get; set; }
