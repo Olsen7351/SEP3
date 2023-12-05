@@ -11,7 +11,7 @@ using Task = ClassLibrary_SEP3.Task;
 
 namespace Broker.Controllers
 {
-    [Route("api/[controller]/{ProjectId}")]
+    [Route("api/[controller]/")]
     [ApiController]
     [Authorize]
     public class SprintBacklogController : ControllerBase
