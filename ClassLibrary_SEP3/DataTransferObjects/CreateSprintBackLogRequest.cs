@@ -12,5 +12,4 @@ public class CreateSprintBackLogRequest
     public string Title { get; set; }
     
     public DateTime Timestamp { get; set; }
-    public List<Task> Tasks { get; set; }
 }
