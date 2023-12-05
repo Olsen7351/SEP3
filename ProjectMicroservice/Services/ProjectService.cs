@@ -10,13 +10,16 @@ namespace ProjectMicroservice.Services
     public class ProjectService : IProjectService
     {
         private readonly IMongoCollection<Project> _projects;
+        private readonly IMongoCollection<UsersAPartOfProjects> _users;
+
 
         public ProjectService(MongoDbContext context)
         {
             _projects = context.Database.GetCollection<Project>("Projects");
+            _users = context.Database.GetCollection<UsersAPartOfProjects>("ProjectsForUsers");
         }
 
-        public Project CreateProject(CreateProjectRequest request) 
+        public Project CreateProject(CreateProjectRequest request)
         {
             var newProject = new Project()
             {
@@ -31,7 +34,7 @@ namespace ProjectMicroservice.Services
             };
 
             _projects.InsertOne(newProject);
-            return newProject;  // Now contains the MongoDB-generated ID
+            return newProject; // Now contains the MongoDB-generated ID
         }
 
         public Project GetProject(string id)
@@ -53,11 +56,16 @@ namespace ProjectMicroservice.Services
             {
                 return _projects.CountDocuments(b => b.Id == id) > 0;
             }
-            catch (Exception) { return false; }
+            catch (Exception)
+            {
+                return false;
+            }
         }
+
         public Project UpdateProject(Project project)
         {
-            try {
+            try
+            {
                 var filter = Builders<Project>.Filter.Eq(p => p.Id, project.Id);
 
                 var result = _projects.ReplaceOne(filter, project);
@@ -70,6 +78,7 @@ namespace ProjectMicroservice.Services
                 {
                     throw new MongoException("Failed to update project in database"); // Update failed
                 }
+
                 return project;
             }
             catch (Exception)
@@ -78,9 +87,20 @@ namespace ProjectMicroservice.Services
             }
         }
 
-        public bool AddUserToProject(string projectId, string userName)
+     
+
+        public bool AddUserToProject(AddUserToProjectRequest request)
         {
-            throw new NotImplementedException();
+            var usersCollection = _users.Database.GetCollection<UsersAPartOfProjects>("UsersAPartOfProjects");
+
+            var filter = Builders<UsersAPartOfProjects>.Filter.Eq(u => u.Username, request.UserName);
+            var update = Builders<UsersAPartOfProjects>.Update.AddToSet(u => u.ProjectID, request.ProjectId);
+
+            var result = usersCollection.UpdateOne(filter, update);
+
+            return result.ModifiedCount > 0;
         }
     }
 }
+    
+

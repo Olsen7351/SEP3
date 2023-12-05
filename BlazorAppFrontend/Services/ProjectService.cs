@@ -64,40 +64,42 @@ public class ProjectService: IProjectService
         return projekt;
     }
 
-    
+
 
     public async Task<Project> AddUserToProject(string username, string projectId)
     {
-        if (String.IsNullOrEmpty(username) || String.IsNullOrEmpty(projectId))
+        try
         {
-            throw new Exception("Either username or projectID couldn't be retrieved");
-        }
-        
-        // Service to check maybe if username exists inside the database
-        
-        var payload = new { Username = username, ProjectId = projectId };
-        HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/BrokerProject", payload);
-
-        if (response.IsSuccessStatusCode)
-        {
-            try
+            if (String.IsNullOrEmpty(username) || String.IsNullOrEmpty(projectId))
             {
-                var responseContent = await response.Content.ReadAsStringAsync();
-                Console.WriteLine($"Response Content: {responseContent}");
-                var project = JsonSerializer.Deserialize<Project>(responseContent, new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                });
+                throw new Exception("Either username or projectID couldn't be retrieved");
+            }
 
+            var payload = new { Username = username, ProjectId = projectId };
+
+            // Log the request payload
+            Console.WriteLine($"Request Payload: {JsonSerializer.Serialize(payload)}");
+
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/BrokerProject/AddUserToProject", payload);
+
+            // Log the response content
+            Console.WriteLine($"Response Content: {await response.Content.ReadAsStringAsync()}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var project = await response.Content.ReadFromJsonAsync<Project>();
                 return project;
             }
-            catch (JsonException ex)
+            else
             {
-                // Handle JSON parsing errors
-                throw new Exception($"Error parsing JSON: {ex.Message}");
+                throw new Exception($"Error: {response.StatusCode}");
             }
         }
-    
-        throw new Exception($"Error: {response.StatusCode}");
+        catch (Exception ex)
+        {
+            // Log or handle the exception
+            Console.WriteLine($"Error in AddUserToProject: {ex.Message}");
+            throw;
+        }
     }
 }

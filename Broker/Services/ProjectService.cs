@@ -52,7 +52,7 @@ namespace Broker.Services
                 return new BadRequestResult();
             }
             
-            HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/Project", request);
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/Broker/AddUserToProject", request);
 
             if (response.IsSuccessStatusCode)
             {

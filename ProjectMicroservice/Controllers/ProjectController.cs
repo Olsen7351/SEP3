@@ -50,22 +50,21 @@ namespace ProjectMicroservice.Controllers
         }
 
         [HttpPost("{projectId}/addUser")]
-        public IActionResult AddUserToProject(string projectId, [FromBody] AddUserToProjectRequest request)
+        public IActionResult AddUserToProject([FromBody] AddUserToProjectRequest request)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var result = _projectService.AddUserToProject(projectId, request.UserName);
-        
-            if (result == null)
+            var result = _projectService.AddUserToProject(request);
+
+            if (!result)
             {
-                return NotFound(); 
+                return NotFound();
             }
 
-            return Ok(result);
+            return Ok(new { Message = "User added to project successfully." });
         }
-        
     }
 }
