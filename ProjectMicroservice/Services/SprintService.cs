@@ -39,17 +39,16 @@ public class SprintService : ISprintService
         return sprintBacklog;
 
     }
-    public SprintBacklog GetSprintBacklogById(string projectId, string sprintBacklogId)
+    public SprintBacklog GetSprintBacklogById(string sprintBacklogId)
     {
         try
         {
-            var sprintBacklog = _sprints.Find(p => p.ProjectId == projectId && p.SprintBacklogId == sprintBacklogId)
+            var sprintBacklog = _sprints.Find(p => p.SprintBacklogId == sprintBacklogId)
                 .FirstOrDefault();
 
             if (sprintBacklog == null)
             {
-                Console.WriteLine($"Could not find Sprintbacklog {sprintBacklogId} for project {projectId}");
-                throw new NullReferenceException($"Sprintbacklog {sprintBacklogId} not found for project {projectId}");
+                throw new NullReferenceException($"Sprintbacklog {sprintBacklogId} not found");
             }
 
             return sprintBacklog;
