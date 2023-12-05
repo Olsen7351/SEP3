@@ -49,8 +49,8 @@ public class LogBookController : ControllerBase
     
     
     //Create New Entry
-    [HttpPost("CreateLogEntry")]
-    public async Task<IActionResult> CreateLogBookEntry([FromBody] LogBookEntryPoints logBookEntryPoints)
+    [HttpPost("CreateLogEntryBroker")]
+    public async Task<IActionResult> CreateLogBookEntry([FromBody] AddEntryPointRequest logBookEntryPoints)
     {
         if (logBookEntryPoints == null)
         {

@@ -43,7 +43,7 @@ public class LogBookController : ControllerBase
     
     
     //Create Entries inside logbook
-    [HttpPost("CreateLogEntry")]
+    [HttpPost("CreateLogEntryMicro")]
     public async Task<IActionResult> CreateLogBookEntry(LogBookEntryPoints logBookEntryPoints)
     {
         if (logBookEntryPoints == null)

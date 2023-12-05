@@ -1,6 +1,7 @@
 using Broker.Controllers;
 using Broker.Services;
 using ClassLibrary_SEP3;
+using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -26,15 +27,15 @@ public class LogBook_ControllerTest
     public async Task CreateLogBookEntry_WithValidEntry()
     {
         // Arrange
-        var logBookEntry = new LogBookEntryPoints
-        {
-            LogBookID = 1,
+        var logBookEntry = new AddEntryPointRequest()
+        { 
+            ProjectID = "asfjashfajf",
             OwnerUsername = "James",
             Description = "Hey",
             CreatedTimeStamp = DateTime.Today
         };
         var serviceResult = new OkResult(); 
-        _mockLogBookService.Setup(service => service.CreateNewEntryLogBook(It.IsAny<LogBookEntryPoints>()))
+        _mockLogBookService.Setup(service => service.CreateNewEntryLogBook(It.IsAny<AddEntryPointRequest>()))
             .ReturnsAsync(serviceResult);
 
         // Act

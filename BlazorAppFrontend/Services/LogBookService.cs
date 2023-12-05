@@ -1,4 +1,5 @@
 using BlazorAppTEST.Services.Auth;
+using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 namespace BlazorAppTEST.Services;
 using ClassLibrary_SEP3;
@@ -100,16 +101,21 @@ public class LogBookService : ILogBookService
     
     
     //Create Entries 
-    public async Task<IActionResult> CreateNewEntryToLogBook (LogBookEntryPoints logBookEntryPoints)
+    public async Task<IActionResult> CreateNewEntryToLogBook (AddEntryPointRequest logBookEntryPoints)
     {
         if (String.IsNullOrEmpty(logBookEntryPoints.OwnerUsername) || logBookEntryPoints.CreatedTimeStamp == null)
         {
             throw new Exception("Either username hasn't been assigned or time stamp is null");
         }
 
-        if (logBookEntryPoints.CreatedTimeStamp > DateTime.Today || logBookEntryPoints.CreatedTimeStamp < DateTime.Today)
+        if (logBookEntryPoints.CreatedTimeStamp.Date != DateTime.UtcNow.Date)
         {
-            throw new Exception("Created entry needs to have a present timestamp");
+            throw new Exception("Created entry needs to have today's date");
+        }
+
+        if (String.IsNullOrEmpty(logBookEntryPoints.ProjectID))
+        {
+            throw new Exception("ProjectID is null or empty");
         }
 
         if (String.IsNullOrEmpty(logBookEntryPoints.Description))
@@ -117,8 +123,8 @@ public class LogBookService : ILogBookService
             throw new Exception("Description cant be empty");
         }
         
-        //Ask for help
-        HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/CreateLogEntry", logBookEntryPoints);
+        
+        HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/LogBook/CreateLogEntryBroker", logBookEntryPoints);
         if (!response.IsSuccessStatusCode)
         {
             throw new Exception($"Error:{response.StatusCode}");

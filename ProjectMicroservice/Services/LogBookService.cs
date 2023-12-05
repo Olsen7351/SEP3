@@ -1,4 +1,6 @@
 using ClassLibrary_SEP3;
+using ClassLibrary_SEP3.DataTransferObjects;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using ProjectMicroservice.Data;
 
@@ -15,43 +17,60 @@ public class LogBookService : ILogBookService
     }
 
 
-    // Create 
-    public LogBook CreateNewEntry(LogBookEntryPoints logBookEntryPoints)
+    public LogBook CreateNewEntry(AddEntryPointRequest logBookEntryPoints)
     {
-        // Find the LogBook with the given LogBookID or create a new one
-        var filter = Builders<LogBook>.Filter.Eq(lb => lb.LogBookID, logBookEntryPoints.LogBookID);
+        // Check if the CreatedTimeStamp is set to the current date (you might not need this if it's set elsewhere)
+        if (logBookEntryPoints.CreatedTimeStamp.Date != DateTime.Today)
+        {
+            throw new Exception("Created entry needs to have a present timestamp");
+        }
+    
+        // Find the LogBook with the given ProjectID or create a new one
+        var filter = Builders<LogBook>.Filter.Eq(lb => lb.ProjectID, logBookEntryPoints.ProjectID);
         var logBook = _logEntryPoints.Find(filter).FirstOrDefault();
 
         if (logBook == null)
         {
             logBook = new LogBook
             {
-                LogBookID = logBookEntryPoints.LogBookID,
+                ProjectID = logBookEntryPoints.ProjectID, // This line was corrected
                 LogBookEntryPoints = new List<LogBookEntryPoints> { logBookEntryPoints }
             };
             _logEntryPoints.InsertOne(logBook);
         }
+        
         else
         {
-            var update = Builders<LogBook>.Update.Push(lb => lb.LogBookEntryPoints, logBookEntryPoints);
+            var newEntry = new LogBookEntryPoints()
+            {
+                ProjectID = logBookEntryPoints.ProjectID,
+                OwnerUsername = logBookEntryPoints.OwnerUsername,
+                Description = logBookEntryPoints.Description,
+                CreatedTimeStamp = logBookEntryPoints.CreatedTimeStamp
+            };
+    
+            var update = Builders<LogBook>.Update.Push(lb => lb.LogBookEntryPoints, newEntry);
             _logEntryPoints.UpdateOne(filter, update);
         }
-
         return logBook;
     }
 
 
+
     public async Task<LogBook> GetLogbookForProject(string projectID)
     {
-        // Assuming your LogBook documents have a "ProjectID" field to link to the Project
+        // Create a filter to find the LogBook document with the matching ProjectID
         var filter = Builders<LogBook>.Filter.Eq(lb => lb.ProjectID, projectID);
+    
+        // Perform an asynchronous query to find the first LogBook that matches the filter
         var logBook = await _logEntryPoints.Find(filter).FirstOrDefaultAsync();
+    
+        // If no LogBook is found, throw an exception
         if (logBook == null)
         {
-            // Handle the case where there is no logbook for the given projectID, if necessary
             throw new KeyNotFoundException("No logbook found for the given project ID.");
         }
-
+        // If a LogBook is found, return it
         return logBook;
     }
 }

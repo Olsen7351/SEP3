@@ -1,4 +1,5 @@
 using ClassLibrary_SEP3;
+using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Broker.Services;
@@ -34,9 +35,9 @@ public class LogBookService : ILogBookService
     
     
     //Create
-    public async Task<IActionResult> CreateNewEntryLogBook(LogBookEntryPoints logBookEntryPoints)
+    public async Task<IActionResult> CreateNewEntryLogBook(AddEntryPointRequest logBookEntryPoints)
     {
-        string requestUri = "api/CreateNewEntryLogBook";
+        string requestUri = "api/LogBook/CreateLogEntryMicro";
         HttpResponseMessage response = await httpClient.PostAsJsonAsync(requestUri, logBookEntryPoints);
         if (response.IsSuccessStatusCode)
         {
