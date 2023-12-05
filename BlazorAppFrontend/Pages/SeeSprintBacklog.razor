@@ -41,8 +41,8 @@
     <div class="container">
         <div class="card">
             <h3 style="color: lime;">Created SprintBacklog Successfully!</h3>
-            <p><strong>Project Id:</strong> @sprintBacklog.ProjectID</p>
-            <p><strong>Sprint Backlog Id:</strong> @sprintBacklog.SprintBacklogID</p>
+            <p><strong>Project Id:</strong> @sprintBacklog.ProjectId</p>
+            <p><strong>Sprint Backlog Id:</strong> @sprintBacklog.SprintBacklogId</p>
             <p><strong>Title Date:</strong> @sprintBacklog.Title</p>
             <p><strong>Start Date:</strong> @sprintBacklog.CreatedAt.ToShortDateString()</p>
         </div>
@@ -85,7 +85,7 @@
                             }
                         </tbody>
                     </table>
-                    <button class="btn btn-primary" @onclick="() => NavigateToSprintDetails(sprintBacklog.SprintBacklogID)">View Sprint Details</button>
+                    <button class="btn btn-primary" @onclick="() => NavigateToSprintDetails(sprintBacklog.SprintBacklogId)">View Sprint Details</button>
                 </div>
             }
         }
@@ -184,7 +184,7 @@
 
                projectId = ProjectIdAsString,
                Title = sprintBacklog.Title,
-               Id = sprintBacklog.SprintBacklogID,
+               Id = sprintBacklog.SprintBacklogId,
                Timestamp = sprintBacklog.CreatedAt
 
            };

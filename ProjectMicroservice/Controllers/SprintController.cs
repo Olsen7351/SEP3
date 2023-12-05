@@ -29,7 +29,7 @@ public class SprintController : ControllerBase
         }
 
         return CreatedAtAction(nameof(GetSpecificSprint),
-            new { projectId = createdSprint.ProjectID, sprintId = createdSprint.SprintBacklogID });
+            new { projectId = createdSprint.ProjectId, sprintId = createdSprint.SprintBacklogId });
     }
     [HttpGet("{projectId}/backlog")]
     public IActionResult GetSprintBacklog(string projectId, string sprintBacklogId)
