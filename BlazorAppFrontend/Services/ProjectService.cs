@@ -76,17 +76,28 @@ public class ProjectService: IProjectService
         // Service to check maybe if username exists inside the database
         
         var payload = new { Username = username, ProjectId = projectId };
-        HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/Broker/AddUserToProject", payload);
+        HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/BrokerProject", payload);
 
         if (response.IsSuccessStatusCode)
         {
-            var project = await response.Content.ReadFromJsonAsync<Project>();
-            return project;
+            try
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"Response Content: {responseContent}");
+                var project = JsonSerializer.Deserialize<Project>(responseContent, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+
+                return project;
+            }
+            catch (JsonException ex)
+            {
+                // Handle JSON parsing errors
+                throw new Exception($"Error parsing JSON: {ex.Message}");
+            }
         }
-        
-        else
-        {
-            throw new Exception($"Error: {response.StatusCode}");
-        }
+    
+        throw new Exception($"Error: {response.StatusCode}");
     }
 }

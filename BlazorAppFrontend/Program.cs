@@ -1,6 +1,7 @@
 using System.Text;
 using BlazorAppTEST.Services;
 using BlazorAppTEST.Services.Auth;
+using BlazorAppTEST.Services.Interface;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
@@ -19,6 +20,7 @@ builder.Services.AddScoped<ProjectService>();
 builder.Services.AddScoped<IUserLogin,UserService>();
 builder.Services.AddScoped<BacklogService>();
 builder.Services.AddScoped<TaskService>();
+builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthProvider>();
 
 builder.Services.AddScoped(sp => 
