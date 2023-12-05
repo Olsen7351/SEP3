@@ -74,23 +74,22 @@ namespace Broker_Test.Controller_Test
             var mockService = new Mock<ISprintBacklogService>();
             var controller = new SprintBacklogController(mockService.Object);
 
-            var sprintBacklogData = new SprintBacklog
+            var sprintBacklogData = new CreateSprintBackLogRequest
             {
-                ProjectId = "sampleProjectId",
-                SprintBacklogId = "1",
+                projectId = "sampleProjectId",
+                Id = "1",
                 Title = "Sample Sprint",
-                CreatedAt = new DateTime(2021, 1, 1),
-                Tasks = new List<ClassLibrary_SEP3.Task>()
+                Timestamp = new DateTime(2021, 1, 1),
             };
 
-            mockService.Setup(service => service.CreateSprintBacklogAsync(It.IsAny<SprintBacklog>()))
-                .ReturnsAsync(new CreatedAtActionResult(nameof(SprintBacklogController.GetSpecificSprintBacklog), "SprintBacklog", new { id = sprintBacklogData.SprintBacklogId }, sprintBacklogData));
+            mockService.Setup(service => service.CreateSprintBacklogAsync(It.IsAny<CreateSprintBackLogRequest>()))
+                .ReturnsAsync(new CreatedAtActionResult(nameof(SprintBacklogController.GetSpecificSprintBacklog), "SprintBacklog", new { id = sprintBacklogData.Id }, sprintBacklogData));
 
             // Act
             var actionResult = await controller.Post(sprintBacklogData);
 
             // Assert
-            mockService.Verify(service => service.CreateSprintBacklogAsync(It.IsAny<SprintBacklog>()), Times.Once);
+            mockService.Verify(service => service.CreateSprintBacklogAsync(It.IsAny<CreateSprintBackLogRequest>()), Times.Once);
             Assert.NotNull(actionResult);
             var createdAtActionResult = Assert.IsType<CreatedAtActionResult>(actionResult);
             Assert.Equal(201, createdAtActionResult.StatusCode);
