@@ -23,44 +23,44 @@ public class SprintService : ISprintService
         _sprints = context.Database.GetCollection<SprintBacklog>("Sprints");
     }
     
-    public SprintBacklog CreateSprintBacklog(CreateSprintBackLogRequest request)
+    public SprintBacklog CreateSprintBacklog(CreateSprintBackLogRequest var)
     {
-        var filter =
-            Builders<SprintBacklog>.Filter.Eq(sprint => sprint.SprintBacklogId, request.Id);
-        var sprintBacklog = _sprints.Find(filter).FirstOrDefault();
-
-        if (sprintBacklog == null)
+      
+        
+        var sprintBacklog = new SprintBacklog()
         {
-            sprintBacklog = new SprintBacklog()
-            {
-                ProjectId = request.projectId,
-                SprintBacklogId = request.Id,
-                Title = request.Title,
+                ProjectId = var.projectId,
+                Title = var.Title,
                 CreatedAt = DateTime.Today,
-                Tasks = new List<Task>()
-            };
-            _sprints.InsertOne(sprintBacklog);
-        }
-        else
-        {
-            var update = Builders<SprintBacklog>.Update.Set(sprint => sprint.Title, request.Title);
-            _sprints.UpdateOne(filter, update);        }
+        };
+        _sprints.InsertOne(sprintBacklog);
+        
 
         return sprintBacklog;
 
-    } 
-    public SprintBacklog GetSprintBacklogById(string projectId,string sprintBacklogId)
+    }
+    public SprintBacklog GetSprintBacklogById(string projectId, string sprintBacklogId)
     {
         try
         {
-            return _sprints.Find(p => p.ProjectId == projectId && p.SprintBacklogId == sprintBacklogId)
+            var sprintBacklog = _sprints.Find(p => p.ProjectId == projectId && p.SprintBacklogId == sprintBacklogId)
                 .FirstOrDefault();
-        }catch (System.FormatException)
+
+            if (sprintBacklog == null)
+            {
+                Console.WriteLine($"Could not find Sprintbacklog {sprintBacklogId} for project {projectId}");
+                throw new NullReferenceException($"Sprintbacklog {sprintBacklogId} not found for project {projectId}");
+            }
+
+            return sprintBacklog;
+        }
+        catch (Exception ex)
         {
-            Console.WriteLine($"Could Not find Sprintbacklog {sprintBacklogId} for project {projectId}");
-            throw new Exception("Project not found");
+            Console.WriteLine($"Error while retrieving sprint backlog: {ex.Message}");
+            throw; // Re-throw the exception for higher-level handling or logging
         }
     }
+
     public List<SprintBacklog> GetAllSprintBacklogs(string projectId)
     {
         return _sprints.Find(sprint => sprint.ProjectId == projectId).ToList();

@@ -17,7 +17,7 @@ namespace BlazorAppTEST.Services
         {
             this._httpClient = httpclient;
         }
-        public async Task<IActionResult> CreateSprintBacklogAsync(SprintBacklog sprintBacklog)
+        public async Task<IActionResult> CreateSprintBacklogAsync(CreateSprintBackLogRequest sprintBacklog)
         {
             HttpResponseMessage message = await _httpClient.PostAsJsonAsync("api/SprintBacklog", sprintBacklog);
             if (message.IsSuccessStatusCode)

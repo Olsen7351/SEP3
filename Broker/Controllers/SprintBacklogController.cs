@@ -23,7 +23,12 @@ namespace Broker.Controllers
             _sprintBacklogService = sprintBacklogService;
         }
 
-
+        // POST api/<SprintBacklogController>/<ProjectId>
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] CreateSprintBackLogRequest sprintBacklog)
+        {
+            return await _sprintBacklogService.CreateSprintBacklogAsync(sprintBacklog);
+        }
         // GET: api/<SprintBacklogController>/<ProjectId>
         [HttpGet]
         public async Task<IActionResult> GetAllSprintBacklogs(string ProjectId)
@@ -38,12 +43,7 @@ namespace Broker.Controllers
             return await _sprintBacklogService.GetSprintBacklogByIdAsync(ProjectId, id);
         }
 
-        // POST api/<SprintBacklogController>/<ProjectId>
-        [HttpPost]
-        public async Task<IActionResult> Post([FromBody] SprintBacklog sprintBacklog)
-        {
-            return await _sprintBacklogService.CreateSprintBacklogAsync(sprintBacklog);
-        }
+       
 
         // PUT api/<SprintBacklogController>/<ProjectId>/5
         [HttpPut("{id}")]

@@ -17,14 +17,13 @@ public class SprintBacklogService : ISprintBacklogService
         this.httpClient = client;
     }
 
-    public async Task<IActionResult> CreateSprintBacklogAsync(SprintBacklog sprintBacklog)
+    public async Task<IActionResult> CreateSprintBacklogAsync(CreateSprintBackLogRequest sprintBacklog)
     {
-        string requestUri = $"api/Project/{sprintBacklog.ProjectId}/SprintBacklog";
+        string requestUri = $"api/Project/{sprintBacklog.projectId}/SprintBacklog";
         HttpResponseMessage response = await httpClient.PostAsJsonAsync(requestUri, sprintBacklog);
         if (response.IsSuccessStatusCode)
         {
-            return new CreatedAtActionResult(nameof(SprintBacklogController.GetSpecificSprintBacklog), "SprintBacklog",
-                new { id = sprintBacklog.SprintBacklogId }, sprintBacklog);
+            return new OkResult();
         }
 
         return new BadRequestResult();

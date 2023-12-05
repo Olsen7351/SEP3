@@ -11,7 +11,44 @@
 @inject NavigationManager NavigationManager
 @attribute [Authorize]
 
-    <!-- Sprint Backlogs -->
+
+<!-- Make new Sprint Backlog -->
+<div class="container">
+    <div class="card">
+        <h3> SprintBacklog Creation</h3>
+        <EditForm Model="sprintBacklog" OnValidSubmit="CreateSprintBacklog">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+        
+            <div class="form-group">
+                <label for="title">Project Title:</label>
+                <InputText id="title" class="form-control" @bind-Value="sprintBacklog.Title"/>
+                <ValidationMessage For="@(() => sprintBacklog.Title)" />
+            </div>
+        
+            <div class="form-group">
+                <label for="startDate">Start Date:</label>
+                <InputDate id="startDate" class="form-control" @bind-Value="sprintBacklog.CreatedAt"></InputDate>
+                <ValidationMessage For="@(() => sprintBacklog.CreatedAt)" />
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+@if (sprintBacklog != null)
+{
+    <div class="container">
+        <div class="card">
+            <h3 style="color: lime;">Created SprintBacklog Successfully!</h3>
+            <p><strong>Project Id:</strong> @sprintBacklog.ProjectId</p>
+            <p><strong>Sprint Backlog Id:</strong> @sprintBacklog.SprintBacklogId</p>
+            <p><strong>Title Date:</strong> @sprintBacklog.Title</p>
+            <p><strong>Start Date:</strong> @sprintBacklog.CreatedAt.ToShortDateString()</p>
+        </div>
+    </div>
+}
+<!-- Sprint Backlogs -->
     <div>
         <h2>Sprint Backlogs for Project ID: @ProjectIdAsString</h2>
         @if (sprintBacklogs != null && sprintBacklogs.Any())
@@ -105,25 +142,30 @@
     </div>
 
    @code {
-       [Parameter]
+       
+       
+       
        public string ProjectIdAsString { get; set; }
-       private string feedbackMessage = ""; // To store the feedback message
+       private string feedbackMessage = ""; 
    
        private List<SprintBacklog> sprintBacklogs = new List<SprintBacklog>();
-       private AddSprintTaskRequest newTask = new AddSprintTaskRequest();       
+       private AddSprintTaskRequest newTask = new AddSprintTaskRequest();
+       private SprintBacklog sprintBacklog = new();
        protected override async Task OnInitializedAsync()
        {
-           //await LoadSprintBacklogs();
+          
+           await LoadSprintBacklogs();
        }
    
        private async Task HandleValidSubmit()
        {
+           newTask.ProjectId = ProjectIdAsString;
            var result = await SprintBacklogService.AddTaskToSprintBacklogAsync(newTask);
-           if (result is OkObjectResult) // Assuming the service returns a boolean indicating success
+           if (result is OkObjectResult) 
            {
                feedbackMessage = "Task added successfully!";
-               newTask = new AddSprintTaskRequest(); // Reset the form
-               await LoadSprintBacklogs(); // Refresh the list
+               newTask = new AddSprintTaskRequest(); 
+               await LoadSprintBacklogs(); 
            }
            else if (result is NotFoundResult)
            {
@@ -134,7 +176,28 @@
                feedbackMessage = "Failed to add task due to an unknown error.";
            }
        }
-   
+
+       private async Task CreateSprintBacklog()
+       {
+           CreateSprintBackLogRequest sprintBackLogRequest = new CreateSprintBackLogRequest
+           {
+
+               projectId = ProjectIdAsString,
+               Title = sprintBacklog.Title,
+               Timestamp = sprintBacklog.CreatedAt
+
+           };
+           var result = await SprintBacklogService.CreateSprintBacklogAsync(sprintBackLogRequest);
+           if (result is OkObjectResult)
+           {
+               feedbackMessage = "Created SprintBacklog";
+               sprintBacklog = new SprintBacklog();
+           }
+           else
+           {
+               feedbackMessage = "SprintBacklog could not be created";
+           }
+       }
        private async Task LoadSprintBacklogs()
        {
            var result = await SprintBacklogService.GetSprintBacklogsAsync(ProjectIdAsString);
