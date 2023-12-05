@@ -68,8 +68,8 @@ public class UserControllerCreateUserTests {
     // Many
     @Test
     void testRegisterUserMultipleTimes() {
-        UserDTO secondUserDto = new UserDTO("anotherUser", "another@example.com", "password456");
-        User secondUser = new User("2", "anotherUser", "another@example.com", "password456");
+        UserDTO secondUserDto = new UserDTO("testUser", "another@example.com", "password456");
+        User secondUser = new User("2", "testUser", "another@example.com", "password456");
         createdUsernames.add(secondUser.getUsername());
 
         when(userService.registerNewUserAccount(any(UserDTO.class)))
@@ -80,11 +80,9 @@ public class UserControllerCreateUserTests {
         ResponseEntity<Void> secondResponse = userController.registerUser(secondUserDto);
 
         assertEquals(HttpStatus.OK, firstResponse.getStatusCode());
-        assertEquals(user, firstResponse.getBody());
 
         // No duplicate usernames allowed
         assertEquals(HttpStatus.CONFLICT, secondResponse.getStatusCode());
-        assertEquals(secondUser, secondResponse.getBody());
     }
 
     // Interfaces
