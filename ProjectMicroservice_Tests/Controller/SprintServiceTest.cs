@@ -8,18 +8,18 @@ using ProjectMicroservice.Data;
 using ProjectMicroservice.Services;
 using Xunit;
 
-namespace ProjectMicroservice.Tests;
+namespace ProjectMicroservice_Tests.Controller;
 
 public class SprintServiceTest
 {
     private readonly Mock<ISprintService> _mockSprintService;
     private readonly SprintController _controller;
-    
+
 
     public SprintServiceTest()
     {
         _mockSprintService = new Mock<ISprintService>();
-        _controller = new SprintController(_mockSprintService.Object); 
+        _controller = new SprintController(_mockSprintService.Object);
     }
     [Fact]
     public void CreateSprint_WithValidModel_ReturnsCreatedAtActionResult()
