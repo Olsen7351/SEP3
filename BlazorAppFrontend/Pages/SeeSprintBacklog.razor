@@ -41,8 +41,8 @@
     <div class="container">
         <div class="card">
             <h3 style="color: lime;">Created SprintBacklog Successfully!</h3>
-            <p><strong>Project Id:</strong> @sprintBacklog.ProjectId</p>
-            <p><strong>Sprint Backlog Id:</strong> @sprintBacklog.SprintBacklogId</p>
+            <p><strong>Project Id:</strong> @sprintBacklog.ProjectID</p>
+            <p><strong>Sprint Backlog Id:</strong> @sprintBacklog.SprintBacklogID</p>
             <p><strong>Title Date:</strong> @sprintBacklog.Title</p>
             <p><strong>Start Date:</strong> @sprintBacklog.CreatedAt.ToShortDateString()</p>
         </div>
@@ -85,7 +85,7 @@
                             }
                         </tbody>
                     </table>
-                    <button class="btn btn-primary" @onclick="() => NavigateToSprintDetails(sprintBacklog.SprintBacklogId)">View Sprint Details</button>
+                    <button class="btn btn-primary" @onclick="() => NavigateToSprintDetails(sprintBacklog.SprintBacklogID)">View Sprint Details</button>
                 </div>
             }
         }
@@ -179,7 +179,16 @@
 
        private async Task CreateSprintBacklog()
        {
-           var result = await SprintBacklogService.CreateSprintBacklogAsync(sprintBacklog);
+           CreateSprintBackLogRequest sprintBackLogRequest = new CreateSprintBackLogRequest
+           {
+
+               projectId = ProjectIdAsString,
+               Title = sprintBacklog.Title,
+               Id = sprintBacklog.SprintBacklogID,
+               Timestamp = sprintBacklog.CreatedAt
+
+           };
+           var result = await SprintBacklogService.CreateSprintBacklogAsync(sprintBackLogRequest);
            if (result is OkObjectResult)
            {
                feedbackMessage = "Created SprintBacklog";

@@ -26,15 +26,15 @@ public class SprintService : ISprintService
     public SprintBacklog CreateSprintBacklog(CreateSprintBackLogRequest request)
     {
         var filter =
-            Builders<SprintBacklog>.Filter.Eq(sprint => sprint.SprintBacklogId, request.Id);
+            Builders<SprintBacklog>.Filter.Eq(sprint => sprint.SprintBacklogID, request.Id);
         var sprintBacklog = _sprints.Find(filter).FirstOrDefault();
 
         if (sprintBacklog == null)
         {
             sprintBacklog = new SprintBacklog()
             {
-                ProjectId = request.projectId,
-                SprintBacklogId = request.Id,
+                ProjectID = request.projectId,
+                SprintBacklogID = request.Id,
                 Title = request.Title,
                 CreatedAt = DateTime.Today,
                 Tasks = new List<Task>()
@@ -53,7 +53,7 @@ public class SprintService : ISprintService
     {
         try
         {
-            return _sprints.Find(p => p.ProjectId == projectId && p.SprintBacklogId == sprintBacklogId)
+            return _sprints.Find(p => p.ProjectID == projectId && p.SprintBacklogID == sprintBacklogId)
                 .FirstOrDefault();
         }catch (System.FormatException)
         {
@@ -63,16 +63,16 @@ public class SprintService : ISprintService
     }
     public List<SprintBacklog> GetAllSprintBacklogs(string projectId)
     {
-        return _sprints.Find(sprint => sprint.ProjectId == projectId).ToList();
+        return _sprints.Find(sprint => sprint.ProjectID == projectId).ToList();
     }
 
 
 
     public SprintBacklog UpdateSprintBacklog(string id, SprintBacklog updatedSprintBacklog)
     {
-        var filter = Builders<SprintBacklog>.Filter.Eq(sprint => sprint.SprintBacklogId, id);
+        var filter = Builders<SprintBacklog>.Filter.Eq(sprint => sprint.SprintBacklogID, id);
         var update = Builders<SprintBacklog>.Update
-            .Set(sprint => sprint.ProjectId, updatedSprintBacklog.ProjectId)
+            .Set(sprint => sprint.ProjectID, updatedSprintBacklog.ProjectID)
             .Set(sprint => sprint.Title, updatedSprintBacklog.Title);
         update = update.Set(sprint => sprint.Tasks, updatedSprintBacklog.Tasks);
         _sprints.UpdateOne(filter, update);
@@ -83,7 +83,7 @@ public class SprintService : ISprintService
     public bool DeleteSprintBacklog(string projectId, string sprintBacklogId)
 
     {
-            var filter = Builders<SprintBacklog>.Filter.Eq(sprint => sprint.SprintBacklogId, sprintBacklogId);
+            var filter = Builders<SprintBacklog>.Filter.Eq(sprint => sprint.SprintBacklogID, sprintBacklogId);
             var result = _sprints.DeleteOne(filter);
             return result.DeletedCount > 0;
     }
@@ -102,7 +102,7 @@ public class SprintService : ISprintService
             ActualTimeUsedInMinutes = request.ActualTimeUsedInMinutes,
             Responsible = request.Responsible
         };
-        var filter = Builders<SprintBacklog>.Filter.Eq(sprint => sprint.SprintBacklogId, sprintBacklogId);
+        var filter = Builders<SprintBacklog>.Filter.Eq(sprint => sprint.SprintBacklogID, sprintBacklogId);
         var update = Builders<SprintBacklog>.Update.Push(sprint => sprint.Tasks, newTask);
         _sprints.UpdateOne(filter, update);
         return _sprints.Find(filter).FirstOrDefault();
@@ -110,7 +110,7 @@ public class SprintService : ISprintService
 
     public List<Task> GetAllTasksForSprintBacklog(string projectId, string sprintBacklogId)
     {
-        var filter = Builders<SprintBacklog>.Filter.Where(sprint => sprint.ProjectId == projectId && sprint.SprintBacklogId == sprintBacklogId);
+        var filter = Builders<SprintBacklog>.Filter.Where(sprint => sprint.ProjectID == projectId && sprint.SprintBacklogID == sprintBacklogId);
         var sprintBacklog = _sprints.Find(filter).FirstOrDefault();
         if (sprintBacklog != null)
         {

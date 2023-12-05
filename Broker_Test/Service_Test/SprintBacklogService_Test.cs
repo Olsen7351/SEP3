@@ -58,8 +58,8 @@ namespace Broker_Test.Service_Test
             {
                 new SprintBacklog
                 {
-                    ProjectId = projectId,
-                    SprintBacklogId = "backlog-1",
+                    ProjectID = projectId,
+                    SprintBacklogID = "backlog-1",
                     Title = "Sample Sprint 1",
                     CreatedAt = DateTime.UtcNow,
                     Tasks = new List<Task>()
@@ -92,8 +92,8 @@ namespace Broker_Test.Service_Test
             // Setup HttpClient behavior for the GetSprintBacklogByIdAsync method
             var expectedSprintBacklog = new SprintBacklog
             {
-                ProjectId = projectId,
-                SprintBacklogId = backlogId,
+                ProjectID = projectId,
+                SprintBacklogID = backlogId,
                 Title = "Sample Sprint",
                 CreatedAt = DateTime.UtcNow,
                 Tasks = new List<Task>()

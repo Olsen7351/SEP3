@@ -36,8 +36,8 @@ namespace BlazorAppTest
             var SprintbacklogId = "456";
             var expectedSprintBacklog = new SprintBacklog
             {
-                SprintBacklogId = SprintbacklogId,
-                ProjectId = projectId,
+                SprintBacklogID = SprintbacklogId,
+                ProjectID = projectId,
             };
             var response = new HttpResponseMessage(HttpStatusCode.OK)
             {
@@ -54,8 +54,8 @@ namespace BlazorAppTest
             var okResult = (OkObjectResult)result;
             Assert.IsType<SprintBacklog>(okResult.Value);
             var actualSprintBacklog = (SprintBacklog)okResult.Value;
-            Assert.Equal(expectedSprintBacklog.SprintBacklogId, actualSprintBacklog.SprintBacklogId);
-            Assert.Equal(expectedSprintBacklog.ProjectId, actualSprintBacklog.ProjectId);
+            Assert.Equal(expectedSprintBacklog.SprintBacklogID, actualSprintBacklog.SprintBacklogID);
+            Assert.Equal(expectedSprintBacklog.ProjectID, actualSprintBacklog.ProjectID);
         }
         [Fact]
         public async void GetSprintBacklogsAsync_WhenSuccessful_ReturnsOkObjectResult()

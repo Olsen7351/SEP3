@@ -24,8 +24,8 @@ namespace Broker_Test.Controller_Test
             var mockService = new Mock<ISprintBacklogService>();
             var sprintBacklogs = new List<SprintBacklog>
             {
-                new SprintBacklog { ProjectId = projectId, SprintBacklogId = "1", Title = "Sprint 1" },
-                new SprintBacklog { ProjectId = projectId, SprintBacklogId = "2", Title = "Sprint 2" }
+                new SprintBacklog { ProjectID = projectId, SprintBacklogID = "1", Title = "Sprint 1" },
+                new SprintBacklog { ProjectID = projectId, SprintBacklogID = "2", Title = "Sprint 2" }
             };
             mockService.Setup(service => service.GetSprintBacklogsAsync(projectId))
                 .ReturnsAsync(new OkObjectResult(sprintBacklogs));
@@ -48,8 +48,8 @@ namespace Broker_Test.Controller_Test
             var sprintBacklogId = "2";
             var expectedSprintBacklog = new SprintBacklog
             {
-                ProjectId = projectId,
-                SprintBacklogId = sprintBacklogId,
+                ProjectID = projectId,
+                SprintBacklogID = sprintBacklogId,
                 Title = "Sample Sprint",
                 CreatedAt= new DateTime(2021, 1, 1),
                 Tasks = new List<ClassLibrary_SEP3.Task>()
@@ -103,8 +103,8 @@ namespace Broker_Test.Controller_Test
             var mockService = new Mock<ISprintBacklogService>();
             var expectedSprintBacklog = new SprintBacklog
             {
-                ProjectId = projectId,
-                SprintBacklogId = sprintBacklogId,
+                ProjectID = projectId,
+                SprintBacklogID = sprintBacklogId,
                 Title = "Sample Sprint",
                 CreatedAt= new DateTime(2021, 1, 1),
                 Tasks = new List<ClassLibrary_SEP3.Task>()
@@ -157,8 +157,8 @@ namespace Broker_Test.Controller_Test
             };
             var expectedSprintBacklog = new SprintBacklog
             {
-                ProjectId = projectId,
-                SprintBacklogId = sprintBacklogId,
+                ProjectID = projectId,
+                SprintBacklogID = sprintBacklogId,
                 Title = "Sample Sprint",
                 CreatedAt= new DateTime(2021, 1, 1),
                 Tasks = new List<ClassLibrary_SEP3.Task>{mockTask}
