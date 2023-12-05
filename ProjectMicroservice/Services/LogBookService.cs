@@ -25,37 +25,34 @@ public class LogBookService : ILogBookService
             throw new Exception("Created entry needs to have a present timestamp");
         }
 
-        // Find the LogBook with the given ProjectID or create a new one
         var filter = Builders<LogBook>.Filter.Eq(lb => lb.ProjectID, logBookEntryPoints.ProjectID);
         var logBook = _logEntryPoints.Find(filter).FirstOrDefault();
-        var newEntry = new LogBookEntryPoints();
+        var newEntry = new LogBookEntryPoints()
+        {
+            ProjectID = logBookEntryPoints.ProjectID,
+            OwnerUsername = logBookEntryPoints.OwnerUsername,
+            Description = logBookEntryPoints.Description,
+            CreatedTimeStamp = logBookEntryPoints.CreatedTimeStamp
+        };
 
         if (logBook == null)
         {
             logBook = new LogBook
             {
                 ProjectID = logBookEntryPoints.ProjectID,
-                LogBookEntryPoints = new List<LogBookEntryPoints>()
+                LogBookEntryPoints = new List<LogBookEntryPoints> { newEntry } 
             };
             _logEntryPoints.InsertOne(logBook);
         }
         else
         {
-            newEntry = new LogBookEntryPoints()
-            {
-                ProjectID = logBookEntryPoints.ProjectID,
-                OwnerUsername = logBookEntryPoints.OwnerUsername,
-                Description = logBookEntryPoints.Description,
-                CreatedTimeStamp = logBookEntryPoints.CreatedTimeStamp
-            };
+            var update = Builders<LogBook>.Update.Push(lb => lb.LogBookEntryPoints, newEntry);
+            _logEntryPoints.UpdateOne(filter, update);
         }
-
-        // Add the new entry to the LogBook
-        var update = Builders<LogBook>.Update.Push(lb => lb.LogBookEntryPoints, newEntry);
-        _logEntryPoints.UpdateOne(filter, update);
 
         return logBook;
     }
+
 
 
     public async Task<LogBook> GetLogbookForProject(string projectID)
