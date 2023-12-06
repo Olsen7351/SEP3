@@ -34,7 +34,6 @@ public class SprintService : ISprintService
             sprintBacklog = new SprintBacklog()
             {
                 ProjectId = request.projectId,
-                SprintBacklogId = request.Id,
                 Title = request.Title,
                 CreatedAt = DateTime.Today,
                 Tasks = new List<Task>()

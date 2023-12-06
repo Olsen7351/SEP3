@@ -6,7 +6,10 @@ public class CreateSprintBackLogRequest
 {
     [Required]
     public string projectId { get; set; }
-  
+    
+    
+    public string Id { get; set; }
+    
     [Required]
     public string Title { get; set; }
     

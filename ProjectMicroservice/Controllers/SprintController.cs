@@ -15,7 +15,7 @@ public class SprintController : ControllerBase
     {
         _sprintService = sprintService;
     }
-    [HttpPost("{projectId}/backlog/sprints")]
+    [HttpPost]
     public IActionResult CreateSprint( [FromBody] CreateSprintBackLogRequest  request)
     {
         if (!ModelState.IsValid)
