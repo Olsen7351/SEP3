@@ -24,7 +24,7 @@ public class LogBookController : ControllerBase
         _iLogBookService = iLogBookService;
     }
 
-    // Get Logbook for project
+    
     [HttpGet("GetLogEntries")]
     public async Task<ActionResult<LogBook>> GetLogbookForProject(string ProjectID)
     {
@@ -52,6 +52,7 @@ public class LogBookController : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred: {e.Message}");
         }
     }
+
 
 
     

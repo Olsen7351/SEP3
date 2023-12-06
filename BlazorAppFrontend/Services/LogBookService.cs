@@ -10,7 +10,6 @@ public class LogBookService : ILogBookService
 {
     //HTTPClient
     private readonly HttpClient httpClient; 
-    private readonly ILogger<Broker.Services.LogBookService> _logger;
 
     public LogBookService(HttpClient httpClient)
     {
@@ -63,7 +62,6 @@ public class LogBookService : ILogBookService
         // Append the projectID to the URI path if that's how your API expects it
         HttpResponseMessage response = await httpClient.GetAsync($"api/LogBook/GetLogEntries?ProjectID={projectID}");
         var responseBody = await response.Content.ReadAsStringAsync();
-        _logger.LogInformation($"Response from microservice: {responseBody}");
 
         if (response.IsSuccessStatusCode)
         {
