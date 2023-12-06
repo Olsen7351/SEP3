@@ -12,9 +12,8 @@ public class LogBookService : ILogBookService
     private readonly HttpClient httpClient; 
     private readonly ILogger<Broker.Services.LogBookService> _logger;
 
-    public LogBookService(HttpClient httpClient, ILogger<Broker.Services.LogBookService> logger)
+    public LogBookService(HttpClient httpClient)
     {
-        _logger = logger;
         this.httpClient = httpClient;
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", UserService.Jwt);
     }

@@ -53,18 +53,20 @@ public class LogBook_ControllerTest
         // Arrange
         string projectID = "IAmAProjectID";
         var mockEntries = new List<LogBookEntryPoints>(); 
-        var mockResult = new OkObjectResult(mockEntries); 
+        var mockLogBook = new LogBook { LogBookEntryPoints = mockEntries }; // Create a mock LogBook object
 
         _mockLogBookService.Setup(service => service.GetEntriesForLogBook(projectID))
-            .ReturnsAsync(mockResult); 
+            .ReturnsAsync(mockLogBook); // Return the mock LogBook object
 
         // Act
         var result = await _controller.GetLogbookForProject(projectID); 
 
         // Assert
-        var okResult = Assert.IsType<OkObjectResult>(result);
+        var okResult = Assert.IsType<OkObjectResult>(result.Result); 
+        Assert.Equal(mockLogBook, okResult.Value); 
         Assert.Equal(StatusCodes.Status200OK, okResult.StatusCode); 
     }
+
 
     
     
