@@ -48,7 +48,7 @@ namespace BlazorAppTest
                 .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
                 .ReturnsAsync(response);
             // Act
-            var result = await sprintBacklogService.GetSprintBacklogByIdAsync(projectId, SprintbacklogId);
+            var result = await sprintBacklogService.GetSprintBacklogByIdAsync(SprintbacklogId);
             // Assert
             Assert.IsType<OkObjectResult>(result);
             var okResult = (OkObjectResult)result;
@@ -103,7 +103,6 @@ namespace BlazorAppTest
             var sprintBacklogService = new SprintBacklogService(httpClient);
             var expectedSprintBacklog = new CreateSprintBackLogRequest
             {
-                Id = "1",
                 projectId = "2",
                 Title = "Sprint 2"
             };
@@ -231,7 +230,7 @@ namespace BlazorAppTest
                 .Protected()
                 .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
                 .ReturnsAsync(response);
-            var result = await sprintBacklogService.GetTasksFromSprintBacklogAsync(projectId, sprintBacklogId);
+            var result = await sprintBacklogService.GetTasksFromSprintBacklogAsync(sprintBacklogId);
             
             Assert.IsType<OkObjectResult>(result);
             var okResult = Assert.IsType<OkObjectResult>(result);
@@ -254,7 +253,7 @@ namespace BlazorAppTest
                 .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
                 .ThrowsAsync(new HttpRequestException("Sprint backlog not found."));
            
-            await Assert.ThrowsAsync<HttpRequestException>(() => sprintBacklogService.GetTasksFromSprintBacklogAsync(projectId, sprintBacklogId));
+            await Assert.ThrowsAsync<HttpRequestException>(() => sprintBacklogService.GetTasksFromSprintBacklogAsync(sprintBacklogId));
         }
     }
 }

@@ -19,25 +19,41 @@ namespace BlazorAppTEST.Services
         }
         public async Task<IActionResult> CreateSprintBacklogAsync(CreateSprintBackLogRequest sprintBacklog)
         {
-            HttpResponseMessage message = await _httpClient.PostAsJsonAsync($"api/SprintBacklog/", sprintBacklog);
-            if (message.IsSuccessStatusCode)
+            try
             {
-                return new OkObjectResult(await message.Content.ReadFromJsonAsync<SprintBacklog>());
+                HttpResponseMessage message = await _httpClient.PostAsJsonAsync($"api/SprintBacklog/", sprintBacklog);
+                if (!message.IsSuccessStatusCode)
+                {
+                    var errorContent = await message.Content.ReadAsStringAsync();
+                    return new BadRequestObjectResult($"Server responded with error: {message.StatusCode} - {errorContent}");
+                }
+
+                string content = await message.Content.ReadAsStringAsync();
+                if (string.IsNullOrWhiteSpace(content))
+                {
+                    return new BadRequestObjectResult("Received empty response from server.");
+                }
+
+                var sprintBacklogResponse = JsonSerializer.Deserialize<SprintBacklog>(content);
+                return new OkObjectResult(sprintBacklogResponse);
             }
-            return new NotFoundResult();
+            catch (JsonException ex)
+            {
+                return new BadRequestObjectResult($"JSON deserialization error: {ex.Message}");
+            }
         }
         public async Task<IActionResult> GetSprintBacklogsAsync(string ProjectId)
         {
-            var response = await _httpClient.GetFromJsonAsync<IEnumerable<SprintBacklog>>($"api/SprintBacklog/{ProjectId}");
+            var response = await _httpClient.GetFromJsonAsync<IEnumerable<SprintBacklog>>("api/SprintBacklog?ProjectId=" + ProjectId);
             if (response == null)
             {
                 return new NotFoundResult();
             }
             return new OkObjectResult(response);
         }
-        public async Task<IActionResult> GetSprintBacklogByIdAsync(string ProjectId, string Id)
+        public async Task<IActionResult> GetSprintBacklogByIdAsync( string sprintBacklogId)
         {
-            var response = await _httpClient.GetFromJsonAsync<SprintBacklog>($"api/SprintBacklog/{ProjectId}/{Id}");
+            var response = await _httpClient.GetFromJsonAsync<SprintBacklog>($"api/SprintBacklog/{sprintBacklogId}");
             if (response == null)
             {
                 return new NotFoundResult();
@@ -53,7 +69,7 @@ namespace BlazorAppTEST.Services
                 throw new HttpRequestException("Sprint backlog ID cannot be null.");
             }
 
-            HttpResponseMessage message = await _httpClient.PostAsJsonAsync($"api/SprintBacklog/{task.ProjectId}/{task.SprintId}/tasks", task);
+            HttpResponseMessage message = await _httpClient.PostAsJsonAsync($"api/SprintBacklog/{task.SprintId}/AddTask", task);
             if (message.IsSuccessStatusCode)
             {
                 return new OkObjectResult(await message.Content.ReadFromJsonAsync<AddSprintTaskRequest>());
@@ -61,14 +77,14 @@ namespace BlazorAppTEST.Services
             return new NotFoundResult();
         }
 
-        public async Task<IActionResult> GetTasksFromSprintBacklogAsync(string projectId, string sprintId)
+        public async Task<IActionResult> GetTasksFromSprintBacklogAsync(string sprintId)
         {
             if (string.IsNullOrWhiteSpace(sprintId))
             {
                 throw new HttpRequestException("Sprint backlog not found.");
             }
 
-            var response = await _httpClient.GetFromJsonAsync<IEnumerable<Task>>($"api/SprintBacklog/{projectId}/{sprintId}/tasks");
+            var response = await _httpClient.GetFromJsonAsync<IEnumerable<Task>>($"api/SprintBacklog/{sprintId}/Tasks");
             if (response == null)
             {
                 return new NotFoundResult();

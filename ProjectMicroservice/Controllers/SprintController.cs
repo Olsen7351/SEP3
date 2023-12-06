@@ -28,8 +28,8 @@ public class SprintController : ControllerBase
             return BadRequest("Sprint could not be created");
         }
 
-        return CreatedAtAction(nameof(GetSpecificSprint),
-            new { projectId = createdSprint.ProjectId, sprintId = createdSprint.SprintBacklogId });
+        return CreatedAtAction(nameof(CreateSprint), new { id = createdSprint.SprintBacklogId }, createdSprint);
+
     }
     [HttpGet("{projectId}/backlog")]
     public IActionResult GetSprintBacklog(string projectId, string sprintBacklogId)

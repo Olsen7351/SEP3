@@ -5,10 +5,7 @@ namespace ClassLibrary_SEP3.DataTransferObjects;
 public class CreateSprintBackLogRequest
 {
     [Required]
-    public string projectId { get; set; }
-    
-    
-    public string Id { get; set; }
+    public string projectId { get; set; }  
     
     [Required]
     public string Title { get; set; }

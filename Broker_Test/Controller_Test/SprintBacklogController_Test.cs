@@ -77,13 +77,12 @@ namespace Broker_Test.Controller_Test
             var sprintBacklogData = new CreateSprintBackLogRequest
             {
                 projectId = "sampleProjectId",
-                Id = "1",
                 Title = "Sample Sprint",
                 Timestamp = new DateTime(2021, 1, 1),
             };
 
             mockService.Setup(service => service.CreateSprintBacklogAsync(It.IsAny<CreateSprintBackLogRequest>()))
-                .ReturnsAsync(new CreatedAtActionResult(nameof(SprintBacklogController.GetSpecificSprintBacklog), "SprintBacklog", new { id = sprintBacklogData.Id }, sprintBacklogData));
+                .ReturnsAsync(new OkObjectResult(sprintBacklogData));
 
             // Act
             var actionResult = await controller.Post(sprintBacklogData);

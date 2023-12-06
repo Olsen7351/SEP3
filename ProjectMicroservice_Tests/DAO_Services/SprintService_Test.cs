@@ -39,7 +39,6 @@ namespace ProjectMicroservice_Tests.DAO_Services
             // Arrange
             var request = new CreateSprintBackLogRequest
             {
-                Id = "1",
                 projectId = "project_id_1",
                 Title = "Test Sprint",
                 // Add more properties needed for your request
@@ -50,7 +49,6 @@ namespace ProjectMicroservice_Tests.DAO_Services
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal(request.Id, result.SprintBacklogId);
             Assert.Equal(request.projectId, result.ProjectId);
             Assert.Equal(request.Title, result.Title);
             // Add more assertions as needed

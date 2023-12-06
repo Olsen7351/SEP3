@@ -25,26 +25,16 @@ public class SprintService : ISprintService
     
     public SprintBacklog CreateSprintBacklog(CreateSprintBackLogRequest request)
     {
-        var filter =
-            Builders<SprintBacklog>.Filter.Eq(sprint => sprint.SprintBacklogId, request.Id);
-        var sprintBacklog = _sprints.Find(filter).FirstOrDefault();
-
-        if (sprintBacklog == null)
+        
+        var sprintBacklog = new SprintBacklog()
         {
-            sprintBacklog = new SprintBacklog()
-            {
                 ProjectId = request.projectId,
                 Title = request.Title,
                 CreatedAt = DateTime.Today,
                 Tasks = new List<Task>()
-            };
-            _sprints.InsertOne(sprintBacklog);
-        }
-        else
-        {
-            var update = Builders<SprintBacklog>.Update.Set(sprint => sprint.Title, request.Title);
-            _sprints.UpdateOne(filter, update);        }
-
+        };
+        _sprints.InsertOne(sprintBacklog);
+        
         return sprintBacklog;
 
     }
