@@ -13,7 +13,6 @@ namespace Broker.Controllers
 {
     [Route("api/[controller]/")]
     [ApiController]
-    [Authorize]
     public class SprintBacklogController : ControllerBase
     {
         private readonly ISprintBacklogService _sprintBacklogService;
@@ -27,6 +26,7 @@ namespace Broker.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateSprintBackLogRequest sprintBacklog)
         {
+            Console.WriteLine("Broker create sprint called");
             return await _sprintBacklogService.CreateSprintBacklogAsync(sprintBacklog);
         }
         // GET: api/<SprintBacklogController>/<ProjectId>

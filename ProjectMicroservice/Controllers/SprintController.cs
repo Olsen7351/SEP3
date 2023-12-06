@@ -15,8 +15,9 @@ public class SprintController : ControllerBase
     {
         _sprintService = sprintService;
     }
+  
     [HttpPost]
-    public IActionResult CreateSprint( [FromBody] CreateSprintBackLogRequest  request)
+    public IActionResult CreateSprint([FromBody] CreateSprintBackLogRequest request)
     {
         if (!ModelState.IsValid)
         {
@@ -28,8 +29,11 @@ public class SprintController : ControllerBase
             return BadRequest("Sprint could not be created");
         }
 
-        return CreatedAtAction(nameof(CreateSprint), new { id = createdSprint.SprintBacklogId }, createdSprint);
-
+        return CreatedAtAction(
+            nameof(GetSpecificSprint), 
+            new { projectId = createdSprint.ProjectId, sprintId = createdSprint.SprintBacklogId }, 
+            createdSprint
+        );
     }
     [HttpGet("{projectId}/backlog")]
     public IActionResult GetSprintBacklog(string projectId, string sprintBacklogId)

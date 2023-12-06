@@ -19,12 +19,17 @@ public class SprintBacklogService : ISprintBacklogService
 
     public async Task<IActionResult> CreateSprintBacklogAsync(CreateSprintBackLogRequest sprintBacklog)
     {
+        Console.WriteLine("Broker create sprint called");
+        if (sprintBacklog == null)
+        {
+            Console.WriteLine("The sprint backlog is null");
+            return new BadRequestResult();
+        }
         string requestUri = $"api/Sprint";
-        HttpResponseMessage response = await httpClient.PostAsJsonAsync(requestUri, sprintBacklog);
+        HttpResponseMessage response = await httpClient.PostAsJsonAsync($"api/Sprint", sprintBacklog);
         if (!response.IsSuccessStatusCode)
         {
-            var errorContent = await response.Content.ReadAsStringAsync();
-            return new BadRequestObjectResult(errorContent);
+            throw new Exception($"Error:{response.StatusCode}");
         }
 
         var responseBody = await response.Content.ReadAsStringAsync();

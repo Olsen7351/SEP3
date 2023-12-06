@@ -28,8 +28,8 @@
         
             <div class="form-group">
                 <label for="startDate">Start Date:</label>
-                <InputDate id="startDate" class="form-control" @bind-Value="sprintBacklog.CreatedAt"></InputDate>
-                <ValidationMessage For="@(() => sprintBacklog.CreatedAt)" />
+                <InputDate id="startDate" class="form-control" @bind-Value="sprintBacklog.Timestamp"></InputDate>
+                <ValidationMessage For="@(() => sprintBacklog.Timestamp)" />
             </div>
             
             <button type="submit" class="btn btn-primary">Create</button>
@@ -157,16 +157,32 @@
        
        private List<SprintBacklog> sprintBacklogs = new List<SprintBacklog>();
        private AddSprintTaskRequest newTask = new AddSprintTaskRequest();
-       private SprintBacklog sprintBacklog = new SprintBacklog
+       
+       
+       private CreateSprintBackLogRequest SprintBackLogRequest = new();
+       private EditContext editContext;
+       CreateSprintBackLogRequest sprintBacklog = new CreateSprintBackLogRequest();
+       protected override void OnInitialized()
        {
-           CreatedAt = DateTime.Today
-       };
+           SprintBackLogRequest = new CreateSprintBackLogRequest
+           {
+                  Timestamp = DateTime.Today
+           };
+           editContext = new EditContext(SprintBackLogRequest);
+       }
+       
        protected override async Task OnParametersSetAsync()
        {
           
            await LoadSprintBacklogs();
        }
-   
+        private async Task CreateSprintBacklog()
+          {
+            if (!editContext.Validate())  // Check if the form is valid
+            {
+                return;
+            }
+          }
        private async Task HandleValidSubmit()
        {
            newTask.ProjectId = ProjectIdAsString;
@@ -187,37 +203,7 @@
            }
        }
 
-       private async Task CreateSprintBacklog()
-       {
-           CreateSprintBackLogRequest sprintBackLogRequest = new CreateSprintBackLogRequest
-           {
-               projectId = ProjectIdAsString,
-               Title = sprintBacklog.Title,
-               Timestamp = sprintBacklog.CreatedAt
-           };
-
-           var response = await SprintBacklogService.CreateSprintBacklogAsync(sprintBackLogRequest);
-           if (response is OkObjectResult okObjectResult)
-           {
-               var responseBody = okObjectResult.Value;
-               if (responseBody is SprintBacklog sprintBacklogResponse)
-               {
-                   isCreationSuccessful = true;
-                   createdSprintBacklog = sprintBacklogResponse;
-                   feedbackMessage = "Created SprintBacklog Successfully!";
-               }
-               else
-               {
-                   isCreationSuccessful = false;
-                   feedbackMessage = "Received invalid response format.";
-               }
-           }
-           else
-           {
-               isCreationSuccessful = false;
-               feedbackMessage = "Failed to create SprintBacklog.";
-           }
-       }
+       
        private async Task LoadSprintBacklogs()
        {
            try
