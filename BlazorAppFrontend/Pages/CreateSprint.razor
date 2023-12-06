@@ -2,10 +2,12 @@
 @inject ISprintBacklogService SprintService
 @using Task = System.Threading.Tasks.Task
 @using BlazorAppTEST.Services.Interface
+@using ClassLibrary_SEP3
 
 @attribute [Authorize]
 
 @using ClassLibrary_SEP3.DataTransferObjects
+@using Microsoft.AspNetCore.Mvc
 
 
 
@@ -50,6 +52,43 @@
         </div>
     </div>
 }
+<!-- Sprint section -->
+ <div class="sprint-backlogs">
+     <p>Sprint Backlog Entries</p>
+     @if (!SprintBacklogs.Any())
+     {
+         <div>@EmptyHelper</div>
+     }
+     else
+     {
+         @foreach (var backlog in SprintBacklogs)
+         {
+             <div class="sprint-backlog">
+                 <p>Title: @backlog.Title</p>
+                 <p>Created At: @backlog.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss")</p>
+                 <div>
+                     <h4>Tasks</h4>
+                     @if (backlog.Tasks.Any())
+                     {
+                         <ul>
+                             @foreach (var task in backlog.Tasks)
+                             {
+                                 <li>@task.Description</li> 
+                             }
+                         </ul>
+                     }
+                     else
+                     {
+                         <p>No tasks available</p>
+                     }
+                 </div>
+             </div>
+         }
+     }
+     <button class="btn btn-primary" @onclick="CreateNewTask">Create New Task</button>
+ </div>
+ 
+
 @code
 {
     [Parameter]
@@ -58,8 +97,11 @@
     private CreateSprintBackLogRequest newSprint = new();
     private CreateSprintBackLogRequest createdSprint;
     private EditContext editContext;
+
+    private List<SprintBacklog> SprintBacklogs = new List<SprintBacklog>();
+    public string EmptyHelper { get; set; }
     
-    protected override void OnInitialized()
+    protected async override Task OnInitializedAsync()
     {
         Console.WriteLine($"Received Project ID: {ProjectIdAsString}");
         newSprint = new CreateSprintBackLogRequest()
@@ -68,6 +110,7 @@
             Timestamp = DateTime.Today
         };
         editContext = new EditContext(newSprint);
+        await LoadSprintBacklogs();
     }
 
     private async Task CreateSprintBacklog()
@@ -82,5 +125,25 @@
         Console.WriteLine($"Response Status: {response.ToString()}");
         newSprint = new CreateSprintBackLogRequest();
         editContext = new EditContext(newSprint);
+        await LoadSprintBacklogs();
+    }
+
+    private async Task LoadSprintBacklogs()
+    {
+        var response = await SprintService.GetSprintBacklogsAsync(ProjectIdAsString);
+        if (response is OkObjectResult result && result.Value is IEnumerable<SprintBacklog> backlogs)
+        {
+            SprintBacklogs = backlogs.ToList();
+        }
+        else
+        {
+            Console.WriteLine(response.GetType());
+
+    }
+    }
+
+    private void CreateNewTask()
+    {
+        
     }
 }

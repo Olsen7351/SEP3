@@ -1,12 +1,13 @@
 ﻿@page "/project-hub/{ProjectIdAsString}"
 @using ClassLibrary_SEP3
 @using BlazorAppTEST.Services
+@using BlazorAppTEST.Services.Interface
 @using ClassLibrary_SEP3
 @using ClassLibrary_SEP3.DataTransferObjects
 
 @using Task = System.Threading.Tasks.Task
 @using TaskStatus = ClassLibrary_SEP3.TaskStatus
-@inject ProjectService ProjectService
+@inject IProjectService ProjectService
 @inject ILogBookService LogBookService
 @inject TaskService TaskService;
 @inject NavigationManager NavigationManager
@@ -198,6 +199,6 @@
 
     private void NavigateToSeeSprints()
     {
-        NavigationManager.NavigateTo($"/project-hub/{ProjectIdAsString}/SeeSprintBacklog");
+        NavigationManager.NavigateTo($"/project-hub/{ProjectIdAsString}/createSprint");
     }
 }
