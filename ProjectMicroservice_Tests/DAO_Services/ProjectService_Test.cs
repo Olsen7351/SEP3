@@ -12,12 +12,14 @@ namespace ProjectMicroservice_Tests.DAO_Services
     {
         /*#####MAKE SURE THE TEST DATEBASE IS RUNNING & EMPTY BEFORE RUNNING THE TESTS#####*/
         private readonly IMongoCollection<Project> _testProjects;
+        private readonly IMongoCollection<UsersAPartOfProjects> _testUsers;
         private readonly ProjectService _projectService;
 
         public ProjectServiceTests(MongoDbFixture fixture)
         {
             _testProjects = fixture.Database.GetCollection<Project>("Projects");
             _projectService = new ProjectService(new MongoDbContext(fixture.ConnectionString,"test_db"));
+            _testUsers = fixture.Database.GetCollection<UsersAPartOfProjects>("ProjectsForUsers");
         }
 
         [Fact]
@@ -109,6 +111,31 @@ namespace ProjectMicroservice_Tests.DAO_Services
             Assert.NotNull(result);
             Assert.Equal(updatedProject.Description, result.Description);
             // Add more assertions based on your Project structure and expected data
+        }
+
+        [Fact]
+        public void AddUserToProject_validRequest_ReturnTrue()
+        {
+            var createProjectRequest = new CreateProjectRequest
+            {
+                Name = "Test Project",
+                Description = "Test Description",
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddDays(30)
+            };
+            var project = _projectService.CreateProject(createProjectRequest);
+
+            var addUserToProjectRequest = new AddUserToProjectRequest()
+            {
+                ProjectId = project.Id,
+                UserName = "TestUser"
+            };
+            var result = _projectService.AddUserToProject(addUserToProjectRequest);
+            Assert.True(result);
+
+            var userPartOfProject = _testUsers.Find(u => u.Username == "TestUser").FirstOrDefault();
+            Assert.NotNull(userPartOfProject);
+            Assert.Contains(project.Id, userPartOfProject.ProjectID);
         }
     }
 
