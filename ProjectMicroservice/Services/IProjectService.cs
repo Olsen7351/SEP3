@@ -16,6 +16,6 @@ namespace ProjectMicroservice.Services
         Project GetProject(string id);
         bool ProjectExists(string projectId);
         Project UpdateProject(Project project);
-        bool AddUserToProject(string projectId, string userName);
+        bool AddUserToProject(AddUserToProjectRequest request);
     }
 }

@@ -1,4 +1,5 @@
 using ClassLibrary_SEP3;
+using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 using ProjectMicroservice.Services;
 
@@ -21,30 +22,38 @@ public class LogBookController : ControllerBase
     
     
     
-    
-    //Get Log Books
     [HttpGet("GetEntriesForLogBook")]
-    public async Task<IActionResult> GetLogbookForProject(String ProjectID)
+    public async Task<ActionResult<LogBook>> GetLogbookForProject(string ProjectID)
     {
         if (String.IsNullOrEmpty(ProjectID))
         {
-            return BadRequest("LogbookEntryPoint is required.");
+            return BadRequest("ProjectID is required.");
         }
         try
         {
-            var serviceResult =  _iLogBookService.GetLogbookForProject(ProjectID);
+            var serviceResult = await _iLogBookService.GetLogbookForProject(ProjectID); 
+            if (serviceResult == null)
+            {
+                return NotFound($"Logbook for project ID {ProjectID} not found.");
+            }
             return Ok(serviceResult);
+        }
+        catch (KeyNotFoundException knfe)
+        {
+            return NotFound(knfe.Message);
         }
         catch (Exception e)
         {
-            return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred");
+            return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred: {e.Message}");
         }
+        //Return logbook?
     }
+
     
     
     //Create Entries inside logbook
-    [HttpPost("CreateLogEntry")]
-    public async Task<IActionResult> CreateLogBookEntry(LogBookEntryPoints logBookEntryPoints)
+    [HttpPost("CreateLogEntryMicro")]
+    public async Task<IActionResult> CreateLogBookEntry(AddEntryPointRequest logBookEntryPoints)
     {
         if (logBookEntryPoints == null)
         {
@@ -57,7 +66,7 @@ public class LogBookController : ControllerBase
         }
         catch (Exception e)
         {
-            return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred");
+            return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
         }
     }
 }

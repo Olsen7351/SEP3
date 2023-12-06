@@ -38,7 +38,7 @@ public class ProjectService: IProjectService
         }
         Console.WriteLine($"Token used to access: {UserService.Jwt}");
         //Try and send it trough
-        HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/BrokerProject", project);
+        HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/BrokerProject/CreateProject", project);
         
         if (!response.IsSuccessStatusCode)
         {
@@ -52,16 +52,16 @@ public class ProjectService: IProjectService
     public async Task<Project> GetProject(string id)
     {
         var response = await httpClient.GetAsync($"api/BrokerProject/{id}");
-        var projekt = await response.Content.ReadFromJsonAsync<Project>();
+        var project = await response.Content.ReadFromJsonAsync<Project>();
         
-        if (projekt == null)
+        if (project == null)
         {
-            throw new Exception("Project is empty or do not exsist");
+            throw new Exception("Project is empty or do not exists");
         }
 
         Console.WriteLine(response.Content);
         
-        return projekt;
+        return project;
     }
 
     
@@ -73,7 +73,8 @@ public class ProjectService: IProjectService
             throw new Exception("Either username or projectID couldn't be retrieved");
         }
         
-        // Service to check maybe if username exists inside the database
+        // Service to check maybe if username exists inside the database TODO
+        
         
         var payload = new { Username = username, ProjectId = projectId };
         HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/Broker/AddUserToProject", payload);

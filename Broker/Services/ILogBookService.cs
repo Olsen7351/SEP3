@@ -6,6 +6,6 @@ namespace Broker.Services;
 
 public interface ILogBookService
 {
-    Task<IActionResult> CreateNewEntryLogBook(LogBookEntryPoints logBookEntryPoints);
-    Task<IActionResult> GetEntriesForLogBook(string projectID);
+    Task<IActionResult> CreateNewEntryLogBook(AddEntryPointRequest logBookEntryPoints);
+    Task<LogBook> GetEntriesForLogBook(string projectID);
 }

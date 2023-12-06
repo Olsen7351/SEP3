@@ -39,7 +39,8 @@ namespace Broker.Controllers
             return response;
         }
 
-        [HttpPost]
+        
+        [HttpPost("CreateProject")]
         public async Task<IActionResult> CreateProjekt([FromBody] CreateProjectRequest projekt)
         {
             var token = HttpContext.Request.Headers["Authorization"];

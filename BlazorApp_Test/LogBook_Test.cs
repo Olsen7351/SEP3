@@ -1,6 +1,7 @@
 using System.Net;
 using BlazorAppTEST.Services;
 using ClassLibrary_SEP3;
+using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Moq.Protected;
@@ -79,9 +80,9 @@ public class LogBook_Test
     public async Task CreateNewEntryToLogBook_WithValidEntry()
     {
         // Arrange
-        LogBookEntryPoints validEntry = new LogBookEntryPoints
+        AddEntryPointRequest validEntry = new AddEntryPointRequest()
         {
-            LogBookID = 1,
+            ProjectID = "bsajfbasf",
             OwnerUsername = "James",
             Description = "Hey",
             CreatedTimeStamp = DateTime.Today
@@ -108,8 +109,9 @@ public class LogBook_Test
     public async Task CreateNewEntryToLogBook_WhenOwnerUsernameIsNull()
     {
         // Arrange
-        LogBookEntryPoints entryPoints = new LogBookEntryPoints
+        AddEntryPointRequest entryPoints = new AddEntryPointRequest()
         {
+            ProjectID = "asfbujahsf",
             OwnerUsername = null,
             Description = "Hey",
             CreatedTimeStamp = DateTime.Today
@@ -123,7 +125,7 @@ public class LogBook_Test
     public async Task CreateNewEntryToLogBook_WhenOwnerUsernameIsEmpty()
     {
         // Arrange
-        LogBookEntryPoints entryPoints = new LogBookEntryPoints
+        AddEntryPointRequest entryPoints = new AddEntryPointRequest()
         {
             OwnerUsername = "",
             Description = "Hey",
@@ -138,8 +140,9 @@ public class LogBook_Test
     public async Task CreateNewEntryToLogBook_WhenDescriptionIsNull()
     {
         // Arrange
-        LogBookEntryPoints entryPoints = new LogBookEntryPoints
+        AddEntryPointRequest entryPoints = new AddEntryPointRequest()
         {
+            ProjectID = "ASFbjasf",
             OwnerUsername = "James",
             Description = null,
             CreatedTimeStamp = DateTime.Today
@@ -155,8 +158,9 @@ public class LogBook_Test
     public async Task CreateNewEntryToLogBook_WhenDescriptionIsEmpty()
     {
         // Arrange
-        LogBookEntryPoints entryPoints = new LogBookEntryPoints
+        AddEntryPointRequest entryPoints = new AddEntryPointRequest()
         {
+            ProjectID = "DAHbfjhsa",
             OwnerUsername = "James",
             Description = "",
             CreatedTimeStamp = DateTime.Today
@@ -171,8 +175,9 @@ public class LogBook_Test
     public async Task CreateNewEntryToLogBook_WhenCreatedTimeStampIsNotToday()
     {
         // Arrange
-        LogBookEntryPoints entryPoints = new LogBookEntryPoints
+        AddEntryPointRequest entryPoints = new AddEntryPointRequest()
         {
+            ProjectID = "ASHFbjasf",
             OwnerUsername = "James",
             Description = "Hey",
             CreatedTimeStamp = DateTime.Today.AddDays(-1) // Set to a past date

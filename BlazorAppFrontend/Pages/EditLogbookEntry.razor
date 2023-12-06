@@ -63,7 +63,7 @@ else
         try
         {
             await LogBookService.UpdateEntry(EntryID, logBookEntry.Description);
-            NavigationManager.NavigateTo($"/project-hub/{logBookEntry.LogBookID}");
+           // NavigationManager.NavigateTo($"/project-hub/{logBookEntry.LogBookID}");
         }
         catch (Exception ex)
         {
