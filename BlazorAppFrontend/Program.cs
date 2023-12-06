@@ -16,7 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddScoped<IProjectService, ProjectService>();
+builder.Services.AddScoped<ProjectService>();
 builder.Services.AddScoped<IUserLogin,UserService>();
 builder.Services.AddScoped<ISprintBacklogService,SprintBacklogService>();
 builder.Services.AddScoped<ILogBookService,LogBookService>();
