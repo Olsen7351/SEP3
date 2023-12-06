@@ -1,19 +1,22 @@
 using System.ComponentModel.DataAnnotations;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace ClassLibrary_SEP3;
 
 public class LogBookEntryPoints
 {
-    public int LogBookID { get; set; }
+    public string ProjectID { get; set; }
     
-    public string EntryID { get; set; }
-        
-    [Required] 
-    public String OwnerUsername { get; set; }
+    [BsonId]
+    [BsonRepresentation(BsonType.ObjectId)]
+    public string EntryID { get;} = ObjectId.GenerateNewId().ToString();
+    
+    public string OwnerUsername { get; set; }
 
     [Required] 
     public string Description { get; set; }
 
     [Required] 
-    public DateTime CreatedTimeStamp { get; set;} = DateTime.Today;
+    public DateTime CreatedTimeStamp { get; set;}
 }

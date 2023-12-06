@@ -83,29 +83,36 @@
         <!-- Logbook section -->
         <div class="card logbook-section">
             <p>Logbook Entries</p>
-            <table>
-                <thead>
-                <tr>
-                    <th>Owner Username</th>
-                    <th>Description</th>
-                    <th>Created Time Stamp</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach (var entry in LogBookEntries)
-                {
+            @if (!LogBookEntries.Any())
+            {
+                <div>@EmptyHelper</div>
+            }
+            else
+            {
+                <table>
+                    <thead>
                     <tr>
-                        <td>@entry.OwnerUsername</td>
-                        <td>@entry.Description</td>
-                        <td>@entry.CreatedTimeStamp.ToString("yyyy-MM-dd HH:mm:ss")</td>
-                        <td>
-                            <button class="btn btn-secondary" @onclick="() => EditLogbookEntry(entry.EntryID)">Edit</button>
-                        </td>
+                        <th>Owner Username</th>
+                        <th>Description</th>
+                        <th>Created Time Stamp</th>
+                        <th>Actions</th>
                     </tr>
-                }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    @foreach (var entry in LogBookEntries)
+                    {
+                        <tr>
+                            <td>@entry.OwnerUsername</td>
+                            <td>@entry.Description</td>
+                            <td>@entry.CreatedTimeStamp.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                            <td>
+                                <button class="btn btn-secondary" @onclick="() => EditLogbookEntry(entry.EntryID)">Edit</button>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            }
         </div>
         <button class="btn btn-primary" @onclick="NavigateToCreateEntry">Create New Entry</button>
     </div>
@@ -114,39 +121,34 @@
 
 @code
 {
+    
     [Parameter]
     public string ProjectIdAsString { get; set; }
-
     public Project? Project { get; set; }
     public List<ClassLibrary_SEP3.Task?>? BacklogTasks { get; set; }
     public List<LogBookEntryPoints>? LogBookEntries { get; set; } = new List<LogBookEntryPoints>();
-    public List<ClassLibrary_SEP3.LogBook?>? LogBook { get; set; } = new List<ClassLibrary_SEP3.LogBook>();
     private AddBacklogTaskRequest newTask = new AddBacklogTaskRequest();
+    public string EmptyHelper { get; set; }
 
 
     protected override async Task OnParametersSetAsync()
     {
         try
         {
-             // Fetch backlog tasks
-            Project = await ProjectService.GetProject(ProjectIdAsString);
-            BacklogTasks = Project?.Backlog?.BacklogTasks ?? new List<ClassLibrary_SEP3.Task>();
-
-             // Fetch logbook entries
             var logbook = await LogBookService.GetEntriesForLogBook(ProjectIdAsString);
-            if (logbook != null)
+            LogBookEntries = logbook?.LogBookEntryPoints ?? new List<LogBookEntryPoints>();
+            if (!LogBookEntries.Any())
             {
-                LogBookEntries = logbook?.LogBookEntryPoints ?? new List<LogBookEntryPoints>();
+                EmptyHelper = "LogBookEntries are empty";
             }
         }
-        
         catch (Exception ex)
         {
-            //Show error message to user
             Console.WriteLine(ex.Message);
             JSRuntime.InvokeVoidAsync("alert", "Failed to fetch some data from the server");
         }
     }
+
 
     private async void AddTask()
     {

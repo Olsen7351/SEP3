@@ -38,7 +38,7 @@ public class ProjectService: IProjectService
         }
         Console.WriteLine($"Token used to access: {UserService.Jwt}");
         //Try and send it trough
-        HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/BrokerProject", project);
+        HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/BrokerProject/CreateProject", project);
         
         if (!response.IsSuccessStatusCode)
         {
@@ -52,54 +52,42 @@ public class ProjectService: IProjectService
     public async Task<Project> GetProject(string id)
     {
         var response = await httpClient.GetAsync($"api/BrokerProject/{id}");
-        var projekt = await response.Content.ReadFromJsonAsync<Project>();
+        var project = await response.Content.ReadFromJsonAsync<Project>();
         
-        if (projekt == null)
+        if (project == null)
         {
-            throw new Exception("Project is empty or do not exsist");
+            throw new Exception("Project is empty or do not exists");
         }
 
         Console.WriteLine(response.Content);
         
-        return projekt;
+        return project;
     }
 
-
+    
 
     public async Task<Project> AddUserToProject(string username, string projectId)
     {
-        try
+        if (String.IsNullOrEmpty(username) || String.IsNullOrEmpty(projectId))
         {
-            if (String.IsNullOrEmpty(username) || String.IsNullOrEmpty(projectId))
-            {
-                throw new Exception("Either username or projectID couldn't be retrieved");
-            }
-
-            var payload = new { Username = username, ProjectId = projectId };
-
-            // Log the request payload
-            Console.WriteLine($"Request Payload: {JsonSerializer.Serialize(payload)}");
-
-            HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/BrokerProject/AddUserToProject", payload);
-
-            // Log the response content
-            Console.WriteLine($"Response Content: {await response.Content.ReadAsStringAsync()}");
-
-            if (response.IsSuccessStatusCode)
-            {
-                var project = await response.Content.ReadFromJsonAsync<Project>();
-                return project;
-            }
-            else
-            {
-                throw new Exception($"Error: {response.StatusCode}");
-            }
+            throw new Exception("Either username or projectID couldn't be retrieved");
         }
-        catch (Exception ex)
+        
+        // Service to check maybe if username exists inside the database TODO
+        
+        
+        var payload = new { Username = username, ProjectId = projectId };
+        HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/Broker/AddUserToProject", payload);
+
+        if (response.IsSuccessStatusCode)
         {
-            // Log or handle the exception
-            Console.WriteLine($"Error in AddUserToProject: {ex.Message}");
-            throw;
+            var project = await response.Content.ReadFromJsonAsync<Project>();
+            return project;
+        }
+        
+        else
+        {
+            throw new Exception($"Error: {response.StatusCode}");
         }
     }
 }

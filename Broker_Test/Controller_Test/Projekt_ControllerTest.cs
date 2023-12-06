@@ -78,7 +78,7 @@ namespace Broker_Test.Controller_Test
 
             var request = new AddUserToProjectRequest
             {
-                UserName = "user123",
+                Username = "user123",
                 ProjectId = "1"
             };
 

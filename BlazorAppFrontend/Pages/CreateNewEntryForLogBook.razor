@@ -1,29 +1,26 @@
 @page "/create-new-entry-for-logbook/{ProjectIdAsString}"
 @using System.ComponentModel.DataAnnotations
+@using System.Security.Claims
 @inject ILogBookService LogBookService
+@inject AuthenticationStateProvider AuthenticationStateProvider
 @using BlazorAppTEST.Services
 @using ClassLibrary_SEP3
+@using ClassLibrary_SEP3.DataTransferObjects
 @using Task = System.Threading.Tasks.Task
-
 @inject NavigationManager NavigationManager
 
 <h3>Create New Entry for Logbook</h3>
 
-<EditForm Model="@logBookEntry" OnValidSubmit="@HandleValidSubmit">
+<EditForm Model="@logBookEntryPayload" OnValidSubmit="@HandleValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
-
-    <div class="form-group">
-        <label for="OwnerUsername">Owner Username:</label>
-        <InputText id="OwnerUsername" class="form-control" @bind-Value="logBookEntry.OwnerUsername" />
-    </div>
-
+    
+    
     <div class="form-group">
         <label for="Description">Description:</label>
-        <InputTextArea id="Description" class="form-control" @bind-Value="logBookEntry.Description" />
+        <InputTextArea id="Description" class="form-control" @bind-Value="logBookEntryPayload.Description" />
     </div>
-
-    <button type="submit" class="btn btn-success">Create Entry</button>
+    <button type="submit" class="btn btn-success" disabled="@string.IsNullOrEmpty(username)">Create Entry</button>
 </EditForm>
 
 
@@ -32,13 +29,31 @@
     
     [Parameter]
     public string ProjectIdAsString { get; set; }
-    private LogBookEntryPoints logBookEntry = new LogBookEntryPoints();
+    private LogBookEntryPoints logBookEntryPayload = new LogBookEntryPoints();
+    private String username;
     
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
 
+        if (user.Identity.IsAuthenticated)
+        {
+            username = user.Claims.FirstOrDefault(c => c.Type == "sub")?.Value;
+        }
+    }
+    
     
     private async Task HandleValidSubmit()
     {
-        logBookEntry.CreatedTimeStamp = DateTime.Now;
+        AddEntryPointRequest logBookEntry = new AddEntryPointRequest()
+        {
+            ProjectID = ProjectIdAsString,
+            OwnerUsername = username,
+            Description = logBookEntryPayload.Description,
+            CreatedTimeStamp = DateTime.Now
+        };
+
         await LogBookService.CreateNewEntryToLogBook(logBookEntry);
         NavigationManager.NavigateTo($"/project-hub/{ProjectIdAsString}");
     }
