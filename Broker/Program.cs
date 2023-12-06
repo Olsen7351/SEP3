@@ -89,6 +89,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IBacklogService, BacklogService>();
 builder.Services.AddScoped<ISprintBacklogService, SprintBacklogService>();
+builder.Services.AddScoped<ILogBookService, LogBookService>();
 builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();

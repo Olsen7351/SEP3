@@ -26,24 +26,33 @@ public class LogBookController : ControllerBase
 
     // Get Logbook for project
     [HttpGet("GetLogEntries")]
-    public async Task<IActionResult> GetLogbook([FromQuery] string projectID)
+    public async Task<ActionResult<LogBook>> GetLogbookForProject(string ProjectID)
     {
-        if (string.IsNullOrEmpty(projectID))
+        if (String.IsNullOrEmpty(ProjectID))
         {
             return BadRequest("ProjectID is required.");
         }
-
         try
         {
-            var entries = await _iLogBookService.GetEntriesForLogBook(projectID);
-            return Ok(entries);
+            var logBook = await _iLogBookService.GetEntriesForLogBook(ProjectID);
+            return Ok(logBook);
         }
-        
+        catch (KeyNotFoundException knfe)
+        {
+            return NotFound(knfe.Message);
+        }
+        catch (HttpRequestException hre)
+        {
+            // Log the exception details here.
+            return StatusCode(StatusCodes.Status503ServiceUnavailable, hre.Message);
+        }
         catch (Exception e)
         {
-            return StatusCode(500, "An error occurred while processing your request.");
+            // Log the exception details here.
+            return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred: {e.Message}");
         }
     }
+
 
     
     

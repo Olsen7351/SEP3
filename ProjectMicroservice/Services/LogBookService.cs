@@ -59,8 +59,6 @@ public class LogBookService : ILogBookService
     {
         // Create a filter to find the LogBook document with the matching ProjectID
         var filter = Builders<LogBook>.Filter.Eq(lb => lb.ProjectID, projectID);
-
-        // Perform an asynchronous query to find the first LogBook that matches the filter
         var logBook = await _logEntryPoints.Find(filter).FirstOrDefaultAsync();
 
         // If no LogBook is found, throw an exception

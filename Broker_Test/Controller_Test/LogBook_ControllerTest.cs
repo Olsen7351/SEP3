@@ -59,7 +59,7 @@ public class LogBook_ControllerTest
             .ReturnsAsync(mockResult); 
 
         // Act
-        var result = await _controller.GetLogbook(projectID); 
+        var result = await _controller.GetLogbookForProject(projectID); 
 
         // Assert
         var okResult = Assert.IsType<OkObjectResult>(result);

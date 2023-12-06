@@ -82,6 +82,7 @@
         <!-- Logbook section -->
         <div class="card logbook-section">
             <p>Logbook Entries</p>
+            <!--<h3>@EmptyHelper</h3> -->
             <table>
                 <thead>
                 <tr>
@@ -119,24 +120,28 @@
     public Project? Project { get; set; }
     public List<ClassLibrary_SEP3.Task?>? BacklogTasks { get; set; }
     public List<LogBookEntryPoints>? LogBookEntries { get; set; } = new List<LogBookEntryPoints>();
-    public List<ClassLibrary_SEP3.LogBook?>? LogBook { get; set; } = new List<ClassLibrary_SEP3.LogBook>();
     private AddBacklogTaskRequest newTask = new AddBacklogTaskRequest();
+    public string EmptyHelper { get; set; }
 
 
     protected override async Task OnParametersSetAsync()
     {
         try
         {
-             // Fetch backlog tasks
-            Project = await ProjectService.GetProject(ProjectIdAsString);
-            BacklogTasks = Project?.Backlog?.BacklogTasks ?? new List<ClassLibrary_SEP3.Task>();
-
-             // Fetch logbook entries
+            // Fetch logbook entries
             var logbook = await LogBookService.GetEntriesForLogBook(ProjectIdAsString);
             if (logbook != null)
             {
                 LogBookEntries = logbook?.LogBookEntryPoints ?? new List<LogBookEntryPoints>();
             }
+            else
+            {
+                EmptyHelper = "LogBookEntries are null or empty";
+            }
+            
+             // Fetch backlog tasks
+           // Project = await ProjectService.GetProject(ProjectIdAsString);
+           // BacklogTasks = Project?.Backlog?.BacklogTasks ?? new List<ClassLibrary_SEP3.Task>();
         }
         
         catch (Exception ex)

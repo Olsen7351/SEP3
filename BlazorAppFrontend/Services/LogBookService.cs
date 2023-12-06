@@ -3,15 +3,18 @@ using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 namespace BlazorAppTEST.Services;
 using ClassLibrary_SEP3;
+using Microsoft.Extensions.Logging;
 using System.Net.Http.Headers;
 
 public class LogBookService : ILogBookService
 {
     //HTTPClient
     private readonly HttpClient httpClient; 
+    private readonly ILogger<Broker.Services.LogBookService> _logger;
 
-    public LogBookService(HttpClient httpClient)
+    public LogBookService(HttpClient httpClient, ILogger<Broker.Services.LogBookService> logger)
     {
+        _logger = logger;
         this.httpClient = httpClient;
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", UserService.Jwt);
     }
@@ -58,7 +61,10 @@ public class LogBookService : ILogBookService
             throw new ArgumentException("Project ID is empty or null.");
         }
 
-        HttpResponseMessage response = await httpClient.GetAsync($"api/LogBook/{projectID}");
+        // Append the projectID to the URI path if that's how your API expects it
+        HttpResponseMessage response = await httpClient.GetAsync($"api/LogBook/GetLogEntries?ProjectID={projectID}");
+        var responseBody = await response.Content.ReadAsStringAsync();
+        _logger.LogInformation($"Response from microservice: {responseBody}");
 
         if (response.IsSuccessStatusCode)
         {
@@ -75,10 +81,10 @@ public class LogBookService : ILogBookService
         }
         else
         {
-            // You can handle different status codes differently if needed
             throw new HttpRequestException($"Error retrieving logbook entries: {response.ReasonPhrase}");
         }
     }
+
 
 
     public async Task<IActionResult> UpdateEntry(String EntryID, String Description)
