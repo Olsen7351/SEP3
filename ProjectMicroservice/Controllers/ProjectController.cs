@@ -41,7 +41,7 @@ namespace ProjectMicroservice.Controllers
         }
 
         //api/Project/{projectIdAsString}/Members
-        [HttpGet("{projectIdAsString}")]
+        [HttpGet("{projectIdAsString}/Members")]
         public IActionResult GetProjectMembers(string projectIdAsString)
         {
             var response = _projectService.GetProjectMembers(projectIdAsString);
