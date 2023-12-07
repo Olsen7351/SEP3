@@ -11,4 +11,5 @@ public class CreateSprintBackLogRequest
     public string Title { get; set; }
     
     public DateTime Timestamp { get; set; }
+    public DateTime Deadline { get; set; }
 }

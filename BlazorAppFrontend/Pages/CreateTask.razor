@@ -76,7 +76,8 @@
     {
         newTask.ProjectId = ProjectIdAsString;
         newTask.SprintId = SprintIdAsString;
-        newTask.CreatedAt = DateTime.Today; 
+        newTask.CreatedAt = DateTime.Today;
+        newTask.Deadline = DateTime.Today;
     }
 
     private async Task HandleValidSubmit()
