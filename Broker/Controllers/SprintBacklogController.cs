@@ -61,6 +61,7 @@ namespace Broker.Controllers
         [HttpPost("{sprintId}/AddTask")]
         public async Task<IActionResult> AddTaskToSprintBacklog(AddSprintTaskRequest task)
         {
+            Console.WriteLine("Addtask called in broker cont");
             return await _sprintBacklogService.AddTaskToSprintBacklogAsync(task);
         }
 

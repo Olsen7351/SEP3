@@ -3,6 +3,7 @@
 @using Task = System.Threading.Tasks.Task
 @using BlazorAppTEST.Services.Interface
 @using ClassLibrary_SEP3
+@inject NavigationManager NavigationManager
 
 @attribute [Authorize]
 
@@ -53,46 +54,69 @@
     </div>
 }
 <!-- Sprint section -->
- <div class="sprint-backlogs">
-     <p>Sprint Backlog Entries</p>
-     @if (!SprintBacklogs.Any())
-     {
-         <div>@EmptyHelper</div>
-     }
-     else
-     {
-         @foreach (var backlog in SprintBacklogs)
-         {
-             <div class="sprint-backlog">
-                 <p>Title: @backlog.Title</p>
-                 <p>Created At: @backlog.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss")</p>
-                 <div>
-                     <h4>Tasks</h4>
-                     @if (backlog.Tasks.Any())
-                     {
-                         <ul>
-                             @foreach (var task in backlog.Tasks)
-                             {
-                                 <li>@task.Description</li> 
-                             }
-                         </ul>
-                     }
-                     else
-                     {
-                         <p>No tasks available</p>
-                     }
-                 </div>
-             </div>
-         }
-     }
-     <button class="btn btn-primary" @onclick="CreateNewTask">Create New Task</button>
- </div>
- 
+<div class="container">
+    <div class="card">
+        <p>Sprint Backlog Entries</p>
+        @if (!SprintBacklogs.Any())
+        {
+            <div>@EmptyHelper</div>
+        }
+        else
+        {
+            @foreach (var backlog in SprintBacklogs)
+            {
+                <div class="card sprint-backlog">
+                    <p>Title: @backlog.Title</p>
+                    <p>Created At: @backlog.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss")</p>
+                    <div>
+                        <h4>Tasks</h4>
+                        @if (backlog.Tasks.Any())
+                        {
+                            <ul>
+                                @foreach (var task in backlog.Tasks)
+                                {
+                                    <li>
+                                        <strong>@task.Title</strong>
+                                        @if (!string.IsNullOrEmpty(task.Description))
+                                        {
+                                            <div>Description: @task.Description</div>
+                                        }
+                                        <div>Status: @task.Status.ToString()</div>
+                                        <div>Created At: @task.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss")</div>
+                                        <div>Estimated Time: @task.EstimateTimeInMinutes min</div>
+                                        <div>Actual Time Used: @task.ActualTimeUsedInMinutes min</div>
+                                        <div>Responsible: @task.Responsible</div>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <p>No tasks available</p>
+                        }
+                    </div>
+                    <button class="btn btn-secondary mt-2" 
+                                    @onclick="@(() => NavigateToAddTaskPage(backlog.SprintBacklogId))">
+                                Add Task
+                            </button>
+                </div>
+            }
+        }
+    </div>
 
+    @if (LoadSprintBacklogsError != null)
+    {
+        <div class="alert alert-danger">
+            Error loading sprint backlogs: @LoadSprintBacklogsError
+        </div>
+    }
+</div>
 @code
 {
     [Parameter]
     public string ProjectIdAsString { get; set; }
+    [Parameter]
+    public string SprintIdAsString { get; set; }
     
     private CreateSprintBackLogRequest newSprint = new();
     private CreateSprintBackLogRequest createdSprint;
@@ -100,6 +124,7 @@
 
     private List<SprintBacklog> SprintBacklogs = new List<SprintBacklog>();
     public string EmptyHelper { get; set; }
+    private string LoadSprintBacklogsError;
     
     protected async override Task OnInitializedAsync()
     {
@@ -131,19 +156,26 @@
     private async Task LoadSprintBacklogs()
     {
         var response = await SprintService.GetSprintBacklogsAsync(ProjectIdAsString);
-        if (response is OkObjectResult result && result.Value is IEnumerable<SprintBacklog> backlogs)
+
+        if (response is OkObjectResult result && result.Value is List<SprintBacklog> backlogs)
         {
             SprintBacklogs = backlogs.ToList();
+            LoadSprintBacklogsError = null; // Clear any previous error
+        }
+        else if (response is NotFoundResult)
+        {
+            LoadSprintBacklogsError = "Project ID not found.";
         }
         else
         {
-            Console.WriteLine(response.GetType());
-
+            LoadSprintBacklogsError = "Failed to load sprint backlogs.";
+            Console.WriteLine($"Error response type: {response.GetType()}");
+        }
     }
-    }
 
-    private void CreateNewTask()
+    private void NavigateToAddTaskPage(string sprintId)
     {
-        
+        NavigationManager.NavigateTo($"/project-hub/{ProjectIdAsString}/{sprintId}/create-task");
     }
+    
 }

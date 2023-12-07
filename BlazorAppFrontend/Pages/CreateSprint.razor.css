@@ -57,3 +57,7 @@
     background-color: rgba(255,255,255,0.25); /* Slightly darker when hovered */
     border: 1px solid white;
 }
+
+.sprint-backlog {
+    margin-bottom: 1rem; 
+}

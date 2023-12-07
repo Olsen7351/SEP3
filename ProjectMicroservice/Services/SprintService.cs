@@ -62,7 +62,18 @@ public class SprintService : ISprintService
 
     public List<SprintBacklog> GetAllSprintBacklogs(string projectId)
     {
-        return _sprints.Find(sprint => sprint.ProjectId == projectId).ToList();
+        if (string.IsNullOrWhiteSpace(projectId))
+        {
+            throw new ArgumentException("Project ID cannot be null or whitespace.");
+        }
+        var sprintBacklogs = _sprints.Find(sprint => sprint.ProjectId == projectId).ToList();
+        if (!sprintBacklogs.Any())
+        {
+            Console.WriteLine("There are no sprintbacklogs for this project");
+            return null; 
+        }
+
+        return sprintBacklogs;
     }
 
 

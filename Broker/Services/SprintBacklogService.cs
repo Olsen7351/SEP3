@@ -37,18 +37,25 @@ public class SprintBacklogService : ISprintBacklogService
     }
     public async Task<IActionResult> GetSprintBacklogsAsync(string projectId)
     {
-        string requestUri = $"api/Project/{projectId}/SprintBacklog";
+        
+        string requestUri = $"api/Sprint/{projectId}/SprintBacklogs";
         HttpResponseMessage responseMessage = await httpClient.GetAsync(requestUri);
         if (responseMessage.IsSuccessStatusCode)
         {
             var sprintBacklogs = await responseMessage.Content.ReadFromJsonAsync<List<SprintBacklog>>();
             if (sprintBacklogs == null || !sprintBacklogs.Any()) 
             {
-                return new NotFoundResult(); 
+                //return new NotFoundResult(); 
+                sprintBacklogs = new List<SprintBacklog>();
             }
             return new OkObjectResult(sprintBacklogs);
         }
-        return new BadRequestResult();
+        else
+        {
+            Console.WriteLine(responseMessage.Content.ToString());
+        }
+
+        throw new Exception($"Error:{responseMessage.StatusCode}");
     }
     public async Task<IActionResult> GetSprintBacklogByIdAsync(string projectId, string Id)
     {
@@ -89,8 +96,7 @@ public class SprintBacklogService : ISprintBacklogService
             return new BadRequestResult();
         }
 
-        string requestUri = $"api/Project/{task.ProjectId}/SprintBacklog/{task.SprintId}/tasks";
-        HttpResponseMessage response = await httpClient.PostAsJsonAsync(requestUri, task);
+        HttpResponseMessage response = await httpClient.PostAsJsonAsync($"api/Sprint/AddTask", task);
     
         if (response.IsSuccessStatusCode)
         {

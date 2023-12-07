@@ -1,0 +1,100 @@
+﻿@page "/project-hub/{ProjectIdAsString}/{SprintIdAsString}/create-task"
+@inject ISprintBacklogService SprintService
+@inject NavigationManager NavigationManager
+@using Task = System.Threading.Tasks.Task
+@using BlazorAppTEST.Services.Interface
+@using ClassLibrary_SEP3
+@using ClassLibrary_SEP3.DataTransferObjects
+@using Microsoft.AspNetCore.Mvc
+@using TaskStatus = ClassLibrary_SEP3.TaskStatus
+
+<div class="container">
+    <div class="card">
+        <h3>Create Task</h3>
+        <EditForm Model="newTask" OnValidSubmit="HandleValidSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <!-- Title Field -->
+            <div class="form-group">
+                <label for="title">Title:</label>
+                <InputText id="title" class="form-control" @bind-Value="newTask.Title" />
+            </div>
+
+            <!-- Description Field -->
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <InputTextArea id="description" class="form-control" @bind-Value="newTask.Description" />
+            </div>
+
+            <!-- Status Field -->
+            <div class="form-group">
+                <label for="status">Status:</label>
+                <InputSelect id="status" class="form-control" @bind-Value="newTask.Status">
+                    @foreach (var status in Enum.GetValues<TaskStatus>())
+                    {
+                        <option value="@status">@status</option>
+                    }
+                </InputSelect>
+            </div>
+
+            <!-- Created At Field -->
+            <div class="form-group">
+                <label for="createdAt">Created At:</label>
+                <InputDate id="createdAt" class="form-control" @bind-Value="newTask.CreatedAt" />
+            </div>
+
+            <!-- Estimate Time Field -->
+            <div class="form-group">
+                <label for="estimateTime">Estimated Time (minutes):</label>
+                <InputNumber id="estimateTime" class="form-control" @bind-Value="newTask.EstimateTimeInMinutes" />
+            </div>
+
+            <!-- Actual Time Used Field -->
+            <div class="form-group">
+                <label for="actualTimeUsed">Actual Time Used (minutes):</label>
+                <InputNumber id="actualTimeUsed" class="form-control" @bind-Value="newTask.ActualTimeUsedInMinutes" />
+            </div>
+
+            <!-- Responsible Field -->
+            <div class="form-group">
+                <label for="responsible">Responsible:</label>
+                <InputText id="responsible" class="form-control" @bind-Value="newTask.Responsible" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Create Task</button>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string ProjectIdAsString { get; set; }
+    [Parameter]
+    public string SprintIdAsString { get; set; }
+
+    private AddSprintTaskRequest newTask = new AddSprintTaskRequest();
+
+    protected override async Task OnInitializedAsync()
+    {
+        newTask.ProjectId = ProjectIdAsString;
+        newTask.SprintId = SprintIdAsString;
+        newTask.CreatedAt = DateTime.Today; 
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        Console.WriteLine("CreateTask method called");
+        
+        var response = await SprintService.AddTaskToSprintBacklogAsync(newTask); // Implement this method in your service
+        if (response is OkObjectResult)
+        {
+            
+            NavigationManager.NavigateTo($"/project-hub/{ProjectIdAsString}/createSprint");
+        }
+        else
+        {
+            // Handle errors
+        }
+    }
+}

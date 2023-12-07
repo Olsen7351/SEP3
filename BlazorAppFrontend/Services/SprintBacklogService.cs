@@ -45,10 +45,11 @@ namespace BlazorAppTEST.Services
         public async Task<IActionResult> GetSprintBacklogsAsync(string ProjectId)
         {
             
-            var response = await _httpClient.GetFromJsonAsync<IEnumerable<SprintBacklog>>("api/SprintBacklog?ProjectId=" + ProjectId);
+            var response = await _httpClient.GetFromJsonAsync<List<SprintBacklog>>($"api/SprintBacklog?ProjectId={ProjectId}");
             Console.WriteLine($"Method getSprintbacklogs Broker {response}");
             if (response == null)
             {
+                
                 return new NotFoundResult();
             }
             return new OkObjectResult(response);
@@ -63,22 +64,34 @@ namespace BlazorAppTEST.Services
             return new OkObjectResult(response);
         }
 
-        public async Task<IActionResult> AddTaskToSprintBacklogAsync(
-            AddSprintTaskRequest task)
+        public async Task<IActionResult> AddTaskToSprintBacklogAsync(AddSprintTaskRequest task)
         {
+            Console.WriteLine("Create Task called in FrontEnd");
             if (string.IsNullOrWhiteSpace(task.SprintId))
             {
-                throw new HttpRequestException("Sprint backlog ID cannot be null.");
+                return new BadRequestObjectResult("Sprint backlog ID cannot be null.");
             }
 
-            HttpResponseMessage message = await _httpClient.PostAsJsonAsync($"api/SprintBacklog/{task.SprintId}/AddTask", task);
-            if (message.IsSuccessStatusCode)
+            try
             {
+                HttpResponseMessage message = await _httpClient.PostAsJsonAsync($"api/SprintBacklog/{task.SprintId}/AddTask", task);
+                if (!message.IsSuccessStatusCode)
+                {
+                    var errorContent = await message.Content.ReadAsStringAsync();
+                    return new BadRequestObjectResult($"Error: {message.StatusCode} - {errorContent}");
+                }
+
                 return new OkObjectResult(await message.Content.ReadFromJsonAsync<AddSprintTaskRequest>());
             }
-            return new NotFoundResult();
+            catch (HttpRequestException ex)
+            {
+                return new BadRequestObjectResult($"HttpRequestException: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                return new BadRequestObjectResult($"An error occurred: {ex.Message}");
+            }
         }
-
         public async Task<IActionResult> GetTasksFromSprintBacklogAsync(string sprintId)
         {
             if (string.IsNullOrWhiteSpace(sprintId))

@@ -47,7 +47,7 @@ public class SprintController : ControllerBase
         
     }
 
-    [HttpGet("{projectId}/backlog/sprints")]
+    [HttpGet("{projectId}/SprintBacklogs")]
     public IActionResult GetAllSprints(string projectId)
     {
         var sprints = _sprintService.GetAllSprintBacklogs(projectId);
@@ -100,15 +100,17 @@ public class SprintController : ControllerBase
         return NoContent();
     }
 
-    [HttpPost("{projectId}/backlog/sprints/{sprintId}/tasks")]
-    public IActionResult AddTaskToSprint(string sprintId, [FromBody] AddSprintTaskRequest request)
-    {
+    [HttpPost("AddTask")]
+    public IActionResult AddTaskToSprint( [FromBody] AddSprintTaskRequest request)
+    {        
+        Console.WriteLine("Addtask called in microservices");
+
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
         }
 
-        var updatedSprint = _sprintService.AddTaskToSprintBacklog(request, sprintId);
+        var updatedSprint = _sprintService.AddTaskToSprintBacklog(request, request.SprintId);
         if (updatedSprint == null)
         {
             return BadRequest($"Task could not be added");
