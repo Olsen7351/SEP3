@@ -1,0 +1,57 @@
+﻿
+.create-logbook-entry-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.heading {
+    text-align: center;
+    color: #4a4a4a;
+    margin-bottom: 1.5rem;
+}
+
+.logbook-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-label {
+    margin-bottom: .5rem;
+    display: inline-block;
+    color: #495057;
+}
+
+.form-control {
+    padding: .375rem .75rem;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    height: auto;
+    min-height: 120px;
+}
+
+.validation-summary {
+    color: #dc3545;
+    margin-bottom: 1rem;
+}
+
+.create-entry-button {
+    background-color: #28a745;
+    color: white;
+    border-color: #28a745;
+    padding: .375rem .75rem;
+    border-radius: .25rem;
+    font-weight: bold;
+}
+
+.create-entry-button:disabled {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
