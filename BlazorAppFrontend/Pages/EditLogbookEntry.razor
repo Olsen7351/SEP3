@@ -1,4 +1,4 @@
-@page "/edit-logbook-entry/{EntryID}"
+@page "/edit-logbook-entry/{ProjectIdAsString}/{EntryID}"
 @inject ILogBookService LogBookService
 @inject NavigationManager NavigationManager
 @using ClassLibrary_SEP3
@@ -37,15 +37,19 @@ else
 @code 
 {
     [Parameter]
+    public string ProjectIdAsString { get; set; }
+    [Parameter]
     public string EntryID { get; set; }
     private LogBookEntryPoints logBookEntry { get; set; }
     private string errorMessage;
 
+    
+    
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            logBookEntry = await LogBookService.GetLogBookEntryByID(EntryID);
+            logBookEntry = await LogBookService.GetSpecificLogBookEntryByID(EntryID, ProjectIdAsString);
             if (logBookEntry == null)
             {
                 errorMessage = "Logbook entry not found.";
@@ -62,8 +66,16 @@ else
     {
         try
         {
-            await LogBookService.UpdateEntry(EntryID, logBookEntry.Description);
-           // NavigationManager.NavigateTo($"/project-hub/{logBookEntry.LogBookID}");
+            var updateEntryRequest = new UpdateEntryRequest
+            {
+                ProjectID = ProjectIdAsString,
+                EntryID = EntryID,
+                Description = logBookEntry.Description
+            };
+        
+   
+            await LogBookService.UpdateEntry(updateEntryRequest);
+            NavigationManager.NavigateTo($"/project-hub/{logBookEntry.ProjectID}"); 
         }
         catch (Exception ex)
         {

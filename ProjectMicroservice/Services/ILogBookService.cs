@@ -8,4 +8,6 @@ public interface ILogBookService
     LogBook CreateNewEntry(AddEntryPointRequest logBookEntryPoints);
 
     Task<LogBook> GetLogbookForProject(string projectID);
+    Task<LogBookEntryPoints> GetSpecificLogBookEntry(string projectId, string entryId);
+    Task<bool> UpdateLogBookEntry(UpdateEntryRequest updateEntryRequest);
 }

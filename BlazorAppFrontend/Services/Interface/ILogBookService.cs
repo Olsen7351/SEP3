@@ -7,8 +7,8 @@ namespace BlazorAppTEST.Services;
 public interface ILogBookService
 {
     Task<IActionResult> CreateNewEntryToLogBook(AddEntryPointRequest logBookEntryPoints);
-    Task<LogBookEntryPoints> GetLogBookEntryByID(String EntryID);
-    Task<IActionResult> UpdateEntry(String EntryID, String Description);
+    Task<LogBookEntryPoints> GetSpecificLogBookEntryByID(String EntryID, String ProjectID);
+    Task<IActionResult> UpdateEntry(UpdateEntryRequest updateEntryRequest);
     Task<LogBook> GetEntriesForLogBook(string projectID);
 
 }

@@ -10,7 +10,7 @@ public class LogBookEntryPoints
     
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
-    public string EntryID { get;} = ObjectId.GenerateNewId().ToString();
+    public string EntryID { get; set; } = ObjectId.GenerateNewId().ToString();
     
     public string OwnerUsername { get; set; }
 

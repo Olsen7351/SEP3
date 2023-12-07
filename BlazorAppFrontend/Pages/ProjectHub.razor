@@ -86,12 +86,6 @@
         <!-- Logbook section -->
         <div class="card logbook-section" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
             <p style="font-size: 1.5em; font-weight: bold; margin-bottom: 0.5em;">Logbook Entries</p>
-            @if (!LogBookEntries.Any())
-            {
-                <div>@EmptyHelper</div>
-            }
-            else
-            {
                 <table style="width: 100%; border-collapse: collapse;">
                     <thead>
                     <tr style="background-color: #4C5270; color: white;">
@@ -118,7 +112,6 @@
                 <div style="text-align: center; margin-top: 10px;">
                     <button class="btn btn-primary your-custom-class" @onclick="NavigateToCreateEntry">Create New Entry</button>
                 </div>
-            }
         </div>
     </div>
 </div>
@@ -203,8 +196,9 @@
 
     private void EditLogbookEntry(string logbookEntryId)
     {
-        NavigationManager.NavigateTo($"/edit-logbook-entry/{logbookEntryId}");
+        NavigationManager.NavigateTo($"/edit-logbook-entry/{ProjectIdAsString}/{logbookEntryId}");
     }
+
 
 
     private void NavigateToCreateEntry()

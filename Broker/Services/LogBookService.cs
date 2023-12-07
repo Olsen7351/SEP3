@@ -29,23 +29,63 @@ public class LogBookService : ILogBookService
             }
             else
             {
-                // Ideally, you should throw a custom exception that your error handling middleware can catch to return a 404 status code.
                 throw new KeyNotFoundException("Logbook not found.");
             }
         }
         else
         {
-            // You should throw an exception here to be handled by your error handling middleware.
             throw new HttpRequestException($"Error retrieving logbook entries: {response.ReasonPhrase}");
+        }
+    }
+
+    public async Task<LogBookEntryPoints> GetSpecificEntry(string ProjectID, string EntryID)
+    {
+        if (string.IsNullOrEmpty(EntryID) || string.IsNullOrEmpty(ProjectID))
+        {
+            throw new ArgumentException("EntryID and ProjectID must not be null or empty.");
+        }
+        string requestUri = $"api/LogBook/{Uri.EscapeDataString(ProjectID)}/logbookentries/{Uri.EscapeDataString(EntryID)}";
+        HttpResponseMessage response = await httpClient.GetAsync(requestUri);
+
+        if (response.IsSuccessStatusCode)
+        {
+            var entry = await response.Content.ReadFromJsonAsync<LogBookEntryPoints>();
+            if (entry != null)
+            {
+                return entry;
+            }
+            else
+            {
+                throw new KeyNotFoundException("Specific logbook entry not found.");
+            }
+        }
+        else
+        {
+            throw new HttpRequestException($"Error retrieving the specific logbook entry: {response.ReasonPhrase}");
+        }
+    }
+
+    public async Task<IActionResult> UpdateEntry(UpdateEntryRequest updateEntryRequest)
+    {
+        if (String.IsNullOrEmpty(updateEntryRequest.ProjectID) || String.IsNullOrEmpty(updateEntryRequest.EntryID))
+        {
+            throw new Exception("payload has entryID or projectID set to empty or null");
+        }
+        HttpResponseMessage response = await httpClient.PutAsJsonAsync("api/LogBook/UpdateEntry", updateEntryRequest);
+
+        if (response.IsSuccessStatusCode)
+        {
+            return new OkResult();
+        }
+        else
+        {
+            // Here, you might want to handle different types of error responses differently
+            throw new Exception($"Error updating entry: {response.ReasonPhrase}");
         }
     }
 
 
 
-
-   
-    
-    
     //Create
     public async Task<IActionResult> CreateNewEntryLogBook(AddEntryPointRequest logBookEntryPoints)
     {
