@@ -17,6 +17,7 @@ namespace ClassLibrary_SEP3
         public string? Description { get; set; }
         public TaskStatus Status { get; set; }
         public DateTime CreatedAt { get; set; }
+        public DateTime Deadline { get; set; }
         public int EstimateTimeInMinutes { get; set; }
         public int ActualTimeUsedInMinutes { get; set; }
         public string Responsible { get; set; }        

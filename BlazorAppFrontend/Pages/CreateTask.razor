@@ -15,19 +15,16 @@
             <DataAnnotationsValidator />
             <ValidationSummary />
 
-            <!-- Title Field -->
             <div class="form-group">
                 <label for="title">Title:</label>
                 <InputText id="title" class="form-control" @bind-Value="newTask.Title" />
             </div>
 
-            <!-- Description Field -->
             <div class="form-group">
                 <label for="description">Description:</label>
                 <InputTextArea id="description" class="form-control" @bind-Value="newTask.Description" />
             </div>
 
-            <!-- Status Field -->
             <div class="form-group">
                 <label for="status">Status:</label>
                 <InputSelect id="status" class="form-control" @bind-Value="newTask.Status">
@@ -37,26 +34,26 @@
                     }
                 </InputSelect>
             </div>
-
-            <!-- Created At Field -->
+            
             <div class="form-group">
                 <label for="createdAt">Created At:</label>
                 <InputDate id="createdAt" class="form-control" @bind-Value="newTask.CreatedAt" />
             </div>
-
-            <!-- Estimate Time Field -->
+            <div class="form-group">
+                            <label for="Deadline">Deadline</label>
+                            <InputDate id="Deadline" class="form-control" @bind-Value="newTask.Deadline" />
+                </div>
+            
             <div class="form-group">
                 <label for="estimateTime">Estimated Time (minutes):</label>
                 <InputNumber id="estimateTime" class="form-control" @bind-Value="newTask.EstimateTimeInMinutes" />
             </div>
 
-            <!-- Actual Time Used Field -->
             <div class="form-group">
                 <label for="actualTimeUsed">Actual Time Used (minutes):</label>
                 <InputNumber id="actualTimeUsed" class="form-control" @bind-Value="newTask.ActualTimeUsedInMinutes" />
             </div>
 
-            <!-- Responsible Field -->
             <div class="form-group">
                 <label for="responsible">Responsible:</label>
                 <InputText id="responsible" class="form-control" @bind-Value="newTask.Responsible" />
