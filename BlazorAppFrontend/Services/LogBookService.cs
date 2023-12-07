@@ -19,23 +19,30 @@ public class LogBookService : ILogBookService
 
 
 
-    public async Task<LogBookEntryPoints> GetLogBookEntryByID(string entryID)
+    public async Task<LogBookEntryPoints> GetSpecificLogBookEntryByID(string entryID, string projectID)
     {
         if (string.IsNullOrEmpty(entryID))
         {
             throw new ArgumentException("EntryID is empty or null.");
         }
 
-        HttpResponseMessage response = await httpClient.GetAsync($"api/LogBookEntries/{entryID}");
-
+        if (string.IsNullOrEmpty(projectID))
+        {
+            throw new ArgumentException("ProjectID is empty or null.");
+        }
+        
+        HttpResponseMessage response = await httpClient.GetAsync($"api/LogBook/{projectID}/logbookentries/{entryID}");
         if (response.IsSuccessStatusCode)
         {
-            // Directly deserialize the JSON response into a LogBookEntryPoints object
             var entry = await response.Content.ReadFromJsonAsync<LogBookEntryPoints>();
 
             if (entry != null)
             {
-                return entry; // Return the deserialized object
+                if(entry.ProjectID != projectID)
+                {
+                    throw new Exception("The logbook entry does not belong to the provided project.");
+                }
+                return entry;
             }
             else
             {
@@ -47,6 +54,7 @@ public class LogBookService : ILogBookService
             throw new HttpRequestException($"Error retrieving logbook entry: {response.ReasonPhrase}");
         }
     }
+
 
 
 

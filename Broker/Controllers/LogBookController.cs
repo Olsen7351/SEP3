@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices.JavaScript;
 using Broker.Services;
 using ClassLibrary_SEP3;
 using ClassLibrary_SEP3.DataTransferObjects;
@@ -24,6 +25,36 @@ public class LogBookController : ControllerBase
         _iLogBookService = iLogBookService;
     }
 
+
+    [HttpGet("{ProjectID}/logbookentries/{EntryID}")]
+    public async Task<ActionResult<LogBookEntryPoints>> GetSpecificEntry(string ProjectID, string EntryID)
+    {
+        if (String.IsNullOrEmpty(EntryID) || String.IsNullOrEmpty(ProjectID))
+        {
+            return BadRequest("EntryID and ProjectID must not be null or empty.");
+        }
+
+        try
+        {
+            var entry = await _iLogBookService.GetSpecificEntry(ProjectID, EntryID);
+            if (entry != null)
+            {
+                return Ok(entry);
+            }
+            else
+            {
+                return NotFound("LogBook entry not found.");
+            }
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred: {ex.Message}");
+        }
+    }
+
+    
+    
+    
     
     [HttpGet("GetLogEntries")]
     public async Task<ActionResult<LogBook>> GetLogbookForProject(string ProjectID)

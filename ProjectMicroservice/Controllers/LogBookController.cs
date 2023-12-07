@@ -22,6 +22,42 @@ public class LogBookController : ControllerBase
     
     
     
+    [HttpGet("{ProjectID}/logbookentries/{EntryID}")]
+    public async Task<ActionResult<LogBookEntryPoints>> GetSpecificLogBookEntry(string ProjectID, string EntryID)
+    {
+        if (String.IsNullOrEmpty(ProjectID))
+        {
+            return BadRequest("ProjectID is required.");
+        }
+
+        if (String.IsNullOrEmpty(EntryID))
+        {
+            return BadRequest("EntryID is required.");
+        }
+
+        try
+        {
+            var logBookEntry = await _iLogBookService.GetSpecificLogBookEntry(ProjectID, EntryID); 
+            if (logBookEntry == null)
+            {
+                return NotFound($"Logbook entry with ID {EntryID} for project ID {ProjectID} not found.");
+            }
+            return Ok(logBookEntry);
+        }
+        catch (KeyNotFoundException knfe)
+        {
+            return NotFound(knfe.Message);
+        }
+        catch (Exception e)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred: {e.Message}");
+        }
+    }
+
+    
+    
+    
+    
     [HttpGet("GetEntriesForLogBook")]
     public async Task<ActionResult<LogBook>> GetLogbookForProject(string ProjectID)
     {

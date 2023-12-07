@@ -66,8 +66,51 @@ public class LogBookService : ILogBookService
         {
             throw new KeyNotFoundException("No logbook found for the given project ID.");
         }
-
         // If a LogBook is found, return it
         return logBook;
+    }
+
+    
+    
+    
+    public async Task<LogBookEntryPoints> GetSpecificLogBookEntry(string projectId, string entryId)
+    {
+        if (string.IsNullOrEmpty(projectId))
+        {
+            throw new ArgumentException("ProjectID is required.");
+        }
+
+        if (string.IsNullOrEmpty(entryId))
+        {
+            throw new ArgumentException("EntryID is required.");
+        }
+
+        // Convert the entryId to an ObjectId
+        if (!ObjectId.TryParse(entryId, out var objectId))
+        {
+            throw new ArgumentException("EntryID is not a valid ObjectId.");
+        }
+
+        // First, filter to find the LogBook with the specified ProjectID
+        var logBookFilter = Builders<LogBook>.Filter.Eq(lb => lb.ProjectID, projectId);
+        var logBook = await _logEntryPoints.Find(logBookFilter).FirstOrDefaultAsync();
+
+        // If no LogBook is found
+        if (logBook == null)
+        {
+            throw new KeyNotFoundException("No logbook found for the given project ID.");
+        }
+
+        // Then, find the specific LogBookEntryPoints within the LogBook's EntryPoints
+        var logBookEntry = logBook.LogBookEntryPoints
+            .FirstOrDefault(entry => entry.EntryID == objectId.ToString());
+
+        // If no LogBookEntryPoints is found
+        if (logBookEntry == null)
+        {
+            throw new KeyNotFoundException("No logbook entry found for the given entry ID.");
+        }
+
+        return logBookEntry;
     }
 }
