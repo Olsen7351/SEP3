@@ -30,7 +30,7 @@
     
     [Parameter]
     public string ProjectIdAsString { get; set; }
-    private LogBookEntryPoints logBookEntryPayload = new LogBookEntryPoints();
+    private AddEntryPointRequest logBookEntryPayload = new AddEntryPointRequest();
     private String username;
     
     protected override async Task OnInitializedAsync()

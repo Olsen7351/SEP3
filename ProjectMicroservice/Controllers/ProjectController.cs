@@ -48,6 +48,26 @@ namespace ProjectMicroservice.Controllers
         }
 
         
+        //Alexanders method
+        [HttpGet("user/{userId}")]
+        public IActionResult GetProjectsByUser(string userId)
+        {
+            if (string.IsNullOrWhiteSpace(userId))
+            {
+                return BadRequest("User ID is required.");
+            }
+            var projects = _projectService.GetProjectsByUser(userId);
+            if (projects == null)
+            {
+                return NotFound("No projects found for the given user.");
+            }
+            return Ok(projects);
+        }
+
+
+        
+        
+        
         
         [HttpPost("/addUser")]
         public IActionResult AddUserToProject(AddUserToProjectRequest request)
