@@ -47,6 +47,10 @@ public class UserController {
 
     @PostMapping("/authenticate")
     public ResponseEntity<?> createAuthenticationToken(@Valid @RequestBody UserDTO userDto) {
+        if (userDto == null)
+        {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("UserDTO is null");
+        }
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(userDto.getUsername(), userDto.getPassword())
