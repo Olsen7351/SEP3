@@ -1,29 +1,32 @@
 ﻿.container {
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-items: flex-start;
     background-color: rgba(5, 39, 103, 0.2);
     padding: 20px;
 }
 
 .container-fluid {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start; 
+    align-items: flex-start; 
     background-color: rgba(5, 39, 103, 0.2);
     padding: 20px;
+    width: 100%; 
 }
 
 .card {
-    width: 50%;
+    width: 60%;
+    margin: 10px;
     border: none;
     background: linear-gradient(135deg, rgba(5, 39, 103, 0.9), rgba(58, 6, 71, 0.9));
     color: #d7d7d7;
     border-radius: 8px;
     box-shadow: 0px 0px 10px 0px #000000;
     padding: 20px;
-    margin-bottom: 10px;
     transition: transform 0.3s;
 }
 
@@ -82,4 +85,12 @@ h2 {
     color: white;
     border: none;
     cursor: pointer;
+}
+
+
+@media (max-width: 768px) {
+    .card {
+        width: 100%; /* Full width on smaller screens */
+        margin-bottom: 20px; /* Add more space at the bottom of each card */
+    }
 }
