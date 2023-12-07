@@ -9,4 +9,5 @@ public interface ILogBookService
 
     Task<LogBook> GetLogbookForProject(string projectID);
     Task<LogBookEntryPoints> GetSpecificLogBookEntry(string projectId, string entryId);
+    Task<bool> UpdateLogBookEntry(UpdateEntryRequest updateEntryRequest);
 }

@@ -65,6 +65,25 @@ public class LogBookService : ILogBookService
         }
     }
 
+    public async Task<IActionResult> UpdateEntry(UpdateEntryRequest updateEntryRequest)
+    {
+        if (String.IsNullOrEmpty(updateEntryRequest.ProjectID) || String.IsNullOrEmpty(updateEntryRequest.EntryID))
+        {
+            throw new Exception("payload has entryID or projectID set to empty or null");
+        }
+        HttpResponseMessage response = await httpClient.PutAsJsonAsync("api/LogBook/UpdateEntry", updateEntryRequest);
+
+        if (response.IsSuccessStatusCode)
+        {
+            return new OkResult();
+        }
+        else
+        {
+            // Here, you might want to handle different types of error responses differently
+            throw new Exception($"Error updating entry: {response.ReasonPhrase}");
+        }
+    }
+
 
 
     //Create

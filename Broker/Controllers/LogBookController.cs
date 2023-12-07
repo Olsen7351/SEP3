@@ -25,6 +25,33 @@ public class LogBookController : ControllerBase
         _iLogBookService = iLogBookService;
     }
 
+    
+    [HttpPut("UpdateEntry")]
+    public async Task<IActionResult> UpdateEntry([FromBody] UpdateEntryRequest updateRequest)
+    {
+        if (updateRequest == null)
+        {
+            return BadRequest("Request payload cannot be null");
+        }
+
+        if (String.IsNullOrEmpty(updateRequest.EntryID) || String.IsNullOrEmpty(updateRequest.ProjectID))
+        {
+            return BadRequest("EntryID and ProjectID must not be null or empty.");
+        }
+        try
+        {
+            var result = await _iLogBookService.UpdateEntry(updateRequest);
+            return Ok("Entry updated successfully.");
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred: {ex.Message}");
+        }
+    }
+
+    
+    
+    
 
     [HttpGet("{ProjectID}/logbookentries/{EntryID}")]
     public async Task<ActionResult<LogBookEntryPoints>> GetSpecificEntry(string ProjectID, string EntryID)

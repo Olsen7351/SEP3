@@ -92,15 +92,13 @@ public class LogBookService : ILogBookService
 
 
 
-    public async Task<IActionResult> UpdateEntry(String EntryID, String Description)
+    public async Task<IActionResult> UpdateEntry(UpdateEntryRequest updateEntryRequest)
     {
-        if (String.IsNullOrEmpty(EntryID))
+        if (String.IsNullOrEmpty(updateEntryRequest.EntryID))
         {
             throw new Exception("EntryID was unable to be retrieved");
         }
-
-        var payload = new { EntryID = EntryID, Description = Description };
-        HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/UpdateEntry", payload);
+        HttpResponseMessage response = await httpClient.PutAsJsonAsync("api/LogBook/UpdateEntry", updateEntryRequest);
         
         if (!response.IsSuccessStatusCode)
         {
