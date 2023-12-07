@@ -10,12 +10,13 @@ namespace ProjectMicroservice.Services
     public class ProjectService : IProjectService
     {
         private readonly IMongoCollection<Project> _projects;
-        private readonly IMongoCollection<User> _user;
+        private readonly IMongoCollection<UsersAPartOfProjects> _users;
+
 
         public ProjectService(MongoDbContext context)
         {
             _projects = context.Database.GetCollection<Project>("Projects");
-            _user = context.Database.GetCollection<User>("Users");
+            _users = context.Database.GetCollection<UsersAPartOfProjects>("ProjectsForUsers");
         }
 
         public Project CreateProject(CreateProjectRequest request)
@@ -101,35 +102,33 @@ namespace ProjectMicroservice.Services
 
         public bool AddUserToProject(AddUserToProjectRequest request)
         {
-            // Check if the Project exists
-            var projectFilter = Builders<Project>.Filter.Eq(proj => proj.Id, request.ProjectId);
-            var projectExists = _projects.Find(projectFilter).Any();
-            if (!projectExists)
+            var filter = Builders<UsersAPartOfProjects>.Filter.Eq(u => u.Username, request.Username);
+
+            // Check if the user already exists
+            var existingUser = _users.Find(filter).FirstOrDefault();
+
+            if (existingUser != null)
             {
-                throw new Exception("Project couldn't be found");
+                // User exists, so update the user's projects using AddToSet to avoid duplicates
+                var update = Builders<UsersAPartOfProjects>.Update.AddToSet(list => list.ProjectID, request.ProjectId);
+                var result = _users.UpdateOne(filter, update);
+                return result.ModifiedCount > 0;
             }
-        
-            // Check if the User exists and if the ProjectID is already part of the user's ProjectIDs.
-            var userFilter = Builders<User>.Filter.Eq(user => user.Username, request.Username);
-            var user = _user.Find(userFilter).FirstOrDefault();
-            if (user == null)
+            else
             {
-                throw new Exception("Username doesnt exist within the database");
+                // User does not exist, so create a new user and add the project ID
+                var newUser = new UsersAPartOfProjects
+                {
+                    Username = request.Username,
+                    ProjectID = new List<string> { request.ProjectId }
+                    // Add other necessary fields here
+                };
+
+                _users.InsertOne(newUser);
+                return true; // Since the user is newly added, we return true
             }
-
-            if (user.ProjectID.Contains(request.ProjectId))
-            {
-                throw new Exception("This username is already within this project");
-            }
-
-            // Add the ProjectID to the user's list of ProjectIDs.
-            var update = Builders<User>.Update.AddToSet(user => user.ProjectID, request.ProjectId);
-
-            // Update the user in the database.
-            var result = _user.UpdateOne(userFilter, update);
-
-            // Check if the update was successful.
-            return result.ModifiedCount > 0;
         }
     }
 }
+    
+

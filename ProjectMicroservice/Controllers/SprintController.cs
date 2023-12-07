@@ -38,7 +38,7 @@ public class SprintController : ControllerBase
     [HttpGet("{projectId}/backlog")]
     public IActionResult GetSprintBacklog(string projectId, string sprintBacklogId)
     {
-        var sprintBacklog = _sprintService.GetSprintBacklogById(projectId, sprintBacklogId);
+        var sprintBacklog = _sprintService.GetSprintBacklogById(sprintBacklogId);
         if (sprintBacklog == null)
         {
             return BadRequest("Sprint could not be Found");
@@ -59,12 +59,12 @@ public class SprintController : ControllerBase
     }
 
     [HttpGet("{projectId}/backlog/sprints/{sprintId}")]
-    public IActionResult GetSpecificSprint(string projectId, string sprintId)
+    public IActionResult GetSpecificSprint(string sprintId)
     {
-        var sprint = _sprintService.GetSprintBacklogById(projectId, sprintId);
+        var sprint = _sprintService.GetSprintBacklogById(sprintId);
         if (sprint == null)
         {
-            return BadRequest($"No sprint was found for project with ID {projectId} or sprintbacklog Id {sprintId}");
+            return BadRequest($"No sprint was found sprintbacklog Id {sprintId}");
         }
 
         return Ok(sprint);
