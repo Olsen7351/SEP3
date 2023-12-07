@@ -6,6 +6,7 @@
 @using ClassLibrary_SEP3
 @using ClassLibrary_SEP3.DataTransferObjects
 @using Microsoft.AspNetCore.Mvc
+@inject IJSRuntime JSRuntime
 @using TaskStatus = ClassLibrary_SEP3.TaskStatus
 
 <div class="container">
@@ -80,23 +81,16 @@
       
         StartDate = DateTime.Today;
         Deadline = DateTime.Today;
+        newTask.ProjectId = ProjectIdAsString;
+        newTask.SprintId = SprintIdAsString;
+        newTask.CreatedAt = StartDate;
+        newTask.Deadline = Deadline;
     }
 
     private async Task HandleValidSubmit()
     {
 
-        AddSprintTaskRequest sprintTaskRequest = new AddSprintTaskRequest
-        {
-            ProjectId = ProjectIdAsString,
-            SprintId = SprintIdAsString,
-            EstimateTimeInMinutes = newTask.EstimateTimeInMinutes,
-            ActualTimeUsedInMinutes = newTask.ActualTimeUsedInMinutes,
-            Description = newTask.Description,
-            CreatedAt = StartDate,
-            Deadline = Deadline,
-            Responsible = newTask.Responsible
-        };
-        var response = await SprintService.AddTaskToSprintBacklogAsync(sprintTaskRequest);
+        var response = await SprintService.AddTaskToSprintBacklogAsync(newTask);
         if (response is OkObjectResult)
         {
             
@@ -104,7 +98,7 @@
         }
         else
         {
-            // Handle errors
+            JSRuntime.InvokeVoidAsync("alert", "Failed to create task");
         }
     }
 }
