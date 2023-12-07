@@ -9,6 +9,7 @@
 
 @using ClassLibrary_SEP3.DataTransferObjects
 @using Microsoft.AspNetCore.Mvc
+@inject IJSRuntime JSRuntime
 
 
 
@@ -156,21 +157,28 @@
 
     private async Task LoadSprintBacklogs()
     {
-        var response = await SprintService.GetSprintBacklogsAsync(ProjectIdAsString);
+        try
+        {
+            var response = await SprintService.GetSprintBacklogsAsync(ProjectIdAsString);
 
-        if (response is OkObjectResult result && result.Value is List<SprintBacklog> backlogs)
+            if (response is OkObjectResult result && result.Value is List<SprintBacklog> backlogs)
+            {
+                SprintBacklogs = backlogs.ToList();
+                LoadSprintBacklogsError = null; // Clear any previous error
+            }
+            else if (response is NotFoundResult)
+            {
+                LoadSprintBacklogsError = "Project ID not found.";
+            }
+            else
+            {
+                LoadSprintBacklogsError = "Failed to load sprint backlogs.";
+                Console.WriteLine($"Error response type: {response.GetType()}");
+            }
+        } catch (Exception ex)
         {
-            SprintBacklogs = backlogs.ToList();
-            LoadSprintBacklogsError = null; // Clear any previous error
-        }
-        else if (response is NotFoundResult)
-        {
-            LoadSprintBacklogsError = "Project ID not found.";
-        }
-        else
-        {
-            LoadSprintBacklogsError = "Failed to load sprint backlogs.";
-            Console.WriteLine($"Error response type: {response.GetType()}");
+            Console.WriteLine(ex.Message);
+            JSRuntime.InvokeVoidAsync("alert", "Failed to fetch some data from the server");
         }
     }
 
