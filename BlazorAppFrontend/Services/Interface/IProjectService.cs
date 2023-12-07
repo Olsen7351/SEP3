@@ -13,4 +13,5 @@ public interface IProjectService
 
     Task<Project> AddUserToProject(string username, string projectId);
 
+    Task<List<string>> GetProjectMembers(string projectIdAsString);
 }

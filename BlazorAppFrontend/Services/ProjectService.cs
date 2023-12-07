@@ -10,6 +10,7 @@ using ClassLibrary_SEP3;
 using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using MongoDB.Bson;
 using Xunit.Sdk;
 using Task = System.Threading.Tasks.Task;
@@ -85,6 +86,25 @@ public class ProjectService: IProjectService
             return project;
         }
         
+        else
+        {
+            throw new Exception($"Error: {response.StatusCode}");
+        }
+    }
+
+    public async Task<List<string>> GetProjectMembers(string projectIdAsString)
+    {
+        if (projectIdAsString.IsNullOrEmpty())
+        {
+            throw new Exception("ProjectId is empty");
+        }
+
+        HttpResponseMessage response = await httpClient.GetAsync($"api/BrokerProject/{projectIdAsString}/Members");
+        if (response.IsSuccessStatusCode)
+        {
+            var members = await response.Content.ReadFromJsonAsync<List<string>>();
+            return members;
+        }
         else
         {
             throw new Exception($"Error: {response.StatusCode}");

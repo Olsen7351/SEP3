@@ -1,5 +1,11 @@
+using System;
+using System.Collections.Generic;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using BlazorAppTEST.Services;
 using BlazorAppTEST.Services.Interface;
 using ClassLibrary_SEP3;
@@ -105,9 +111,53 @@ public class ProjectService_Test
         Assert.Equal("An unexpected error",result.Value);
 
     }
-    
 
 
+
+    [Fact]
+    public async Task GetProjectMembers_Successful()
+    {
+        // Arrange
+        var projectId = "yourProjectId";
+        var expectedMembers = new List<string> { "Member1", "Member2", "Member3" };
+
+        var mockHttpMessageHandler = new Mock<HttpMessageHandler>();
+        mockHttpMessageHandler
+            .Protected()
+            .Setup<Task<HttpResponseMessage>>(
+                "SendAsync",
+                ItExpr.IsAny<HttpRequestMessage>(),
+                ItExpr.IsAny<CancellationToken>()
+            )
+            .ReturnsAsync(new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent(System.Text.Json.JsonSerializer.Serialize(expectedMembers))
+            });
+
+        var httpClient = new HttpClient(mockHttpMessageHandler.Object);
+        var projectService = new ProjectService(httpClient); // Replace with your actual project service instance
+
+        // Act
+        var result = await projectService.GetProjectMembers(projectId);
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal(expectedMembers, result);
+    }
+
+    [Fact]
+    public async Task GetProjectMembers_EmptyProjectId_ThrowsException()
+    {
+        // Arrange
+        var projectId = ""; // Empty project ID
+
+        var httpClient = new HttpClient(); // You don't need to mock the HttpClient for this test
+        var projectService = new ProjectService(httpClient); // Replace with your actual project service instance
+
+        // Act and Assert
+        await Assert.ThrowsAsync<Exception>(async () => await projectService.GetProjectMembers(projectId));
+    }
 
 
     //---------------------------------------------------------------------- Adding a user into a project Tests

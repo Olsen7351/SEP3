@@ -39,6 +39,19 @@ namespace Broker.Controllers
             return response;
         }
 
+        //api/BrokerProject/{projectIdAsString}/Members
+        [HttpGet("{projectIdAsString}/Members")]
+        public async Task<List<string>> GetProjectMembers(string projectIdAsString)
+        {
+            var response = await projektService.GetProjectMembers(projectIdAsString);
+
+            if (response == null)
+            {
+                throw new Exception("Project is empty or do not exsist");
+            }
+            return response;
+        }
+
         
         [HttpPost("CreateProject")]
         public async Task<IActionResult> CreateProjekt([FromBody] CreateProjectRequest projekt)

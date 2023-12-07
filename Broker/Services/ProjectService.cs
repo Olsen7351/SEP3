@@ -66,5 +66,18 @@ namespace Broker.Services
                 return new BadRequestResult();
             }
         }
+
+        public async Task<List<string>> GetProjectMembers(string projectIdAsString)
+        {
+            string requestUri = $"api/Project/{projectIdAsString}/Members";
+            var response = await httpClient.GetAsync(requestUri);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"Error:{response.StatusCode}");
+            }
+
+            return (await response.Content.ReadFromJsonAsync<List<string>>())!;
+        }
     }
 }

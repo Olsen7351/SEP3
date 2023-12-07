@@ -18,6 +18,8 @@
     <div class="container">
         <!--Title-->
         <h2>Project Hub for Project ID: @ProjectIdAsString</h2>
+        
+        <button class="btn btn-primary" @onclick="NavigateToProjectMembers">View Project Members</button>
 
         <!--Backlog section----------------------------------------------------------->
         <div class="card backlog-section">
@@ -54,6 +56,7 @@
                         </tbody>
                     </table>
                 }
+                
             </ul>
             <div class="create-task-form">
                 <h3>Create a New Task</h3>
@@ -149,6 +152,10 @@
         }
     }
 
+    private void NavigateToProjectMembers()
+    {
+        NavigationManager.NavigateTo($"/project-hub/{ProjectIdAsString}/project-members");
+    }
 
     private async void AddTask()
     {

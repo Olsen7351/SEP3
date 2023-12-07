@@ -40,6 +40,20 @@ namespace ProjectMicroservice.Controllers
             return CreatedAtAction(nameof(CreateProject), new { id = createdProject.Id }, createdProject);
         }
 
+        //api/Project/{projectIdAsString}/Members
+        [HttpGet("{projectIdAsString}")]
+        public IActionResult GetProjectMembers(string projectIdAsString)
+        {
+            var response = _projectService.GetProjectMembers(projectIdAsString);
+
+            if (response == null)
+            {
+                return NotFound();
+            }
+            return new OkObjectResult(response);
+        }
+
+
         [HttpGet("{id}")]
         public Project GetProject(string id)
         {

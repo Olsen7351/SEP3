@@ -1,6 +1,7 @@
 using System.Collections.Concurrent;
 using ClassLibrary_SEP3;
 using ClassLibrary_SEP3.DataTransferObjects;
+using Microsoft.IdentityModel.Tokens;
 using MongoDB.Driver;
 using ProjectMicroservice.Data;
 using Task = ClassLibrary_SEP3.Task;
@@ -119,6 +120,23 @@ namespace ProjectMicroservice.Services
 
             // Check if the update was successful.
             return result.ModifiedCount > 0;
+        }
+
+        public List<string> GetProjectMembers(string projectIdAsString)
+        {
+            if (projectIdAsString.IsNullOrEmpty())
+            {
+                throw new Exception("ProjectId is empty");
+            }
+            // Check if the Project exists
+            var projectFilter = Builders<Project>.Filter.Eq(proj => proj.Id, projectIdAsString);
+            var projectExists = _projects.Find(projectFilter).Any();
+            if (!projectExists)
+            {
+                throw new Exception("Project couldn't be found");
+            }
+            //TODO: Get the list of usernames from the database.
+            return new List<string>();
         }
     }
 }

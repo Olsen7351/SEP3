@@ -1,0 +1,43 @@
+﻿@page "/project-hub/{ProjectIdAsString}/project-members"
+@using BlazorAppTEST.Services.Interface
+@using ClassLibrary_SEP3
+@using Task = System.Threading.Tasks.Task
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+@inject IProjectService ProjectService
+
+<h3>Project Members for: @ProjectIdAsString</h3>
+
+@if (ListOfProjectMembers != null && ListOfProjectMembers.Any())
+{
+    <ul>
+        @foreach (var member in ListOfProjectMembers)
+        {
+            <li>@member</li>
+        }
+    </ul>
+}
+else
+{
+    <strong><p>No project members found for this project.</p></strong>
+}
+
+@code {
+    [Parameter]
+    public string ProjectIdAsString { get; set; }
+
+    public List<string> ListOfProjectMembers { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        try
+        {
+            ListOfProjectMembers = await ProjectService.GetProjectMembers(ProjectIdAsString);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            JSRuntime.InvokeVoidAsync("alert", "Failed to fetch some data from the server");
+        }
+    }
+}

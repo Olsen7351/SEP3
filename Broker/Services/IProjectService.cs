@@ -12,5 +12,6 @@ namespace Broker.Services
         public Task<IActionResult> CreateProjekt(CreateProjectRequest projekt);
         
         public Task<IActionResult> AddUserToProject(AddUserToProjectRequest request);
+        Task<List<string>> GetProjectMembers(string projectIdAsString);
     }
 }
