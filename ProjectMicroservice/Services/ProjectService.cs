@@ -136,15 +136,20 @@ namespace ProjectMicroservice.Services
             {
                 throw new Exception("ProjectId is empty");
             }
-            // Check if the Project exists
-            var projectFilter = Builders<Project>.Filter.Eq(proj => proj.Id, projectIdAsString);
-            var projectExists = _projects.Find(projectFilter).Any();
-            if (!projectExists)
+
+            var projectFilter = Builders<UsersAPartOfProjects>.Filter.AnyEq(u => u.ProjectID, projectIdAsString);
+            var users = _users.Find(projectFilter).ToList();
+
+            if (users.Any())
             {
-                throw new Exception("Project couldn't be found");
+                // Extract usernames from users who are part of the specified project
+                var usernames = users.Select(u => u.Username).ToList();
+                return usernames;
             }
-            //TODO: Get the list of usernames from the database.
-            return new List<string>();
+            else
+            {
+                throw new Exception("No members found for the project");
+            }
         }
     }
 }
