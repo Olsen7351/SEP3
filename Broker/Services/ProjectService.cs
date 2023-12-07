@@ -72,7 +72,7 @@ namespace Broker.Services
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception($"Error:{response.StatusCode}");
+                throw new NullReferenceException($"Error:{response.StatusCode}");
             }
 
             return (await response.Content.ReadFromJsonAsync<List<string>>())!;

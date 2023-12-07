@@ -108,7 +108,7 @@ public class ProjectService: IProjectService
         }
         else
         {
-            throw new Exception($"Error: {response.StatusCode}");
+            throw new NullReferenceException($"Error: {response.StatusCode}");
         }
     }
 }

@@ -93,6 +93,55 @@ namespace Broker_Test.Service_Test
         }
 
         [Fact]
+        public async Task GetMembersForProject()
+        {
+            string projectId = "123";
+            var expectedMembers = new List<string>
+            {
+                "123",
+                "456"
+            };
+            string responseMembersJson = JsonSerializer.Serialize(expectedMembers);
+            var mockResponse = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent(responseMembersJson, System.Text.Encoding.UTF8, "application/json")
+            };
+            _mockHttpMessageHandler.Protected().Setup<Task<HttpResponseMessage>>(
+                                   "SendAsync",
+                                                      ItExpr.Is<HttpRequestMessage>(req =>
+                                                                                 req.Method == HttpMethod.Get && req.RequestUri.ToString().EndsWith($"api/Project/{projectId}/Members")),
+                                                      ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(mockResponse);
+            var result = await _projectService.GetProjectMembers(projectId);
+            Assert.NotNull(result);
+            var members = Assert.IsType<List<string>>(result);
+            Assert.Equal(expectedMembers.Count, members.Count);
+        }
+
+        [Fact]
+        public async Task GetErrorIfNoMembersInProject()
+        {
+            string projectId = "123";
+            var noMembers = new List<string>();
+            string responseMembersJson = JsonSerializer.Serialize(noMembers);
+            var mockResponse = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.BadRequest,
+                Content = new StringContent(responseMembersJson, System.Text.Encoding.UTF8, "application/json")
+            };
+            _mockHttpMessageHandler.Protected().Setup<Task<HttpResponseMessage>>(
+                                                  "SendAsync",
+                                                                                                       ItExpr.Is<HttpRequestMessage>(req =>
+                                                                                                                                                                                           req.Method == HttpMethod.Get && req.RequestUri.ToString().EndsWith($"api/Project/{projectId}/Members")),
+                                                                                                       ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(mockResponse);
+
+            //Check if the method throws an NullReferenceException
+            await Assert.ThrowsAsync<NullReferenceException>(() => _projectService.GetProjectMembers(projectId));
+        }
+
+        [Fact]
         public async Task AddUserToProject_ValidRequest_ReturnsOk()
         {
           

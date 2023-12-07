@@ -1,6 +1,7 @@
 using System.Collections.Concurrent;
 using ClassLibrary_SEP3;
 using ClassLibrary_SEP3.DataTransferObjects;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.IdentityModel.Tokens;
 using MongoDB.Driver;
 using ProjectMicroservice.Data;
@@ -148,7 +149,7 @@ namespace ProjectMicroservice.Services
             }
             else
             {
-                throw new Exception("No members found for the project");
+                throw new NullReferenceException("No members found for the project");
             }
         }
     }

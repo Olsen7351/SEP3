@@ -137,6 +137,39 @@ namespace ProjectMicroservice_Tests.DAO_Services
             Assert.NotNull(userPartOfProject);
             Assert.Contains(project.Id, userPartOfProject.ProjectID);
         }
+
+        [Fact]
+        public void GetErrorIfGettingMembersOfNonExistingProject()
+        {
+            //Error message expected: No members found for the project
+            //Check if it throws NullReferenceException
+            Assert.Throws<NullReferenceException>(() => _projectService.GetProjectMembers("NonExistingProject"));
+        }
+
+        [Fact]
+        public void GetMembersOfProject()
+        {
+            var createProjectRequest = new CreateProjectRequest
+            {
+                Name = "Test Project",
+                Description = "Test Description",
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddDays(30)
+            };
+            var project = _projectService.CreateProject(createProjectRequest);
+
+            var addUserToProjectRequest = new AddUserToProjectRequest()
+            {
+                ProjectId = project.Id,
+                Username = "TestUser"
+            };
+            var result = _projectService.AddUserToProject(addUserToProjectRequest);
+            Assert.True(result);
+
+            var members = _projectService.GetProjectMembers(project.Id);
+            Assert.NotNull(members);
+            Assert.Contains("TestUser", members);
+        }
     }
 
     public class MongoDbFixture
