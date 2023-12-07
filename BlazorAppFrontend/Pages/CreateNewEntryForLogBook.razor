@@ -9,19 +9,20 @@
 @using Task = System.Threading.Tasks.Task
 @inject NavigationManager NavigationManager
 
-<h3>Create New Entry for Logbook</h3>
+<div class="create-logbook-entry-container">
+    <h3 class="heading">Create New Entry for Logbook</h3>
+    <EditForm Model="@logBookEntryPayload" OnValidSubmit="@HandleValidSubmit" class="logbook-form">
+        <DataAnnotationsValidator />
+        <ValidationSummary class="validation-summary" />
 
-<EditForm Model="@logBookEntryPayload" OnValidSubmit="@HandleValidSubmit">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
-    
-    
-    <div class="form-group">
-        <label for="Description">Description:</label>
-        <InputTextArea id="Description" class="form-control" @bind-Value="logBookEntryPayload.Description" />
-    </div>
-    <button type="submit" class="btn btn-success" disabled="@string.IsNullOrEmpty(username)">Create Entry</button>
-</EditForm>
+        <div class="form-group">
+            <label for="Description" class="form-label">Description:</label>
+            <InputTextArea id="Description" class="form-control" @bind-Value="logBookEntryPayload.Description" />
+        </div>
+        <button type="submit" class="btn btn-primary create-entry-button" disabled="@string.IsNullOrEmpty(username)">Create Entry</button>
+    </EditForm>
+</div>
+
 
 
 
@@ -29,7 +30,7 @@
     
     [Parameter]
     public string ProjectIdAsString { get; set; }
-    private LogBookEntryPoints logBookEntryPayload = new LogBookEntryPoints();
+    private AddEntryPointRequest logBookEntryPayload = new AddEntryPointRequest();
     private String username;
     
     protected override async Task OnInitializedAsync()

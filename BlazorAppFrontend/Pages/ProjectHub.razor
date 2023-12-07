@@ -7,7 +7,6 @@
 
 @using Task = System.Threading.Tasks.Task
 @using TaskStatus = ClassLibrary_SEP3.TaskStatus
-@inject IProjectService ProjectService
 @inject ILogBookService LogBookService
 @inject TaskService TaskService;
 @inject NavigationManager NavigationManager
@@ -23,7 +22,7 @@
 
         <!--Backlog section----------------------------------------------------------->
         <div class="card backlog-section">
-            <p>Backlog</p>
+            <p style="font-size: 1.5em; font-weight: bold; margin-bottom: 0.5em;">Backlog</p>
             <ul class="task-list">
                 @if (BacklogTasks != null)
                 {
@@ -84,49 +83,52 @@
 
 
         <!-- Logbook section -->
-        <div class="card logbook-section">
-            <p>Logbook Entries</p>
+        <div class="card logbook-section" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
+            <p style="font-size: 1.5em; font-weight: bold; margin-bottom: 0.5em;">Logbook Entries</p>
             @if (!LogBookEntries.Any())
             {
                 <div>@EmptyHelper</div>
             }
             else
             {
-                <table>
+                <table style="width: 100%; border-collapse: collapse;">
                     <thead>
-                    <tr>
-                        <th>Owner Username</th>
-                        <th>Description</th>
-                        <th>Created Time Stamp</th>
-                        <th>Actions</th>
+                    <tr style="background-color: #4C5270; color: white;">
+                        <th style="padding: 10px; font-weight: bold; border: 3px solid #4C5270;">Owner Username</th>
+                        <th style="padding: 10px; font-weight: bold; border: 3px solid #4C5270;">Description</th>
+                        <th style="padding: 10px; font-weight: bold; border: 3px solid #4C5270;">Created Time Stamp</th>
+                        <th style="padding: 10px; font-weight: bold; border: 3px solid #4C5270;">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach (var entry in LogBookEntries)
                     {
-                        <tr>
-                            <td>@entry.OwnerUsername</td>
-                            <td>@entry.Description</td>
-                            <td>@entry.CreatedTimeStamp.ToString("yyyy-MM-dd HH:mm:ss")</td>
-                            <td>
-                                <button class="btn btn-secondary" @onclick="() => EditLogbookEntry(entry.EntryID)">Edit</button>
+                        <tr style="background-color: @(LogBookEntries.IndexOf(entry) % 2 == 0 ? "#2B3A67" : "#2B2B2B");">
+                            <td style="padding: 10px; border: 3px solid #4C5270;">@entry.OwnerUsername</td>
+                            <td style="padding: 10px; border: 3px solid #4C5270;">@entry.Description</td>
+                            <td style="padding: 10px; border: 3px solid #4C5270;">@entry.CreatedTimeStamp.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                            <td style="padding: 10px; border: 3px solid #4C5270;">
+                                <button class="btn btn-secondary" style="font-weight: bold;" @onclick="() => EditLogbookEntry(entry.EntryID)">Edit</button>
                             </td>
                         </tr>
                     }
                     </tbody>
                 </table>
+                <div style="text-align: center; margin-top: 10px;">
+                    <button class="btn btn-primary your-custom-class" @onclick="NavigateToCreateEntry">Create New Entry</button>
+                </div>
             }
         </div>
-        <button class="btn btn-primary" @onclick="NavigateToCreateEntry">Create New Entry</button>
     </div>
 </div>
 
 
 @code
 {
-    
+
     [Parameter]
     public string ProjectIdAsString { get; set; }
+
     public Project? Project { get; set; }
     public List<ClassLibrary_SEP3.Task?>? BacklogTasks { get; set; }
     public List<LogBookEntryPoints>? LogBookEntries { get; set; } = new List<LogBookEntryPoints>();

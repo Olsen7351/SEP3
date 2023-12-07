@@ -18,5 +18,7 @@ namespace ProjectMicroservice.Services
         Project UpdateProject(Project project);
         bool AddUserToProject(AddUserToProjectRequest request);
         List<string> GetProjectMembers(string projectIdAsString);
+        //Alexanders method
+        IEnumerable<Project> GetProjectsByUser(string userId);
     }
 }
