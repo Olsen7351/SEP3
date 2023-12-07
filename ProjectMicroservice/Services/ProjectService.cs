@@ -87,18 +87,35 @@ namespace ProjectMicroservice.Services
             }
         }
 
-     
+
 
         public bool AddUserToProject(AddUserToProjectRequest request)
         {
-            var usersCollection = _users.Database.GetCollection<UsersAPartOfProjects>("UsersAPartOfProjects");
-
             var filter = Builders<UsersAPartOfProjects>.Filter.Eq(u => u.Username, request.Username);
-            var update = Builders<UsersAPartOfProjects>.Update.AddToSet(u => u.ProjectID, request.ProjectId);
 
-            var result = usersCollection.UpdateOne(filter, update);
+            // Check if the user already exists
+            var existingUser = _users.Find(filter).FirstOrDefault();
 
-            return result.ModifiedCount > 0;
+            if (existingUser != null)
+            {
+                // User exists, so update the user's projects using AddToSet to avoid duplicates
+                var update = Builders<UsersAPartOfProjects>.Update.AddToSet(list => list.ProjectID, request.ProjectId);
+                var result = _users.UpdateOne(filter, update);
+                return result.ModifiedCount > 0;
+            }
+            else
+            {
+                // User does not exist, so create a new user and add the project ID
+                var newUser = new UsersAPartOfProjects
+                {
+                    Username = request.Username,
+                    ProjectID = new List<string> { request.ProjectId }
+                    // Add other necessary fields here
+                };
+
+                _users.InsertOne(newUser);
+                return true; // Since the user is newly added, we return true
+            }
         }
     }
 }

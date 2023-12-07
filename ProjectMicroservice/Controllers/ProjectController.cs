@@ -52,6 +52,8 @@ namespace ProjectMicroservice.Controllers
         [HttpPost("{projectId}/addUser")]
         public IActionResult AddUserToProject([FromBody] AddUserToProjectRequest request)
         {
+            Console.WriteLine("Microservice Controller Adduser was called");
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
