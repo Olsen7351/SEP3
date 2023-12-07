@@ -99,7 +99,7 @@ namespace Broker_Test.Service_Test
             var addUserToProjectRequest = new AddUserToProjectRequest
             {
                 ProjectId = "123",
-                UserName = "456"
+                Username = "456"
             };
             var mockResponse = new HttpResponseMessage
             {

@@ -93,7 +93,7 @@ namespace ProjectMicroservice.Services
         {
             var usersCollection = _users.Database.GetCollection<UsersAPartOfProjects>("UsersAPartOfProjects");
 
-            var filter = Builders<UsersAPartOfProjects>.Filter.Eq(u => u.Username, request.UserName);
+            var filter = Builders<UsersAPartOfProjects>.Filter.Eq(u => u.Username, request.Username);
             var update = Builders<UsersAPartOfProjects>.Update.AddToSet(u => u.ProjectID, request.ProjectId);
 
             var result = usersCollection.UpdateOne(filter, update);

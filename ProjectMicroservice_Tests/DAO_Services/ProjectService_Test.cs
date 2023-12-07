@@ -128,7 +128,7 @@ namespace ProjectMicroservice_Tests.DAO_Services
             var addUserToProjectRequest = new AddUserToProjectRequest()
             {
                 ProjectId = project.Id,
-                UserName = "TestUser"
+                Username = "TestUser"
             };
             var result = _projectService.AddUserToProject(addUserToProjectRequest);
             Assert.True(result);
