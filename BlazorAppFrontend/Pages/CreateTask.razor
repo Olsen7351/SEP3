@@ -37,11 +37,11 @@
             
             <div class="form-group">
                 <label for="createdAt">Created At:</label>
-                <InputDate id="createdAt" class="form-control" @bind-Value="newTask.CreatedAt" />
+                <InputDate id="createdAt" class="form-control" @bind-Value="StartDate" />
             </div>
             <div class="form-group">
                             <label for="Deadline">Deadline</label>
-                            <InputDate id="Deadline" class="form-control" @bind-Value="newTask.Deadline" />
+                            <InputDate id="Deadline" class="form-control" @bind-Value="Deadline" />
                 </div>
             
             <div class="form-group">
@@ -70,21 +70,33 @@
     [Parameter]
     public string SprintIdAsString { get; set; }
 
+    public DateTime StartDate { get; set; }
+    public DateTime Deadline { get; set; }
+
     private AddSprintTaskRequest newTask = new AddSprintTaskRequest();
 
     protected override async Task OnInitializedAsync()
     {
-        newTask.ProjectId = ProjectIdAsString;
-        newTask.SprintId = SprintIdAsString;
-        newTask.CreatedAt = DateTime.Today;
-        newTask.Deadline = DateTime.Today;
+      
+        StartDate = DateTime.Today;
+        Deadline = DateTime.Today;
     }
 
     private async Task HandleValidSubmit()
     {
-        Console.WriteLine("CreateTask method called");
-        
-        var response = await SprintService.AddTaskToSprintBacklogAsync(newTask); // Implement this method in your service
+
+        AddSprintTaskRequest sprintTaskRequest = new AddSprintTaskRequest
+        {
+            ProjectId = ProjectIdAsString,
+            SprintId = SprintIdAsString,
+            EstimateTimeInMinutes = newTask.EstimateTimeInMinutes,
+            ActualTimeUsedInMinutes = newTask.ActualTimeUsedInMinutes,
+            Description = newTask.Description,
+            CreatedAt = StartDate,
+            Deadline = Deadline,
+            Responsible = newTask.Responsible
+        };
+        var response = await SprintService.AddTaskToSprintBacklogAsync(sprintTaskRequest);
         if (response is OkObjectResult)
         {
             
