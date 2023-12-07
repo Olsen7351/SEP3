@@ -69,6 +69,7 @@ public class ProjectService: IProjectService
 
     public async Task<Project> AddUserToProject(string username, string projectId)
     {
+        Console.WriteLine("Frontend Adduser was called");
         if (String.IsNullOrEmpty(username) || String.IsNullOrEmpty(projectId))
         {
             throw new Exception("Either username or projectID couldn't be retrieved");
@@ -78,7 +79,7 @@ public class ProjectService: IProjectService
         
         
         var payload = new { Username = username, ProjectId = projectId };
-        HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/Broker/AddUserToProject", payload);
+        HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/BrokerProject/AddUserToProject", payload);
 
         if (response.IsSuccessStatusCode)
         {

@@ -21,6 +21,7 @@ namespace Broker_Test.Service_Test
         private readonly HttpClient _httpClient;
         private readonly Mock<HttpMessageHandler> _mockHttpMessageHandler;
         private readonly ProjectService _projectService;
+
         public ProjectServiceTest()
         {
             _mockHttpMessageHandler = new Mock<HttpMessageHandler>();
@@ -30,6 +31,7 @@ namespace Broker_Test.Service_Test
             };
             _projectService = new ProjectService(_httpClient);
         }
+
         [Fact]
         public async Task CreateProjekt_ValidProject_ReturnsOk()
         {
@@ -54,6 +56,7 @@ namespace Broker_Test.Service_Test
             var result = await _projectService.CreateProjekt(projectToCreate);
             Assert.IsType<OkResult>(result);
         }
+
         [Fact]
         public async Task GetProjekt_ValidId_ReturnsProject()
         {
@@ -79,14 +82,48 @@ namespace Broker_Test.Service_Test
                     ItExpr.IsAny<CancellationToken>())
                 .ReturnsAsync(mockResponse);
 
-            
+
             var result = await _projectService.GetProjekt(projectId);
             Assert.NotNull(result);
             var project = Assert.IsType<Project>(result);
             Assert.Equal(expectedProject.Id, project.Id);
             Assert.Equal(expectedProject.Description, project.Description);
             Assert.Equal(expectedProject.Name, project.Name);
+
+        }
+
+        [Fact]
+        public async Task AddUserToProject_ValidRequest_ReturnsOk()
+        {
+          
+            var addUserToProjectRequest = new AddUserToProjectRequest
+            {
+                ProjectId = "123",
+                Username = "456"
+            };
+            var mockResponse = new HttpResponseMessage
+            {
+                StatusCode = System.Net.HttpStatusCode.OK
+            };
+            _mockHttpMessageHandler.Protected().Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.Is<HttpRequestMessage>(req =>
+                        req.Method == HttpMethod.Post &&
+                        req.RequestUri.ToString().EndsWith("api/Broker/AddUserToProject")),
+                    ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(mockResponse);
+            var result = await _projectService.AddUserToProject(addUserToProjectRequest);
+            Assert.IsType<OkResult>(result);
+        }
+
+        [Fact]
+        public async Task AddUserToProject_NullRequest_ReturnsBadRequest()
+        {
+            AddUserToProjectRequest addUserToProjectRequest = null;
+            var result = await _projectService.AddUserToProject(addUserToProjectRequest);
+            Assert.IsType<BadRequestResult>(result);
             
         }
+        
     }
 }

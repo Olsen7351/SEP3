@@ -1,4 +1,4 @@
-@page "/AddNewUserIntoProject/{ProjectIdAsString}"
+@page "/{ProjectIdAsString}/AddNewUserIntoProject"
 @using ClassLibrary_SEP3
 @using Task = System.Threading.Tasks.Task
 @using BlazorAppTEST.Services
@@ -35,7 +35,7 @@
     private Project project; 
     private string username;
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnParametersSetAsync()
     {
         project = await ProjectService.GetProject(ProjectIdAsString);
     }

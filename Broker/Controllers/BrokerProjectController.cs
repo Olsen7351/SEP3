@@ -70,6 +70,7 @@ namespace Broker.Controllers
         [HttpPost("AddUserToProject")]
         public async Task<IActionResult> AddUserToProject([FromBody] AddUserToProjectRequest request)
         {
+            Console.WriteLine("Broker controller Adduser was called");
             try
             {
                 if (request == null)
