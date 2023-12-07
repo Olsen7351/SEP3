@@ -19,6 +19,7 @@
         <h2>Project Hub for Project ID: @ProjectIdAsString</h2>
         
         <button class="btn btn-primary" @onclick="NavigateToProjectMembers">View Project Members</button>
+        <button class="btn btn-primary" @onclick="NavigateToAddNewUser">Add User</button>
 
         <!--Backlog section----------------------------------------------------------->
         <div class="card backlog-section">
@@ -159,6 +160,11 @@
         NavigationManager.NavigateTo($"/project-hub/{ProjectIdAsString}/project-members");
     }
 
+    private void NavigateToAddNewUser()
+    {
+        NavigationManager.NavigateTo($"/project-hub/{ProjectIdAsString}/AddNewUserIntoProject");
+    }
+
     private async void AddTask()
     {
         var task = new AddBacklogTaskRequest()
@@ -210,4 +216,5 @@
     {
         NavigationManager.NavigateTo($"/project-hub/{ProjectIdAsString}/createSprint");
     }
+   
 }
