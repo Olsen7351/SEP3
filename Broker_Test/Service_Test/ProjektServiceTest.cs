@@ -150,18 +150,25 @@ namespace Broker_Test.Service_Test
                 ProjectId = "123",
                 Username = "456"
             };
+
             var mockResponse = new HttpResponseMessage
             {
-                StatusCode = System.Net.HttpStatusCode.OK
+                StatusCode = HttpStatusCode.OK
             };
+
+            // Set up the mock HttpMessageHandler
             _mockHttpMessageHandler.Protected().Setup<Task<HttpResponseMessage>>(
                     "SendAsync",
                     ItExpr.Is<HttpRequestMessage>(req =>
                         req.Method == HttpMethod.Post &&
-                        req.RequestUri.ToString().EndsWith("api/Broker/AddUserToProject")),
+                        req.RequestUri.ToString().EndsWith($"api/Project/{addUserToProjectRequest.ProjectId}/addUser")),
                     ItExpr.IsAny<CancellationToken>())
                 .ReturnsAsync(mockResponse);
+
+            // Act
             var result = await _projectService.AddUserToProject(addUserToProjectRequest);
+
+            // Assert
             Assert.IsType<OkResult>(result);
         }
 
