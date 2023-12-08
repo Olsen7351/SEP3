@@ -33,7 +33,7 @@ public class LogBookController : ControllerBase
         {
             return BadRequest("Request payload cannot be null");
         }
-
+        
         if (String.IsNullOrEmpty(updateRequest.EntryID) || String.IsNullOrEmpty(updateRequest.ProjectID))
         {
             return BadRequest("EntryID and ProjectID must not be null or empty.");
@@ -123,6 +123,16 @@ public class LogBookController : ControllerBase
         if (logBookEntryPoints == null)
         {
             throw new Exception("LogbookEntryPoint seems to be null?");
+        }
+
+        if (String.IsNullOrEmpty(logBookEntryPoints.ProjectID))
+        {
+            throw new Exception("ProjectID cant be null or empty when creating a new entry");
+        }
+
+        if (String.IsNullOrEmpty(logBookEntryPoints.OwnerUsername))
+        {
+            throw new Exception("Username cant be null or empty when creating a new entry");
         }
 
         var serviceResult = await _iLogBookService.CreateNewEntryLogBook(logBookEntryPoints);
