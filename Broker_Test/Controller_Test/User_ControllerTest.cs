@@ -177,4 +177,56 @@ public class User_ControllerTest
         Assert.NotNull(usernameErrors);
         Assert.Contains("Username is too long, only 16 characters are allowed", usernameErrors);
     }
+
+    [Fact]
+    public async Task ChangeUserPassword_ValidRequest_ReturnsOk()
+    {
+        // Arrange
+        var mockUserService = new Mock<IUserService>();
+        var controller = new UserController(mockUserService.Object);
+        var changePasswordRequest = new ChangePasswordRequest
+        {
+            CurrentPassword = "OldPassword",
+            NewPassword = "NewPassword"
+        };
+
+        mockUserService.Setup(service => service.ChangeUserPassword(It.IsAny<string>(), It.IsAny<ChangePasswordRequest>()))
+            .ReturnsAsync(new OkResult());
+
+        var mockHttpContext = new DefaultHttpContext();
+        mockHttpContext.Request.Headers["Authorization"] = "Bearer testtoken";
+        controller.ControllerContext = new ControllerContext()
+        {
+            HttpContext = mockHttpContext
+        };
+
+        // Act
+        var result = await controller.ChangeUserPassword(changePasswordRequest);
+
+        // Assert
+        var okResult = Assert.IsType<OkObjectResult>(result);
+        Assert.IsType<OkObjectResult>(okResult);
+    }
+    
+    [Fact]
+    public async Task ChangeUserPassword_NullRequest_ReturnsBadRequest()
+    {
+        // Arrange
+        var mockUserService = new Mock<IUserService>();
+        var controller = new UserController(mockUserService.Object);
+
+        var mockHttpContext = new DefaultHttpContext();
+        mockHttpContext.Request.Headers["Authorization"] = "Bearer testtoken";
+        controller.ControllerContext = new ControllerContext()
+        {
+            HttpContext = mockHttpContext
+        };
+
+        // Act
+        var result = await controller.ChangeUserPassword(null);
+
+        // Assert
+        var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
+        
+    }
 }
