@@ -26,9 +26,8 @@ public class LogBookControllerTests
     }
     
     
-    
     [Fact]
-    public async Task UpdateLogBookEntryWhenProjectIDAndEntryIDDoesntExistWithinTheDatabase()
+    public async Task UpdateLogBookWhereProjectIDDoesntExist()
     {
         // Arrange
         var mockService = new Mock<ILogBookService>();
@@ -44,7 +43,5 @@ public class LogBookControllerTests
         Assert.IsType<NotFoundObjectResult>(result);
     }
     
-    
-    
-    
+    //Stopped testing controllers
 }
