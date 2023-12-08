@@ -1,4 +1,5 @@
 using System.Net;
+using System.Text;
 using BlazorAppTEST.Services;
 using ClassLibrary_SEP3;
 using ClassLibrary_SEP3.DataTransferObjects;
@@ -30,9 +31,11 @@ public class LogBook_Test
     public async Task GetEntriesForLogBook_WithValidProjectId()
     {
         // Arrange
+        var expectedLogBook = new LogBook(); // Initialize with expected data
+        var serializedLogBook = JsonConvert.SerializeObject(expectedLogBook); // Serialize the LogBook object
         var mockResponseMessage = new HttpResponseMessage(HttpStatusCode.OK)
         {
-            Content = new StringContent("...") // your expected content here
+            Content = new StringContent(serializedLogBook, Encoding.UTF8, "application/json")
         };
         var handler = new MockHttpMessageHandler(mockResponseMessage);
         var httpClient = new HttpClient(handler)
@@ -45,8 +48,9 @@ public class LogBook_Test
         var result = await logBookService.GetEntriesForLogBook("validProjectId");
 
         // Assert
-        Assert.IsType<OkResult>(result);
+        Assert.IsType<LogBook>(result); 
     }
+
 
     
     //Null
@@ -57,8 +61,9 @@ public class LogBook_Test
         string projectId = null;
 
         // Act & Assert
-        await Assert.ThrowsAsync<Exception>(() => logBookService.GetEntriesForLogBook(projectId));
+        await Assert.ThrowsAsync<ArgumentException>(() => logBookService.GetEntriesForLogBook(projectId));
     }
+
 
     
     //Empty
@@ -69,7 +74,7 @@ public class LogBook_Test
         string projectId = "";
 
         // Act & Assert
-        await Assert.ThrowsAsync<Exception>(() => logBookService.GetEntriesForLogBook(projectId));
+        await Assert.ThrowsAsync<ArgumentException>(() => logBookService.GetEntriesForLogBook(projectId));
     }
     
     
