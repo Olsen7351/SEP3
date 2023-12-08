@@ -13,8 +13,6 @@ public class Project
     public DateTime EndDate { get; set; }
     public Backlog? Backlog { get; set; }
     
-    
-    [BsonRepresentation(BsonType.ObjectId)]
     public string OwnerUsername { get; set; }
 
 }
