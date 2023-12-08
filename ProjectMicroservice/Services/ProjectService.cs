@@ -66,16 +66,28 @@ namespace ProjectMicroservice.Services
             }
         }
         
-        //Alexanders method
-        public IEnumerable<Project> GetProjectsByUser(string userId)
+        public IEnumerable<Project> GetProjectsByUser(string username)
         {
-            var filter = Builders<Project>.Filter.Eq(p => p.OwnerUsername, userId);
-            var projects = _projects.Find(filter).ToList();
+            var filter = Builders<UsersAPartOfProjects>.Filter.Eq(u => u.Username, username);
+            var user = _users.Find(filter).FirstOrDefault();
+
+            if (user == null || user.ProjectID == null || !user.ProjectID.Any())
+            {
+                return Enumerable.Empty<Project>();
+            }
+
+            var projects = new List<Project>();
+            foreach (var projectId in user.ProjectID)
+            {
+                var project = GetProject(projectId);
+                if (project != null)
+                {
+                    projects.Add(project);
+                }
+            }
             return projects;
         }
-
-
-        
+    
 
         public Project UpdateProject(Project project)
         {
