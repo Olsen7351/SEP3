@@ -66,6 +66,7 @@ public class LogBookService : ILogBookService
         {
             throw new ArgumentException("Project ID is empty or null.");
         }
+        
 
         // Append the projectID to the URI path if that's how your API expects it
         HttpResponseMessage response = await httpClient.GetAsync($"api/LogBook/GetLogEntries?ProjectID={projectID}");

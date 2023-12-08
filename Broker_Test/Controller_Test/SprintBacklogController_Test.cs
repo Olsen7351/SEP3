@@ -90,8 +90,8 @@ namespace Broker_Test.Controller_Test
             // Assert
             mockService.Verify(service => service.CreateSprintBacklogAsync(It.IsAny<CreateSprintBackLogRequest>()), Times.Once);
             Assert.NotNull(actionResult);
-            var createdAtActionResult = Assert.IsType<CreatedAtActionResult>(actionResult);
-            Assert.Equal(201, createdAtActionResult.StatusCode);
+            var createdAtActionResult = Assert.IsType<OkObjectResult>(actionResult);
+            Assert.Equal(200, createdAtActionResult.StatusCode);
         }
         [Fact]
         public async void GetSpecificSprintBacklog_ReturnsValue()

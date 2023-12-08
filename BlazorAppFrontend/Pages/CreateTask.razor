@@ -84,12 +84,12 @@
         newTask.ProjectId = ProjectIdAsString;
         newTask.SprintId = SprintIdAsString;
         newTask.CreatedAt = StartDate;
-        newTask.Deadline = Deadline;
     }
 
     private async Task HandleValidSubmit()
     {
 
+        newTask.Deadline = Deadline;
         var response = await SprintService.AddTaskToSprintBacklogAsync(newTask);
         if (response is OkObjectResult)
         {
