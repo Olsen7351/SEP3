@@ -22,9 +22,10 @@
             <ValidationSummary />
 
             <div class="form-group">
-                <label for="name">Project Id:</label>
-                <InputText id="name" class="form-control" @bind-Value="newSprint.projectId"/>
-                <ValidationMessage For="@(() => newSprint.projectId)" />
+                <label for="projectId">Project Id:</label>
+                <span id="projectId" class="form-control">
+                    @newSprint.projectId
+                </span>
             </div>
 
             <div class="form-group">
