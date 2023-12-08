@@ -1,6 +1,7 @@
 using System.Collections.Concurrent;
 using ClassLibrary_SEP3;
 using ClassLibrary_SEP3.DataTransferObjects;
+using ClassLibrary_SEP3.RabbitMQ;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.IdentityModel.Tokens;
 using MongoDB.Driver;
@@ -36,6 +37,7 @@ namespace ProjectMicroservice.Services
             };
 
             _projects.InsertOne(newProject);
+            Logger.LogMessage("Project created");
             return newProject; // Now contains the MongoDB-generated ID
         }
 
@@ -67,7 +69,7 @@ namespace ProjectMicroservice.Services
         //Alexanders method
         public IEnumerable<Project> GetProjectsByUser(string userId)
         {
-            var filter = Builders<Project>.Filter.Eq(p => p.OwnerId, userId);
+            var filter = Builders<Project>.Filter.Eq(p => p.OwnerUsername, userId);
             var projects = _projects.Find(filter).ToList();
             return projects;
         }
