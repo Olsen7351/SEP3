@@ -33,7 +33,7 @@ public class LogBookController : ControllerBase
         {
             return BadRequest("Request payload cannot be null");
         }
-
+        
         if (String.IsNullOrEmpty(updateRequest.EntryID) || String.IsNullOrEmpty(updateRequest.ProjectID))
         {
             return BadRequest("EntryID and ProjectID must not be null or empty.");
