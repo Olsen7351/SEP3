@@ -109,6 +109,32 @@ namespace Broker_Test.Controller_Test
             Assert.IsType<OkObjectResult>(okResult); 
            // Assert.Equal("Some content", okResult.Value.ToString()); // Corrected line
         }
+
+        [Fact]
+        public async void post_CreateProjekt()
+        {
+            var mockService = new Mock<IProjectService>();
+            var controller = new BrokerProjectController(mockService.Object);
+
+            var project = new CreateProjectRequest
+            {
+                Name = "Project",
+                Description = "ProjectDescription",
+                StartDate = DateTime.UtcNow,
+                EndDate = DateTime.UtcNow.AddDays(30)
+            };
+            mockService.Setup(service => service.CreateProjekt(It.IsAny<CreateProjectRequest>()))
+                .ReturnsAsync(new OkObjectResult(project));
+            
+            //Act
+            var result = await controller.CreateProjekt(project);
+            
+            // Assert
+            mockService.Verify(service => service.CreateProjekt(It.IsAny<CreateProjectRequest>()), Times.Once);
+            Assert.NotNull(result);
+            var createdAtActionResult = Assert.IsType<OkObjectResult>(result);
+            Assert.Equal(200, createdAtActionResult.StatusCode);
+        }
         }
         
     
