@@ -22,7 +22,7 @@ public class LogBook_ControllerTest
     }
     
     
-    //LogBook Entry
+    //CreateNewEntryLogBook--------------------------------------------------------------------------
     [Fact]
     public async Task CreateLogBookEntry_WithValidEntry()
     {
@@ -44,9 +44,112 @@ public class LogBook_ControllerTest
         // Assert
         Assert.IsType<OkResult>(result);
     }
+
     
     
-    //Logbook
+    [Fact]
+    public async Task CreateLogBookEntry_EmptyProjectID()
+    {
+        // Arrange
+        var logBookEntry = new AddEntryPointRequest()
+        { 
+            ProjectID = "",
+            OwnerUsername = "James",
+            Description = "Hey",
+            CreatedTimeStamp = DateTime.Today
+        };
+
+        _mockLogBookService.Setup(service => service.CreateNewEntryLogBook(It.IsAny<AddEntryPointRequest>()))
+            .ReturnsAsync(It.IsAny<IActionResult>());
+
+        // Act
+        var exception = await Record.ExceptionAsync(() => _controller.CreateLogBookEntry(logBookEntry));
+
+        // Assert
+        Assert.NotNull(exception);
+        Assert.IsType<Exception>(exception);
+        Assert.Equal("ProjectID cant be null or empty when creating a new entry", exception.Message);
+    }
+
+
+    [Fact]
+    public async Task CreateLogBookEntry_EmptyUsername()
+    {
+        // Arrange
+        var logBookEntry = new AddEntryPointRequest()
+        { 
+            ProjectID = "kksanfkajsnksnfa",
+            OwnerUsername = "",
+            Description = "Hey",
+            CreatedTimeStamp = DateTime.Today
+        };
+
+        _mockLogBookService.Setup(service => service.CreateNewEntryLogBook(It.IsAny<AddEntryPointRequest>()))
+            .ReturnsAsync(It.IsAny<IActionResult>());
+
+        // Act
+        var exception = await Record.ExceptionAsync(() => _controller.CreateLogBookEntry(logBookEntry));
+
+        // Assert
+        Assert.NotNull(exception);
+        Assert.IsType<Exception>(exception);
+        Assert.Equal("Username cant be null or empty when creating a new entry", exception.Message);
+    }
+    
+   
+    
+    [Fact]
+    public async Task CreateLogBookEntry_NullProjectID()
+    {
+        // Arrange
+        var logBookEntry = new AddEntryPointRequest()
+        { 
+            ProjectID = null,
+            OwnerUsername = "James",
+            Description = "Hey",
+            CreatedTimeStamp = DateTime.Today
+        };
+
+        _mockLogBookService.Setup(service => service.CreateNewEntryLogBook(It.IsAny<AddEntryPointRequest>()))
+            .ReturnsAsync(It.IsAny<IActionResult>());
+
+        // Act
+        var exception = await Record.ExceptionAsync(() => _controller.CreateLogBookEntry(logBookEntry));
+
+        // Assert
+        Assert.NotNull(exception);
+        Assert.IsType<Exception>(exception);
+        Assert.Equal("ProjectID cant be null or empty when creating a new entry", exception.Message);
+    }
+    
+    
+    
+    [Fact]
+    public async Task CreateLogBookEntry_NullUsername()
+    {
+        // Arrange
+        var logBookEntry = new AddEntryPointRequest()
+        { 
+            ProjectID = "kksanfkajsnksnfa",
+            OwnerUsername = null,
+            Description = "Hey",
+            CreatedTimeStamp = DateTime.Today
+        };
+
+        _mockLogBookService.Setup(service => service.CreateNewEntryLogBook(It.IsAny<AddEntryPointRequest>()))
+            .ReturnsAsync(It.IsAny<IActionResult>());
+
+        // Act
+        var exception = await Record.ExceptionAsync(() => _controller.CreateLogBookEntry(logBookEntry));
+
+        // Assert
+        Assert.NotNull(exception);
+        Assert.IsType<Exception>(exception);
+        Assert.Equal("Username cant be null or empty when creating a new entry", exception.Message);
+    }
+    
+    //GetEntriesForLogBook--------------------------------------------------------------------------------------------------------------------------
+    
     [Fact]
     public async Task GetLogbook_WithValidProjectId()
     {
@@ -66,7 +169,41 @@ public class LogBook_ControllerTest
         Assert.Equal(mockLogBook, okResult.Value); 
         Assert.Equal(StatusCodes.Status200OK, okResult.StatusCode); 
     }
+    
+    //GetLogbookForProject ---------------------------------------------------------------------
+    
+    [Fact]
+    public async Task GetLogbookForProject_EmptyProjectID()
+    {
+        // Arrange
+        string projectId = ""; 
 
+        // Act
+        var actionResult = await _controller.GetLogbookForProject(projectId);
+        var badRequestResult = actionResult.Result as BadRequestObjectResult;
+
+        // Assert
+        Assert.NotNull(badRequestResult);
+        Assert.Equal(StatusCodes.Status400BadRequest, badRequestResult.StatusCode);
+        Assert.Equal("ProjectID is required.", badRequestResult.Value);
+    }
+    
+    
+    [Fact]
+    public async Task GetLogbookForProject_NullProjectID()
+    {
+        // Arrange
+        string projectId = null;
+
+        // Act
+        var actionResult = await _controller.GetLogbookForProject(projectId);
+        var badRequestResult = actionResult.Result as BadRequestObjectResult;
+
+        // Assert
+        Assert.NotNull(badRequestResult);
+        Assert.Equal(StatusCodes.Status400BadRequest, badRequestResult.StatusCode);
+        Assert.Equal("ProjectID is required.", badRequestResult.Value);
+    }
 
     
     
@@ -75,7 +212,8 @@ public class LogBook_ControllerTest
     public async Task CreateLogBookEntry_WithNullEntry()
     {
         // Act & Assert
-        await Assert.ThrowsAsync<Exception>(() => _controller.CreateLogBookEntry(null));
+        AddEntryPointRequest addEntryPointRequest = null;
+        await Assert.ThrowsAsync<Exception>(() => _controller.CreateLogBookEntry(addEntryPointRequest));
     }
     
 }
