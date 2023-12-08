@@ -26,8 +26,7 @@ namespace Broker.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateSprintBackLogRequest sprintBacklog)
         {
-            var jwt = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ","");
-            var userName = ReadJwt.ReadUsernameFromSubInJWTToken(jwt);
+            var userName = ReadJwt.ReadUsernameFromSubInJWTToken(HttpContext);
             try
             {
                 Logger.LogMessage(userName+": SprintBacklog created: "+sprintBacklog.projectId+ " : "+sprintBacklog.Title);
@@ -44,8 +43,7 @@ namespace Broker.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllSprintBacklogs(string ProjectId)
         {
-            var jwt = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ","");
-            var userName = ReadJwt.ReadUsernameFromSubInJWTToken(jwt);
+            var userName = ReadJwt.ReadUsernameFromSubInJWTToken(HttpContext);
             try
             {
                 Logger.LogMessage(userName+": SprintBacklogs requested for project: "+ProjectId);
@@ -63,8 +61,7 @@ namespace Broker.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSpecificSprintBacklog(string ProjectId, string id)
         {
-            var jwt = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ","");
-            var userName = ReadJwt.ReadUsernameFromSubInJWTToken(jwt);
+            var userName = ReadJwt.ReadUsernameFromSubInJWTToken(HttpContext);
 
             try
             {
@@ -85,8 +82,7 @@ namespace Broker.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(string Projectid, string id, [FromBody] SprintBacklog sprintBacklog)
         {
-            var jwt = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ","");
-            var userName = ReadJwt.ReadUsernameFromSubInJWTToken(jwt);
+            var userName = ReadJwt.ReadUsernameFromSubInJWTToken(HttpContext);
             try
             {
                 Logger.LogMessage(userName+": SprintBacklog updated: "+id);
@@ -104,8 +100,7 @@ namespace Broker.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string ProjectId, string id)
         {
-            var jwt = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ","");
-            var userName = ReadJwt.ReadUsernameFromSubInJWTToken(jwt);
+            var userName = ReadJwt.ReadUsernameFromSubInJWTToken(HttpContext);
             try
             {
                 Logger.LogMessage(userName + ": SprintBacklog deleted: " + id);
@@ -120,8 +115,7 @@ namespace Broker.Controllers
         [HttpPost("{sprintId}/AddTask")]
         public async Task<IActionResult> AddTaskToSprintBacklog(AddSprintTaskRequest task)
         {
-            var jwt = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ","");
-            var userName = ReadJwt.ReadUsernameFromSubInJWTToken(jwt);
+            var userName = ReadJwt.ReadUsernameFromSubInJWTToken(HttpContext);
             try
             {
                 Logger.LogMessage(userName + ": Task added to SprintBacklog: " + task.SprintId);
@@ -138,8 +132,7 @@ namespace Broker.Controllers
         [HttpGet("{sprintId}/Tasks")]
         public async Task<IActionResult> GetAllTasksForSprintBacklog(string projectId, string sprintId)
         {
-            var jwt = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ","");
-            var userName = ReadJwt.ReadUsernameFromSubInJWTToken(jwt);
+            var userName = ReadJwt.ReadUsernameFromSubInJWTToken(HttpContext);
             try
             {
                 Logger.LogMessage(userName + ": Tasks requested for SprintBacklog: " + sprintId);
