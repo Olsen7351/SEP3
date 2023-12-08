@@ -31,9 +31,9 @@ namespace Broker_Test.Controller_Test
             // Act
             var result = await controller.GetProjekt(validId);
 
-            var okResult = Assert.IsType<OkObjectResult>(result);
-            Assert.IsType<Project>(okResult.Value);
-            Assert.Equal(project, okResult.Value);
+            var okResult = Assert.IsType<Project>(result);
+            Assert.IsType<Project>(okResult);
+            Assert.Equal(project, okResult);
         }
         
         [Fact]
