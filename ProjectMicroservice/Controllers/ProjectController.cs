@@ -22,14 +22,27 @@ namespace ProjectMicroservice.Controllers
             _projectService = projectService;
         }
 
+        [HttpGet("User/{username}/Projects")]
+        public IActionResult GetProjectsByUser(string username)
+        {
+            var projects = _projectService.GetProjectsByUser(username);
+
+            if (projects == null || !projects.Any())
+            {
+                return NotFound("No projects found for the specified user.");
+            }
+
+            return Ok(projects);
+        }
+
         [HttpPost]
-        public IActionResult CreateProject([FromBody] CreateProjectRequest request)
+        public async Task<IActionResult> CreateProject([FromBody] CreateProjectRequest request)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState); // Returns a 400 Bad Request with validation errors.
             }
-            
+
             if (request.StartDate > request.EndDate)
             {
                 ModelState.AddModelError("StartDate", "Start date must be before end date.");
@@ -37,7 +50,33 @@ namespace ProjectMicroservice.Controllers
             }
 
             var createdProject = _projectService.CreateProject(request);
-            return CreatedAtAction(nameof(CreateProject), new { id = createdProject.Id }, createdProject);
+
+            if (createdProject != null)
+            {
+                // Create an AddUserToProjectRequest to associate the user with the new project
+                var addUserRequest = new AddUserToProjectRequest
+                {
+                    Username = request.ByUsername,
+                    ProjectId = createdProject.Id
+                };
+
+                // Use the AddUserToProject method to update the ProjectsForUsers collection
+                bool addUserResult = _projectService.AddUserToProject(addUserRequest);
+
+                if (addUserResult)
+                {
+                    // If the user was successfully added to the project, return the CreatedAtAction result
+                    return CreatedAtAction(nameof(CreateProject), new { id = createdProject.Id }, createdProject);
+                }
+                else
+                {
+                    return StatusCode(500, "An error occurred while associating the project with the user.");
+                }
+            }
+            else
+            {
+                return BadRequest("Failed to create the project.");
+            }
         }
 
         //api/Project/{projectIdAsString}/Members

@@ -64,7 +64,18 @@ namespace Broker.Controllers
                 return new BadRequestResult();
             }
 
-            return Ok(await projektService.CreateProjekt(projekt));
+            // Get the 'sub' claim from the JWT token
+            string? usernameClaim = User.FindFirst(c => c.Type == System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+            // Check if the usernameClaim matches the ByUsername parameter
+            if (usernameClaim == null || usernameClaim != projekt.ByUsername)
+            {
+                return new UnauthorizedResult();
+            }
+
+            // Proceed with project creation
+            var result = await projektService.CreateProjekt(projekt);
+            return Ok(result);
         }
 
         [HttpPost("AddUserToProject")]
@@ -89,6 +100,28 @@ namespace Broker.Controllers
                 return BadRequest($"Failed to add user to project: {ex.Message}");
             }
         }
+
+        [HttpGet("User/{username}/Projects")]
+        public async Task<ActionResult<IEnumerable<Project>>> GetProjectsByUser(string username)
+        {
+            try
+            {
+                var projects = await projektService.GetProjectsByUser(username);
+
+                if (projects == null || !projects.Any())
+                {
+                    return NotFound("No projects found for the specified user.");
+                }
+
+                return Ok(projects);
+            }
+            catch (Exception ex)
+            {
+                // Handle specific exceptions if necessary
+                return BadRequest($"An error occurred: {ex.Message}");
+            }
+        }
+
     }
 
 }

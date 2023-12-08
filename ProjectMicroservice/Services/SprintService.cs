@@ -108,6 +108,7 @@ public class SprintService : ISprintService
             Description = request.Description,
             Status = request.Status,
             CreatedAt = request.CreatedAt,
+            Deadline = request.Deadline,
             EstimateTimeInMinutes = request.EstimateTimeInMinutes,
             ActualTimeUsedInMinutes = request.ActualTimeUsedInMinutes,
             Responsible = request.Responsible
