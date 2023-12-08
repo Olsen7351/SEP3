@@ -74,13 +74,19 @@ namespace Broker_Test.Controller_Test
             // Arrange
             var mockProjektService = new Mock<IProjectService>();
             var controller = new BrokerProjectController(mockProjektService.Object);
-            CreateProjectRequest nullProject = null; // Project is null
+
+            // Mock HttpContext for Authorization header
+            var mockHttpContext = new DefaultHttpContext();
+            mockHttpContext.Request.Headers["Authorization"] = "Bearer testtoken";
+            controller.ControllerContext = new ControllerContext()
+            {
+                HttpContext = mockHttpContext
+            };
 
             // Act
-            var result = await controller.CreateProjekt(nullProject);
+            var result = await controller.CreateProjekt(null); // Passing null directly
 
             // Assert
-            
             Assert.IsType<BadRequestResult>(result);
         }
         [Fact]
