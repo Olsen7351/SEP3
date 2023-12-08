@@ -2,6 +2,7 @@ using Broker.Controllers;
 using Broker.Services;
 using ClassLibrary_SEP3;
 using ClassLibrary_SEP3.DataTransferObjects;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Task = ClassLibrary_SEP3.Task;
@@ -39,21 +40,34 @@ namespace Broker_Test.Controller_Test
         [Fact]
         public async void CreateProjekt_ReturnsOk_WhenProjectIsNotNull()
         {
-            // Arrange
+           
             var mockProjektService = new Mock<IProjectService>();
             var controller = new BrokerProjectController(mockProjektService.Object);
-            var project = new CreateProjectRequest(); // Valid Project
+            var projectRequest = new CreateProjectRequest
+            {
+                Name = "Sample Project", 
+                Description = "A description of the Sample Project", 
+                StartDate = DateTime.UtcNow,
+                EndDate = DateTime.UtcNow.AddDays(30)             };
 
-            // Mock the ProjektService to return IActionResult (e.g., OkResult)
-            mockProjektService.Setup(service => service.CreateProjekt(project))
+            var createdProject = new Project(); 
+            mockProjektService.Setup(service => service.CreateProjekt(It.IsAny<CreateProjectRequest>()))
                 .ReturnsAsync(new OkResult());
+            
+            var mockHttpContext = new DefaultHttpContext();
+            mockHttpContext.Request.Headers["Authorization"] = "Bearer testtoken";
+            controller.ControllerContext = new ControllerContext()
+            {
+                HttpContext = mockHttpContext
+            };
 
             // Act
-            var result = await controller.CreateProjekt(project);
-
-            // Assert
-            Assert.IsType<OkObjectResult>(result);
+            var result = await controller.CreateProjekt(projectRequest);
+            
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            Assert.IsType<OkObjectResult>(okResult);
         }
+        
         [Fact]
         public async void CreateProjekt_ReturnsBadRequest_WhenProjectIsNull()
         {
@@ -66,6 +80,7 @@ namespace Broker_Test.Controller_Test
             var result = await controller.CreateProjekt(nullProject);
 
             // Assert
+            
             Assert.IsType<BadRequestResult>(result);
         }
         [Fact]
