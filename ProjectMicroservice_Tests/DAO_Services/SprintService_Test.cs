@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using TaskStatus = ClassLibrary_SEP3.TaskStatus;
 
 namespace ProjectMicroservice_Tests.DAO_Services
 {
@@ -78,6 +79,30 @@ namespace ProjectMicroservice_Tests.DAO_Services
             Assert.Equal(request.projectId, result.ProjectId);
             Assert.Equal(request.Title, result.Title);
         }
+
+        [Fact]
+        public void AddTaskToSprint()
+        {
+            var sprintTaskRequest = new AddSprintTaskRequest
+            {
+                ProjectId = "project_id_11",
+                SprintId = "sprint_id_1",
+                Title = "Test Task",
+                Description = "Description of the test task",
+                Status = TaskStatus.InProgress, 
+                CreatedAt = DateTime.Now,
+                Deadline = DateTime.Now.AddDays(7), 
+                EstimateTimeInMinutes = 60,
+                ActualTimeUsedInMinutes = 0,
+                Responsible = "Responsible Person"
+            };
+            var result = _sprintService.AddTaskToSprintBacklog(sprintTaskRequest, sprintTaskRequest.SprintId);
+            var addedTask = result.Tasks.FirstOrDefault(t => t.Title == sprintTaskRequest.Title);
+            Assert.NotNull(addedTask);
+            Assert.Equal(sprintTaskRequest.Title, addedTask.Title);
+            Assert.Equal(sprintTaskRequest.Description, addedTask.Description);
+        }
+        
 
     }
 
