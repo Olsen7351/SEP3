@@ -41,16 +41,40 @@ public class UserController : ControllerBase
     [HttpPost("Login")]
     public async Task<IActionResult> LoginWithUserCredentials(User user)
     {
+        // Guard clause: Check for null user
+        if (user == null)
+        {
+            return BadRequest("Invalid user credentials");
+        }
+
+        // Guard clause: Check for null or empty username
+        if (string.IsNullOrEmpty(user.Username))
+        {
+            return BadRequest("Username is required");
+        }
+        
+        // Guard clause: Check for null or empty password
+        if (string.IsNullOrEmpty(user.Password))
+        {
+            return BadRequest("Password is required");
+        }
+        // Guard clause: Check for too long username
+        if (user.Username.Length > 16)
+        {
+            return BadRequest("Username is too long, only 16 characters are allowed");
+        }
+
         var result = await _IuserService.LoginWithUserCredentials(user);
-        //Get the token from the result and return it
+
         if (result is OkObjectResult okResult)
         {
-
+            // Successful login, return the token
             return Ok(okResult.Value);
         }
         else
         {
-            return BadRequest();
+            // Login failed, return a generic BadRequest response
+            return BadRequest("Invalid user credentials");
         }
     }
 
