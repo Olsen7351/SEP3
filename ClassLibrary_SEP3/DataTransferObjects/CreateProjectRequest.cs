@@ -21,4 +21,7 @@ public class CreateProjectRequest
     
     [Required]
     public DateTime EndDate { get; set; }
+
+    [Required]
+    public string ByUsername { get; set; }
 }
