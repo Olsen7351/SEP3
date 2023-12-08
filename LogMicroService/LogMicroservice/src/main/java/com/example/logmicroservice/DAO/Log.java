@@ -35,14 +35,6 @@ public class Log {
         this.message = message;
     }
 
-    public LocalDateTime getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(LocalDateTime timestamp) {
-        this.timestamp = timestamp;
-    }
-
     @Override
     public String toString() {
         return "Log{" +
