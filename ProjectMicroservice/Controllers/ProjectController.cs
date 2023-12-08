@@ -22,6 +22,19 @@ namespace ProjectMicroservice.Controllers
             _projectService = projectService;
         }
 
+        [HttpGet("User/{username}/Projects")]
+        public IActionResult GetProjectsByUser(string username)
+        {
+            var projects = _projectService.GetProjectsByUser(username);
+
+            if (projects == null || !projects.Any())
+            {
+                return NotFound("No projects found for the specified user.");
+            }
+
+            return Ok(projects);
+        }
+
         [HttpPost]
         public IActionResult CreateProject([FromBody] CreateProjectRequest request)
         {
