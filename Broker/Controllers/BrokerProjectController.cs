@@ -72,7 +72,7 @@ namespace Broker.Controllers
 
             if (projekt == null)
             {
-                Logger.LogMessage(usernameClaim+": Error creating project: "+projekt);
+                Logger.LogMessage(usernameClaim+": Error creating project: "+projekt.LogString());
                 return new BadRequestResult();
             }
 
@@ -80,13 +80,13 @@ namespace Broker.Controllers
             // Check if the usernameClaim matches the ByUsername parameter
             if (usernameClaim == null || usernameClaim != projekt.ByUsername)
             {
-                Logger.LogMessage(usernameClaim+": Error creating project, Unauthorized: "+projekt);
+                Logger.LogMessage(usernameClaim+": Error creating project, Unauthorized: "+projekt.LogString());
                 return new UnauthorizedResult();
             }
 
             // Proceed with project creation
             var result = await projektService.CreateProjekt(projekt);
-            Logger.LogMessage(usernameClaim+": Created project: "+projekt);
+            Logger.LogMessage(usernameClaim+": Created project: "+projekt.LogString());
             return Ok(result);
         }
 
@@ -99,12 +99,12 @@ namespace Broker.Controllers
             {
                 if (request == null)
                 {
-                    Logger.LogMessage(username +": Error adding user to project: "+request);
+                    Logger.LogMessage(username +": Error adding user to project: "+request.LogString());
                     return new BadRequestResult();
                 }
                 
                 var response = await projektService.AddUserToProject( request);
-                Logger.LogMessage(username +": Added user to project: "+request);
+                Logger.LogMessage(username +": Added user to project: "+request.LogString());
 
                 return Ok(response);
             }
