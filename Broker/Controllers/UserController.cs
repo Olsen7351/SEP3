@@ -1,6 +1,7 @@
 using Broker.Services;
 using ClassLibrary_SEP3;
 using ClassLibrary_SEP3.DataTransferObjects;
+using ClassLibrary_SEP3.RabbitMQ;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -28,10 +29,12 @@ public class UserController : ControllerBase
     {
         if (user == null)
         {
+            Logger.LogMessage(user.Username+": Error creating user: "+user.Username);
             return new BadRequestResult();
         }
 
         var serviceResult = await _IuserService.CreateUser(user);
+        Logger.LogMessage("User created: "+user.Username);
 
         return serviceResult;
     }
@@ -45,11 +48,12 @@ public class UserController : ControllerBase
         //Get the token from the result and return it
         if (result is OkObjectResult okResult)
         {
-
+            Logger.LogMessage(user.Username+": User logged in: "+user.Username);
             return Ok(okResult.Value);
         }
         else
         {
+            Logger.LogMessage(user.Username+": Error logging in: "+user.Username);
             return BadRequest();
         }
     }
@@ -57,14 +61,20 @@ public class UserController : ControllerBase
     [HttpPut("ChangePassword")]
     public async Task<IActionResult> ChangeUserPassword([FromBody] ChangePasswordRequest changePasswordRequest)
     {
+        var jwt = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+
+        string username = ReadJwt.ReadUsernameFromSubInJWTToken(HttpContext);
+
         if (changePasswordRequest == null)
         {
+            Logger.LogMessage(username +": Error changing password - It is null");
             return BadRequest("Invalid request");
         }
 
-        var jwt = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+        
         if (string.IsNullOrEmpty(jwt))
         {
+            Logger.LogMessage(username +": Error changing password - JWT token is missing");
             return Unauthorized("JWT token is missing");
         }
 
@@ -72,6 +82,7 @@ public class UserController : ControllerBase
 
         if (serviceResult is OkResult)
         {
+            Logger.LogMessage(username +": Password changed successfully");
             return Ok("Password changed successfully");
         }
         return serviceResult;
