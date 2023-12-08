@@ -47,23 +47,27 @@ public class UserController : ControllerBase
         // Guard clause: Check for null user
         if (user == null)
         {
+            Logger.LogMessage(user.Username + ": Error logging in user was null: " + user.Username);
             return BadRequest("Invalid user credentials");
         }
 
         // Guard clause: Check for null or empty username
         if (string.IsNullOrEmpty(user.Username))
         {
+            Logger.LogMessage(user.Username + ": Error logging in username was null or empty: " + user.Username);
             return BadRequest("Username is required");
         }
 
         // Guard clause: Check for null or empty password
         if (string.IsNullOrEmpty(user.Password))
         {
+            Logger.LogMessage(user.Username + ": Error logging in password was null or empty: " + user.Username);
             return BadRequest("Password is required");
         }
         // Guard clause: Check for too long username
         if (user.Username.Length > 16)
         {
+            Logger.LogMessage(user.Username + ": Error logging in username was over 16 characters: " + user.Username);
             return BadRequest("Username is too long, only 16 characters are allowed");
         }
 
