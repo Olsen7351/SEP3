@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using TaskStatus = ClassLibrary_SEP3.TaskStatus;
 
 namespace ProjectMicroservice_Tests.DAO_Services
 {
@@ -19,6 +20,7 @@ namespace ProjectMicroservice_Tests.DAO_Services
         private readonly MongoDbContext _dbContext;
         private readonly SprintService _sprintService;
         private string _sprintBacklogId;
+        private readonly ProjectService _projectService;
         public SprintServiceTests()
         {
             var configBuilder = new ConfigurationBuilder()
@@ -31,6 +33,7 @@ namespace ProjectMicroservice_Tests.DAO_Services
 
             _dbContext = new MongoDbContext(connectionString, databaseName);
             _sprintService = new SprintService(_dbContext);
+            _projectService = new ProjectService(_dbContext);
         }
 
         [Fact]
@@ -80,12 +83,51 @@ namespace ProjectMicroservice_Tests.DAO_Services
         }
 
         [Fact]
-        public void AddTaskToSprintBacklog()
+        public void AddTaskToSprint()
         {
-           
+            var createProjectRequest = new CreateProjectRequest
+            {
+                Name = "Test Project",
+                Description = "Description of Test Project",
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddDays(30) 
+            };
+
+            var createdProject = _projectService.CreateProject(createProjectRequest);
+            string _projectId = createdProject.Id;
+            
+            var request = new CreateSprintBackLogRequest
+            {
+                projectId = _projectId,
+                Title = "Test Sprint",
+                
+            };
+
+            var createdSprint = _sprintService.CreateSprintBacklog(request);
+            var sprintBacklogId = createdSprint.SprintBacklogId;
+            var sprintTaskRequest = new AddSprintTaskRequest
+            {
+                ProjectId = _projectId,
+                SprintId = sprintBacklogId,
+                Title = "Test Task",
+                Description = "Description of the test task",
+                Status = TaskStatus.InProgress, 
+                CreatedAt = DateTime.Now,
+                Deadline = DateTime.Now.AddDays(7), 
+                EstimateTimeInMinutes = 60,
+                ActualTimeUsedInMinutes = 0,
+                Responsible = "Responsible Person"
+            };
+            var result = _sprintService.AddTaskToSprintBacklog(sprintTaskRequest, sprintTaskRequest.SprintId);
+            
+            var addedTask = result.Tasks.FirstOrDefault(t => t.Title == sprintTaskRequest.Title);
+            Assert.NotNull(addedTask);
+            Assert.Equal(sprintTaskRequest.Title, addedTask.Title);
+            Assert.Equal(sprintTaskRequest.Description, addedTask.Description);
         }
+        
+
     }
-    
 
 
 }
