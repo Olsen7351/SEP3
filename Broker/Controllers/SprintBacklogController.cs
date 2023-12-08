@@ -53,10 +53,12 @@ namespace Broker.Controllers
         }
 
         // DELETE api/<SprintBacklogController>/<ProjectId>/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(string ProjectId, string id)
+        [HttpDelete("{ProjectId}/{sprintId}")]
+        public async Task<IActionResult> Delete(string ProjectId, string sprintId)
         {
-            return await _sprintBacklogService.DeleteSprintBacklogAsync(ProjectId, id);
+            Console.WriteLine("Broker controller Delete Sprint called");
+
+            return await _sprintBacklogService.DeleteSprintBacklogAsync(ProjectId, sprintId);
         }
         [HttpPost("{sprintId}/AddTask")]
         public async Task<IActionResult> AddTaskToSprintBacklog(AddSprintTaskRequest task)

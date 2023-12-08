@@ -93,6 +93,8 @@ public class SprintService : ISprintService
     public bool DeleteSprintBacklog(string projectId, string sprintBacklogId)
 
     {
+        Console.WriteLine("Microservice service Delete Sprint called");
+
             var filter = Builders<SprintBacklog>.Filter.Eq(sprint => sprint.SprintBacklogId, sprintBacklogId);
             var result = _sprints.DeleteOne(filter);
             return result.DeletedCount > 0;
