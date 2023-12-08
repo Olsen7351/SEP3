@@ -39,7 +39,7 @@ namespace Broker_Test.Controller_Test
         }
         
         [Fact]
-        public async void CreateProjekt_ReturnsOk_WhenProjectIsNotNull2()
+        public async void CreateProjekt_ReturnsOk_WhenProjectIsNotNull()
         {
             var mockProjektService = new Mock<IProjectService>();
             var controller = new BrokerProjectController(mockProjektService.Object);
@@ -75,36 +75,6 @@ namespace Broker_Test.Controller_Test
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
-        }
-        [Fact]
-        public async void CreateProjekt_ReturnsOk_WhenProjectIsNotNull()
-        {
-           
-            var mockProjektService = new Mock<IProjectService>();
-            var controller = new BrokerProjectController(mockProjektService.Object);
-            var projectRequest = new CreateProjectRequest
-            {
-                Name = "Sample Project", 
-                Description = "A description of the Sample Project", 
-                StartDate = DateTime.UtcNow,
-                EndDate = DateTime.UtcNow.AddDays(30)             };
-
-            
-            mockProjektService.Setup(service => service.CreateProjekt(It.IsAny<CreateProjectRequest>()))
-                .ReturnsAsync(new OkResult());
-            
-            var mockHttpContext = new DefaultHttpContext();
-            mockHttpContext.Request.Headers["Authorization"] = "Bearer testtoken";
-            controller.ControllerContext = new ControllerContext()
-            {
-                HttpContext = mockHttpContext
-            };
-
-            // Act
-            var result = await controller.CreateProjekt(projectRequest);
-            
-            var okResult = Assert.IsType<OkObjectResult>(result);
-            Assert.IsType<OkObjectResult>(okResult);
         }
         
         [Fact]
