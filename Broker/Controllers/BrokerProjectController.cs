@@ -118,23 +118,23 @@ namespace Broker.Controllers
         [HttpGet("User/{username}/Projects")]
         public async Task<ActionResult<IEnumerable<Project>>> GetProjectsByUser(string username)
         {
-            var username = ReadJwt.ReadUsernameFromSubInJWTToken(HttpContext);
+            var userNameOFropmJwtToken = ReadJwt.ReadUsernameFromSubInJWTToken(HttpContext);
             try
             {
                 var projects = await projektService.GetProjectsByUser(username);
 
                 if (projects == null || !projects.Any())
                 {
-                    Logger.LogMessage(username +": No projects found for the specified user.");
+                    Logger.LogMessage(userNameOFropmJwtToken + ": No projects found for the specified user.");
                     return NotFound("No projects found for the specified user.");
                 }
 
-                Logger.LogMessage(username +": Got projects for user: "+username);
+                Logger.LogMessage(userNameOFropmJwtToken + ": Got projects for user: "+ userNameOFropmJwtToken);
                 return Ok(projects);
             }
             catch (Exception ex)
             {
-                Logger.LogMessage(username +": Error getting projects for user: "+ex.Message);
+                Logger.LogMessage(userNameOFropmJwtToken +": Error getting projects for user: "+ex.Message);
                 // Handle specific exceptions if necessary
                 return BadRequest($"An error occurred: {ex.Message}");
             }
