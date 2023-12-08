@@ -18,6 +18,21 @@ namespace Broker.Services
             this.httpClient = httpClient;
         }
 
+        public async Task<IEnumerable<Project>> GetProjectsByUser(string username)
+        {
+            string requestUri = $"api/Project/User/{username}/Projects";
+            var response = await httpClient.GetAsync(requestUri);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadFromJsonAsync<IEnumerable<Project>>();
+            }
+            else
+            {
+                throw new HttpRequestException($"Failed to retrieve projects for user {username}. Status Code: {response.StatusCode}");
+            }
+        }
+
         public async Task<IActionResult> CreateProjekt(CreateProjectRequest projekt)
         {
             if (projekt == null)

@@ -89,6 +89,28 @@ namespace Broker.Controllers
                 return BadRequest($"Failed to add user to project: {ex.Message}");
             }
         }
+
+        [HttpGet("User/{username}/Projects")]
+        public async Task<ActionResult<IEnumerable<Project>>> GetProjectsByUser(string username)
+        {
+            try
+            {
+                var projects = await projektService.GetProjectsByUser(username);
+
+                if (projects == null || !projects.Any())
+                {
+                    return NotFound("No projects found for the specified user.");
+                }
+
+                return Ok(projects);
+            }
+            catch (Exception ex)
+            {
+                // Handle specific exceptions if necessary
+                return BadRequest($"An error occurred: {ex.Message}");
+            }
+        }
+
     }
 
 }

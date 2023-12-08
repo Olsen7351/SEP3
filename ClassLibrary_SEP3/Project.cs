@@ -15,6 +15,6 @@ public class Project
     
     
     [BsonRepresentation(BsonType.ObjectId)]
-    public string OwnerId { get; set; }
+    public string OwnerUsername { get; set; }
 
 }

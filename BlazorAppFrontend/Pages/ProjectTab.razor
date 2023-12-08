@@ -1,29 +1,92 @@
 ﻿@page "/projects"
 @using BlazorAppTEST.Services
+@using BlazorAppTEST.Services.Interface
 @using ClassLibrary_SEP3
-@using Task = System.Threading.Tasks.Task
+@using Microsoft.AspNetCore.Components.Authorization
+@inject IProjectService ProjectService
+@inject AuthenticationStateProvider AuthenticationStateProvider
 @attribute [Authorize]
 
 <h2>Projects</h2>
 
-<div class="container-fluid">
-    <div class="container">
-        @foreach (var project in projects)
+@if (projects is null)
+{
+    <p>Loading projects...</p>
+}
+else if (projects.Count() == 0)
+{
+    <p>No projects found.</p>
+}
+else
+{
+    <div class="container-fluid">
+        <div class="container">
+            @foreach (var project in projects)
+            {
+                <div class="card">
+                    <h3>@project.Name</h3>
+                    <p>Description: @project.Description</p>
+                    <p>Start Date: @project.StartDate.ToString("yyyy-MM-dd")</p>
+                    <p>End Date: @project.EndDate.ToString("yyyy-MM-dd")</p>
+                    <NavLink href="@($"/project-hub/{project.Id}")" class="btn btn-primary">View Details</NavLink>
+                    <NavLink href="@($"/AddNewUserIntoProject/{project.Id}")" class="btn btn-primary">Add New User</NavLink>
+                </div>
+            }
+        </div>
+    </div>
+}
+
+<!-- Debugging Section: Displays all the claims of the authenticated user -->
+@if (isAuthenticated)
+{
+    <div class="debugging-claims">
+        <h4>User Claims:</h4>
+        @foreach (var claim in userClaims)
         {
-            <div class="card">
-                <h3>@project.Name</h3>
-                <p>Description: @project.Description</p>
-                <p>Start Date: @project.StartDate</p>
-                <p>End Date: @project.EndDate</p>
-                <NavLink href="@($"/project-hub/{project.Id}")" class="btn btn-primary">View Details</NavLink>
-                <NavLink href="@("/AddNewUserIntoProject")" class="btn btn-primary">Add New User</NavLink>
-            </div>
+            <p>@claim.Type: @claim.Value</p>
         }
     </div>
-</div>
+}
 
-
-@code 
+@code
 {
-    private List<Project>? projects = new List<Project>();
+    private IEnumerable<Project>? projects;
+    private bool isAuthenticated = false;
+    private IEnumerable<System.Security.Claims.Claim>? userClaims;
+    private string errorMessage = "";
+
+    protected override async System.Threading.Tasks.Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        isAuthenticated = user.Identity?.IsAuthenticated ?? false;
+
+        if (isAuthenticated)
+        {
+            userClaims = user.Claims;
+            foreach (var claim in userClaims)
+            {
+                Console.WriteLine($"{claim.Type}: {claim.Value}");
+            }
+
+            try
+            {
+                var username = user.FindFirst(c => c.Type == "sub")?.Value;
+                if (!string.IsNullOrEmpty(username))
+                {
+                    projects = await ProjectService.GetProjectsByUser(username);
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                // Handle specific HTTP errors if needed
+                errorMessage = $"Error fetching projects: {ex.Message}";
+            }
+            catch (Exception ex)
+            {
+                // Handle other errors
+                errorMessage = $"An unexpected error occurred: {ex.Message}";
+            }
+        }
+    }
 }

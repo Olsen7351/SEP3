@@ -93,6 +93,23 @@ public class ProjectService: IProjectService
         }
     }
 
+    public async Task<IEnumerable<Project>> GetProjectsByUser(string username)
+    {
+        if (string.IsNullOrEmpty(username))
+        {
+            throw new ArgumentException("Username cannot be null or empty.");
+        }
+
+        var response = await httpClient.GetAsync($"api/BrokerProject/User/{username}/Projects");
+
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new HttpRequestException($"Error while fetching projects for user {username}. Status code: {response.StatusCode}");
+        }
+
+        return await response.Content.ReadFromJsonAsync<IEnumerable<Project>>();
+    }
+
     public async Task<List<string>> GetProjectMembers(string projectIdAsString)
     {
         if (projectIdAsString.IsNullOrEmpty())
