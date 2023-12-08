@@ -67,7 +67,7 @@ namespace ProjectMicroservice.Services
         //Alexanders method
         public IEnumerable<Project> GetProjectsByUser(string userId)
         {
-            var filter = Builders<Project>.Filter.Eq(p => p.OwnerId, userId);
+            var filter = Builders<Project>.Filter.Eq(p => p.OwnerUsername, userId);
             var projects = _projects.Find(filter).ToList();
             return projects;
         }
