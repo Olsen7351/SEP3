@@ -1,10 +1,7 @@
 using System.Text.Json.Serialization;
 using ProjectMicroservice.Data;
 using ProjectMicroservice.Services;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Configuration;
-using MongoDB.Driver;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +22,7 @@ builder.Services.AddMvc()
     });
 
 // Registering the IProjectService and IBacklogService with their concrete implementations.
+builder.Services.AddScoped<IBacklogService, BacklogService>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<ISprintService,SprintService>();
 builder.Services.AddScoped<ILogBookService, LogBookService>();

@@ -85,7 +85,7 @@ builder.Services.AddCors(options =>
     });
 });
 
-
+builder.Services.AddScoped<IBBacklogService, BBacklogService>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IBacklogService, BacklogService>();
 builder.Services.AddScoped<ISprintBacklogService, SprintBacklogService>();

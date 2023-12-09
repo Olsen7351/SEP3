@@ -21,66 +21,47 @@
         <button class="btn btn-primary" @onclick="NavigateToProjectMembers">View Project Members</button>
         <button class="btn btn-primary" @onclick="NavigateToAddNewUser">Add User</button>
 
-        <!--Backlog section----------------------------------------------------------->
-        <div class="card backlog-section">
-            <p style="font-size: 1.5em; font-weight: bold; margin-bottom: 0.5em;">Backlog</p>
-            <ul class="task-list">
-                @if (BacklogTasks != null)
-                {
-                    <table>
-                        <thead>
-                        <th>Title:</th>
-                        <th>Description:</th>
-                        <th>Status:</th>
-                        <th>Responsible:</th>
-                        <th>Estimate Time:</th>
-                        <th>Actual Time Used:</th>
-                        </thead>
-                        <tbody>
 
-                        @foreach (var task in BacklogTasks!)
-                        {
-                            <tr>
-
-                                <td>@task.Title</td>
-                                <td>@task.Description</td>
-                                <td>@task.Status</td>
-                                <td>@task.Responsible</td>
-                                <td>@task.EstimateTimeInMinutes</td>
-                                <td>@task.ActualTimeUsedInMinutes</td>
-                                <td>
-                                    <button class="btn-delete-task" @onclick="() => DeleteTask(task.Id)">x</button>
-                                </td>
-                            </tr>
-                        }
-                        </tbody>
-                    </table>
-                }
-
-            </ul>
-            <div class="create-task-form">
-                <h3>Create a New Task</h3>
-                <div class="form-group">
-                    <label for="title">Title:</label>
-                    <input type="text" id="title" @bind="newTask.Title"/>
-                </div>
-                <div class="form-group">
-                    <label for="description">Description:</label>
-                    <textarea id="description" @bind="newTask.Description"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="estimateHours">Estimate Minutes:</label>
-                    <input type="number" id="estimateHours" @bind="newTask.EstimateTimeInMinutes"/>
-                </div>
-                <div class="form-group">
-                    <label for="responsible">Responsible:</label>
-                    <input type="text" id="responsible" @bind="newTask.Responsible"/>
-                </div>
-                <button class="button" @onclick="AddTask">Save Task</button>
-            </div>
+        <!-- Sprints Card -->
+        <div class="card sprints-button-card" style="margin-bottom: 1em;">
+            <p style="font-size: 1.5em; font-weight: bold; margin-bottom: 0.5em;">Sprints</p>
             <button class="btn btn-primary" @onclick="NavigateToSeeSprints">See all sprints</button>
         </div>
-        <!--Backlog section End----------------------------------------------------------->
+
+
+        <!--Backlog section-->
+        <div class="card backlog-section" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
+            <p style="font-size: 1.5em; font-weight: bold; margin-bottom: 0.5em;">Backlog</p>
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                <tr style="background-color: #4C5270; color: white;">
+                    <th style="padding: 10px; font-weight: bold; border: 3px solid #4C5270;">Requirement Nr</th>
+                    <th style="padding: 10px; font-weight: bold; border: 3px solid #4C5270;">Estimate Time</th>
+                    <th style="padding: 10px; font-weight: bold; border: 3px solid #4C5270;">Actual Time</th>
+                    <th style="padding: 10px; font-weight: bold; border: 3px solid #4C5270;">Status</th>
+                    <th style="padding: 10px; font-weight: bold; border: 3px solid #4C5270;">Sprint</th>
+                    <th style="padding: 10px; font-weight: bold; border: 3px solid #4C5270;">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                @for (int i = 0; i < BacklogEntriesList.Count; i++)
+                {
+                    var entry = BacklogEntriesList[i];
+                    <tr style="background-color: @(i % 2 == 0 ? "#2B3A67" : "#2B2B2B");">
+                        <td style="padding: 10px; border: 3px solid #4C5270;">@entry.RequirmentNr</td>
+                        <td style="padding: 10px; border: 3px solid #4C5270;">@entry.EstimateTime</td>
+                        <td style="padding: 10px; border: 3px solid #4C5270;">@entry.ActualTime</td>
+                        <td style="padding: 10px; border: 3px solid #4C5270;">@entry.Status</td>
+                        <td style="padding: 10px; border: 3px solid #4C5270;">@entry.Sprint</td>
+                        <!-- Additional cells for other properties and actions -->
+                    </tr>
+                }
+                </tbody>
+            </table>
+            <div style="text-align: center; margin-top: 10px;">
+                <button class="btn btn-primary" @onclick="NavigateToCreateBacklogEntry">Add New Backlog Entry</button>
+            </div>
+        </div>
 
 
         <!-- Logbook section -->
@@ -126,6 +107,7 @@
     public Project? Project { get; set; }
     public List<ClassLibrary_SEP3.Task?>? BacklogTasks { get; set; }
     public List<LogBookEntryPoints>? LogBookEntries { get; set; } = new List<LogBookEntryPoints>();
+    public List<BacklogEntries> BacklogEntriesList { get; set; } = new List<BacklogEntries>();
     private AddBacklogTaskRequest newTask = new AddBacklogTaskRequest();
     public string EmptyHelper { get; set; }
 
@@ -194,11 +176,11 @@
     }
 
 
+    //Navigates
     private void EditLogbookEntry(string logbookEntryId)
     {
         NavigationManager.NavigateTo($"/edit-logbook-entry/{ProjectIdAsString}/{logbookEntryId}");
     }
-
 
     private void NavigateToCreateEntry()
     {
@@ -210,4 +192,8 @@
         NavigationManager.NavigateTo($"/project-hub/{ProjectIdAsString}/createSprint");
     }
 
+    private void NavigateToCreateBacklogEntry()
+    {
+        NavigationManager.NavigateTo($"/{ProjectIdAsString}/CreateBacklogEntry");
+    }
 }
