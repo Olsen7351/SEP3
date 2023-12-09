@@ -27,6 +27,11 @@ public class BBacklogController : ControllerBase
         {
             return BadRequest("Backlog entry payload is null");
         }
+        
+        if (String.IsNullOrEmpty(backlogEntry.ProjectID))
+        {
+            throw new Exception("ProjectID is null or empty MircoService");
+        }
 
         try
         {

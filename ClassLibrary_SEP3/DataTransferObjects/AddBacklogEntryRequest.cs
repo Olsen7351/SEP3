@@ -5,7 +5,6 @@ namespace ClassLibrary_SEP3.DataTransferObjects;
 
 public class AddBacklogEntryRequest
 {
-    
     public String ProjectID { get; set; }
     public String RequirmentNr { get; set; }
     public String EstimateTime { get; set; }

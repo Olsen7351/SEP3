@@ -20,7 +20,7 @@ public class BBacklogController : ControllerBase
     
     [HttpPost]
     [Route("CreateBroker")] 
-    public async Task<IActionResult> Create(AddBacklogEntryRequest backlogEntry)
+    public async Task<IActionResult> Create([FromBody] AddBacklogEntryRequest backlogEntry)
     {
         if (backlogEntry == null)
         {
@@ -29,7 +29,7 @@ public class BBacklogController : ControllerBase
 
         if (String.IsNullOrEmpty(backlogEntry.ProjectID))
         {
-            throw new Exception("ProjectID is null or empty");
+            throw new Exception("projectID is null or empty broker");
         }
 
         try
