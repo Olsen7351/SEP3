@@ -26,6 +26,16 @@ public class LogBookService : ILogBookService
             throw new Exception("Created entry needs to have a present timestamp");
         }
 
+        if (String.IsNullOrEmpty(logBookEntryPoints.ProjectID))
+        {
+            throw new Exception("ProjectID cant be null or empty");
+        }
+
+        if (string.IsNullOrEmpty(logBookEntryPoints.OwnerUsername))
+        {
+            throw new Exception("Owner username cant be null or empty");
+        }
+
         var filter = Builders<LogBook>.Filter.Eq(lb => lb.ProjectID, logBookEntryPoints.ProjectID);
         var logBook = _logEntryPoints.Find(filter).FirstOrDefault();
         var newEntry = new LogBookEntryPoints()

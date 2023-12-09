@@ -1,0 +1,63 @@
+﻿@page "/{ProjectIdAsString}/CreateBacklogEntry"
+@using ClassLibrary_SEP3
+@using ClassLibrary_SEP3.DataTransferObjects
+@using BlazorAppTEST.Services.Interface
+@using Task = System.Threading.Tasks.Task
+@inject NavigationManager NavigationManager
+@inject IBacklogService BacklogService 
+
+<h3>Create Backlog Entry</h3>
+
+<EditForm Model="@backlogEntry" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator/>
+    <ValidationSummary/>
+
+    <div class="form-group">
+        <label for="requirementNr">Requirement Number:</label>
+        <InputText id="requirementNr" @bind-Value="backlogEntry.RequirmentNr" class="form-control"/>
+    </div>
+
+    <div class="form-group">
+        <label for="estimateTime">Estimate Time:</label>
+        <InputText id="estimateTime" @bind-Value="backlogEntry.EstimateTime" class="form-control"/>
+    </div>
+
+    <div class="form-group">
+        <label for="actualTime">Actual Time:</label>
+        <InputText id="actualTime" @bind-Value="backlogEntry.ActualTime" class="form-control"/>
+    </div>
+
+    <div class="form-group">
+        <label for="status">Status:</label>
+        <InputSelect id="status" @bind-Value="backlogEntry.Status" class="form-control">
+            <option value="">Select Status</option>
+            <option value="@BacklogEntryStatus.InComplete">Incomplete</option>
+            <option value="@BacklogEntryStatus.InProgress">In Progress</option>
+            <option value="@BacklogEntryStatus.Finished">Finished</option>
+        </InputSelect>
+    </div>
+
+    <div class="form-group">
+        <label for="sprint">Sprint:</label>
+        <InputText id="sprint" @bind-Value="backlogEntry.Sprint" class="form-control"/>
+    </div>
+
+    <button type="submit" class="btn btn-success">Create Backlog Entry</button>
+</EditForm>
+
+@code {
+    [Parameter]
+    public string ProjectIdAsString { get; set; }
+    private AddBacklogEntryRequest backlogEntry = new AddBacklogEntryRequest();
+
+    protected override void OnInitialized()
+    {
+        backlogEntry.ProjectID = ProjectIdAsString;
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        await BacklogService.CreateBacklogEntry(backlogEntry);
+        NavigationManager.NavigateTo($"/project-hub/{ProjectIdAsString}");
+    }
+}
