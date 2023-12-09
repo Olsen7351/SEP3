@@ -13,5 +13,6 @@ namespace BlazorAppTEST.Services.Interface
         public Task<IActionResult> AddTaskToSprintBacklogAsync(AddSprintTaskRequest task);
 
         public Task<IActionResult> GetTasksFromSprintBacklogAsync(string Id);
+        public Task<IActionResult> DeleteSprintFromProject(string ProjectId, string SprintId);
     }
 }

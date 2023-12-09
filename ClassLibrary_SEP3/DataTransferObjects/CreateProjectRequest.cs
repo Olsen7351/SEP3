@@ -24,4 +24,9 @@ public class CreateProjectRequest
 
     [Required]
     public string ByUsername { get; set; }
+
+    public string LogString()
+    {
+        return "Name: " + Name + ", Description: " + Description + ", StartDate: " + StartDate + ", EndDate: " + EndDate + ", ByUsername: " + ByUsername;
+    }
 }

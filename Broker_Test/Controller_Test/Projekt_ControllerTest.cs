@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Broker.Controllers;
 using Broker.Services;
 using ClassLibrary_SEP3;
@@ -40,22 +41,30 @@ namespace Broker_Test.Controller_Test
         [Fact]
         public async void CreateProjekt_ReturnsOk_WhenProjectIsNotNull()
         {
-           
             var mockProjektService = new Mock<IProjectService>();
             var controller = new BrokerProjectController(mockProjektService.Object);
+
+            var verifiedUsername = "Alma";
             var projectRequest = new CreateProjectRequest
             {
                 Name = "Sample Project", 
                 Description = "A description of the Sample Project", 
                 StartDate = DateTime.UtcNow,
-                EndDate = DateTime.UtcNow.AddDays(30)             };
-
+                EndDate = DateTime.UtcNow.AddDays(30),
+                ByUsername = verifiedUsername 
+            };
             
             mockProjektService.Setup(service => service.CreateProjekt(It.IsAny<CreateProjectRequest>()))
                 .ReturnsAsync(new OkResult());
             
-            var mockHttpContext = new DefaultHttpContext();
-            mockHttpContext.Request.Headers["Authorization"] = "Bearer testtoken";
+            var claims = new List<Claim> { new Claim(ClaimTypes.NameIdentifier, verifiedUsername) };
+            var identity = new ClaimsIdentity(claims, "TestAuthType");
+            var claimsPrincipal = new ClaimsPrincipal(identity);
+
+            var mockHttpContext = new DefaultHttpContext
+            {
+                User = claimsPrincipal
+            };
             controller.ControllerContext = new ControllerContext()
             {
                 HttpContext = mockHttpContext
@@ -63,9 +72,9 @@ namespace Broker_Test.Controller_Test
 
             // Act
             var result = await controller.CreateProjekt(projectRequest);
-            
+
+            // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
-            Assert.IsType<OkObjectResult>(okResult);
         }
         
         [Fact]

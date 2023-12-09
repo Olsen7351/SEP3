@@ -21,6 +21,7 @@ namespace ProjectMicroservice_Tests.DAO_Services
         private readonly SprintService _sprintService;
         private string _sprintBacklogId;
         private readonly ProjectService _projectService;
+
         public SprintServiceTests()
         {
             var configBuilder = new ConfigurationBuilder()
@@ -46,11 +47,11 @@ namespace ProjectMicroservice_Tests.DAO_Services
                 Title = "Test Sprint",
                 // Add more properties needed for your request
             };
-            
+
             // Act
             var result = _sprintService.CreateSprintBacklog(request);
 
-            _sprintBacklogId= result.SprintBacklogId;
+            _sprintBacklogId = result.SprintBacklogId;
             // Assert
             Assert.NotNull(result);
             Assert.Equal(request.projectId, result.ProjectId);
@@ -91,17 +92,17 @@ namespace ProjectMicroservice_Tests.DAO_Services
                 Name = "Test Project",
                 Description = "Description of Test Project",
                 StartDate = DateTime.Now,
-                EndDate = DateTime.Now.AddDays(30) 
+                EndDate = DateTime.Now.AddDays(30)
             };
 
             var createdProject = _projectService.CreateProject(createProjectRequest);
             string _projectId = createdProject.Id;
-            
+
             var request = new CreateSprintBackLogRequest
             {
                 projectId = _projectId,
                 Title = "Test Sprint",
-                
+
             };
 
             var createdSprint = _sprintService.CreateSprintBacklog(request);
@@ -112,22 +113,19 @@ namespace ProjectMicroservice_Tests.DAO_Services
                 SprintId = sprintBacklogId,
                 Title = "Test Task",
                 Description = "Description of the test task",
-                Status = TaskStatus.InProgress, 
+                Status = TaskStatus.InProgress,
                 CreatedAt = DateTime.Now,
-                Deadline = DateTime.Now.AddDays(7), 
+                Deadline = DateTime.Now.AddDays(7),
                 EstimateTimeInMinutes = 60,
                 ActualTimeUsedInMinutes = 0,
                 Responsible = "Responsible Person"
             };
             var result = _sprintService.AddTaskToSprintBacklog(sprintTaskRequest, sprintTaskRequest.SprintId);
-            
+
             var addedTask = result.Tasks.FirstOrDefault(t => t.Title == sprintTaskRequest.Title);
             Assert.NotNull(addedTask);
             Assert.Equal(sprintTaskRequest.Title, addedTask.Title);
             Assert.Equal(sprintTaskRequest.Description, addedTask.Description);
-        }
-        */
-
+        }*/
     }
-    
 }
