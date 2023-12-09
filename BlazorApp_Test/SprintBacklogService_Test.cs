@@ -87,8 +87,8 @@ namespace BlazorAppTest
             // Assert
             Assert.IsType<OkObjectResult>(result);
             var okResult = (OkObjectResult)result;
-            Assert.IsAssignableFrom<IEnumerable<CreateSprintBackLogRequest>>(okResult.Value);
-            var sprintBacklogs = (IEnumerable<CreateSprintBackLogRequest>)okResult.Value;
+            Assert.IsAssignableFrom<IEnumerable<SprintBacklog>>(okResult.Value);
+            var sprintBacklogs = (IEnumerable<SprintBacklog>)okResult.Value;
             Assert.Equal(expectedSprintBacklogs.Count, sprintBacklogs.Count());
         }
         [Fact]
