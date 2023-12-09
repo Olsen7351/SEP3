@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Broker.Controllers;
 using Broker.Services;
 using ClassLibrary_SEP3;
 using ClassLibrary_SEP3.DataTransferObjects;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Task = ClassLibrary_SEP3.Task;
@@ -38,6 +40,7 @@ namespace Broker_Test.Controller_Test
             var model = Assert.IsAssignableFrom<IEnumerable<SprintBacklog>>(objectResult.Value);
             Assert.Equal(2, model.Count());
         }
+        
 
         [Fact]
         public async void AddTaskToSprintBacklog_ReturnsValue()
@@ -203,5 +206,56 @@ namespace Broker_Test.Controller_Test
                 Assert.Equal(task.Title, actualTask.Title);
             }
         }
+        [Fact]
+        public async void Get_ReturnsSprintBacklogs34()
+        {
+            // Arrange
+            var projectId = "ProjectId";
+            var mockService = new Mock<ISprintBacklogService>();
+            var sprintBacklogs = new List<SprintBacklog>
+            {
+                new SprintBacklog { ProjectId = projectId, SprintBacklogId = "1", Title = "Sprint 1" },
+                new SprintBacklog { ProjectId = projectId, SprintBacklogId = "2", Title = "Sprint 2" }
+            };
+
+            mockService.Setup(service => service.GetSprintBacklogsAsync(projectId))
+                       .ReturnsAsync(new OkObjectResult(sprintBacklogs));
+
+            var mockHttpContext = new Mock<HttpContext>();
+            var mockHttpRequest = new Mock<HttpRequest>();
+            var mockHeaders = new HeaderDictionary();
+
+            // Mock JWT Token with "sub" claim set to "Alma" for rabbitMQ
+            var username = "Alma";
+            var payload = new Dictionary<string, object> { { "sub", username } };
+            var payloadJson = JsonSerializer.Serialize(payload);
+            var payloadBase64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(payloadJson));
+            var mockJwtToken = $"header.{payloadBase64}.signature";
+
+            mockHeaders["Authorization"] = "Bearer " + mockJwtToken;
+            mockHttpRequest.Setup(r => r.Headers).Returns(mockHeaders);
+            mockHttpContext.SetupGet(ctx => ctx.Request).Returns(mockHttpRequest.Object);
+
+            var controller = new SprintBacklogController(mockService.Object);
+            controller.ControllerContext = new ControllerContext
+            {
+                HttpContext = mockHttpContext.Object
+            };
+
+            // Act
+            var actionResult = await controller.GetAllSprintBacklogs(projectId);
+
+            // Assert
+            Assert.NotNull(actionResult);
+            var objectResult = Assert.IsType<OkObjectResult>(actionResult);
+            Assert.Equal(200, objectResult.StatusCode); // Check if the status code is OK (200)
+
+            var model = Assert.IsAssignableFrom<IEnumerable<SprintBacklog>>(objectResult.Value);
+            Assert.Equal(2, model.Count());
+
+            // Verifying the service call
+            mockService.Verify(service => service.GetSprintBacklogsAsync(projectId), Times.Once);
+        }
+        
     }
 }
