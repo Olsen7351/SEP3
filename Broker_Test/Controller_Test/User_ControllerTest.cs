@@ -98,9 +98,7 @@ public class User_ControllerTest
         // Arrange
         var mockUserService = new Mock<IUserService>();
         var controller = new UserController(mockUserService.Object);
-
-        // Simulate the [Required] validation for Password
-        controller.ModelState.AddModelError("Password", "Password is required");
+        
 
         User user = new User()
         {
@@ -112,12 +110,9 @@ public class User_ControllerTest
         var result = await controller.LoginWithUserCredentials(user);
 
         // Assert
-        var badRequestObjectResult = Assert.IsType<BadRequestObjectResult>(result);
-        var modelStateDictionary = Assert.IsType<SerializableError>(badRequestObjectResult.Value);
-        Assert.True(modelStateDictionary.ContainsKey("Password"));
-        var passwordErrors = modelStateDictionary["Password"] as string[];
-        Assert.NotNull(passwordErrors);
-        Assert.Contains("Password is required", passwordErrors);
+
+        var badRequest = Assert.IsType<BadRequestObjectResult>(result);
+        Assert.Equal("Password is required",badRequest.Value);
     }
     
     [Fact]
@@ -126,9 +121,7 @@ public class User_ControllerTest
         // Arrange
         var mockUserService = new Mock<IUserService>();
         var controller = new UserController(mockUserService.Object);
-
-        // Simulate the [Required] validation for Username
-        controller.ModelState.AddModelError("Username", "Username is required");
+        
 
         User user = new User()
         {
@@ -140,12 +133,9 @@ public class User_ControllerTest
         var result = await controller.LoginWithUserCredentials(user);
 
         // Assert
-        var badRequestObjectResult = Assert.IsType<BadRequestObjectResult>(result);
-        var modelStateDictionary = Assert.IsType<SerializableError>(badRequestObjectResult.Value);
-        Assert.True(modelStateDictionary.ContainsKey("Username"));
-        var usernameErrors = modelStateDictionary["Username"] as string[];
-        Assert.NotNull(usernameErrors);
-        Assert.Contains("Username is required", usernameErrors);
+
+        var badRequest = Assert.IsType<BadRequestObjectResult>(result);
+        Assert.Equal("Username is required",badRequest.Value);
     }
     [Fact]
     public async Task LoginWithTooLongUsername()
@@ -165,16 +155,64 @@ public class User_ControllerTest
             Username = longUsername, // Username is too long
             Password = "SomePassword" // Password is valid
         };
-
         // Act
         var result = await controller.LoginWithUserCredentials(user);
 
         // Assert
-        var badRequestObjectResult = Assert.IsType<BadRequestObjectResult>(result);
-        var modelStateDictionary = Assert.IsType<SerializableError>(badRequestObjectResult.Value);
-        Assert.True(modelStateDictionary.ContainsKey("Username"));
-        var usernameErrors = modelStateDictionary["Username"] as string[];
-        Assert.NotNull(usernameErrors);
-        Assert.Contains("Username is too long, only 16 characters are allowed", usernameErrors);
+
+        var badRequest = Assert.IsType<BadRequestObjectResult>(result);
+        Assert.Equal("Username is too long, only 16 characters are allowed",badRequest.Value);
+    }
+
+    [Fact]
+    public async Task ChangeUserPassword_ValidRequest_ReturnsOk()
+    {
+        // Arrange
+        var mockUserService = new Mock<IUserService>();
+        var controller = new UserController(mockUserService.Object);
+        var changePasswordRequest = new ChangePasswordRequest
+        {
+            CurrentPassword = "OldPassword",
+            NewPassword = "NewPassword"
+        };
+
+        mockUserService.Setup(service => service.ChangeUserPassword(It.IsAny<string>(), It.IsAny<ChangePasswordRequest>()))
+            .ReturnsAsync(new OkResult());
+
+        var mockHttpContext = new DefaultHttpContext();
+        mockHttpContext.Request.Headers["Authorization"] = "Bearer testtoken";
+        controller.ControllerContext = new ControllerContext()
+        {
+            HttpContext = mockHttpContext
+        };
+
+        // Act
+        var result = await controller.ChangeUserPassword(changePasswordRequest);
+
+        // Assert
+        var okResult = Assert.IsType<OkObjectResult>(result);
+        Assert.IsType<OkObjectResult>(okResult);
+    }
+    
+    [Fact]
+    public async Task ChangeUserPassword_NullRequest_ReturnsBadRequest()
+    {
+        // Arrange
+        var mockUserService = new Mock<IUserService>();
+        var controller = new UserController(mockUserService.Object);
+
+        var mockHttpContext = new DefaultHttpContext();
+        mockHttpContext.Request.Headers["Authorization"] = "Bearer testtoken";
+        controller.ControllerContext = new ControllerContext()
+        {
+            HttpContext = mockHttpContext
+        };
+
+        // Act
+        var result = await controller.ChangeUserPassword(null);
+
+        // Assert
+        var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
+        
     }
 }

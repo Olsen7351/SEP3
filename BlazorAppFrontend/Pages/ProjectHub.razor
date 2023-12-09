@@ -17,7 +17,7 @@
     <div class="container">
         <!--Title-->
         <h2>Project Hub for Project ID: @ProjectIdAsString</h2>
-        
+
         <button class="btn btn-primary" @onclick="NavigateToProjectMembers">View Project Members</button>
         <button class="btn btn-primary" @onclick="NavigateToAddNewUser">Add User</button>
 
@@ -56,7 +56,7 @@
                         </tbody>
                     </table>
                 }
-                
+
             </ul>
             <div class="create-task-form">
                 <h3>Create a New Task</h3>
@@ -86,32 +86,32 @@
         <!-- Logbook section -->
         <div class="card logbook-section" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
             <p style="font-size: 1.5em; font-weight: bold; margin-bottom: 0.5em;">Logbook Entries</p>
-                <table style="width: 100%; border-collapse: collapse;">
-                    <thead>
-                    <tr style="background-color: #4C5270; color: white;">
-                        <th style="padding: 10px; font-weight: bold; border: 3px solid #4C5270;">Owner Username</th>
-                        <th style="padding: 10px; font-weight: bold; border: 3px solid #4C5270;">Description</th>
-                        <th style="padding: 10px; font-weight: bold; border: 3px solid #4C5270;">Created Time Stamp</th>
-                        <th style="padding: 10px; font-weight: bold; border: 3px solid #4C5270;">Actions</th>
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                <tr style="background-color: #4C5270; color: white;">
+                    <th style="padding: 10px; font-weight: bold; border: 3px solid #4C5270;">Owner Username</th>
+                    <th style="padding: 10px; font-weight: bold; border: 3px solid #4C5270;">Description</th>
+                    <th style="padding: 10px; font-weight: bold; border: 3px solid #4C5270;">Created Time Stamp</th>
+                    <th style="padding: 10px; font-weight: bold; border: 3px solid #4C5270;">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var entry in LogBookEntries)
+                {
+                    <tr style="background-color: @(LogBookEntries.IndexOf(entry) % 2 == 0 ? "#2B3A67" : "#2B2B2B");">
+                        <td style="padding: 10px; border: 3px solid #4C5270;">@entry.OwnerUsername</td>
+                        <td style="padding: 10px; border: 3px solid #4C5270;">@entry.Description</td>
+                        <td style="padding: 10px; border: 3px solid #4C5270;">@entry.CreatedTimeStamp.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                        <td style="padding: 10px; border: 3px solid #4C5270;">
+                            <button class="btn btn-secondary" style="font-weight: bold;" @onclick="() => EditLogbookEntry(entry.EntryID)">Edit</button>
+                        </td>
                     </tr>
-                    </thead>
-                    <tbody>
-                    @foreach (var entry in LogBookEntries)
-                    {
-                        <tr style="background-color: @(LogBookEntries.IndexOf(entry) % 2 == 0 ? "#2B3A67" : "#2B2B2B");">
-                            <td style="padding: 10px; border: 3px solid #4C5270;">@entry.OwnerUsername</td>
-                            <td style="padding: 10px; border: 3px solid #4C5270;">@entry.Description</td>
-                            <td style="padding: 10px; border: 3px solid #4C5270;">@entry.CreatedTimeStamp.ToString("yyyy-MM-dd HH:mm:ss")</td>
-                            <td style="padding: 10px; border: 3px solid #4C5270;">
-                                <button class="btn btn-secondary" style="font-weight: bold;" @onclick="() => EditLogbookEntry(entry.EntryID)">Edit</button>
-                            </td>
-                        </tr>
-                    }
-                    </tbody>
-                </table>
-                <div style="text-align: center; margin-top: 10px;">
-                    <button class="btn btn-primary your-custom-class" @onclick="NavigateToCreateEntry">Create New Entry</button>
-                </div>
+                }
+                </tbody>
+            </table>
+            <div style="text-align: center; margin-top: 10px;">
+                <button class="btn btn-primary your-custom-class" @onclick="NavigateToCreateEntry">Create New Entry</button>
+            </div>
         </div>
     </div>
 </div>
@@ -200,7 +200,6 @@
     }
 
 
-
     private void NavigateToCreateEntry()
     {
         NavigationManager.NavigateTo($"/create-new-entry-for-logbook/{ProjectIdAsString}");
@@ -210,5 +209,5 @@
     {
         NavigationManager.NavigateTo($"/project-hub/{ProjectIdAsString}/createSprint");
     }
-   
+
 }

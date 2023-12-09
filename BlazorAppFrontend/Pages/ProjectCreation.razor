@@ -2,6 +2,7 @@
 @inject IProjectService Project_Service
 @using Task = System.Threading.Tasks.Task
 @using BlazorAppTEST.Services.Interface
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 
 @attribute [Authorize]
@@ -63,18 +64,51 @@
     private CreateProjectRequest createdProject;
     private EditContext editContext;
 
-    protected override void OnInitialized()
+    private bool isAuthenticated = false;
+    private IEnumerable<System.Security.Claims.Claim>? userClaims;
+    private string username;
+
+    protected override async Task OnInitializedAsync()
     {
-        newProject = new CreateProjectRequest
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        isAuthenticated = user.Identity?.IsAuthenticated ?? false;
+
+        if (isAuthenticated)
         {
-            StartDate = DateTime.Today, 
-            EndDate = DateTime.Today    
-        };
+            userClaims = user.Claims;
+            foreach (var claim in userClaims)
+            {
+                Console.WriteLine($"{claim.Type}: {claim.Value}");
+            }
+
+            try
+            {
+                username = user.FindFirst(c => c.Type == "sub")?.Value ?? string.Empty;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+        else
+        {
+            username = string.Empty; // Or some default value
+        }
+
+        newProject = new CreateProjectRequest
+            {
+                StartDate = DateTime.Today,
+                EndDate = DateTime.Today,
+                ByUsername = username
+            };
+
         editContext = new EditContext(newProject);
     }
 
     private async Task CreateProject()
     {
+
         if (!editContext.Validate())  // Check if the form is valid
         {
             return;

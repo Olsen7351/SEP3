@@ -13,5 +13,6 @@ namespace Broker.Services
         
         public Task<IActionResult> AddUserToProject(AddUserToProjectRequest request);
         Task<List<string>> GetProjectMembers(string projectIdAsString);
+        Task<IEnumerable<Project>> GetProjectsByUser(string username);
     }
 }

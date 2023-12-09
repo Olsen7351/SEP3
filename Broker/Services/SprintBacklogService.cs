@@ -19,10 +19,8 @@ public class SprintBacklogService : ISprintBacklogService
 
     public async Task<IActionResult> CreateSprintBacklogAsync(CreateSprintBackLogRequest sprintBacklog)
     {
-        Console.WriteLine("Broker create sprint called");
         if (sprintBacklog == null)
         {
-            Console.WriteLine("The sprint backlog is null");
             return new BadRequestResult();
         }
         string requestUri = $"api/Sprint";

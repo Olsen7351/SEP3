@@ -1,7 +1,9 @@
+using System.Security.Claims;
 using Broker.Controllers;
 using Broker.Services;
 using ClassLibrary_SEP3;
 using ClassLibrary_SEP3.DataTransferObjects;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Task = ClassLibrary_SEP3.Task;
@@ -39,31 +41,59 @@ namespace Broker_Test.Controller_Test
         [Fact]
         public async void CreateProjekt_ReturnsOk_WhenProjectIsNotNull()
         {
-            // Arrange
             var mockProjektService = new Mock<IProjectService>();
             var controller = new BrokerProjectController(mockProjektService.Object);
-            var project = new CreateProjectRequest(); // Valid Project
 
-            // Mock the ProjektService to return IActionResult (e.g., OkResult)
-            mockProjektService.Setup(service => service.CreateProjekt(project))
+            var verifiedUsername = "Alma";
+            var projectRequest = new CreateProjectRequest
+            {
+                Name = "Sample Project", 
+                Description = "A description of the Sample Project", 
+                StartDate = DateTime.UtcNow,
+                EndDate = DateTime.UtcNow.AddDays(30),
+                ByUsername = verifiedUsername 
+            };
+            
+            mockProjektService.Setup(service => service.CreateProjekt(It.IsAny<CreateProjectRequest>()))
                 .ReturnsAsync(new OkResult());
+            
+            var claims = new List<Claim> { new Claim(ClaimTypes.NameIdentifier, verifiedUsername) };
+            var identity = new ClaimsIdentity(claims, "TestAuthType");
+            var claimsPrincipal = new ClaimsPrincipal(identity);
+
+            var mockHttpContext = new DefaultHttpContext
+            {
+                User = claimsPrincipal
+            };
+            controller.ControllerContext = new ControllerContext()
+            {
+                HttpContext = mockHttpContext
+            };
 
             // Act
-            var result = await controller.CreateProjekt(project);
+            var result = await controller.CreateProjekt(projectRequest);
 
             // Assert
-            Assert.IsType<OkObjectResult>(result);
+            var okResult = Assert.IsType<OkObjectResult>(result);
         }
+        
         [Fact]
         public async void CreateProjekt_ReturnsBadRequest_WhenProjectIsNull()
         {
             // Arrange
             var mockProjektService = new Mock<IProjectService>();
             var controller = new BrokerProjectController(mockProjektService.Object);
-            CreateProjectRequest nullProject = null; // Project is null
+
+            // Mock HttpContext for Authorization header
+            var mockHttpContext = new DefaultHttpContext();
+            mockHttpContext.Request.Headers["Authorization"] = "Bearer testtoken";
+            controller.ControllerContext = new ControllerContext()
+            {
+                HttpContext = mockHttpContext
+            };
 
             // Act
-            var result = await controller.CreateProjekt(nullProject);
+            var result = await controller.CreateProjekt(null); // Passing null directly
 
             // Assert
             Assert.IsType<BadRequestResult>(result);
@@ -94,9 +124,7 @@ namespace Broker_Test.Controller_Test
             Assert.IsType<OkObjectResult>(okResult); 
            // Assert.Equal("Some content", okResult.Value.ToString()); // Corrected line
         }
-        }
-        
-    
     }
+}
     
 
