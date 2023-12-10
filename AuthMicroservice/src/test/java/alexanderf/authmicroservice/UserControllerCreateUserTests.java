@@ -50,10 +50,9 @@ public class UserControllerCreateUserTests {
     // Zero
     @Test
     void testRegisterUserWithNull() {
-        // Exception expected due to @Valid annotation
-        assertThrows(MethodArgumentNotValidException.class, () -> {
-            userController.registerUser(null);
-        });
+        // Check it returns bad request
+        ResponseEntity<Void> response = userController.registerUser(new UserDTO("", "", ""));
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
 
     // One
@@ -62,28 +61,18 @@ public class UserControllerCreateUserTests {
         when(userService.registerNewUserAccount(any(UserDTO.class))).thenReturn(user);
         ResponseEntity<Void> response = userController.registerUser(userDto);
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(user, response.getBody());
     }
 
     // Many
     @Test
-    void testRegisterUserMultipleTimes() {
-        UserDTO secondUserDto = new UserDTO("testUser", "another@example.com", "password456");
-        User secondUser = new User("2", "testUser", "another@example.com", "password456");
-        createdUsernames.add(secondUser.getUsername());
+    void testRegisterUserWhenUserAlreadyExists() {
+        UserDTO alreadyRegisteredUser = new UserDTO("string", "test@gmail.com", "password123");
+        when(userService.findByUsername(alreadyRegisteredUser.getUsername())).thenReturn(true);
 
-        when(userService.registerNewUserAccount(any(UserDTO.class)))
-                .thenReturn(user)
-                .thenReturn(secondUser);
-
-        ResponseEntity<Void> firstResponse = userController.registerUser(userDto);
-        ResponseEntity<Void> secondResponse = userController.registerUser(secondUserDto);
-
-        assertEquals(HttpStatus.OK, firstResponse.getStatusCode());
-
-        // No duplicate usernames allowed
-        assertEquals(HttpStatus.CONFLICT, secondResponse.getStatusCode());
+        ResponseEntity<Void> response = userController.registerUser(alreadyRegisteredUser);
+        assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
     }
+
 
     // Interfaces
     @Test

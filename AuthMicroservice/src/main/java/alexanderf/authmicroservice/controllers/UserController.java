@@ -38,6 +38,12 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<Void> registerUser(@Valid @RequestBody UserDTO userDto) {
+        if (userDto == null || userDto.getUsername() == null || userDto.getUsername().isBlank() ||
+                userDto.getEmail() == null || userDto.getEmail().isBlank() ||
+                userDto.getPassword() == null || userDto.getPassword().isBlank())
+        {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
         if (userService.findByUsername(userDto.getUsername())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
@@ -83,6 +89,11 @@ public class UserController {
                             currentLoggedInUsername, changePasswordDto.getCurrentPassword())
             );
 
+            // Check if user exists after successful authentication
+            if (!userService.findByUsername(currentLoggedInUsername)) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+            }
+
             // Update the user's password
             userService.changePassword(currentLoggedInUsername, changePasswordDto.getNewPassword());
 
@@ -91,6 +102,7 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication failed: " + e.getMessage());
         }
     }
+
 }
 
 
