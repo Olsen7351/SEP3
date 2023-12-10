@@ -51,11 +51,6 @@ public class BBacklogController : ControllerBase
     [Route("GetBacklogMicro/{projectID}")]
     public async Task<BBackLog> GetBacklogForProject(string projectID)
     {
-        if (string.IsNullOrEmpty(projectID))
-        {
-            throw new ArgumentException("ProjectID is null or empty");
-        }
-
         try
         {
             return await _backlogService.GetBacklogForProject(projectID);
@@ -63,8 +58,7 @@ public class BBacklogController : ControllerBase
         catch (Exception e)
         {
             Console.WriteLine(e);
-            // Log the exception here
-            throw new InvalidOperationException("An error occurred while processing your request.");
+            throw new ApplicationException("An error occurred while processing your request.");
         }
     }
 }

@@ -45,7 +45,7 @@ public class BBacklogController : ControllerBase
 
 
     [HttpGet]
-    [Route("GetBacklogBroker")]
+    [Route("GetBacklogBroker/{projectID}")] 
     public async Task<IActionResult> GetBacklogForProject(string projectID)
     {
         if (string.IsNullOrEmpty(projectID))
@@ -56,12 +56,11 @@ public class BBacklogController : ControllerBase
         try
         {
             var result = await _iBBacklogService.GetBacklogForProject(projectID);
-            return Ok(result);
+            return Ok(result); 
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
-            // Consider logging the exception to a log file or logging system here
             return StatusCode(500, "An error occurred while processing your request.");
         }
     }

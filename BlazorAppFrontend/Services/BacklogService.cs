@@ -57,7 +57,8 @@ public class BacklogService : IBacklogService
             throw new ArgumentException("ProjectID can't be null or empty", nameof(projectIdAsString));
         }
 
-        HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/BBacklog/GetBacklogBroker", projectIdAsString);
+      
+        HttpResponseMessage response = await httpClient.GetAsync($"api/BBacklog/GetBacklogBroker/{projectIdAsString}");
 
         if (response.IsSuccessStatusCode)
         {
@@ -75,7 +76,7 @@ public class BacklogService : IBacklogService
         {
             var errorContent = await response.Content.ReadAsStringAsync();
             throw new HttpRequestException(
-                $"Error creating backlog entry: {response.StatusCode}, Details: {errorContent}");
+                $"Error retrieving backlog entry: {response.StatusCode}, Details: {errorContent}");
         }
     }
 }

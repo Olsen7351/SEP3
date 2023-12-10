@@ -105,11 +105,10 @@
     [Parameter]
     public string ProjectIdAsString { get; set; }
 
-    public Project? Project { get; set; }
-    public List<ClassLibrary_SEP3.Task?>? BacklogTasks { get; set; }
+
     public List<LogBookEntryPoints>? LogBookEntries { get; set; } = new List<LogBookEntryPoints>();
     public List<BacklogEntries> BacklogEntriesList { get; set; } = new List<BacklogEntries>();
-    private AddBacklogTaskRequest newTask = new AddBacklogTaskRequest();
+    
 
 
     protected override async Task OnParametersSetAsync()
@@ -117,16 +116,20 @@
         try
         {
             var backlog = await BacklogService.GetBacklogForProject(ProjectIdAsString);
+            BacklogEntriesList = backlog?.BacklogEntriesList ?? new List<BacklogEntries>();
+        
             var logbook = await LogBookService.GetEntriesForLogBook(ProjectIdAsString);
             LogBookEntries = logbook?.LogBookEntryPoints ?? new List<LogBookEntryPoints>();
         }
         catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
-            JSRuntime.InvokeVoidAsync("alert", "Failed to fetch some data from the server");
+            JSRuntime.InvokeVoidAsync("alert", "Failed to fetch some data from the server. Error: " + ex.Message);
         }
     }
 
+
+    //Navigates
     private void NavigateToProjectMembers()
     {
         NavigationManager.NavigateTo($"/project-hub/{ProjectIdAsString}/project-members");
@@ -136,44 +139,7 @@
     {
         NavigationManager.NavigateTo($"/project-hub/{ProjectIdAsString}/AddNewUserIntoProject");
     }
-
-    private async void AddTask()
-    {
-        var task = new AddBacklogTaskRequest()
-        {
-            ProjectId = ProjectIdAsString,
-            Title = newTask.Title,
-            Description = newTask.Description,
-            EstimateTimeInMinutes = newTask.EstimateTimeInMinutes,
-            Responsible = newTask.Responsible,
-            Status = TaskStatus.ToDo,
-            CreatedAt = DateTime.UtcNow
-        };
-        var response = await TaskService.CreateTask(task);
-
-        BacklogTasks.Add(response);
-        newTask = new AddBacklogTaskRequest();
-        StateHasChanged();
-    }
-
-
-    //DeleteTask
-    private async Task DeleteTask(string objectId)
-    {
-        try
-        {
-            await TaskService.DeleteTask(objectId, ProjectIdAsString);
-            BacklogTasks.RemoveAll(task => task.Id == objectId);
-            StateHasChanged();
-        }
-        catch (Exception ex)
-        {
-            throw new NullReferenceException("Failed to delete Task");
-        }
-    }
-
-
-    //Navigates
+    
     private void EditLogbookEntry(string logbookEntryId)
     {
         NavigationManager.NavigateTo($"/edit-logbook-entry/{ProjectIdAsString}/{logbookEntryId}");
