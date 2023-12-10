@@ -75,4 +75,18 @@ public class BBacklogService : IBBacklogService
             throw new HttpRequestException($"Error retrieving specific backlog entry: {response.StatusCode}, Details: {errorContent}");
         }
     }
+
+    public async Task<bool> UpdateBacklogEntry(UpdateBacklogEntryRequest updateBacklogEntryRequest)
+    {
+        HttpResponseMessage response = await httpClient.PutAsJsonAsync("api/BBacklog/UpdateEntryMicro", updateBacklogEntryRequest);
+        if (response.IsSuccessStatusCode)
+        {
+            return true;
+        }
+        else
+        {
+            var errorContent = await response.Content.ReadAsStringAsync();
+            throw new HttpRequestException($"Error updating backlog entry: {response.StatusCode}, Details: {errorContent}");
+        }
+    }
 }

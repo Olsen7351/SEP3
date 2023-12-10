@@ -112,4 +112,29 @@ public class BacklogService : IBacklogService
                 $"Error retrieving backlog entry: {response.StatusCode}, Details: {response.ReasonPhrase}");
         }
     }
+
+    public async Task<IActionResult> UpdateBacklogEntry(UpdateBacklogEntryRequest updateRequest)
+    {
+        if (string.IsNullOrEmpty(updateRequest.ProjectID))
+        {
+            throw new Exception("ProjectID can't be null or empty");
+        }
+
+        if (string.IsNullOrEmpty(updateRequest.EntryID))
+        {
+            throw new Exception("EntryID can't be null or empty");
+        }
+        HttpResponseMessage response = await httpClient.PutAsJsonAsync($"api/BBacklog/UpdateEntry", updateRequest);
+
+        if (response.IsSuccessStatusCode)
+        {
+            return new OkResult();
+        }
+        else
+        {
+            var errorContent = await response.Content.ReadAsStringAsync();
+            throw new HttpRequestException(
+                $"Error updating backlog entry: {response.StatusCode}, Details: {errorContent}");
+        }
+    }
 }

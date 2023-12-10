@@ -96,4 +96,37 @@ public class BBacklogController : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred: {ex.Message}");
         }
     }
+
+    [HttpPut]
+    [Route("UpdateEntry")]
+    public async Task<IActionResult> UpdateBacklogEntry([FromBody] UpdateBacklogEntryRequest updateBacklogEntryRequest)
+    {
+        if (String.IsNullOrEmpty(updateBacklogEntryRequest.EntryID))
+        {
+            return BadRequest("EntryID is null or empty Broker");
+        }
+
+        if (String.IsNullOrEmpty(updateBacklogEntryRequest.ProjectID))
+        {
+            return BadRequest("ProjectID is null or empty Broker");
+        }
+
+        try
+        {
+            var result = await _iBBacklogService.UpdateBacklogEntry(updateBacklogEntryRequest);
+            if (result)
+            {
+                return Ok("Backlog entry updated successfully.");
+            }
+            else
+            {
+                return NotFound("Backlog entry not found.");
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred: {e.Message}");
+        }
+    }
 }

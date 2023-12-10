@@ -96,4 +96,43 @@ public class BBacklogController : ControllerBase
             throw new ApplicationException("An error occurred while processing your request.");
         }
     }
+
+    
+    
+    [HttpPut]
+    [Route("UpdateEntryMicro")]
+    public async Task<IActionResult> UpdateBacklogEntry([FromBody] UpdateBacklogEntryRequest updateBacklogEntryRequest)
+    {
+        if (updateBacklogEntryRequest == null)
+        {
+            return BadRequest("Update request is null");
+        }
+
+        if (String.IsNullOrEmpty(updateBacklogEntryRequest.ProjectID))
+        {
+            return BadRequest("ProjectID is null or empty MicroService");
+        }
+
+        if (String.IsNullOrEmpty(updateBacklogEntryRequest.EntryID))
+        {
+            return BadRequest("EntryID is null or empty MicroService");
+        }
+
+        try
+        {
+            bool updateResult = await _backlogService.UpdateBacklogEntry(updateBacklogEntryRequest);
+            if (updateResult)
+            {
+                return Ok("Backlog entry updated successfully.");
+            }
+            else
+            {
+                return NotFound("Backlog entry not found.");
+            }
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred: {ex.Message}");
+        }
+    }
 }

@@ -123,4 +123,47 @@ public class BacklogService : IBacklogService
 
         return backlogEntry;
     }
+
+    public async Task<bool> UpdateBacklogEntry(UpdateBacklogEntryRequest updateBacklogEntryRequest)
+    {
+        if (_BBackLogCollection == null)
+        {
+            throw new InvalidOperationException("Backlog collection is not initialized.");
+        }
+
+        if (string.IsNullOrEmpty(updateBacklogEntryRequest.ProjectID) || string.IsNullOrEmpty(updateBacklogEntryRequest.EntryID))
+        {
+            throw new ArgumentException("ProjectID and EntryID can't be null or empty");
+        }
+
+        // Find the specific backlog
+        var filter = Builders<BBackLog>.Filter.Eq(bb => bb.ProjectID, updateBacklogEntryRequest.ProjectID);
+        var backlog = await _BBackLogCollection.Find(filter).FirstOrDefaultAsync();
+        if (backlog == null || backlog.BacklogEntriesList == null)
+        {
+            return false; // Backlog or entry not found
+        }
+
+        // Find and update the specific backlog entry
+        var entryToUpdate = backlog.BacklogEntriesList.FirstOrDefault(be => be.BacklogEntryID == updateBacklogEntryRequest.EntryID);
+        if (entryToUpdate != null)
+        {
+            // Update fields
+            entryToUpdate.RequirmentNr = updateBacklogEntryRequest.RequirmentNr;
+            entryToUpdate.EstimateTime = updateBacklogEntryRequest.EstimateTime;
+            entryToUpdate.ActualTime = updateBacklogEntryRequest.ActualTime;
+            entryToUpdate.Status = updateBacklogEntryRequest.Status;
+            entryToUpdate.Sprint = updateBacklogEntryRequest.Sprint;
+
+            // Update the document in MongoDB
+            var update = Builders<BBackLog>.Update.Set(bb => bb.BacklogEntriesList, backlog.BacklogEntriesList);
+            var updateResult = await _BBackLogCollection.UpdateOneAsync(filter, update);
+
+            return updateResult.IsAcknowledged && updateResult.ModifiedCount > 0;
+        }
+        else
+        {
+            return false; // Specific entry not found
+        }
+    }
 }

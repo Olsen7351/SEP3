@@ -1,4 +1,4 @@
-﻿@page "/EditBacklogEntry"
+﻿@page "/edit-backlog-entry/{ProjectIdAsString}/{BacklogEntryId}"
 @using Microsoft.AspNetCore.WebUtilities
 @using BlazorAppTEST.Services.Interface
 @using ClassLibrary_SEP3
@@ -55,36 +55,52 @@ else
 
 
 @code {
-    private string projectId;
-    private string backlogEntryId;
+    [Parameter]
+    public string ProjectIdAsString { get; set; }
+    [Parameter]
+    public string BacklogEntryId { get; set; }
+    
     private BacklogEntries backlogEntry;
 
 
     protected override async Task OnInitializedAsync()
     {
-    //Get projectID and entryID and set them
-        var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
-        if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("projectId", out var pid))
+        if (!string.IsNullOrEmpty(ProjectIdAsString) && !string.IsNullOrEmpty(BacklogEntryId))
         {
-            projectId = pid;
-        }
-
-        if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("backlogEntryId", out var beid))
-        {
-            backlogEntryId = beid;
-        }
-
-        if (!string.IsNullOrEmpty(projectId) && !string.IsNullOrEmpty(backlogEntryId))
-        {
-            backlogEntry = await BacklogService.GetBacklogEntryById(projectId, backlogEntryId);
+            backlogEntry = await BacklogService.GetBacklogEntryById(ProjectIdAsString, BacklogEntryId);
         }
     }
 
     private async Task HandleValidSubmit()
     {
-    // Assuming BacklogService has a method to update the backlog entry
-    //   await BacklogService.UpdateBacklogEntry(projectId, backlogEntry);
-    // Add any required navigation or update UI logic after successful update
-    }
+        var updateRequest = new UpdateBacklogEntryRequest
+        {
+            EntryID = BacklogEntryId, // The ID of the entry you are updating
+            ProjectID = ProjectIdAsString, // The ID of the project to which the backlog entry belongs
+            RequirmentNr = backlogEntry.RequirmentNr,
+            EstimateTime = backlogEntry.EstimateTime,
+            ActualTime = backlogEntry.ActualTime,
+            Status = backlogEntry.Status,
+            Sprint = backlogEntry.Sprint
+        };
 
+        try
+        {
+            if (String.IsNullOrEmpty(updateRequest.EntryID))
+            {
+                throw new Exception("EntryID is null or empty Front-End");
+            }
+            if (String.IsNullOrEmpty(updateRequest.ProjectID))
+            {
+                throw new Exception("ProjectID is null or empty Front-End");
+            }
+            
+            await BacklogService.UpdateBacklogEntry(updateRequest);
+            NavigationManager.NavigateTo($"/project-hub/{ProjectIdAsString}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Failed to update backlog entry: {ex.Message}");
+        }
+    }
 }
