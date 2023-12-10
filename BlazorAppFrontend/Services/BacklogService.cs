@@ -47,4 +47,35 @@ public class BacklogService : IBacklogService
                 $"Error creating backlog entry: {response.StatusCode}, Details: {errorContent}");
         }
     }
+
+    
+    
+    public async Task<BBackLog> GetBacklogForProject(string projectIdAsString)
+    {
+        if (string.IsNullOrEmpty(projectIdAsString))
+        {
+            throw new ArgumentException("ProjectID can't be null or empty", nameof(projectIdAsString));
+        }
+
+        HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/BBacklog/GetBacklogBroker", projectIdAsString);
+
+        if (response.IsSuccessStatusCode)
+        {
+            var bbacklog = await response.Content.ReadFromJsonAsync<BBackLog>();
+            if (bbacklog != null)
+            {
+                return bbacklog;
+            }
+            else
+            {
+                throw new InvalidOperationException("Backlog data is null.");
+            }
+        }
+        else
+        {
+            var errorContent = await response.Content.ReadAsStringAsync();
+            throw new HttpRequestException(
+                $"Error creating backlog entry: {response.StatusCode}, Details: {errorContent}");
+        }
+    }
 }

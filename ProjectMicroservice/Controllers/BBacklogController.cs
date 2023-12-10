@@ -2,6 +2,7 @@
 using ClassLibrary_SEP3.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 using ProjectMicroservice.Services;
+using Task = ClassLibrary_SEP3.Task;
 
 namespace ProjectMicroservice.Controllers;
 
@@ -41,6 +42,29 @@ public class BBacklogController : ControllerBase
         catch (Exception ex)
         {
             return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred: {ex.Message}");
+        }
+    }
+
+
+
+    [HttpGet]
+    [Route("GetBacklogMicro/{projectID}")]
+    public async Task<BBackLog> GetBacklogForProject(string projectID)
+    {
+        if (string.IsNullOrEmpty(projectID))
+        {
+            throw new ArgumentException("ProjectID is null or empty");
+        }
+
+        try
+        {
+            return await _backlogService.GetBacklogForProject(projectID);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            // Log the exception here
+            throw new InvalidOperationException("An error occurred while processing your request.");
         }
     }
 }

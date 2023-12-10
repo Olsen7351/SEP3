@@ -64,4 +64,28 @@ public class BacklogService : IBacklogService
         }
         return new OkObjectResult(bBackLog);
     }
+
+    
+    public async Task<BBackLog> GetBacklogForProject(string projectId)
+    {
+        if (string.IsNullOrEmpty(projectId))
+        {
+            throw new ArgumentException("ProjectID can't be null or empty", nameof(projectId));
+        }
+
+        if (_BBackLogCollection == null)
+        {
+            throw new InvalidOperationException("Backlog collection is not initialized.");
+        }
+
+        var filter = Builders<BBackLog>.Filter.Eq(bb => bb.ProjectID, projectId);
+        var backlog = await _BBackLogCollection.Find(filter).FirstOrDefaultAsync();
+
+        if (backlog == null)
+        {
+            throw new KeyNotFoundException($"Backlog for project ID '{projectId}' not found.");
+        }
+
+        return backlog;
+    }
 }

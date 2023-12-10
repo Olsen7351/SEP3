@@ -7,4 +7,5 @@ namespace Broker.Services;
 public interface IBBacklogService
 {
     Task<IActionResult> CreateBacklogEntry(AddBacklogEntryRequest backlogEntry);
+    Task<BBackLog> GetBacklogForProject(string projectId);
 }

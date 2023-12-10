@@ -8,4 +8,5 @@ namespace BlazorAppTEST.Services.Interface;
 public interface IBacklogService
 {
    Task<IActionResult> CreateBacklogEntry(AddBacklogEntryRequest backlogEntry);
+   Task<BBackLog> GetBacklogForProject(string projectIdAsString);
 }
