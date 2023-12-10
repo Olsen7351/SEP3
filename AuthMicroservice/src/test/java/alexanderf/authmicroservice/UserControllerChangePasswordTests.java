@@ -64,6 +64,10 @@ public class UserControllerChangePasswordTests {
     void whenChangePasswordWithValidCredentials_thenStatusOk() {
         when(jwtUtil.extractSubjectFromToken(anyString())).thenReturn(userDto.getUsername());
         when(authenticationManager.authenticate(any())).thenReturn(mock(Authentication.class));
+
+        // Mock userService to simulate that the user exists
+        when(userService.findByUsername(userDto.getUsername())).thenReturn(true);
+
         doNothing().when(userService).changePassword(userDto.getUsername(), changePasswordDto.getNewPassword());
 
         ResponseEntity<?> response = userController.changePassword(changePasswordDto, "Bearer validToken");
@@ -71,6 +75,7 @@ public class UserControllerChangePasswordTests {
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals("Password changed successfully", response.getBody());
     }
+
 
     @Test
     void whenChangePasswordWithInvalidCredentials_thenStatusUnauthorized() {

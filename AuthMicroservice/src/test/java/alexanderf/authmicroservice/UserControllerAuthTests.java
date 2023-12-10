@@ -67,30 +67,29 @@ public class UserControllerAuthTests {
 
     @Test
     void testCreateAuthenticationTokenSuccess() {
-        // TODO: Not working idk why
-
+        // Arrange
         Authentication authentication = mock(Authentication.class);
         UserDetails userDetails = mock(UserDetails.class);
-        when(userDetails.getUsername()).thenReturn(userDto.getUsername());
 
         when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class)))
                 .thenReturn(authentication);
         when(authentication.getPrincipal()).thenReturn(userDetails);
 
+        String fakeToken = "fake.jwt.token";
+        when(jwtUtil.generateToken(userDetails)).thenReturn(fakeToken);
+
+        // Act
         ResponseEntity<?> response = userController.createAuthenticationToken(userDto);
+
+        // Assert
         assertNotNull(response.getBody());
-
-        // Cast the response body to JwtResponse and extract the token
-        JwtResponse jwtResponse = (JwtResponse) response.getBody();
-        String token = jwtResponse.getJwt();
-
-        JwtUtil jwtUtil = new JwtUtil();
-        // Extract the username from the token
-        String extractedUsername = jwtUtil.extractSubjectFromToken(token);
-
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(userDto.getUsername(), extractedUsername);
+
+        JwtResponse jwtResponse = (JwtResponse) response.getBody();
+        assertEquals(fakeToken, jwtResponse.getJwt());
     }
+
+
 
 
     @Test
