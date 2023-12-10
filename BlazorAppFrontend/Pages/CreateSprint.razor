@@ -100,15 +100,10 @@
                         }
                     </div>
                     <button class="btn btn-secondary mt-2" 
-                            @onclick="@(() => NavigateToAddTaskPage(backlog.SprintBacklogId))">
-                        Add Task
-                    </button>
-                     <button class="btn btn-secondary mt-2" 
-                                                @onclick="@(() => DeleteSprintBacklog(backlog.SprintBacklogId))">
-                                            Delete Sprint
-                                        </button>
+                                    @onclick="@(() => NavigateToAddTaskPage(backlog.SprintBacklogId))">
+                                Add Task
+                            </button>
                 </div>
-                
             }
         }
     </div>
@@ -187,13 +182,6 @@
             Console.WriteLine(ex.Message);
             JSRuntime.InvokeVoidAsync("alert", "Failed to fetch some data from the server");
         }
-    }
-
-    private async Task DeleteSprintBacklog(string sprintId)
-    {
-        await SprintService.DeleteSprintFromProject(ProjectIdAsString, sprintId);
-        await LoadSprintBacklogs();
-
     }
 
     private void NavigateToAddTaskPage(string sprintId)
