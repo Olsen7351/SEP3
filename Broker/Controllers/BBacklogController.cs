@@ -64,4 +64,36 @@ public class BBacklogController : ControllerBase
             return StatusCode(500, "An error occurred while processing your request.");
         }
     }
+
+
+    [HttpGet("{projectId}/backlogentries/{backlogEntryId}")]
+    public async Task<ActionResult<BacklogEntries>> GetSpecificBacklogEntry(string projectId, string backlogEntryId)
+    {
+        if (string.IsNullOrEmpty(projectId))
+        {
+            return BadRequest("ProjectID can't be null or empty");
+        }
+
+        if (string.IsNullOrEmpty(backlogEntryId))
+        {
+            return BadRequest("BacklogEntryID can't be null or empty");
+        }
+
+        try
+        {
+            var backlogEntry = await _iBBacklogService.GetSpecificBacklogEntry(projectId, backlogEntryId);
+            if (backlogEntry != null)
+            {
+                return Ok(backlogEntry);
+            }
+            else
+            {
+                return NotFound("Backlog entry not found.");
+            }
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred: {ex.Message}");
+        }
+    }
 }

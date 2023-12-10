@@ -51,4 +51,28 @@ public class BBacklogService : IBBacklogService
         }
     }
 
+    public async Task<BacklogEntries> GetSpecificBacklogEntry(string projectId, string backlogEntryId)
+    {
+        if (string.IsNullOrEmpty(projectId))
+        {
+            throw new ArgumentException("ProjectID can't be null or empty", nameof(projectId));
+        }
+
+        if (string.IsNullOrEmpty(backlogEntryId))
+        {
+            throw new ArgumentException("BacklogEntryID can't be null or empty", nameof(backlogEntryId));
+        }
+        
+        HttpResponseMessage response = await httpClient.GetAsync($"api/BBacklog/GetSpecificBacklogEntryBroker?projectId={projectId}&backlogEntryId={backlogEntryId}");
+        if (response.IsSuccessStatusCode)
+        {
+            BacklogEntries backlogEntry = await response.Content.ReadFromJsonAsync<BacklogEntries>();
+            return backlogEntry;
+        }
+        else
+        {
+            var errorContent = await response.Content.ReadAsStringAsync();
+            throw new HttpRequestException($"Error retrieving specific backlog entry: {response.StatusCode}, Details: {errorContent}");
+        }
+    }
 }

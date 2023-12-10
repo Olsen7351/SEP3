@@ -9,4 +9,5 @@ public interface IBacklogService
 {
    Task<IActionResult> CreateBacklogEntry(AddBacklogEntryRequest backlogEntry);
    Task<BBackLog> GetBacklogForProject(string projectIdAsString);
+   Task<BacklogEntries> GetBacklogEntryById(string projectId, string backlogEntryId);
 }

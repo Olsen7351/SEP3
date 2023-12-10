@@ -61,4 +61,39 @@ public class BBacklogController : ControllerBase
             throw new ApplicationException("An error occurred while processing your request.");
         }
     }
+    
+    
+    
+    [HttpGet]
+    [Route("GetSpecificBacklogEntryBroker")]
+    public async Task<BacklogEntries> GetSpecificBacklogEntry(string projectId, string backlogEntryId)
+    {
+        if (string.IsNullOrEmpty(projectId))
+        {
+            throw new ArgumentException("ProjectID can't be null or empty", nameof(projectId));
+        }
+
+        if (string.IsNullOrEmpty(backlogEntryId))
+        {
+            throw new ArgumentException("BacklogEntryID can't be null or empty", nameof(backlogEntryId));
+        }
+
+        try
+        {
+            var backlogEntry = await _backlogService.GetSpecificBacklogEntry(projectId, backlogEntryId);
+            if (backlogEntry != null)
+            {
+                return backlogEntry;
+            }
+            else
+            {
+                throw new KeyNotFoundException($"Backlog entry with ID {backlogEntryId} for project {projectId} not found.");
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw new ApplicationException("An error occurred while processing your request.");
+        }
+    }
 }

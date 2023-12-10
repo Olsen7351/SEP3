@@ -8,4 +8,5 @@ public interface IBBacklogService
 {
     Task<IActionResult> CreateBacklogEntry(AddBacklogEntryRequest backlogEntry);
     Task<BBackLog> GetBacklogForProject(string projectId);
+    Task<BacklogEntries> GetSpecificBacklogEntry(string projectId, string backlogEntryId);
 }

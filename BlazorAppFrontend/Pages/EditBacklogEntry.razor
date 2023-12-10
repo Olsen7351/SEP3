@@ -1,0 +1,90 @@
+﻿@page "/EditBacklogEntry"
+@using Microsoft.AspNetCore.WebUtilities
+@using BlazorAppTEST.Services.Interface
+@using ClassLibrary_SEP3
+@using ClassLibrary_SEP3.DataTransferObjects
+@using Task = System.Threading.Tasks.Task
+@inject IBacklogService BacklogService
+@inject NavigationManager NavigationManager
+
+<h3>Edit Backlog Entry</h3>
+
+@if (backlogEntry != null)
+{
+    <EditForm Model="@backlogEntry" OnValidSubmit="HandleValidSubmit">
+        <DataAnnotationsValidator/>
+        <ValidationSummary/>
+
+        <div class="form-group">
+            <label for="requirementNr">Requirement Number:</label>
+            <InputText id="requirementNr" @bind-Value="@backlogEntry.RequirmentNr" class="form-control"/>
+        </div>
+
+        <div class="form-group">
+            <label for="estimateTime">Estimate Time:</label>
+            <InputText id="estimateTime" @bind-Value="@backlogEntry.EstimateTime" class="form-control"/>
+        </div>
+
+        <div class="form-group">
+            <label for="actualTime">Actual Time:</label>
+            <InputText id="actualTime" @bind-Value="@backlogEntry.ActualTime" class="form-control"/>
+        </div>
+
+        <div class="form-group">
+            <label for="status">Status:</label>
+            <InputSelect id="status" @bind-Value="@backlogEntry.Status" class="form-control">
+                <option value="">Select Status</option>
+                <option value="@BacklogEntryStatus.InComplete">Incomplete</option>
+                <option value="@BacklogEntryStatus.InProgress">In Progress</option>
+                <option value="@BacklogEntryStatus.Finished">Finished</option>
+            </InputSelect>
+        </div>
+
+        <div class="form-group">
+            <label for="sprint">Sprint:</label>
+            <InputText id="sprint" @bind-Value="@backlogEntry.Sprint" class="form-control"/>
+        </div>
+
+        <button type="submit" class="btn btn-success">Update Entry</button>
+    </EditForm>
+}
+else
+{
+    <p>Loading...</p>
+}
+
+
+@code {
+    private string projectId;
+    private string backlogEntryId;
+    private BacklogEntries backlogEntry;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+    //Get projectID and entryID and set them
+        var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
+        if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("projectId", out var pid))
+        {
+            projectId = pid;
+        }
+
+        if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("backlogEntryId", out var beid))
+        {
+            backlogEntryId = beid;
+        }
+
+        if (!string.IsNullOrEmpty(projectId) && !string.IsNullOrEmpty(backlogEntryId))
+        {
+            backlogEntry = await BacklogService.GetBacklogEntryById(projectId, backlogEntryId);
+        }
+    }
+
+    private async Task HandleValidSubmit()
+    {
+    // Assuming BacklogService has a method to update the backlog entry
+    //   await BacklogService.UpdateBacklogEntry(projectId, backlogEntry);
+    // Add any required navigation or update UI logic after successful update
+    }
+
+}
