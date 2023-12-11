@@ -95,9 +95,18 @@ public class SprintService : ISprintService
     {
         Console.WriteLine("Microservice service Delete Sprint called");
 
-            var filter = Builders<SprintBacklog>.Filter.Eq(sprint => sprint.SprintBacklogId, sprintBacklogId);
-            var result = _sprints.DeleteOne(filter);
-            return result.DeletedCount > 0;
+        var sprintExistsFilter = Builders<SprintBacklog>.Filter.Eq(sprint => sprint.SprintBacklogId, sprintBacklogId);
+        var existingSprint = _sprints.Find(sprintExistsFilter).FirstOrDefault();
+
+        if (existingSprint == null)
+        {
+            Console.WriteLine($"Sprint backlog with ID {sprintBacklogId} does not exist.");
+            return false;
+        }
+        
+        var deleteFilter = Builders<SprintBacklog>.Filter.Eq(sprint => sprint.SprintBacklogId, sprintBacklogId);
+        var result = _sprints.DeleteOne(deleteFilter);
+        return result.DeletedCount > 0;
     }
 
     public SprintBacklog AddTaskToSprintBacklog(AddSprintTaskRequest request, string sprintBacklogId)

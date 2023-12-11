@@ -47,11 +47,10 @@ namespace BlazorAppTEST.Services
             
             var response = await _httpClient.GetFromJsonAsync<List<SprintBacklog>>($"api/SprintBacklog?ProjectId={ProjectId}");
             Console.WriteLine($"Method getSprintbacklogs Broker {response}");
-            if (response == null)
+            if (response == null || !response.Any())
             {
                 
-                return new NotFoundResult();
-            }
+                return new OkObjectResult(new List<SprintBacklog>());            }
             return new OkObjectResult(response);
         }
         public async Task<IActionResult> GetSprintBacklogByIdAsync( string sprintBacklogId)
@@ -132,4 +131,5 @@ namespace BlazorAppTEST.Services
             }
         }
     }
+    
 }

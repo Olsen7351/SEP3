@@ -34,7 +34,7 @@ namespace Broker_Test.Controller_Test
 
             var mockService = new Mock<ISprintBacklogService>();
             mockService.Setup(service => service.CreateSprintBacklogAsync(createSprintBacklogRequest))
-                       .ReturnsAsync(new OkObjectResult(createSprintBacklogRequest)); // Assuming it returns the created object
+                .ReturnsAsync(new OkObjectResult(createSprintBacklogRequest)); // Assuming it returns the created object
 
             var mockHttpContext = new Mock<HttpContext>();
             var mockHttpRequest = new Mock<HttpRequest>();
@@ -71,7 +71,8 @@ namespace Broker_Test.Controller_Test
             // Verifying the service call
             mockService.Verify(service => service.CreateSprintBacklogAsync(createSprintBacklogRequest), Times.Once);
         }
-         [Fact]
+
+        [Fact]
         public async void GetSpecificSprintBacklog_ReturnsValue()
         {
             // Arrange
@@ -88,7 +89,7 @@ namespace Broker_Test.Controller_Test
             };
 
             mockService.Setup(service => service.GetSprintBacklogByIdAsync(projectId, sprintBacklogId))
-                       .ReturnsAsync(new OkObjectResult(expectedSprintBacklog));
+                .ReturnsAsync(new OkObjectResult(expectedSprintBacklog));
 
             var mockHttpContext = new Mock<HttpContext>();
             var mockHttpRequest = new Mock<HttpRequest>();
@@ -118,12 +119,13 @@ namespace Broker_Test.Controller_Test
             Assert.NotNull(result);
             var objectResult = Assert.IsType<OkObjectResult>(result);
             var returnedValue = Assert.IsType<SprintBacklog>(objectResult.Value);
-            Assert.Equal(expectedSprintBacklog, returnedValue); // Adjust the expected value according to your requirements
+            Assert.Equal(expectedSprintBacklog,
+                returnedValue); // Adjust the expected value according to your requirements
 
             // Verifying the service call
             mockService.Verify(service => service.GetSprintBacklogByIdAsync(projectId, sprintBacklogId), Times.Once);
         }
-       
+
         [Fact]
         public async void AddTaskToSprintBacklogValid()
         {
@@ -137,7 +139,7 @@ namespace Broker_Test.Controller_Test
                 SprintId = sprintBacklogId,
                 Title = "Implement methods",
                 Description = "Do it",
-                Status = TaskStatus.ToDo, 
+                Status = TaskStatus.ToDo,
                 CreatedAt = DateTime.Now,
                 EstimateTimeInMinutes = 120,
                 ActualTimeUsedInMinutes = 0,
@@ -163,12 +165,12 @@ namespace Broker_Test.Controller_Test
                 ProjectId = projectId,
                 SprintBacklogId = sprintBacklogId,
                 Title = "Sample Sprint",
-                CreatedAt= new DateTime(2021, 1, 1),
-                Tasks = new List<ClassLibrary_SEP3.Task>{mockTask}
+                CreatedAt = new DateTime(2021, 1, 1),
+                Tasks = new List<ClassLibrary_SEP3.Task> { mockTask }
             };
 
             mockService.Setup(service => service.AddTaskToSprintBacklogAsync(It.IsAny<AddSprintTaskRequest>()))
-                       .ReturnsAsync(new OkObjectResult(expectedSprintBacklog));
+                .ReturnsAsync(new OkObjectResult(expectedSprintBacklog));
 
             var mockHttpContext = new Mock<HttpContext>();
             var mockHttpRequest = new Mock<HttpRequest>();
@@ -199,12 +201,14 @@ namespace Broker_Test.Controller_Test
             var sprintBacklog = Assert.IsType<SprintBacklog>(okResult.Value);
 
             Assert.NotNull(result);
-            Assert.Contains(sprintBacklog.Tasks, task => task.Title == mockTask.Title && task.Description == mockTask.Description);
+            Assert.Contains(sprintBacklog.Tasks,
+                task => task.Title == mockTask.Title && task.Description == mockTask.Description);
 
             // Verifying the service call
-            mockService.Verify(service => service.AddTaskToSprintBacklogAsync(It.IsAny<AddSprintTaskRequest>()), Times.Once);
+            mockService.Verify(service => service.AddTaskToSprintBacklogAsync(It.IsAny<AddSprintTaskRequest>()),
+                Times.Once);
         }
-        
+
         [Fact]
         public async void GetAllTasksForSprintBacklog()
         {
@@ -215,10 +219,14 @@ namespace Broker_Test.Controller_Test
             var expectedTask = new List<Task>
             {
                 new Task { Id = "1", ProjectId = "1", SprintId = "2", Title = "Task", Description = "Try and code" },
-                new Task { Id = "2", ProjectId = "1", SprintId = "2", Title = "Task 2", Description = "I dont know what to put here" },
+                new Task
+                {
+                    Id = "2", ProjectId = "1", SprintId = "2", Title = "Task 2",
+                    Description = "I dont know what to put here"
+                },
             };
             mockService.Setup(service => service.GetTasksFromSprintBacklogAsync(projectId, sprintBacklogId))
-                       .ReturnsAsync(new OkObjectResult(expectedTask));
+                .ReturnsAsync(new OkObjectResult(expectedTask));
 
             var mockHttpContext = new Mock<HttpContext>();
             var mockHttpRequest = new Mock<HttpRequest>();
@@ -257,9 +265,10 @@ namespace Broker_Test.Controller_Test
             }
 
             // Verifying the service call
-            mockService.Verify(service => service.GetTasksFromSprintBacklogAsync(projectId, sprintBacklogId), Times.Once);
+            mockService.Verify(service => service.GetTasksFromSprintBacklogAsync(projectId, sprintBacklogId),
+                Times.Once);
         }
-        
+
         [Fact]
         public async void Get_ReturnsSprintBacklogs()
         {
@@ -273,7 +282,7 @@ namespace Broker_Test.Controller_Test
             };
 
             mockService.Setup(service => service.GetSprintBacklogsAsync(projectId))
-                       .ReturnsAsync(new OkObjectResult(sprintBacklogs));
+                .ReturnsAsync(new OkObjectResult(sprintBacklogs));
 
             var mockHttpContext = new Mock<HttpContext>();
             var mockHttpRequest = new Mock<HttpRequest>();
@@ -310,6 +319,48 @@ namespace Broker_Test.Controller_Test
             // Verifying the service call
             mockService.Verify(service => service.GetSprintBacklogsAsync(projectId), Times.Once);
         }
-        
+
+        [Fact]
+        public async void DeleteSprintBacklog_ReturnsOkResult()
+        {
+            // Arrange
+            var projectId = "123"; // Example project ID
+            var sprintBacklogId = "456"; // Example sprint backlog ID
+
+            var mockService = new Mock<ISprintBacklogService>();
+            mockService.Setup(service => service.DeleteSprintBacklogAsync(projectId, sprintBacklogId))
+                .ReturnsAsync(new OkResult()); // Simulating a successful deletion
+
+            var mockHttpContext = new Mock<HttpContext>();
+            var mockHttpRequest = new Mock<HttpRequest>();
+            var mockHeaders = new HeaderDictionary();
+
+            // Mock JWT Token with "sub" claim set to "Username"
+            var username = "Alma";
+            var payload = new Dictionary<string, object> { { "sub", username } };
+            var payloadJson = JsonSerializer.Serialize(payload);
+            var payloadBase64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(payloadJson));
+            var mockJwtToken = $"header.{payloadBase64}.signature";
+
+            mockHeaders["Authorization"] = "Bearer " + mockJwtToken;
+            mockHttpRequest.Setup(r => r.Headers).Returns(mockHeaders);
+            mockHttpContext.SetupGet(ctx => ctx.Request).Returns(mockHttpRequest.Object);
+
+            var controller = new SprintBacklogController(mockService.Object);
+            controller.ControllerContext = new ControllerContext
+            {
+                HttpContext = mockHttpContext.Object
+            };
+
+            // Act
+            var result = await controller.Delete(projectId, sprintBacklogId);
+
+            // Assert
+            Assert.NotNull(result);
+            var actionResult = Assert.IsType<OkResult>(result);
+
+            // Verifying the service call
+            mockService.Verify(service => service.DeleteSprintBacklogAsync(projectId, sprintBacklogId), Times.Once);
+        }
     }
 }

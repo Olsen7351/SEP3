@@ -83,49 +83,52 @@ namespace ProjectMicroservice_Tests.DAO_Services
             Assert.Equal(request.Title, result.Title);
         }
 
-        /*
+
         [Fact]
-        public void AddTaskToSprint()
+        public void DeleteSprintBacklog_SprintBacklogExists_DeletesSprintBacklog()
         {
-            var createProjectRequest = new CreateProjectRequest
+            var projectRequest = new CreateProjectRequest
             {
                 Name = "Test Project",
-                Description = "Description of Test Project",
+                Description = "This is a test project for my cat.",
                 StartDate = DateTime.Now,
-                EndDate = DateTime.Now.AddDays(30)
+                EndDate = DateTime.Now.AddDays(1),
+                ByUsername = "Alma"
             };
-
-            var createdProject = _projectService.CreateProject(createProjectRequest);
-            string _projectId = createdProject.Id;
-
-            var request = new CreateSprintBackLogRequest
+            var createdProject = _projectService.CreateProject(projectRequest);
+            var sprintRequest = new CreateSprintBackLogRequest
             {
-                projectId = _projectId,
+                projectId = createdProject.Id, 
                 Title = "Test Sprint",
-
+                Timestamp = DateTime.Now,
+                Deadline = DateTime.Now.AddDays(14)
             };
-
-            var createdSprint = _sprintService.CreateSprintBacklog(request);
-            var sprintBacklogId = createdSprint.SprintBacklogId;
-            var sprintTaskRequest = new AddSprintTaskRequest
+            var createdSprint = _sprintService.CreateSprintBacklog(sprintRequest);
+            var deleteResult = _sprintService.DeleteSprintBacklog(createdProject.Id, createdSprint.SprintBacklogId);
+            Assert.True(deleteResult);
+            
+        }
+        [Fact]
+        public void GetAllSprintBacklogs_ForProject_ReturnsAllSprints()
+        {
+            var projectRequest = new CreateProjectRequest
             {
-                ProjectId = _projectId,
-                SprintId = sprintBacklogId,
-                Title = "Test Task",
-                Description = "Description of the test task",
-                Status = TaskStatus.InProgress,
-                CreatedAt = DateTime.Now,
-                Deadline = DateTime.Now.AddDays(7),
-                EstimateTimeInMinutes = 60,
-                ActualTimeUsedInMinutes = 0,
-                Responsible = "Responsible Person"
+                Name = "Test Project",
+                Description = "This is a test project for my cat.",
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddDays(1),
+                ByUsername = "Alma"
             };
-            var result = _sprintService.AddTaskToSprintBacklog(sprintTaskRequest, sprintTaskRequest.SprintId);
+            var project = _projectService.CreateProject(projectRequest); 
+            var sprintRequest1 = new CreateSprintBackLogRequest { projectId = project.Id, Title = "Alma"  };
+            var sprintRequest2 = new CreateSprintBackLogRequest { projectId = project.Id, Title = "Paimon" };
+            _sprintService.CreateSprintBacklog(sprintRequest1); 
+            _sprintService.CreateSprintBacklog(sprintRequest2); 
 
-            var addedTask = result.Tasks.FirstOrDefault(t => t.Title == sprintTaskRequest.Title);
-            Assert.NotNull(addedTask);
-            Assert.Equal(sprintTaskRequest.Title, addedTask.Title);
-            Assert.Equal(sprintTaskRequest.Description, addedTask.Description);
-        }*/
+            var sprintBacklogs = _sprintService.GetAllSprintBacklogs(project.Id);
+
+            Assert.NotNull(sprintBacklogs);
+            Assert.Equal(2, sprintBacklogs.Count()); 
+        }
     }
 }

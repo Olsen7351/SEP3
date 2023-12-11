@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
+using Xunit;
+
 namespace Broker.Controllers
 {
     [Route("api/[controller]")]
@@ -36,10 +38,11 @@ namespace Broker.Controllers
 
             if (response == null)
             {
-                Logger.LogMessage(username +": Error getting project: "+id);
+                Logger.LogMessage(username + ": Error getting project: " + id);
                 throw new Exception("Project is empty or do not exsist");
             }
-            Logger.LogMessage(username +": Got project: "+id);
+
+            Logger.LogMessage(username + ": Got project: " + id);
             return response;
         }
 
@@ -52,14 +55,15 @@ namespace Broker.Controllers
 
             if (response == null)
             {
-                Logger.LogMessage(username +": Error getting project members: "+projectIdAsString);
+                Logger.LogMessage(username + ": Error getting project members: " + projectIdAsString);
                 throw new Exception("Project is empty or do not exsist");
             }
-            Logger.LogMessage(username +": Got project members: "+projectIdAsString);
+
+            Logger.LogMessage(username + ": Got project members: " + projectIdAsString);
             return response;
         }
 
-        
+
         [HttpPost("CreateProject")]
         public async Task<IActionResult> CreateProjekt([FromBody] CreateProjectRequest projekt)
         {
@@ -67,44 +71,45 @@ namespace Broker.Controllers
             Console.WriteLine($"Token used to access: {token}");
 
             // Get the 'sub' claim from the JWT token
-            string? usernameClaim = User.FindFirst(c => c.Type == System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            string? usernameClaim =
+                User.FindFirst(c => c.Type == System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
 
 
             if (projekt == null)
             {
-                Logger.LogMessage(usernameClaim+": Error creating project: "+projekt.LogString());
+                Logger.LogMessage(usernameClaim + ": Error creating project: " + projekt.LogString());
                 return new BadRequestResult();
             }
 
-            
+
             // Check if the usernameClaim matches the ByUsername parameter
             if (usernameClaim == null || usernameClaim != projekt.ByUsername)
             {
-                Logger.LogMessage(usernameClaim+": Error creating project, Unauthorized: "+projekt.LogString());
+                Logger.LogMessage(usernameClaim + ": Error creating project, Unauthorized: " + projekt.LogString());
                 return new UnauthorizedResult();
             }
 
             // Proceed with project creation
             var result = await projektService.CreateProjekt(projekt);
-            Logger.LogMessage(usernameClaim+": Created project: "+projekt.LogString());
+            Logger.LogMessage(usernameClaim + ": Created project: " + projekt.LogString());
             return Ok(result);
         }
 
         [HttpPost("AddUserToProject")]
         public async Task<IActionResult> AddUserToProject([FromBody] AddUserToProjectRequest request)
         {
-            var username  = ReadJwt.ReadUsernameFromSubInJWTToken(HttpContext);
+            var username = ReadJwt.ReadUsernameFromSubInJWTToken(HttpContext);
 
             try
             {
                 if (request == null)
                 {
-                    Logger.LogMessage(username +": Error adding user to project: "+request.LogString());
+                    Logger.LogMessage(username + ": Error adding user to project: " + request.LogString());
                     return new BadRequestResult();
                 }
-                
-                var response = await projektService.AddUserToProject( request);
-                Logger.LogMessage(username +": Added user to project: "+request.LogString());
+
+                var response = await projektService.AddUserToProject(request);
+                Logger.LogMessage(username + ": Added user to project: " + request.LogString());
 
                 return Ok(response);
             }
@@ -129,17 +134,17 @@ namespace Broker.Controllers
                     return NotFound("No projects found for the specified user.");
                 }
 
-                Logger.LogMessage(userNameOFropmJwtToken + ": Got projects for user: "+ userNameOFropmJwtToken);
+                Logger.LogMessage(userNameOFropmJwtToken + ": Got projects for user: " + userNameOFropmJwtToken);
                 return Ok(projects);
             }
             catch (Exception ex)
             {
-                Logger.LogMessage(userNameOFropmJwtToken +": Error getting projects for user: "+ex.Message);
+                Logger.LogMessage(userNameOFropmJwtToken + ": Error getting projects for user: " + ex.Message);
                 // Handle specific exceptions if necessary
                 return BadRequest($"An error occurred: {ex.Message}");
             }
         }
 
+        
     }
-
 }

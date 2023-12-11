@@ -190,10 +190,22 @@
     }
 
     private async Task DeleteSprintBacklog(string sprintId)
+    { try
     {
-        await SprintService.DeleteSprintFromProject(ProjectIdAsString, sprintId);
-        await LoadSprintBacklogs();
-
+        var deleteResponse = await SprintService.DeleteSprintFromProject(ProjectIdAsString, sprintId);
+        if (deleteResponse is OkResult)
+        {
+            SprintBacklogs.Remove(SprintBacklogs.FirstOrDefault(s => s.SprintBacklogId == sprintId));
+        }
+        else
+        {
+            LoadSprintBacklogsError = "Failed to delete the sprint.";
+        }
+    }
+    catch (Exception e)
+    {
+        LoadSprintBacklogsError = e.Message;
+    }
     }
 
     private void NavigateToAddTaskPage(string sprintId)

@@ -41,11 +41,13 @@ namespace BlazorAppTest
             };
             var response = new HttpResponseMessage(HttpStatusCode.OK)
             {
-                Content = new StringContent(JsonSerializer.Serialize(expectedSprintBacklog), Encoding.UTF8, "application/json")
+                Content = new StringContent(JsonSerializer.Serialize(expectedSprintBacklog), Encoding.UTF8,
+                    "application/json")
             };
             mockHttpMessageHandler
                 .Protected()
-                .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
+                .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
                 .ReturnsAsync(response);
             // Act
             var result = await sprintBacklogService.GetSprintBacklogByIdAsync(SprintbacklogId);
@@ -57,6 +59,7 @@ namespace BlazorAppTest
             Assert.Equal(expectedSprintBacklog.SprintBacklogId, actualSprintBacklog.SprintBacklogId);
             Assert.Equal(expectedSprintBacklog.ProjectId, actualSprintBacklog.ProjectId);
         }
+
         [Fact]
         public async void GetSprintBacklogsAsync_WhenSuccessful_ReturnsOkObjectResult()
         {
@@ -80,7 +83,8 @@ namespace BlazorAppTest
             };
             mockHttpMessageHandler
                 .Protected()
-                .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
+                .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
                 .ReturnsAsync(response);
             // Act
             var result = await sprintBacklogService.GetSprintBacklogsAsync(projectId);
@@ -91,6 +95,7 @@ namespace BlazorAppTest
             var sprintBacklogs = (IEnumerable<SprintBacklog>)okResult.Value;
             Assert.Equal(expectedSprintBacklogs.Count, sprintBacklogs.Count());
         }
+
         [Fact]
         public async void CreateSprintBacklogAsync_WhenSuccessful_ReturnsOkObjectResult()
         {
@@ -108,11 +113,13 @@ namespace BlazorAppTest
             };
             var response = new HttpResponseMessage(HttpStatusCode.OK)
             {
-                Content = new StringContent(JsonSerializer.Serialize(expectedSprintBacklog), Encoding.UTF8, "application/json")
+                Content = new StringContent(JsonSerializer.Serialize(expectedSprintBacklog), Encoding.UTF8,
+                    "application/json")
             };
             mockHttpMessageHandler
                 .Protected()
-                .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
+                .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
                 .ReturnsAsync(response);
             // Act
             var result = await sprintBacklogService.CreateSprintBacklogAsync(expectedSprintBacklog);
@@ -138,7 +145,7 @@ namespace BlazorAppTest
                 SprintId = "5",
                 Title = "Implement methods",
                 Description = "Do it",
-                Status = TaskStatus.ToDo, 
+                Status = TaskStatus.ToDo,
                 CreatedAt = DateTime.Now,
                 EstimateTimeInMinutes = 120,
                 ActualTimeUsedInMinutes = 0,
@@ -150,9 +157,10 @@ namespace BlazorAppTest
             };
             mockHttpMessageHandler
                 .Protected()
-                .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
+                .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
                 .ReturnsAsync(response);
-            
+
             var result = await sprintBacklogService.AddTaskToSprintBacklogAsync(addTaskRequest);
 
             // Assert
@@ -195,13 +203,14 @@ namespace BlazorAppTest
 
             mockHttpMessageHandler
                 .Protected()
-                .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
+                .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
                 .ReturnsAsync(response);
             var result = await sprintBacklogService.AddTaskToSprintBacklogAsync(addTaskRequest);
             Assert.IsType<OkObjectResult>(result);
             var okResult = result as OkObjectResult;
             Assert.NotNull(okResult);
-            
+
         }
 
         [Fact]
@@ -215,12 +224,16 @@ namespace BlazorAppTest
             var sprintBacklogService = new SprintBacklogService(httpClient);
             var projectId = "1";
             var sprintBacklogId = "2";
-            
+
             var expectedTask = new List<Task>
             {
-                
-                new Task { Id= "1", ProjectId = "1", SprintId = "2", Title = "Task", Description = "Try and code" },
-                new Task { Id = "2", ProjectId = "1", SprintId = "2", Title = "Task 2", Description = "I dont know what to put here" },
+
+                new Task { Id = "1", ProjectId = "1", SprintId = "2", Title = "Task", Description = "Try and code" },
+                new Task
+                {
+                    Id = "2", ProjectId = "1", SprintId = "2", Title = "Task 2",
+                    Description = "I dont know what to put here"
+                },
             };
             var response = new HttpResponseMessage(HttpStatusCode.OK)
             {
@@ -228,10 +241,11 @@ namespace BlazorAppTest
             };
             mockHttpMessageHandler
                 .Protected()
-                .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
+                .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
                 .ReturnsAsync(response);
             var result = await sprintBacklogService.GetTasksFromSprintBacklogAsync(sprintBacklogId);
-            
+
             Assert.IsType<OkObjectResult>(result);
             var okResult = Assert.IsType<OkObjectResult>(result);
             Assert.IsAssignableFrom<IEnumerable<Task>>(okResult.Value);
@@ -247,13 +261,46 @@ namespace BlazorAppTest
             };
             var sprintBacklogService = new SprintBacklogService(httpClient);
             var projectId = "1";
-            string sprintBacklogId = null; 
+            string sprintBacklogId = null;
             mockHttpMessageHandler
                 .Protected()
-                .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
+                .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
                 .ThrowsAsync(new HttpRequestException("Sprint backlog not found."));
-           
-            await Assert.ThrowsAsync<HttpRequestException>(() => sprintBacklogService.GetTasksFromSprintBacklogAsync(sprintBacklogId));
+
+            await Assert.ThrowsAsync<HttpRequestException>(() =>
+                sprintBacklogService.GetTasksFromSprintBacklogAsync(sprintBacklogId));
+        }
+
+        [Fact]
+        public async void DeleteTaskFromSprintBacklogAsync()
+        {
+            // Arrange
+            var mockHttpMessageHandler = new Mock<HttpMessageHandler>();
+            var httpClient = new HttpClient(mockHttpMessageHandler.Object)
+            {
+                BaseAddress = new Uri("http://localhost/")
+            };
+            var sprintBacklogService = new SprintBacklogService(httpClient);
+            var projectId = "123"; 
+            var sprintBacklogId = "456"; 
+            var taskId = "789"; 
+
+            var response = new HttpResponseMessage(HttpStatusCode.OK); 
+            mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>()
+                )
+                .ReturnsAsync(response);
+
+            // Act
+            var result = await sprintBacklogService.DeleteSprintFromProject(projectId, sprintBacklogId);
+
+            // Assert
+            Assert.IsType<OkResult>(result);
         }
     }
 }
