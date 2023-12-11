@@ -105,31 +105,6 @@ namespace BlazorAppTEST.Services
             }
             return new OkObjectResult(response);
         }
-
-        public async Task<IActionResult> DeleteSprintFromProject(string ProjectId, string sprintId)
-        {
-            Console.WriteLine("Frontend Delete Sprint called");
-            if (string.IsNullOrWhiteSpace(ProjectId) || string.IsNullOrWhiteSpace(sprintId))
-            {
-                return new BadRequestObjectResult("Project ID and Sprint ID cannot be null or empty.");
-            }
-
-            try
-            {
-                HttpResponseMessage response = await _httpClient.DeleteAsync($"api/SprintBacklog/{ProjectId}/{sprintId}");
-                if (!response.IsSuccessStatusCode)
-                {
-                    var errorContent = await response.Content.ReadAsStringAsync();
-                    return new BadRequestObjectResult($"Error: {response.StatusCode} - {errorContent}");
-                }
-
-                return new OkResult(); 
-            }
-            catch (Exception ex)
-            {
-                return new BadRequestObjectResult($"An error occurred: {ex.Message}");
-            }
-        }
     }
     
 }

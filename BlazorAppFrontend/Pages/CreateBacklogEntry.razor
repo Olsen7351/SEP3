@@ -69,6 +69,11 @@
         {
             throw new Exception("ProjectID is null Front-End");
         }
+        
+        if (String.IsNullOrEmpty(backlogEntry.RequirmentNr))
+        {
+            throw new Exception("RequirmentNr is null Front-End");
+        }
 
         await BacklogService.CreateBacklogEntry(backlogEntry);
         NavigationManager.NavigateTo($"project-hub/{ProjectIdAsString}");

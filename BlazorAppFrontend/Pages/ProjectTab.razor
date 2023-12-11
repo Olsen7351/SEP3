@@ -29,12 +29,13 @@ else
                     <p>Start Date: @project.StartDate.ToString("yyyy-MM-dd")</p>
                     <p>End Date: @project.EndDate.ToString("yyyy-MM-dd")</p>
                     <NavLink href="@($"/project-hub/{project.Id}")" class="btn btn-primary">View Details</NavLink>
-                    <NavLink href="@($"/project-hub/{project.Id}/AddNewUserIntoProject")" class="btn btn-primary">Add New User</NavLink>
+                    <NavLink href="@($"/AddNewUserIntoProject/{project.Id}")" class="btn btn-primary">Add New User</NavLink>
                 </div>
             }
         </div>
     </div>
 }
+
 <!-- Debugging Section: Displays all the claims of the authenticated user -->
 @if (isAuthenticated)
 {

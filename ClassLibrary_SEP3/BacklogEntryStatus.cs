@@ -2,7 +2,7 @@
 
 public static class BacklogEntryStatus
 {
-    public const string InComplete = "Incomplete";
+    public const string InComplete = "InComplete";
     public const string InProgress = "InProgress";
     public const string Finished = "Finished";
 }
