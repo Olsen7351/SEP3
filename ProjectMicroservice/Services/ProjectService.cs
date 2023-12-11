@@ -37,7 +37,6 @@ namespace ProjectMicroservice.Services
             };
 
             _projects.InsertOne(newProject);
-            Logger.LogMessage("Project created");
             return newProject; // Now contains the MongoDB-generated ID
         }
 

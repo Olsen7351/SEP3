@@ -17,6 +17,9 @@ public class RabbitmqReciever {
     }
 
     public void receiveMessage(byte[] message) {
+        if (message.length == 0) {
+            return;
+        }
         Log log = new Log(new String(message));
         log.setTimestamp(java.time.LocalDateTime.now());
         logRepository.save(log);

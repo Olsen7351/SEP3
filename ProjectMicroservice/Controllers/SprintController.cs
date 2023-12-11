@@ -88,9 +88,11 @@ public class SprintController : ControllerBase
         return Ok(updatedSprint);
     }
 
-    [HttpDelete("{projectId}/backlog/sprints/{sprintId}")]
+    [HttpDelete("{projectId}/{sprintId}")]
     public IActionResult DeleteSprint(string projectId, string sprintBacklogId)
     {
+        Console.WriteLine("Microservice controller Delete Sprint called");
+
         var success = _sprintService.DeleteSprintBacklog(projectId, sprintBacklogId);
         if (!success)
         {
