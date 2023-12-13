@@ -97,7 +97,7 @@ namespace Broker.Controllers
         }
 
         // DELETE api/<SprintBacklogController>/<ProjectId>/5
-        [HttpDelete("{SprintId}")]
+        [HttpDelete("{ProjectId}/{SprintId}")]
         public async Task<IActionResult> Delete(string ProjectId, string sprintId)
         {
             var userName = ReadJwt.ReadUsernameFromSubInJWTToken(HttpContext);
