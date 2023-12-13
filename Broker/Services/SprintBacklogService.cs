@@ -76,12 +76,12 @@ public class SprintBacklogService : ISprintBacklogService
         }
         return new BadRequestResult();
     }
-    public async Task<IActionResult> DeleteSprintBacklogAsync(string projectId, string id)
+    public async Task<IActionResult> DeleteSprintBacklogAsync(string projectId, string sprintId)
     {
         Console.WriteLine("Broker service Delete Sprint called");
 
-        string requestUri = $"api/Sprint/{projectId}/{id}";
-        HttpResponseMessage response = await httpClient.DeleteAsync(requestUri);
+        string requestUri = $"api/Sprint/{projectId}/{sprintId}";
+        HttpResponseMessage response = await httpClient.DeleteAsync($"api/Sprint/{projectId}/{sprintId}");
         if (response.IsSuccessStatusCode)
         {
             return new OkResult();
