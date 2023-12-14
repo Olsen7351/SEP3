@@ -14,7 +14,7 @@ public class UserLogin_Test
 {
     private readonly Mock<HttpMessageHandler> _mockHttpMessageHandler;
     private readonly HttpClient _httpClient;
-    private readonly IUserLogin _userService; // UserService also implements IUserLogin
+    private readonly IUserLogin _userService; 
 
     public UserLogin_Test()
     {
