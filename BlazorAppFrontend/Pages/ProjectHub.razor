@@ -117,18 +117,27 @@
     {
         try
         {
-            var backlog = await BacklogService.GetBacklogForProject(ProjectIdAsString);
+            var backlog = await BacklogService.GetBacklogForProject(ProjectIdAsString).ConfigureAwait(false);
             BacklogEntriesList = backlog?.BacklogEntriesList ?? new List<BacklogEntries>();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error fetching backlog: " + ex.Message);
+            JSRuntime.InvokeVoidAsync("alert", "Failed to fetch backlog data from the server. Error: " + ex.Message);
+        }
 
-            var logbook = await LogBookService.GetEntriesForLogBook(ProjectIdAsString);
+        try
+        {
+            var logbook = await LogBookService.GetEntriesForLogBook(ProjectIdAsString).ConfigureAwait(false);
             LogBookEntries = logbook?.LogBookEntryPoints ?? new List<LogBookEntryPoints>();
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.Message);
-            JSRuntime.InvokeVoidAsync("alert", "Failed to fetch some data from the server. Error: " + ex.Message);
+            Console.WriteLine("Error fetching logbook: " + ex.Message);
+            JSRuntime.InvokeVoidAsync("alert", "Failed to fetch logbook data from the server. Error: " + ex.Message);
         }
     }
+
 
 
     //Navigates

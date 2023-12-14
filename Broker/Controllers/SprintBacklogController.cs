@@ -97,18 +97,18 @@ namespace Broker.Controllers
         }
 
         // DELETE api/<SprintBacklogController>/<ProjectId>/5
-        [HttpDelete("{ProjectId}/{SprintId}")]
-        public async Task<IActionResult> Delete(string ProjectId, string sprintId)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(string ProjectId, string id)
         {
             var userName = ReadJwt.ReadUsernameFromSubInJWTToken(HttpContext);
             try
             {
-                Logger.LogMessage(userName + ": SprintBacklog deleted: " + sprintId);
-                return await _sprintBacklogService.DeleteSprintBacklogAsync(ProjectId, sprintId);
+                Logger.LogMessage(userName + ": SprintBacklog deleted: " + id);
+                return await _sprintBacklogService.DeleteSprintBacklogAsync(ProjectId, id);
             }
             catch
             {
-                Logger.LogMessage(userName+": Error deleting SprintBacklog: "+sprintId);
+                Logger.LogMessage(userName+": Error deleting SprintBacklog: "+id);
                 return BadRequest();
             }
         }
