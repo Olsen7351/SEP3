@@ -176,8 +176,8 @@ public class ProjectService_Test
         // Arrange
         var projectId = ""; // Empty project ID
 
-        var httpClient = new HttpClient(); // You don't need to mock the HttpClient for this test
-        var projectService = new ProjectService(httpClient); // Replace with your actual project service instance
+        var httpClient = new HttpClient(); 
+        var projectService = new ProjectService(httpClient); 
 
         // Act and Assert
         await Assert.ThrowsAsync<Exception>(async () => await projectService.GetProjectMembers(projectId));
@@ -194,7 +194,7 @@ public class ProjectService_Test
         string nonExistingProjectId = "jbjhasbfjhsabf";
 
         var mockHttpMessageHandler = new Mock<HttpMessageHandler>();
-        var emptyProjectJson = "{}"; // Minimal valid JSON, adjust if the method expects a specific structure
+        var emptyProjectJson = "{}"; 
 
         mockHttpMessageHandler.Protected()
             .Setup<Task<HttpResponseMessage>>(

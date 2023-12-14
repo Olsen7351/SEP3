@@ -15,9 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClassLibrary_SEP3", "ClassL
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectMicroservice", "ProjectMicroservice\ProjectMicroservice.csproj", "{FE65DAC3-ED11-41FE-9E3C-27DA64E66FE2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMQMicroservices", "RabbitMQMicroservices\RabbitMQMicroservices.csproj", "{09CFFDF9-F806-4707-BB58-7F8F7C4EFBAA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectMicroservice_Tests", "ProjectMicroservice_Tests\ProjectMicroservice_Tests.csproj", "{E2A05E5D-3221-4FA6-84AF-E3164A3A50FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectMicroservice_Tests", "ProjectMicroservice_Tests\ProjectMicroservice_Tests.csproj", "{E2A05E5D-3221-4FA6-84AF-E3164A3A50FD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,10 +47,6 @@ Global
 		{FE65DAC3-ED11-41FE-9E3C-27DA64E66FE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE65DAC3-ED11-41FE-9E3C-27DA64E66FE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE65DAC3-ED11-41FE-9E3C-27DA64E66FE2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{09CFFDF9-F806-4707-BB58-7F8F7C4EFBAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{09CFFDF9-F806-4707-BB58-7F8F7C4EFBAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{09CFFDF9-F806-4707-BB58-7F8F7C4EFBAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{09CFFDF9-F806-4707-BB58-7F8F7C4EFBAA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E2A05E5D-3221-4FA6-84AF-E3164A3A50FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E2A05E5D-3221-4FA6-84AF-E3164A3A50FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2A05E5D-3221-4FA6-84AF-E3164A3A50FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
