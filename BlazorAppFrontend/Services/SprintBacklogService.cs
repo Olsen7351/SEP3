@@ -116,7 +116,7 @@ namespace BlazorAppTEST.Services
 
             try
             {
-                HttpResponseMessage response = await _httpClient.DeleteAsync($"api/SprintBacklog/{ProjectId}/{sprintId}");
+                HttpResponseMessage response = await _httpClient.DeleteAsync($"api/SprintBacklog/{sprintId}");
                 if (!response.IsSuccessStatusCode)
                 {
                     var errorContent = await response.Content.ReadAsStringAsync();

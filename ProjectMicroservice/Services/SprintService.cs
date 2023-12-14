@@ -95,11 +95,6 @@ public class SprintService : ISprintService
     {
         Console.WriteLine("Microservice service Delete Sprint called");
 
-        if (string.IsNullOrEmpty(sprintBacklogId))
-        {
-            Console.WriteLine("Sprint backlog ID is null or empty.");
-            return false;
-        }
         var sprintExistsFilter = Builders<SprintBacklog>.Filter.Eq(sprint => sprint.SprintBacklogId, sprintBacklogId);
         var existingSprint = _sprints.Find(sprintExistsFilter).FirstOrDefault();
 
