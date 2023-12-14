@@ -30,7 +30,7 @@ namespace ProjectMicroservice_Tests.DAO_Services
 
             var configuration = configBuilder.Build();
             var connectionString = configuration.GetConnectionString("MongoDb");
-            var databaseName = "test_db"; // Update with your database name
+            var databaseName = "test_db"; 
 
             _dbContext = new MongoDbContext(connectionString, databaseName);
             _sprintService = new SprintService(_dbContext);
@@ -40,23 +40,18 @@ namespace ProjectMicroservice_Tests.DAO_Services
         [Fact]
         public void CreateSprintBacklog_SprintBacklogNotExists_CreatesNewSprintBacklog()
         {
-            // Arrange
             var request = new CreateSprintBackLogRequest
             {
                 projectId = "project_id_1",
                 Title = "Test Sprint",
-                // Add more properties needed for your request
             };
-
-            // Act
+            
             var result = _sprintService.CreateSprintBacklog(request);
 
             _sprintBacklogId = result.SprintBacklogId;
-            // Assert
             Assert.NotNull(result);
             Assert.Equal(request.projectId, result.ProjectId);
             Assert.Equal(request.Title, result.Title);
-            // Add more assertions as needed
         }
 
         [Fact]
@@ -67,11 +62,10 @@ namespace ProjectMicroservice_Tests.DAO_Services
             {
                 projectId = "project_id_12",
                 Title = "Test Sprint",
-                // Add more properties needed for your request
             };
 
             var createdSprint = _sprintService.CreateSprintBacklog(request);
-            var sprintBacklogId = createdSprint.SprintBacklogId; // Retrieve the ID of the newly created Sprint
+            var sprintBacklogId = createdSprint.SprintBacklogId; 
 
             // Act
             var result = _sprintService.GetSprintBacklogById(sprintBacklogId);
